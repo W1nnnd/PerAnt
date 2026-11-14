@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-3.0-only
+set -euo pipefail
+
+project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$project_root"
+
+python3 -m unittest discover -s tool/tests -p 'test_*.py'
+
+if [[ ! -f .dart_tool/package_config.json ]]; then
+  printf '%s\n' 'Resolve workspace dependencies first: tool/flutterw pub get' >&2
+  exit 2
+fi
+
+"$project_root/tool/dartw" format --output=none --set-exit-if-changed \
+  apps/perant/lib apps/perant/test apps/perant/integration_test \
+  packages/perant_core/lib packages/perant_core/test \
+  packages/perant_gateway/lib packages/perant_gateway/test \
+  packages/perant_platform/lib packages/perant_platform/test
+
+# Analyze the entire workspace, including the device-only integration tests.
+"$project_root/tool/flutterw" --suppress-analytics analyze
+"$project_root/tool/dartw" test packages/perant_core/test packages/perant_gateway/test
+"$project_root/tool/flutterw" --suppress-analytics test \
+  packages/perant_platform/test apps/perant/test
+# Device smoke tests are opt-in: run integration_test/native_smoke_test.dart
+# explicitly with a connected Android device or emulator.

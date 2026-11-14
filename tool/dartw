@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-3.0-only
+set -euo pipefail
+project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+export PUB_CACHE="${PUB_CACHE:-$project_root/.tooling/pub-cache}"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$project_root/.tooling/config}"
+export ANALYZER_STATE_LOCATION_OVERRIDE="${ANALYZER_STATE_LOCATION_OVERRIDE:-$project_root/.tooling/analyzer-state}"
+if [[ -n "${PERANT_FLUTTER_SDK:-}" ]]; then
+  dart_bin="$PERANT_FLUTTER_SDK/bin/dart"
+elif [[ -x "$project_root/.tooling/flutter/bin/dart" ]]; then
+  dart_bin="$project_root/.tooling/flutter/bin/dart"
+elif command -v dart >/dev/null 2>&1; then
+  dart_bin="$(command -v dart)"
+else
+  printf '%s\n' 'Dart SDK not found. Install Flutter or set PERANT_FLUTTER_SDK.' >&2
+  exit 1
+fi
+exec "$dart_bin" "$@"

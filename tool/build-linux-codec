@@ -1,0 +1,80 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: GPL-3.0-only
+"""Build the fixed ARM64 PNG/XPM-only GdkPixbuf overlay in an offline container."""
+import argparse
+import hashlib
+import json
+from pathlib import Path
+import runpy
+import shutil
+import subprocess
+import sys
+
+ROOT = Path(__file__).resolve().parent.parent
+CACHE = ROOT / '.tooling/linux-runtime'
+DOWNLOADS = CACHE / 'downloads'
+OUTPUT = CACHE / 'native-codec/output'
+RECIPE = ROOT / 'third_party/linux/native-codec/build.sh'
+LOCK = json.loads((ROOT / 'third_party/linux/sources.lock.json').read_text())
+
+def digest(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--record-candidate', action='store_true',
+                        help='Build and report a candidate before its output digest is pinned.')
+    parser.add_argument('--rebuild', action='store_true', help='Rebuild even if the verified output is cached.')
+    args = parser.parse_args()
+    codec = LOCK['codec']
+    if digest(RECIPE) != codec['recipeSha256']:
+        raise RuntimeError('Native codec build recipe differs from its source lock')
+    output = OUTPUT / 'libgdk_pixbuf-2.0.so.0'
+    expected = codec.get('sha256')
+    if not args.rebuild and expected and output.is_file() and digest(output) == expected:
+        print('Verified cached native PNG/XPM codec: ' + expected)
+        return
+    if not expected and not args.record_candidate:
+        raise RuntimeError('Native codec output digest has not been pinned')
+    helpers = runpy.run_path(str(ROOT / 'tool/prepare-linux-runtime'))
+    fetch = helpers['fetch']
+    rootfs = fetch(codec['baseRootfsDownloadKey'])
+    source = fetch(codec['sourceDownloadKey'])
+    paths = []
+    for package in codec['buildPackages']:
+        path = fetch(package['downloadKey'])
+        helpers['validate_python_apk'](path, package)
+        paths.append('/inputs/' + path.name)
+    subprocess.run(['docker', 'info', '--format', '{{.OSType}}'], check=True)
+    # The builder rootfs is the exact official archive already fixed for PerAnt.
+    # No mutable Docker Hub tag, apk index update or network-enabled build is used.
+    image = 'perant-codec-base:' + digest(rootfs)[:24]
+    inspected = subprocess.run(['docker', 'image', 'inspect', image],
+                               stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    if inspected.returncode != 0:
+        subprocess.run(['docker', 'import', '--platform=linux/arm64', str(rootfs), image], check=True)
+    work = CACHE / 'native-codec/work'
+    if work.exists():
+        shutil.rmtree(work)
+    work.mkdir(parents=True)
+    OUTPUT.mkdir(parents=True, exist_ok=True)
+    (work / 'build-input.json').write_text(json.dumps({
+        'version': codec['version'], 'sourceVersion': codec['sourceVersion'],
+        'sourceFile': source.name, 'mesonOptions': codec['mesonOptions']}, indent=2) + '\n')
+    subprocess.run(['docker', 'run', '--rm', '--platform=linux/arm64', '--network=none',
+                    '--mount', 'type=bind,src=' + str(DOWNLOADS) + ',dst=/inputs,readonly',
+                    '--mount', 'type=bind,src=' + str(RECIPE) + ',dst=/build.sh,readonly',
+                    '--mount', 'type=bind,src=' + str(work) + ',dst=/work',
+                    '--mount', 'type=bind,src=' + str(OUTPUT) + ',dst=/output',
+                    image, '/bin/sh', '/build.sh', *paths], check=True)
+    helpers['validate_elf'](output)
+    actual = digest(output)
+    if expected and actual != expected:
+        raise RuntimeError('Rebuilt native codec differs from pinned SHA256: ' + actual)
+    print(('Candidate' if not expected else 'Verified rebuilt') + ' native codec: ' + actual)
+
+if __name__ == '__main__':
+    try:
+        main()
+    except (OSError, RuntimeError, ValueError, KeyError, subprocess.CalledProcessError) as error:
+        sys.exit('build-linux-codec: ' + str(error))

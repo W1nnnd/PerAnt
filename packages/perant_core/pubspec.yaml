@@ -1,0 +1,11 @@
+name: perant_core
+description: Shared domain contracts for PerAnt's mobile agent workspace.
+version: 0.1.0
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: '>=3.6.0 <4.0.0'
+
+dev_dependencies:
+  test: ^1.25.8

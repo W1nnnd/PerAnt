@@ -1,0 +1,250 @@
+{
+  "rootfsVersion": "3.24.4",
+  "architecture": "aarch64",
+  "packages": [
+    {
+      "name": "alpine-baselayout",
+      "version": "3.7.2-r1",
+      "license": "GPL-2.0-only",
+      "sourceOrigin": "alpine-baselayout",
+      "aportsCommit": "60a7585bbab2fa0f762504eb617dbca90216e31f",
+      "upstreamUrl": "https://gitlab.alpinelinux.org/alpine/aports/-/tree/master/main/alpine-baselayout"
+    },
+    {
+      "name": "alpine-baselayout-data",
+      "version": "3.7.2-r1",
+      "license": "GPL-2.0-only",
+      "sourceOrigin": "alpine-baselayout",
+      "aportsCommit": "60a7585bbab2fa0f762504eb617dbca90216e31f",
+      "upstreamUrl": "https://gitlab.alpinelinux.org/alpine/aports/-/tree/master/main/alpine-baselayout"
+    },
+    {
+      "name": "alpine-keys",
+      "version": "2.6-r0",
+      "license": "MIT",
+      "sourceOrigin": "alpine-keys",
+      "aportsCommit": "b9f23becced4d7b3ccc0fa0f28530243ccd314a0",
+      "upstreamUrl": "https://alpinelinux.org"
+    },
+    {
+      "name": "alpine-release",
+      "version": "3.24.4-r0",
+      "license": "MIT",
+      "sourceOrigin": "alpine-base",
+      "aportsCommit": "105b835acd9971b9770fb61f5a1ddcc133c180dc",
+      "upstreamUrl": "https://alpinelinux.org"
+    },
+    {
+      "name": "apk-tools",
+      "version": "3.0.9-r0",
+      "license": "GPL-2.0-only",
+      "sourceOrigin": "apk-tools",
+      "aportsCommit": "13685e8f2cf1c103cbba2fb9efcfcf19f4918df0",
+      "upstreamUrl": "https://gitlab.alpinelinux.org/alpine/apk-tools"
+    },
+    {
+      "name": "busybox",
+      "version": "1.37.0-r31",
+      "license": "GPL-2.0-only",
+      "sourceOrigin": "busybox",
+      "aportsCommit": "c3ef5d10e6ef6528852c51f0564963e2f8c1be19",
+      "upstreamUrl": "https://busybox.net/"
+    },
+    {
+      "name": "busybox-binsh",
+      "version": "1.37.0-r31",
+      "license": "GPL-2.0-only",
+      "sourceOrigin": "busybox",
+      "aportsCommit": "c3ef5d10e6ef6528852c51f0564963e2f8c1be19",
+      "upstreamUrl": "https://busybox.net/"
+    },
+    {
+      "name": "ca-certificates-bundle",
+      "version": "20261020-r0",
+      "license": "MPL-2.0 AND MIT",
+      "sourceOrigin": "ca-certificates",
+      "aportsCommit": "e78f5987166c6ffbe23f6472e2e8f040298fe2da",
+      "upstreamUrl": "https://www.mozilla.org/en-US/about/governance/policies/security-group/certs/"
+    },
+    {
+      "name": "libapk",
+      "version": "3.0.9-r0",
+      "license": "GPL-2.0-only",
+      "sourceOrigin": "apk-tools",
+      "aportsCommit": "13685e8f2cf1c103cbba2fb9efcfcf19f4918df0",
+      "upstreamUrl": "https://gitlab.alpinelinux.org/alpine/apk-tools"
+    },
+    {
+      "name": "libcrypto3",
+      "version": "3.5.9-r0",
+      "license": "Apache-2.0",
+      "sourceOrigin": "openssl",
+      "aportsCommit": "29b9ec24b1b5b39aeef51fa2a044210e2ec5258e",
+      "upstreamUrl": "https://www.openssl.org/"
+    },
+    {
+      "name": "libssl3",
+      "version": "3.5.9-r0",
+      "license": "Apache-2.0",
+      "sourceOrigin": "openssl",
+      "aportsCommit": "29b9ec24b1b5b39aeef51fa2a044210e2ec5258e",
+      "upstreamUrl": "https://www.openssl.org/"
+    },
+    {
+      "name": "musl",
+      "version": "1.2.6-r3",
+      "license": "MIT",
+      "sourceOrigin": "musl",
+      "aportsCommit": "8f79d39391b46d6dbf1800fb68b8212a21d5ee2e",
+      "upstreamUrl": "https://musl.libc.org/"
+    },
+    {
+      "name": "musl-utils",
+      "version": "1.2.6-r3",
+      "license": "MIT AND BSD-2-Clause AND GPL-2.0-or-later",
+      "sourceOrigin": "musl",
+      "aportsCommit": "8f79d39391b46d6dbf1800fb68b8212a21d5ee2e",
+      "upstreamUrl": "https://musl.libc.org/"
+    },
+    {
+      "name": "scanelf",
+      "version": "1.3.9-r1",
+      "license": "GPL-2.0-only",
+      "sourceOrigin": "pax-utils",
+      "aportsCommit": "c61801eeacb3ffcd9c2025b09e402153bb93fb39",
+      "upstreamUrl": "https://wiki.gentoo.org/wiki/Hardened/PaX_Utilities"
+    },
+    {
+      "name": "ssl_client",
+      "version": "1.37.0-r31",
+      "license": "GPL-2.0-only",
+      "sourceOrigin": "busybox",
+      "aportsCommit": "c3ef5d10e6ef6528852c51f0564963e2f8c1be19",
+      "upstreamUrl": "https://busybox.net/"
+    },
+    {
+      "name": "zlib",
+      "version": "1.3.2-r1",
+      "license": "Zlib",
+      "sourceOrigin": "zlib",
+      "aportsCommit": "0afa2da0e8c8051c6f8f64a7a388e5a259904245",
+      "upstreamUrl": "https://zlib.net/"
+    },
+    {
+      "name": "gdbm",
+      "version": "1.26-r0",
+      "license": "GPL-3.0-or-later",
+      "sourceOrigin": "gdbm",
+      "aportsCommit": "1ea03990396db618edfcc8a9a0bc6b72662bac8f",
+      "upstreamUrl": "https://www.gnu.org/software/gdbm/"
+    },
+    {
+      "name": "libbz2",
+      "version": "1.0.8-r6",
+      "license": "bzip2-1.0.6",
+      "sourceOrigin": "bzip2",
+      "aportsCommit": "33283848034c9885d984c8e8697c645c57324938",
+      "upstreamUrl": "https://sourceware.org/bzip2/"
+    },
+    {
+      "name": "libexpat",
+      "version": "2.10.0-r0",
+      "license": "MIT",
+      "sourceOrigin": "expat",
+      "aportsCommit": "af0fa42036cd6e626768c0d65fddaa1d1b30cf21",
+      "upstreamUrl": "https://libexpat.github.io/"
+    },
+    {
+      "name": "libffi",
+      "version": "3.5.2-r1",
+      "license": "MIT",
+      "sourceOrigin": "libffi",
+      "aportsCommit": "2c2a7bb4a8b16066834e90402567b2c19403a790",
+      "upstreamUrl": "https://sourceware.org/libffi/"
+    },
+    {
+      "name": "libgcc",
+      "version": "15.2.0-r5",
+      "license": "GPL-2.0-or-later AND LGPL-2.1-or-later",
+      "sourceOrigin": "gcc",
+      "aportsCommit": "423a8ad043d07f2c7546c8ec3e2b0384cda360ae",
+      "upstreamUrl": "https://gcc.gnu.org"
+    },
+    {
+      "name": "libncursesw",
+      "version": "6.6_p20260516-r0",
+      "license": "X11",
+      "sourceOrigin": "ncurses",
+      "aportsCommit": "2cee8a7328d061418336ad327b512d96bcd7bc5e",
+      "upstreamUrl": "https://invisible-island.net/ncurses/"
+    },
+    {
+      "name": "libpanelw",
+      "version": "6.6_p20260516-r0",
+      "license": "X11",
+      "sourceOrigin": "ncurses",
+      "aportsCommit": "2cee8a7328d061418336ad327b512d96bcd7bc5e",
+      "upstreamUrl": "https://invisible-island.net/ncurses/"
+    },
+    {
+      "name": "libstdc++",
+      "version": "15.2.0-r5",
+      "license": "GPL-2.0-or-later AND LGPL-2.1-or-later",
+      "sourceOrigin": "gcc",
+      "aportsCommit": "423a8ad043d07f2c7546c8ec3e2b0384cda360ae",
+      "upstreamUrl": "https://gcc.gnu.org"
+    },
+    {
+      "name": "mpdecimal",
+      "version": "4.0.1-r0",
+      "license": "BSD-2-Clause",
+      "sourceOrigin": "mpdecimal",
+      "aportsCommit": "c0519b85456e9b838e3142e1d233aab0b433b476",
+      "upstreamUrl": "https://www.bytereef.org/mpdecimal/index.html"
+    },
+    {
+      "name": "ncurses-terminfo-base",
+      "version": "6.6_p20260516-r0",
+      "license": "X11",
+      "sourceOrigin": "ncurses",
+      "aportsCommit": "2cee8a7328d061418336ad327b512d96bcd7bc5e",
+      "upstreamUrl": "https://invisible-island.net/ncurses/"
+    },
+    {
+      "name": "python3",
+      "version": "3.14.10-r1",
+      "license": "PSF-2.0",
+      "sourceOrigin": "python3",
+      "aportsCommit": "831cfeb7301d5010c027905e42958312698f4e4a",
+      "upstreamUrl": "https://www.python.org/"
+    },
+    {
+      "name": "readline",
+      "version": "8.3.3-r1",
+      "license": "GPL-3.0-or-later",
+      "sourceOrigin": "readline",
+      "aportsCommit": "a854c03acdac188901fb012f7acbee70a36e8041",
+      "upstreamUrl": "https://tiswww.cwru.edu/php/chet/readline/rltop.html"
+    },
+    {
+      "name": "sqlite-libs",
+      "version": "3.53.4-r0",
+      "license": "blessing",
+      "sourceOrigin": "sqlite",
+      "aportsCommit": "a9c3ba8b9129ec0f294d0a9bf538c2f1632bb016",
+      "upstreamUrl": "https://www.sqlite.org/"
+    },
+    {
+      "name": "xz-libs",
+      "version": "5.8.4-r0",
+      "license": "GPL-2.0-or-later AND 0BSD AND Public-Domain AND LGPL-2.1-or-later",
+      "sourceOrigin": "xz",
+      "aportsCommit": "0c088d609f9fe69eedd6b4c7f4b99cdad847c20a",
+      "upstreamUrl": "https://tukaani.org/xz/"
+    }
+  ],
+  "runtimeId": "perant-alpine-3.24.4-aarch64-v2",
+  "basePackageCount": 16,
+  "pythonVersion": "3.14.10",
+  "pythonBundledApkBytes": 10829637
+}

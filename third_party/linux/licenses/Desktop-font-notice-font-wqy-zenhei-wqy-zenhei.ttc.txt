@@ -1,0 +1,21 @@
+OpenType copyright and license metadata, retained from the official Alpine package.
+Font: usr/share/fonts/wqy-zenhei/wqy-zenhei.ttc
+
+nameID=0: Copyright (c) Qianqian Fang and WenQuanYi Board of Trustees
+
+Version: 0.9
+Codename: Fighting-State RC1
+
+nameID=7: WenQuanYi
+
+nameID=8: Qianqian Fang
+
+nameID=9: Qianqian Fang
+
+nameID=11: http://wenq.org/
+
+nameID=13: GPL2 with font embedding exception
+
+nameID=14: http://www.gnu.org/copyleft/gpl.html
+
+nameID=0: 房骞骞和文泉驿信任委员会

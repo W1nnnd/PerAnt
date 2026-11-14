@@ -1,0 +1,9 @@
+name: perant_workspace
+publish_to: none
+environment:
+  sdk: '>=3.6.0 <4.0.0'
+workspace:
+  - apps/perant
+  - packages/perant_core
+  - packages/perant_platform
+  - packages/perant_gateway

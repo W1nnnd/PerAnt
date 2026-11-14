@@ -1,0 +1,2224 @@
+{
+  "description": "PerAnt native PNG/XPM-only GdkPixbuf overlay. Original official signed APKs are unchanged. Not a complete corresponding-source distribution.",
+  "source": {
+    "file": "gdk-pixbuf-2.44.7.tar.xz",
+    "url": "https://download.gnome.org/sources/gdk-pixbuf/2.44/gdk-pixbuf-2.44.7.tar.xz",
+    "sha256": "172f80e3626ec31520a970400f1a3694e04718f6c2cd2885f75250fb5a6995a4"
+  },
+  "sourceSha512": "6f6a9aeeafe244267be7afe914ac5c239c2b44daa677e6cfb83bfbdb81421b209db3fc8a5d7a78e228e8939f00bf464e1bdb9e691b6e40228180e8a8d1d4ecc7",
+  "sourceVersion": "2.44.7",
+  "license": "LGPL-2.1-or-later",
+  "version": "2.44.7-perant-png-xpm-1",
+  "outputSha256": "544c7eaedae251da320d8ee747edc015d2c3cfa6372bae694ad9a6992dbf7d22",
+  "outputSizeBytes": 198528,
+  "installPath": "/opt/perant/lib/libgdk_pixbuf-2.0.so.0",
+  "soname": "libgdk_pixbuf-2.0.so.0",
+  "builderRootfs": {
+    "file": "alpine-minirootfs-3.24.4-aarch64.tar.gz",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.24/releases/aarch64/alpine-minirootfs-3.24.4-aarch64.tar.gz",
+    "sha256": "4b14c18f7e90a063b61462ea1462a5732c154bf6adad594974fe6487cd98a8de"
+  },
+  "builderPlatform": "linux/arm64",
+  "builderNetworking": "none",
+  "recipe": "third_party/linux/native-codec/build.sh",
+  "recipeSha256": "dd0fe447b78f6d33beaca38a45eb9431c635e5b30acee050777c1ccdad518cba",
+  "mesonOptions": [
+    "--wrap-mode=nodownload",
+    "--buildtype=release",
+    "-Dintrospection=disabled",
+    "-Ddocumentation=false",
+    "-Dinstalled_tests=false",
+    "-Dtests=false",
+    "-Dglycin=disabled",
+    "-Dpng=enabled",
+    "-Dlegacy_xpm=enabled",
+    "-Djpeg=disabled",
+    "-Dgif=disabled",
+    "-Dtiff=disabled",
+    "-Dothers=disabled",
+    "-Dbuiltin_loaders=png,xpm",
+    "-Dman=false",
+    "-Dthumbnailer=disabled",
+    "-Dandroid=disabled"
+  ],
+  "environment": {
+    "SOURCE_DATE_EPOCH": "1782864000",
+    "CFLAGS": "-O2 -fno-ident -ffile-prefix-map=/work=/usr/src/perant-codec",
+    "LDFLAGS": "-Wl,--build-id=sha1"
+  },
+  "buildPackages": [
+    {
+      "name": "binutils",
+      "version": "2.45.1-r1",
+      "downloadKey": "codec-build-binutils",
+      "sha256": "bac4a00e73296dfebf5f587c2b304b7d110e7de658cd2b05491f87c2b228420c",
+      "sizeBytes": 3321769,
+      "installedSizeBytes": 14902498,
+      "license": "GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause",
+      "sourceOrigin": "binutils",
+      "aportsCommit": "673df4f3ce2e71e9bcfbf64939332917a35795fc",
+      "upstreamUrl": "https://www.gnu.org/software/binutils/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:libgcc_s.so.1",
+        "so:libjansson.so.4",
+        "so:libstdc++.so.6",
+        "so:libz.so.1",
+        "so:libzstd.so.1"
+      ],
+      "provides": [
+        "cmd:addr2line=2.45.1-r1",
+        "cmd:ar=2.45.1-r1",
+        "cmd:as=2.45.1-r1",
+        "cmd:c++filt=2.45.1-r1",
+        "cmd:dwp=2.45.1-r1",
+        "cmd:elfedit=2.45.1-r1",
+        "cmd:gprof=2.45.1-r1",
+        "cmd:ld.bfd=2.45.1-r1",
+        "cmd:ld=2.45.1-r1",
+        "cmd:nm=2.45.1-r1",
+        "cmd:objcopy=2.45.1-r1",
+        "cmd:objdump=2.45.1-r1",
+        "cmd:ranlib=2.45.1-r1",
+        "cmd:readelf=2.45.1-r1",
+        "cmd:size=2.45.1-r1",
+        "cmd:strings=2.45.1-r1",
+        "cmd:strip=2.45.1-r1",
+        "so:libbfd-2.45.1.so=0",
+        "so:libctf-nobfd.so.0=0.0.0",
+        "so:libctf.so.0=0.0.0",
+        "so:libopcodes-2.45.1.so=0",
+        "so:libsframe.so.2=2.0.0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "bsd-compat-headers",
+      "version": "0.7.2-r6",
+      "downloadKey": "codec-build-bsd-compat-headers",
+      "sha256": "16b7f8b09b067649dfcfb25e366ffcf781fffb9a60e96fc14001f88035b10389",
+      "sizeBytes": 12019,
+      "installedSizeBytes": 56848,
+      "license": "BSD-2-Clause AND BSD-3-Clause",
+      "sourceOrigin": "bsd-compat-headers",
+      "aportsCommit": "f578a91aef36679e703bd8badf6725cf838244da",
+      "upstreamUrl": "https://gitlab.alpinelinux.org/alpine/aports",
+      "dependencies": [],
+      "provides": [],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "noarch",
+      "repository": "main"
+    },
+    {
+      "name": "bzip2-dev",
+      "version": "1.0.8-r6",
+      "downloadKey": "codec-build-bzip2-dev",
+      "sha256": "318080789a8d76a25d91c0a017b276219237150d4ec6f5413fceeef7b0289cec",
+      "sizeBytes": 3602,
+      "installedSizeBytes": 6466,
+      "license": "bzip2-1.0.6",
+      "sourceOrigin": "bzip2",
+      "aportsCommit": "33283848034c9885d984c8e8697c645c57324938",
+      "upstreamUrl": "https://sourceware.org/bzip2/",
+      "dependencies": [
+        "libbz2=1.0.8-r6",
+        "pkgconfig"
+      ],
+      "provides": [
+        "pc:bzip2=1.0.8"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "docbook-xml",
+      "version": "4.5-r10",
+      "downloadKey": "codec-build-docbook-xml",
+      "sha256": "0ce5a052b06417386508af3c76464005612d92e85bfad7c9ea892e3f0cc9de9e",
+      "sizeBytes": 348064,
+      "installedSizeBytes": 2057485,
+      "license": "MIT",
+      "sourceOrigin": "docbook-xml",
+      "aportsCommit": "66446f0c76301646e0692e7f19153d16c7c119ca",
+      "upstreamUrl": "https://scrollkeeper.sourceforge.net/docbook.shtml",
+      "dependencies": [
+        "libxml2-utils",
+        "/bin/sh"
+      ],
+      "provides": [],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [
+        {
+          "name": ".post-install",
+          "sha256": "b4c5c06f01654b4eee6b6e88ad6fc6bfeba0d34f06a3b45edfb6e6a9acc974e2",
+          "text": "#!/bin/sh\n\nif [ ! -e etc/xml/catalog ]; then\n\txmlcatalog --noout --create etc/xml/catalog\nfi\n  \nxmlcatalog --noout --add \"delegatePublic\" \\\n    \"-//OASIS//ENTITIES DocBook XML\" \\\n    \"file:///etc/xml/docbook-xml\" \\\n    etc/xml/catalog\nxmlcatalog --noout --add \"delegatePublic\" \\\n    \"-//OASIS//DTD DocBook XML\" \\\n    \"file:///etc/xml/docbook-xml\" \\\n    etc/xml/catalog\nxmlcatalog --noout --add \"delegateSystem\" \\\n    \"http://www.oasis-open.org/docbook/\" \\\n    \"file:///etc/xml/docbook-xml\" \\\n    etc/xml/catalog\nxmlcatalog --noout --add \"delegateURI\" \\\n    \"http://www.oasis-open.org/docbook/\" \\\n    \"file:///etc/xml/docbook-xml\" \\\n    etc/xml/catalog\n\n"
+        },
+        {
+          "name": ".post-upgrade",
+          "sha256": "c9f323ed55b6478542ba77d54483b2fc1c2fcf30a3f4fca698e682e4e8899acc",
+          "text": "#!/bin/sh\n\nxmlcatalog --noout --del file:///etc/xml/docbook-xml etc/xml/catalog\n\nxmlcatalog --noout --add \"delegatePublic\" \\\n    \"-//OASIS//ENTITIES DocBook XML\" \\\n    \"file:///etc/xml/docbook-xml\" \\\n    etc/xml/catalog\nxmlcatalog --noout --add \"delegatePublic\" \\\n    \"-//OASIS//DTD DocBook XML\" \\\n    \"file:///etc/xml/docbook-xml\" \\\n    etc/xml/catalog\nxmlcatalog --noout --add \"delegateSystem\" \\\n    \"http://www.oasis-open.org/docbook/\" \\\n    \"file:///etc/xml/docbook-xml\" \\\n    etc/xml/catalog\nxmlcatalog --noout --add \"delegateURI\" \\\n    \"http://www.oasis-open.org/docbook/\" \\\n    \"file:///etc/xml/docbook-xml\" \\\n    etc/xml/catalog\n\n"
+        },
+        {
+          "name": ".pre-deinstall",
+          "sha256": "e555106c1b3e58a1599493935724d370df99ff338866222d9e0c7b6b12655e8e",
+          "text": "#!/bin/sh\n\nif which xmlcatalog >/dev/null; then\n\txmlcatalog --noout --del file:///etc/xml/docbook-xml etc/xml/catalog\nfi\n"
+        }
+      ],
+      "architecture": "noarch",
+      "repository": "main"
+    },
+    {
+      "name": "docbook-xsl",
+      "version": "1.79.2-r13",
+      "downloadKey": "codec-build-docbook-xsl",
+      "sha256": "0ba577d9f8264ad70258742f64c7fa14cd1c5e226ad663eb54ce8915795345ac",
+      "sizeBytes": 2745,
+      "installedSizeBytes": 1999,
+      "license": "LicenseRef-DMIT",
+      "sourceOrigin": "docbook-xsl",
+      "aportsCommit": "8f7563125e8501d5b6e416649b87051884249e8a",
+      "upstreamUrl": "https://docbook.org/",
+      "dependencies": [
+        "docbook-xsl-ns=1.79.2-r13",
+        "docbook-xsl-nons=1.79.2-r13"
+      ],
+      "provides": [],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "noarch",
+      "repository": "main"
+    },
+    {
+      "name": "docbook-xsl-nons",
+      "version": "1.79.2-r13",
+      "downloadKey": "codec-build-docbook-xsl-nons",
+      "sha256": "7d41d3611e4e0812376ed9feb23894b34bf67bdddc273c7ff5286e99bf7d39b6",
+      "sizeBytes": 1863428,
+      "installedSizeBytes": 13761378,
+      "license": "LicenseRef-DMIT",
+      "sourceOrigin": "docbook-xsl",
+      "aportsCommit": "8f7563125e8501d5b6e416649b87051884249e8a",
+      "upstreamUrl": "https://docbook.org/",
+      "dependencies": [
+        "docbook-xml",
+        "libxml2-utils",
+        "libxslt",
+        "/bin/sh"
+      ],
+      "provides": [],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [
+        {
+          "name": ".post-install",
+          "sha256": "ce8d126d4713c0d8900930015e19dcbd27a9ac80b8e36871d3245f8fae5ec97b",
+          "text": "#!/bin/sh\n\nnewver=${1%-r[0-9]*}\noldver=${2%-r[0-9]*}\n\ndocbookdir=/usr/share/xml/docbook\n\ncase \"${APK_PACKAGE:-${0##*/}}\" in\ndocbook-xsl-ns*)\n\tsuffix=\"\"\n\turis=\"http://cdn.docbook.org/release/xsl\n\t      http://docbook.sourceforge.net/release/xsl-ns\"\n;;\ndocbook-xsl-nons*)\n\tsuffix=\"-nons\"\n\turis=\"http://cdn.docbook.org/release/xsl-nons\n\t      http://docbook.sourceforge.net/release/xsl\"\n;;\nesac\n\nif [ ! -f /etc/xml/catalog ]; then\n\txmlcatalog --noout --create /etc/xml/catalog\nfi\n\nif [ -n \"$oldver\" ]; then # upgrade\n\txmlcatalog --noout --del \\\n\t\t\"file://$docbookdir/xsl-stylesheets-$oldver$suffix\" \\\n\t\tetc/xml/catalog\nfi\n\nfor url in $uris; do\n\tfor rewrite in rewriteSystem rewriteURI; do\n\t\tfor version in $newver current; do\n\t\t\txmlcatalog --noout --add \"$rewrite\" \\\n\t\t\t\t\"$url/$version\" \\\n\t\t\t\t\"file://$docbookdir/xsl-stylesheets-$newver$suffix\" \\\n\t\t\t\tetc/xml/catalog\n\t\t\txmlcatalog --noout --add \"$rewrite\" \\\n\t\t\t\t\"$url/current\" \\\n\t\t\t\t\"file://$docbookdir/xsl-stylesheets-$newver$suffix\" \\\n\t\t\t\tetc/xml/catalog\n\t\tdone\n\tdone\ndone\n"
+        },
+        {
+          "name": ".post-upgrade",
+          "sha256": "ce8d126d4713c0d8900930015e19dcbd27a9ac80b8e36871d3245f8fae5ec97b",
+          "text": "#!/bin/sh\n\nnewver=${1%-r[0-9]*}\noldver=${2%-r[0-9]*}\n\ndocbookdir=/usr/share/xml/docbook\n\ncase \"${APK_PACKAGE:-${0##*/}}\" in\ndocbook-xsl-ns*)\n\tsuffix=\"\"\n\turis=\"http://cdn.docbook.org/release/xsl\n\t      http://docbook.sourceforge.net/release/xsl-ns\"\n;;\ndocbook-xsl-nons*)\n\tsuffix=\"-nons\"\n\turis=\"http://cdn.docbook.org/release/xsl-nons\n\t      http://docbook.sourceforge.net/release/xsl\"\n;;\nesac\n\nif [ ! -f /etc/xml/catalog ]; then\n\txmlcatalog --noout --create /etc/xml/catalog\nfi\n\nif [ -n \"$oldver\" ]; then # upgrade\n\txmlcatalog --noout --del \\\n\t\t\"file://$docbookdir/xsl-stylesheets-$oldver$suffix\" \\\n\t\tetc/xml/catalog\nfi\n\nfor url in $uris; do\n\tfor rewrite in rewriteSystem rewriteURI; do\n\t\tfor version in $newver current; do\n\t\t\txmlcatalog --noout --add \"$rewrite\" \\\n\t\t\t\t\"$url/$version\" \\\n\t\t\t\t\"file://$docbookdir/xsl-stylesheets-$newver$suffix\" \\\n\t\t\t\tetc/xml/catalog\n\t\t\txmlcatalog --noout --add \"$rewrite\" \\\n\t\t\t\t\"$url/current\" \\\n\t\t\t\t\"file://$docbookdir/xsl-stylesheets-$newver$suffix\" \\\n\t\t\t\tetc/xml/catalog\n\t\tdone\n\tdone\ndone\n"
+        },
+        {
+          "name": ".pre-deinstall",
+          "sha256": "f7035bc823a9dfed3aadc0e098ed90d1485788819a0743f2d07102a543f33cbc",
+          "text": "#!/bin/sh\n\noldver=${1%-r[0-9]*}\n\nif which xmlcatalog > /dev/null; then\n\txmlcatalog --noout --del \\\n\t\t\"file:///usr/share/xml/docbook/xsl-stylesheets-$oldver-nons\" \\\n\t\tetc/xml/catalog\nfi\n"
+        }
+      ],
+      "architecture": "noarch",
+      "repository": "main"
+    },
+    {
+      "name": "docbook-xsl-ns",
+      "version": "1.79.2-r13",
+      "downloadKey": "codec-build-docbook-xsl-ns",
+      "sha256": "32e682873aac79e673eabba7db94c8ecdba9954d320d597bf9766e085c9e47d6",
+      "sizeBytes": 1868169,
+      "installedSizeBytes": 13840522,
+      "license": "LicenseRef-DMIT",
+      "sourceOrigin": "docbook-xsl",
+      "aportsCommit": "8f7563125e8501d5b6e416649b87051884249e8a",
+      "upstreamUrl": "https://docbook.org/",
+      "dependencies": [
+        "docbook-xml",
+        "libxml2-utils",
+        "libxslt",
+        "/bin/sh"
+      ],
+      "provides": [],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [
+        {
+          "name": ".post-install",
+          "sha256": "ce8d126d4713c0d8900930015e19dcbd27a9ac80b8e36871d3245f8fae5ec97b",
+          "text": "#!/bin/sh\n\nnewver=${1%-r[0-9]*}\noldver=${2%-r[0-9]*}\n\ndocbookdir=/usr/share/xml/docbook\n\ncase \"${APK_PACKAGE:-${0##*/}}\" in\ndocbook-xsl-ns*)\n\tsuffix=\"\"\n\turis=\"http://cdn.docbook.org/release/xsl\n\t      http://docbook.sourceforge.net/release/xsl-ns\"\n;;\ndocbook-xsl-nons*)\n\tsuffix=\"-nons\"\n\turis=\"http://cdn.docbook.org/release/xsl-nons\n\t      http://docbook.sourceforge.net/release/xsl\"\n;;\nesac\n\nif [ ! -f /etc/xml/catalog ]; then\n\txmlcatalog --noout --create /etc/xml/catalog\nfi\n\nif [ -n \"$oldver\" ]; then # upgrade\n\txmlcatalog --noout --del \\\n\t\t\"file://$docbookdir/xsl-stylesheets-$oldver$suffix\" \\\n\t\tetc/xml/catalog\nfi\n\nfor url in $uris; do\n\tfor rewrite in rewriteSystem rewriteURI; do\n\t\tfor version in $newver current; do\n\t\t\txmlcatalog --noout --add \"$rewrite\" \\\n\t\t\t\t\"$url/$version\" \\\n\t\t\t\t\"file://$docbookdir/xsl-stylesheets-$newver$suffix\" \\\n\t\t\t\tetc/xml/catalog\n\t\t\txmlcatalog --noout --add \"$rewrite\" \\\n\t\t\t\t\"$url/current\" \\\n\t\t\t\t\"file://$docbookdir/xsl-stylesheets-$newver$suffix\" \\\n\t\t\t\tetc/xml/catalog\n\t\tdone\n\tdone\ndone\n"
+        },
+        {
+          "name": ".post-upgrade",
+          "sha256": "ce8d126d4713c0d8900930015e19dcbd27a9ac80b8e36871d3245f8fae5ec97b",
+          "text": "#!/bin/sh\n\nnewver=${1%-r[0-9]*}\noldver=${2%-r[0-9]*}\n\ndocbookdir=/usr/share/xml/docbook\n\ncase \"${APK_PACKAGE:-${0##*/}}\" in\ndocbook-xsl-ns*)\n\tsuffix=\"\"\n\turis=\"http://cdn.docbook.org/release/xsl\n\t      http://docbook.sourceforge.net/release/xsl-ns\"\n;;\ndocbook-xsl-nons*)\n\tsuffix=\"-nons\"\n\turis=\"http://cdn.docbook.org/release/xsl-nons\n\t      http://docbook.sourceforge.net/release/xsl\"\n;;\nesac\n\nif [ ! -f /etc/xml/catalog ]; then\n\txmlcatalog --noout --create /etc/xml/catalog\nfi\n\nif [ -n \"$oldver\" ]; then # upgrade\n\txmlcatalog --noout --del \\\n\t\t\"file://$docbookdir/xsl-stylesheets-$oldver$suffix\" \\\n\t\tetc/xml/catalog\nfi\n\nfor url in $uris; do\n\tfor rewrite in rewriteSystem rewriteURI; do\n\t\tfor version in $newver current; do\n\t\t\txmlcatalog --noout --add \"$rewrite\" \\\n\t\t\t\t\"$url/$version\" \\\n\t\t\t\t\"file://$docbookdir/xsl-stylesheets-$newver$suffix\" \\\n\t\t\t\tetc/xml/catalog\n\t\t\txmlcatalog --noout --add \"$rewrite\" \\\n\t\t\t\t\"$url/current\" \\\n\t\t\t\t\"file://$docbookdir/xsl-stylesheets-$newver$suffix\" \\\n\t\t\t\tetc/xml/catalog\n\t\tdone\n\tdone\ndone\n"
+        },
+        {
+          "name": ".pre-deinstall",
+          "sha256": "e5bdac4aae90bddbcbdff37428b876cd3173531b1acb6b6ad6b2fb450e772ba9",
+          "text": "#!/bin/sh\n\noldver=${1%-r[0-9]*}\n\nif which xmlcatalog > /dev/null; then\n\txmlcatalog --noout --del \\\n\t\t\"file:///usr/share/xml/docbook/xsl-stylesheets-$oldver\" \\\n\t\tetc/xml/catalog\nfi\n"
+        }
+      ],
+      "architecture": "noarch",
+      "repository": "main"
+    },
+    {
+      "name": "gcc",
+      "version": "15.2.0-r5",
+      "downloadKey": "codec-build-gcc",
+      "sha256": "ff3fecfc32c9a1bed4a47a32ccfee6f6f575708258f912c218dce8ed0d892221",
+      "sizeBytes": 52501295,
+      "installedSizeBytes": 136602107,
+      "license": "GPL-2.0-or-later AND LGPL-2.1-or-later",
+      "sourceOrigin": "gcc",
+      "aportsCommit": "423a8ad043d07f2c7546c8ec3e2b0384cda360ae",
+      "upstreamUrl": "https://gcc.gnu.org",
+      "dependencies": [
+        "binutils",
+        "libgcc-static",
+        "libgomp=15.2.0-r5",
+        "libatomic=15.2.0-r5",
+        "libgomp=15.2.0-r5",
+        "so:libc.musl-aarch64.so.1",
+        "so:libgcc_s.so.1",
+        "so:libgmp.so.10",
+        "so:libisl.so.23",
+        "so:libmpc.so.3",
+        "so:libmpfr.so.6",
+        "so:libstdc++.so.6",
+        "so:libz.so.1"
+      ],
+      "provides": [
+        "cmd:aarch64-alpine-linux-musl-cc=15.2.0-r5",
+        "cmd:aarch64-alpine-linux-musl-gcc-15.2.0=15.2.0-r5",
+        "cmd:aarch64-alpine-linux-musl-gcc-ar=15.2.0-r5",
+        "cmd:aarch64-alpine-linux-musl-gcc-nm=15.2.0-r5",
+        "cmd:aarch64-alpine-linux-musl-gcc-ranlib=15.2.0-r5",
+        "cmd:aarch64-alpine-linux-musl-gcc=15.2.0-r5",
+        "cmd:c89=15.2.0-r5",
+        "cmd:c99=15.2.0-r5",
+        "cmd:cc=15.2.0-r5",
+        "cmd:cpp=15.2.0-r5",
+        "cmd:gcc-ar=15.2.0-r5",
+        "cmd:gcc-nm=15.2.0-r5",
+        "cmd:gcc-ranlib=15.2.0-r5",
+        "cmd:gcc=15.2.0-r5",
+        "cmd:gcov-dump=15.2.0-r5",
+        "cmd:gcov-tool=15.2.0-r5",
+        "cmd:gcov=15.2.0-r5",
+        "cmd:lto-dump=15.2.0-r5",
+        "so:libcc1.so.0=0.0.0",
+        "so:libitm.so.1=1.0.0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "gdbm",
+      "version": "1.26-r0",
+      "downloadKey": "codec-build-gdbm",
+      "sha256": "bad50eb26533e2f58e014fbcd3c1744f2fdb79954af6e3c188ccd059251c7790",
+      "sizeBytes": 33830,
+      "installedSizeBytes": 134720,
+      "license": "GPL-3.0-or-later",
+      "sourceOrigin": "gdbm",
+      "aportsCommit": "1ea03990396db618edfcc8a9a0bc6b72662bac8f",
+      "upstreamUrl": "https://www.gnu.org/software/gdbm/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libgdbm.so.6=6.0.0",
+        "so:libgdbm_compat.so.4=4.0.0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "gettext",
+      "version": "1.0-r0",
+      "downloadKey": "codec-build-gettext",
+      "sha256": "efab318679eef34abf423477476ed577776c4167ad9fcb5dc2e8b79075f924fe",
+      "sizeBytes": 2027718,
+      "installedSizeBytes": 16214862,
+      "license": "GPL-3.0-or-later AND LGPL-2.1-or-later AND MIT",
+      "sourceOrigin": "gettext",
+      "aportsCommit": "a0b12dbf67fb047e79a1b76c6dfe6f2904d0d391",
+      "upstreamUrl": "https://www.gnu.org/software/gettext/gettext.html",
+      "dependencies": [
+        "gettext-envsubst=1.0-r0",
+        "so:libc.musl-aarch64.so.1",
+        "so:libgomp.so.1",
+        "so:libintl.so.8",
+        "so:libtextstyle.so.0",
+        "so:libunistring.so.5",
+        "so:libxml2.so.2"
+      ],
+      "provides": [
+        "cmd:autopoint=1.0-r0",
+        "cmd:gettext.sh=1.0-r0",
+        "cmd:gettext=1.0-r0",
+        "cmd:gettextize=1.0-r0",
+        "cmd:msgattrib=1.0-r0",
+        "cmd:msgcat=1.0-r0",
+        "cmd:msgcmp=1.0-r0",
+        "cmd:msgcomm=1.0-r0",
+        "cmd:msgconv=1.0-r0",
+        "cmd:msgen=1.0-r0",
+        "cmd:msgexec=1.0-r0",
+        "cmd:msgfilter=1.0-r0",
+        "cmd:msgfmt=1.0-r0",
+        "cmd:msggrep=1.0-r0",
+        "cmd:msginit=1.0-r0",
+        "cmd:msgmerge=1.0-r0",
+        "cmd:msgpre=1.0-r0",
+        "cmd:msgunfmt=1.0-r0",
+        "cmd:msguniq=1.0-r0",
+        "cmd:ngettext=1.0-r0",
+        "cmd:po-fetch=1.0-r0",
+        "cmd:printf_gettext=1.0-r0",
+        "cmd:printf_ngettext=1.0-r0",
+        "cmd:recode-sr-latin=1.0-r0",
+        "cmd:spit=1.0-r0",
+        "cmd:xgettext=1.0-r0",
+        "so:libgettextlib-1.0.so=0",
+        "so:libgettextsrc-1.0.so=0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "gettext-asprintf",
+      "version": "1.0-r0",
+      "downloadKey": "codec-build-gettext-asprintf",
+      "sha256": "be38231247ac3a150b1a0f13754f19d2db58255a90ad5439b5ce84553226ad50",
+      "sizeBytes": 20768,
+      "installedSizeBytes": 132880,
+      "license": "LGPL-2.1-or-later",
+      "sourceOrigin": "gettext",
+      "aportsCommit": "a0b12dbf67fb047e79a1b76c6dfe6f2904d0d391",
+      "upstreamUrl": "https://www.gnu.org/software/gettext/gettext.html",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:libstdc++.so.6"
+      ],
+      "provides": [
+        "so:libasprintf.so.0=0.0.0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "gettext-dev",
+      "version": "1.0-r0",
+      "downloadKey": "codec-build-gettext-dev",
+      "sha256": "a67154822a0ff9aeaafa0e2b6eea555ee9dde7c1515c0f10a4f5929b1f919445",
+      "sizeBytes": 712641,
+      "installedSizeBytes": 1087954,
+      "license": "GPL-3.0-or-later AND LGPL-2.1-or-later AND MIT",
+      "sourceOrigin": "gettext",
+      "aportsCommit": "a0b12dbf67fb047e79a1b76c6dfe6f2904d0d391",
+      "upstreamUrl": "https://www.gnu.org/software/gettext/gettext.html",
+      "dependencies": [
+        "!musl-libintl",
+        "xz",
+        "gettext-asprintf=1.0-r0",
+        "gettext-libs=1.0-r0",
+        "gettext=1.0-r0",
+        "libintl=1.0-r0"
+      ],
+      "provides": [],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "gettext-envsubst",
+      "version": "1.0-r0",
+      "downloadKey": "codec-build-gettext-envsubst",
+      "sha256": "4d2ac7a9bf0b872d483b195133202cfc16e9efb7d7d50804f3957d9eb387374a",
+      "sizeBytes": 22013,
+      "installedSizeBytes": 67408,
+      "license": "GPL-3.0-or-later AND LGPL-2.1-or-later AND MIT",
+      "sourceOrigin": "gettext",
+      "aportsCommit": "a0b12dbf67fb047e79a1b76c6dfe6f2904d0d391",
+      "upstreamUrl": "https://www.gnu.org/software/gettext/gettext.html",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:libintl.so.8"
+      ],
+      "provides": [
+        "envsubst",
+        "cmd:envsubst=1.0-r0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "gettext-libs",
+      "version": "1.0-r0",
+      "downloadKey": "codec-build-gettext-libs",
+      "sha256": "4d8b812efcc60a7a643f4e0ba463ef181db76a38c08571aa9e19b0508eb59216",
+      "sizeBytes": 383652,
+      "installedSizeBytes": 1056440,
+      "license": "GPL-3.0-or-later AND LGPL-2.1-or-later AND MIT",
+      "sourceOrigin": "gettext",
+      "aportsCommit": "a0b12dbf67fb047e79a1b76c6dfe6f2904d0d391",
+      "upstreamUrl": "https://www.gnu.org/software/gettext/gettext.html",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:libintl.so.8",
+        "so:libncursesw.so.6",
+        "so:libunistring.so.5"
+      ],
+      "provides": [
+        "so:libgettextpo.so.0=0.6.0",
+        "so:libtextstyle.so.0=0.2.7"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "glib",
+      "version": "2.88.1-r1",
+      "downloadKey": "codec-build-glib",
+      "sha256": "0ae89191a79ea5d5a02515e41f29b62e5e0a0a80fb059804bbbacac2d77cce4e",
+      "sizeBytes": 1995383,
+      "installedSizeBytes": 5914616,
+      "license": "LGPL-2.1-or-later",
+      "sourceOrigin": "glib",
+      "aportsCommit": "bd96e2db11c9ba7d7795454d16af620d577614c7",
+      "upstreamUrl": "https://developer.gnome.org/glib/",
+      "dependencies": [
+        "/bin/sh",
+        "so:libc.musl-aarch64.so.1",
+        "so:libffi.so.8",
+        "so:libintl.so.8",
+        "so:libmount.so.1",
+        "so:libpcre2-8.so.0",
+        "so:libz.so.1"
+      ],
+      "provides": [
+        "cmd:gapplication=2.88.1-r1",
+        "cmd:gdbus=2.88.1-r1",
+        "cmd:gi-compile-repository=2.88.1-r1",
+        "cmd:gi-decompile-typelib=2.88.1-r1",
+        "cmd:gi-inspect-typelib=2.88.1-r1",
+        "cmd:gio-querymodules=2.88.1-r1",
+        "cmd:gio=2.88.1-r1",
+        "cmd:glib-compile-schemas=2.88.1-r1",
+        "cmd:gsettings=2.88.1-r1",
+        "so:libgio-2.0.so.0=0.8800.1",
+        "so:libgirepository-2.0.so.0=0.8800.1",
+        "so:libglib-2.0.so.0=0.8800.1",
+        "so:libgmodule-2.0.so.0=0.8800.1",
+        "so:libgobject-2.0.so.0=0.8800.1",
+        "so:libgthread-2.0.so.0=0.8800.1"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [
+        {
+          "name": ".trigger",
+          "sha256": "47a959a0b09988b921da0d5880e8f3cabe709890091337943a5a01702caa8567",
+          "text": "#!/bin/sh\n\nfor i in \"$@\"; do\n\tif ! [ -e \"$i\" ]; then\n\t\tcontinue\n\tfi\n\tcase \"$i\" in\n\t*/modules|*gtk-4.0)\n\t\t/usr/bin/gio-querymodules \"$i\"\n\t\t;;\n\t*/schemas)\n\t\t# Suppressing output since it shows warnings about bad dconf paths\n\t\t# that aren't useful to end users.\n\t\t# Can be removed once all known applications (gsettings-desktop-schemas,\n\t\t# seahorse, ibus, gcr3) have migrated.\n\t\t( /usr/bin/glib-compile-schemas \"$i\" 2>&1 1>&3 | \\\n\t\t\tsed -e '/are deprecated/d' 1>&2 ) 3>&1\n\t\t;;\n\tesac\ndone\n"
+        }
+      ],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "glib-dev",
+      "version": "2.88.1-r1",
+      "downloadKey": "codec-build-glib-dev",
+      "sha256": "a7fca1fe4439b41601463cde8244cc3a89962f50853e013177671e2e0dd1d52c",
+      "sizeBytes": 1880301,
+      "installedSizeBytes": 15719079,
+      "license": "LGPL-2.1-or-later",
+      "sourceOrigin": "glib",
+      "aportsCommit": "bd96e2db11c9ba7d7795454d16af620d577614c7",
+      "upstreamUrl": "https://developer.gnome.org/glib/",
+      "dependencies": [
+        "bzip2-dev",
+        "docbook-xml",
+        "docbook-xsl",
+        "gettext-dev",
+        "libxml2-utils",
+        "libxslt",
+        "python3",
+        "py3-packaging",
+        "glib=2.88.1-r1",
+        "pc:libffi>=3.0.0",
+        "pc:libpcre2-8>=10.32",
+        "pc:mount>=2.23",
+        "pc:zlib",
+        "pkgconfig",
+        "so:libc.musl-aarch64.so.1",
+        "so:libgio-2.0.so.0",
+        "so:libglib-2.0.so.0",
+        "so:libgobject-2.0.so.0",
+        "so:libintl.so.8"
+      ],
+      "provides": [
+        "cmd:gdbus-codegen=2.88.1-r1",
+        "cmd:glib-compile-resources=2.88.1-r1",
+        "cmd:glib-genmarshal=2.88.1-r1",
+        "cmd:glib-gettextize=2.88.1-r1",
+        "cmd:glib-mkenums=2.88.1-r1",
+        "cmd:gobject-query=2.88.1-r1",
+        "cmd:gresource=2.88.1-r1",
+        "cmd:gtester-report=2.88.1-r1",
+        "cmd:gtester=2.88.1-r1",
+        "pc:gio-2.0=2.88.1",
+        "pc:gio-unix-2.0=2.88.1",
+        "pc:girepository-2.0=2.88.1",
+        "pc:glib-2.0=2.88.1",
+        "pc:gmodule-2.0=2.88.1",
+        "pc:gmodule-export-2.0=2.88.1",
+        "pc:gmodule-no-export-2.0=2.88.1",
+        "pc:gobject-2.0=2.88.1",
+        "pc:gthread-2.0=2.88.1"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "gmp",
+      "version": "6.3.0-r4",
+      "downloadKey": "codec-build-gmp",
+      "sha256": "4dab6e86b850fe1b5bc0cf2fac17efa4d7f648bea44f3d9019694cc1e1cb12b7",
+      "sizeBytes": 221014,
+      "installedSizeBytes": 460616,
+      "license": "LGPL-3.0-or-later OR GPL-2.0-or-later",
+      "sourceOrigin": "gmp",
+      "aportsCommit": "206e7b39f7884d62a174aba4d33a42454518c1c2",
+      "upstreamUrl": "https://gmplib.org/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libgmp.so.10=10.5.0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "isl25",
+      "version": "0.25-r2",
+      "downloadKey": "codec-build-isl25",
+      "sha256": "5209569eb853a98e72f3d78ae575c66708e1d628b8cb2131eb870b3ba1ef0950",
+      "sizeBytes": 851689,
+      "installedSizeBytes": 2169592,
+      "license": "MIT",
+      "sourceOrigin": "isl25",
+      "aportsCommit": "fc95c59998285564fbcb0bfb2443898c62e10171",
+      "upstreamUrl": "http://isl.gforge.inria.fr/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:libgmp.so.10"
+      ],
+      "provides": [
+        "so:libisl.so.23=23.2.0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "jansson",
+      "version": "2.15.0-r0",
+      "downloadKey": "codec-build-jansson",
+      "sha256": "a13822f5ca1772cced4bb7d3d178ec5dee770d8accba5b4816b2ddc413e6f055",
+      "sizeBytes": 49825,
+      "installedSizeBytes": 132944,
+      "license": "MIT",
+      "sourceOrigin": "jansson",
+      "aportsCommit": "88919740865a31680e7f1c4cb568dfd7a87e9f08",
+      "upstreamUrl": "http://www.digip.org/jansson/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libjansson.so.4=4.15.0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libatomic",
+      "version": "15.2.0-r5",
+      "downloadKey": "codec-build-libatomic",
+      "sha256": "31a45fec053c43a006370f83238f16f959838a9a703fbf26bfd1a36da4f538b2",
+      "sizeBytes": 10362,
+      "installedSizeBytes": 67168,
+      "license": "GPL-2.0-or-later AND LGPL-2.1-or-later",
+      "sourceOrigin": "gcc",
+      "aportsCommit": "423a8ad043d07f2c7546c8ec3e2b0384cda360ae",
+      "upstreamUrl": "https://gcc.gnu.org",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libatomic.so.1=1.2.0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libblkid",
+      "version": "2.42.3-r1",
+      "downloadKey": "codec-build-libblkid",
+      "sha256": "9d0f24976c575c53c12526b6e078edf34c980c153bc8e5f1c1053cbece5b8cfa",
+      "sizeBytes": 97097,
+      "installedSizeBytes": 265064,
+      "license": "LGPL-2.1-or-later",
+      "sourceOrigin": "util-linux",
+      "aportsCommit": "d98c55af59055e6ca60fbe36e171546918709965",
+      "upstreamUrl": "https://git.kernel.org/cgit/utils/util-linux/util-linux.git",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:libeconf.so.0"
+      ],
+      "provides": [
+        "so:libblkid.so.1=1.1.0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libbz2",
+      "version": "1.0.8-r6",
+      "downloadKey": "codec-build-libbz2",
+      "sha256": "28cb76bb6d11d2a55c3061b5fcb2ab84996412a248b2c9fe52bb710d0a2a84e7",
+      "sizeBytes": 34259,
+      "installedSizeBytes": 70320,
+      "license": "bzip2-1.0.6",
+      "sourceOrigin": "bzip2",
+      "aportsCommit": "33283848034c9885d984c8e8697c645c57324938",
+      "upstreamUrl": "https://sourceware.org/bzip2/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libbz2.so.1=1.0.8"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libeconf",
+      "version": "0.8.3-r0",
+      "downloadKey": "codec-build-libeconf",
+      "sha256": "cf0899d49ded0a6891e3cdf1b37887f2ecd77293afe1d8f3cb8937763c83f183",
+      "sizeBytes": 27259,
+      "installedSizeBytes": 135168,
+      "license": "MIT",
+      "sourceOrigin": "libeconf",
+      "aportsCommit": "62db33049768522f381410614d59c7d732f72c3a",
+      "upstreamUrl": "https://github.com/openSUSE/libeconf",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "cmd:econftool=0.8.3-r0",
+        "so:libeconf.so.0=0.8.3"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libedit",
+      "version": "20260508.3.1-r1",
+      "downloadKey": "codec-build-libedit",
+      "sha256": "3055936ce398b3657fe6b0c7c6ce95618bfb2b21364d7aea823a192bb8237ac3",
+      "sizeBytes": 78226,
+      "installedSizeBytes": 198544,
+      "license": "BSD-3-Clause",
+      "sourceOrigin": "libedit",
+      "aportsCommit": "7c805161e588c028cdee3f19f500849fb2c75d42",
+      "upstreamUrl": "https://www.thrysoee.dk/editline",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:libncursesw.so.6"
+      ],
+      "provides": [
+        "so:libedit.so.0=0.0.77"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libedit-dev",
+      "version": "20260508.3.1-r1",
+      "downloadKey": "codec-build-libedit-dev",
+      "sha256": "ffe81eaafcd8a41802efadf52e4f79ef133373418d199bd23a8e0668dfba8336",
+      "sizeBytes": 7755,
+      "installedSizeBytes": 19730,
+      "license": "BSD-3-Clause",
+      "sourceOrigin": "libedit",
+      "aportsCommit": "7c805161e588c028cdee3f19f500849fb2c75d42",
+      "upstreamUrl": "https://www.thrysoee.dk/editline",
+      "dependencies": [
+        "bsd-compat-headers",
+        "ncurses-dev",
+        "libedit=20260508.3.1-r1",
+        "pkgconfig"
+      ],
+      "provides": [
+        "pc:libedit=3.1"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libexpat",
+      "version": "2.10.0-r0",
+      "downloadKey": "codec-build-libexpat",
+      "sha256": "99144fe0b1bb9316a3bc30c38707996767806661f4a0456fcf4565ac92e79b0f",
+      "sizeBytes": 63387,
+      "installedSizeBytes": 198392,
+      "license": "MIT",
+      "sourceOrigin": "expat",
+      "aportsCommit": "af0fa42036cd6e626768c0d65fddaa1d1b30cf21",
+      "upstreamUrl": "https://libexpat.github.io/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libexpat.so.1=1.13.1"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libfdisk",
+      "version": "2.42.3-r1",
+      "downloadKey": "codec-build-libfdisk",
+      "sha256": "061e5c9c82eff00f806bd51bdd414d3ff6aaec99de02ed4c1b60f3e13578e2b7",
+      "sizeBytes": 121449,
+      "installedSizeBytes": 329792,
+      "license": "LGPL-2.1-or-later",
+      "sourceOrigin": "util-linux",
+      "aportsCommit": "d98c55af59055e6ca60fbe36e171546918709965",
+      "upstreamUrl": "https://git.kernel.org/cgit/utils/util-linux/util-linux.git",
+      "dependencies": [
+        "so:libblkid.so.1",
+        "so:libc.musl-aarch64.so.1",
+        "so:libuuid.so.1"
+      ],
+      "provides": [
+        "so:libfdisk.so.1=1.1.0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libffi",
+      "version": "3.5.2-r1",
+      "downloadKey": "codec-build-libffi",
+      "sha256": "9a67280b0c7c62db658c2d4d32ed1199903bef859c32dd4245e1a7e35c89ab4b",
+      "sizeBytes": 17799,
+      "installedSizeBytes": 67544,
+      "license": "MIT",
+      "sourceOrigin": "libffi",
+      "aportsCommit": "2c2a7bb4a8b16066834e90402567b2c19403a790",
+      "upstreamUrl": "https://sourceware.org/libffi/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libffi.so.8=8.2.0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libffi-dev",
+      "version": "3.5.2-r1",
+      "downloadKey": "codec-build-libffi-dev",
+      "sha256": "9ab907b5cc736e136eba457ad144034bbb7a2345d4085986c49be3c75d80f765",
+      "sizeBytes": 81975,
+      "installedSizeBytes": 251568,
+      "license": "MIT",
+      "sourceOrigin": "libffi",
+      "aportsCommit": "2c2a7bb4a8b16066834e90402567b2c19403a790",
+      "upstreamUrl": "https://sourceware.org/libffi/",
+      "dependencies": [
+        "linux-headers",
+        "libffi=3.5.2-r1",
+        "pkgconfig"
+      ],
+      "provides": [
+        "pc:libffi=3.5.2"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libformw",
+      "version": "6.6_p20260516-r0",
+      "downloadKey": "codec-build-libformw",
+      "sha256": "a31d3d6dfc0525885684d64220afa7e8411b5f8fbf3d04375e7eabe4ea2947c0",
+      "sizeBytes": 28611,
+      "installedSizeBytes": 68368,
+      "license": "X11",
+      "sourceOrigin": "ncurses",
+      "aportsCommit": "2cee8a7328d061418336ad327b512d96bcd7bc5e",
+      "upstreamUrl": "https://invisible-island.net/ncurses/",
+      "dependencies": [
+        "ncurses-terminfo-base=6.6_p20260516-r0",
+        "so:libc.musl-aarch64.so.1",
+        "so:libncursesw.so.6"
+      ],
+      "provides": [
+        "so:libformw.so.6=6.6"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libgcc",
+      "version": "15.2.0-r5",
+      "downloadKey": "codec-build-libgcc",
+      "sha256": "369aaa6e9d099a737bad6dd3e6c2fe7bb1547ca26d22b94ee0411228f709b403",
+      "sizeBytes": 66323,
+      "installedSizeBytes": 133008,
+      "license": "GPL-2.0-or-later AND LGPL-2.1-or-later",
+      "sourceOrigin": "gcc",
+      "aportsCommit": "423a8ad043d07f2c7546c8ec3e2b0384cda360ae",
+      "upstreamUrl": "https://gcc.gnu.org",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libgcc_s.so.1=1"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libgcc-static",
+      "version": "15.2.0-r5",
+      "downloadKey": "codec-build-libgcc-static",
+      "sha256": "2ec3dc4be953d842cc51193248367d86829ed699a1ed094fb5149b1b3fc62919",
+      "sizeBytes": 2187958,
+      "installedSizeBytes": 3180768,
+      "license": "GPL-2.0-or-later AND LGPL-2.1-or-later",
+      "sourceOrigin": "gcc",
+      "aportsCommit": "423a8ad043d07f2c7546c8ec3e2b0384cda360ae",
+      "upstreamUrl": "https://gcc.gnu.org",
+      "dependencies": [],
+      "provides": [],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libgomp",
+      "version": "15.2.0-r5",
+      "downloadKey": "codec-build-libgomp",
+      "sha256": "90576a8899c560d3983b8ac8442b5b75957a917bc1c4e950e005945080f8682f",
+      "sizeBytes": 146527,
+      "installedSizeBytes": 330312,
+      "license": "GPL-2.0-or-later AND LGPL-2.1-or-later",
+      "sourceOrigin": "gcc",
+      "aportsCommit": "423a8ad043d07f2c7546c8ec3e2b0384cda360ae",
+      "upstreamUrl": "https://gcc.gnu.org",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libgomp.so.1=1.0.0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libintl",
+      "version": "1.0-r0",
+      "downloadKey": "codec-build-libintl",
+      "sha256": "d106a13e3e68103d3a8217406aae6186289baf352d0f3d10fc21938d2dd8adb1",
+      "sizeBytes": 41483,
+      "installedSizeBytes": 198408,
+      "license": "LGPL-2.1-or-later",
+      "sourceOrigin": "gettext",
+      "aportsCommit": "a0b12dbf67fb047e79a1b76c6dfe6f2904d0d391",
+      "upstreamUrl": "https://www.gnu.org/software/gettext/gettext.html",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libintl.so.8=8.4.6"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "liblastlog2",
+      "version": "2.42.3-r1",
+      "downloadKey": "codec-build-liblastlog2",
+      "sha256": "e0f4211e59637c0c7699b9e0ba34c80f17361ed14870260f12c8714f2c241d96",
+      "sizeBytes": 11770,
+      "installedSizeBytes": 134808,
+      "license": "BSD-2-Clause",
+      "sourceOrigin": "util-linux",
+      "aportsCommit": "d98c55af59055e6ca60fbe36e171546918709965",
+      "upstreamUrl": "https://git.kernel.org/cgit/utils/util-linux/util-linux.git",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:libpam.so.0",
+        "so:libsqlite3.so.0"
+      ],
+      "provides": [
+        "so:liblastlog2.so.2=2.0.0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libmenuw",
+      "version": "6.6_p20260516-r0",
+      "downloadKey": "codec-build-libmenuw",
+      "sha256": "99bc3e1e94dd37124fd5c8fc01e7c49184621b06092165f64d9855e1de7583a2",
+      "sizeBytes": 14359,
+      "installedSizeBytes": 67528,
+      "license": "X11",
+      "sourceOrigin": "ncurses",
+      "aportsCommit": "2cee8a7328d061418336ad327b512d96bcd7bc5e",
+      "upstreamUrl": "https://invisible-island.net/ncurses/",
+      "dependencies": [
+        "ncurses-terminfo-base=6.6_p20260516-r0",
+        "so:libc.musl-aarch64.so.1",
+        "so:libncursesw.so.6"
+      ],
+      "provides": [
+        "so:libmenuw.so.6=6.6"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libmount",
+      "version": "2.42.3-r1",
+      "downloadKey": "codec-build-libmount",
+      "sha256": "a2a6fc6aab7a59c70ec060f5fb8c950be42d1a017934bf32e5dd6984eaab15cc",
+      "sizeBytes": 128579,
+      "installedSizeBytes": 330248,
+      "license": "LGPL-2.1-or-later",
+      "sourceOrigin": "util-linux",
+      "aportsCommit": "d98c55af59055e6ca60fbe36e171546918709965",
+      "upstreamUrl": "https://git.kernel.org/cgit/utils/util-linux/util-linux.git",
+      "dependencies": [
+        "so:libblkid.so.1",
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libmount.so.1=1.1.0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libncurses++",
+      "version": "6.6_p20260516-r0",
+      "downloadKey": "codec-build-libncurses++",
+      "sha256": "8fdd193bd17ba4cc13904121d28092926a6015a0f084c5aa12931a5918d16923",
+      "sizeBytes": 25541,
+      "installedSizeBytes": 133120,
+      "license": "X11",
+      "sourceOrigin": "ncurses",
+      "aportsCommit": "2cee8a7328d061418336ad327b512d96bcd7bc5e",
+      "upstreamUrl": "https://invisible-island.net/ncurses/",
+      "dependencies": [
+        "ncurses-terminfo-base=6.6_p20260516-r0",
+        "so:libc.musl-aarch64.so.1",
+        "so:libformw.so.6",
+        "so:libgcc_s.so.1",
+        "so:libmenuw.so.6",
+        "so:libncursesw.so.6",
+        "so:libpanelw.so.6",
+        "so:libstdc++.so.6"
+      ],
+      "provides": [
+        "so:libncurses++w.so.6=6.6"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libncursesw",
+      "version": "6.6_p20260516-r0",
+      "downloadKey": "codec-build-libncursesw",
+      "sha256": "51a7aa4b3ec40b144d0801c0544e0a9f62e2a41d04b6067bb5e95786040741c6",
+      "sizeBytes": 161906,
+      "installedSizeBytes": 396160,
+      "license": "X11",
+      "sourceOrigin": "ncurses",
+      "aportsCommit": "2cee8a7328d061418336ad327b512d96bcd7bc5e",
+      "upstreamUrl": "https://invisible-island.net/ncurses/",
+      "dependencies": [
+        "ncurses-terminfo-base=6.6_p20260516-r0",
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libncursesw.so.6=6.6"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libpanelw",
+      "version": "6.6_p20260516-r0",
+      "downloadKey": "codec-build-libpanelw",
+      "sha256": "a6912c654c821db4f8a801321709205bd482b0e515b862f2d02045e21b73d97d",
+      "sizeBytes": 5903,
+      "installedSizeBytes": 67168,
+      "license": "X11",
+      "sourceOrigin": "ncurses",
+      "aportsCommit": "2cee8a7328d061418336ad327b512d96bcd7bc5e",
+      "upstreamUrl": "https://invisible-island.net/ncurses/",
+      "dependencies": [
+        "ncurses-terminfo-base=6.6_p20260516-r0",
+        "so:libc.musl-aarch64.so.1",
+        "so:libncursesw.so.6"
+      ],
+      "provides": [
+        "so:libpanelw.so.6=6.6"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libpcre2-16",
+      "version": "10.49-r0",
+      "downloadKey": "codec-build-libpcre2-16",
+      "sha256": "645e2618496df0907003964b5c6ca4d16494675607e64b9f1f3ad73d4f448ad6",
+      "sizeBytes": 293791,
+      "installedSizeBytes": 722928,
+      "license": "BSD-3-Clause",
+      "sourceOrigin": "pcre2",
+      "aportsCommit": "3d497cbb3217749c4fb85f90f3b6f7908b0c1f95",
+      "upstreamUrl": "https://pcre.org/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libpcre2-16.so.0=0.16.1"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libpcre2-32",
+      "version": "10.49-r0",
+      "downloadKey": "codec-build-libpcre2-32",
+      "sha256": "29eca384128ab45713f9ee37c53b522b04c186cf7a82afd1d2e39a9af493f95e",
+      "sizeBytes": 273027,
+      "installedSizeBytes": 657392,
+      "license": "BSD-3-Clause",
+      "sourceOrigin": "pcre2",
+      "aportsCommit": "3d497cbb3217749c4fb85f90f3b6f7908b0c1f95",
+      "upstreamUrl": "https://pcre.org/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libpcre2-32.so.0=0.16.1"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libpng",
+      "version": "1.6.59-r0",
+      "downloadKey": "codec-build-libpng",
+      "sha256": "bccd127f8c42bc5c21c018b6b1dc977128f3bad64c3412e541c09e96e8b227a4",
+      "sizeBytes": 97458,
+      "installedSizeBytes": 198624,
+      "license": "Libpng",
+      "sourceOrigin": "libpng",
+      "aportsCommit": "8f222b50cd6e31c83f7dd69ab7c00e7471e11d4b",
+      "upstreamUrl": "http://www.libpng.org",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:libz.so.1"
+      ],
+      "provides": [
+        "so:libpng16.so.16=16.59.0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libpng-dev",
+      "version": "1.6.59-r0",
+      "downloadKey": "codec-build-libpng-dev",
+      "sha256": "13fd9f11148c90f033231fde7055338032dfc334f0c21033d93aed18f847d037",
+      "sizeBytes": 52480,
+      "installedSizeBytes": 185569,
+      "license": "Libpng",
+      "sourceOrigin": "libpng",
+      "aportsCommit": "8f222b50cd6e31c83f7dd69ab7c00e7471e11d4b",
+      "upstreamUrl": "http://www.libpng.org",
+      "dependencies": [
+        "libpng=1.6.59-r0",
+        "pc:zlib",
+        "pkgconfig"
+      ],
+      "provides": [
+        "cmd:libpng-config=1.6.59-r0",
+        "cmd:libpng16-config=1.6.59-r0",
+        "pc:libpng16=1.6.59",
+        "pc:libpng=1.6.59"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libsmartcols",
+      "version": "2.42.3-r1",
+      "downloadKey": "codec-build-libsmartcols",
+      "sha256": "e2a4b6c2e2f493100305b0e62b9b10454611a49625534b1b06a3bc8aa0087818",
+      "sizeBytes": 56563,
+      "installedSizeBytes": 133008,
+      "license": "LGPL-2.1-or-later",
+      "sourceOrigin": "util-linux",
+      "aportsCommit": "d98c55af59055e6ca60fbe36e171546918709965",
+      "upstreamUrl": "https://git.kernel.org/cgit/utils/util-linux/util-linux.git",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libsmartcols.so.1=1.1.0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libstdc++",
+      "version": "15.2.0-r5",
+      "downloadKey": "codec-build-libstdc++",
+      "sha256": "2302e766d4e4926038ec166ecb85837ee884576115236ddb565e3a5fca4a11d7",
+      "sizeBytes": 908984,
+      "installedSizeBytes": 2820600,
+      "license": "GPL-2.0-or-later AND LGPL-2.1-or-later",
+      "sourceOrigin": "gcc",
+      "aportsCommit": "423a8ad043d07f2c7546c8ec3e2b0384cda360ae",
+      "upstreamUrl": "https://gcc.gnu.org",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:libgcc_s.so.1"
+      ],
+      "provides": [
+        "so:libstdc++.so.6=6.0.34"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libunistring",
+      "version": "1.4.2-r0",
+      "downloadKey": "codec-build-libunistring",
+      "sha256": "58abfcbce2459071c505771a572a79953d6043d72b643ed0d5285ca39cdaf85c",
+      "sizeBytes": 746169,
+      "installedSizeBytes": 1967944,
+      "license": "GPL-2.0-or-later OR LGPL-3.0-or-later",
+      "sourceOrigin": "libunistring",
+      "aportsCommit": "30d9f19340385b2cd16eaf1cc6a9a8b30c4afe1c",
+      "upstreamUrl": "https://www.gnu.org/software/libunistring/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libunistring.so.5=5.2.1"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libuuid",
+      "version": "2.42.3-r1",
+      "downloadKey": "codec-build-libuuid",
+      "sha256": "9ce20c7ffe2ccaa7c321893c10564abbca13c3f2edb82f60a35f1f68e004f86c",
+      "sizeBytes": 15385,
+      "installedSizeBytes": 67544,
+      "license": "BSD-3-Clause",
+      "sourceOrigin": "util-linux",
+      "aportsCommit": "d98c55af59055e6ca60fbe36e171546918709965",
+      "upstreamUrl": "https://git.kernel.org/cgit/utils/util-linux/util-linux.git",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libuuid.so.1=1.3.0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libxml2",
+      "version": "2.13.9-r2",
+      "downloadKey": "codec-build-libxml2",
+      "sha256": "0a860a26ebdfea491498386fe682130f4c5565e46ee8e0a2281256db2ef1be27",
+      "sizeBytes": 496747,
+      "installedSizeBytes": 1182624,
+      "license": "MIT",
+      "sourceOrigin": "libxml2",
+      "aportsCommit": "f1bd5b6767a0e7fdda380c95138a1c938eb6e102",
+      "upstreamUrl": "https://gitlab.gnome.org/GNOME/libxml2",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:liblzma.so.5",
+        "so:libz.so.1"
+      ],
+      "provides": [
+        "so:libxml2.so.2=2.13.9"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libxml2-utils",
+      "version": "2.13.9-r2",
+      "downloadKey": "codec-build-libxml2-utils",
+      "sha256": "140c758e3be95ce72b344ca66c7b16a21e4e3f32a6a0ee78557f58554c352082",
+      "sizeBytes": 29683,
+      "installedSizeBytes": 135728,
+      "license": "MIT",
+      "sourceOrigin": "libxml2",
+      "aportsCommit": "f1bd5b6767a0e7fdda380c95138a1c938eb6e102",
+      "upstreamUrl": "https://gitlab.gnome.org/GNOME/libxml2",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:libxml2.so.2"
+      ],
+      "provides": [
+        "cmd:xmlcatalog=2.13.9-r2",
+        "cmd:xmllint=2.13.9-r2"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "libxslt",
+      "version": "1.1.43-r4",
+      "downloadKey": "codec-build-libxslt",
+      "sha256": "1c67e25df3dd6b69d4dd1782428b98751d80ba4223167f4caac044d4d91d0666",
+      "sizeBytes": 131239,
+      "installedSizeBytes": 464648,
+      "license": "X11",
+      "sourceOrigin": "libxslt",
+      "aportsCommit": "e85ecba78539486bd0a685963ca5da3e1652fbd0",
+      "upstreamUrl": "http://xmlsoft.org/XSLT/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:libxml2.so.2"
+      ],
+      "provides": [
+        "cmd:xsltproc=1.1.43-r4",
+        "so:libexslt.so.0=0.8.24",
+        "so:libxslt.so.1=1.1.43"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "linux-headers",
+      "version": "7.0.0-r1",
+      "downloadKey": "codec-build-linux-headers",
+      "sha256": "d61656e81116040ebac0bc8d9046a3ba97f01a00ee085809103576e8a437468f",
+      "sizeBytes": 1964140,
+      "installedSizeBytes": 7134861,
+      "license": "GPL-2.0-only",
+      "sourceOrigin": "linux-headers",
+      "aportsCommit": "4568bf119fd5a67f5d895a2a68a1dcf8b7bfa606",
+      "upstreamUrl": "https://kernel.org/",
+      "dependencies": [],
+      "provides": [],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "linux-pam",
+      "version": "1.7.1-r2",
+      "downloadKey": "codec-build-linux-pam",
+      "sha256": "bc60d95c8a0fd16fbd72d41bc1e40510b9bd085f088a63ca1ad28778b0712efc",
+      "sizeBytes": 274955,
+      "installedSizeBytes": 3260775,
+      "license": "BSD-3-Clause",
+      "sourceOrigin": "linux-pam",
+      "aportsCommit": "b30bac94ff81d73cc5038f795cf60d82c2497a93",
+      "upstreamUrl": "https://www.kernel.org/pub/linux/libs/pam",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:libutmps.so.0.1"
+      ],
+      "provides": [
+        "cmd:faillock=1.7.1-r2",
+        "cmd:mkhomedir_helper=1.7.1-r2",
+        "cmd:pam_namespace_helper=1.7.1-r2",
+        "cmd:pam_timestamp_check=1.7.1-r2",
+        "cmd:pwhistory_helper=1.7.1-r2",
+        "cmd:unix_chkpwd=1.7.1-r2",
+        "so:libpam.so.0=0.85.1",
+        "so:libpam_misc.so.0=0.82.1",
+        "so:libpamc.so.0=0.82.1"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "make",
+      "version": "4.4.1-r4",
+      "downloadKey": "codec-build-make",
+      "sha256": "0a2c6c3fa0d90b652bbaeac362d1bfe54b75aae57631a6b448826f8b51c85170",
+      "sizeBytes": 117543,
+      "installedSizeBytes": 272689,
+      "license": "GPL-3.0-or-later",
+      "sourceOrigin": "make",
+      "aportsCommit": "9368161bd37f74fb11747ba79197f8480aaca7dc",
+      "upstreamUrl": "https://www.gnu.org/software/make",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "cmd:gmake=4.4.1-r4",
+        "cmd:make=4.4.1-r4"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "meson",
+      "version": "1.11.1-r0",
+      "downloadKey": "codec-build-meson",
+      "sha256": "71ffc0a759c275125e25671f60bcb9df4177dd1102a441f611aa36d2a67b8a74",
+      "sizeBytes": 946563,
+      "installedSizeBytes": 4173824,
+      "license": "Apache-2.0",
+      "sourceOrigin": "meson",
+      "aportsCommit": "cf1b0ed30f6e9324cac7ba2a13f890bf9c78ca3c",
+      "upstreamUrl": "https://mesonbuild.com",
+      "dependencies": [
+        "samurai",
+        "python3~3.14"
+      ],
+      "provides": [
+        "cmd:meson=1.11.1-r0",
+        "py3.14:mesonbuild=1.11.1-r0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "noarch",
+      "repository": "main"
+    },
+    {
+      "name": "mpc1",
+      "version": "1.3.1-r1",
+      "downloadKey": "codec-build-mpc1",
+      "sha256": "c4e03923cf1b958ba0d3665196f521a00fb091132e79c39493298019fb59ae60",
+      "sizeBytes": 53688,
+      "installedSizeBytes": 132776,
+      "license": "LGPL-3.0-or-later",
+      "sourceOrigin": "mpc1",
+      "aportsCommit": "84a227baf001b6e0208e3352b294e4d7a40e93de",
+      "upstreamUrl": "http://www.multiprecision.org/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:libgmp.so.10",
+        "so:libmpfr.so.6"
+      ],
+      "provides": [
+        "so:libmpc.so.3=3.3.1"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "mpdecimal",
+      "version": "4.0.1-r0",
+      "downloadKey": "codec-build-mpdecimal",
+      "sha256": "358959600f99f58deee30ca9089c7f6f0f1bd73cc0021e321a7dbf6f735935c6",
+      "sizeBytes": 81031,
+      "installedSizeBytes": 266272,
+      "license": "BSD-2-Clause",
+      "sourceOrigin": "mpdecimal",
+      "aportsCommit": "c0519b85456e9b838e3142e1d233aab0b433b476",
+      "upstreamUrl": "https://www.bytereef.org/mpdecimal/index.html",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:libgcc_s.so.1",
+        "so:libstdc++.so.6"
+      ],
+      "provides": [
+        "so:libmpdec++.so.4=4.0.1",
+        "so:libmpdec.so.4=4.0.1"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "mpfr4",
+      "version": "4.2.2-r0",
+      "downloadKey": "codec-build-mpfr4",
+      "sha256": "81cb276c1e050138fed90c8f1ef584cf5bfce26739733753fce138fc0a092b35",
+      "sizeBytes": 294772,
+      "installedSizeBytes": 627424,
+      "license": "LGPL-3.0-or-later",
+      "sourceOrigin": "mpfr4",
+      "aportsCommit": "011955c827a3e7545ea82225e1f20c6a06617c7a",
+      "upstreamUrl": "https://www.mpfr.org/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:libgmp.so.10"
+      ],
+      "provides": [
+        "mpfr=4.2.2-r0",
+        "so:libmpfr.so.6=6.2.2"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "musl-dev",
+      "version": "1.2.6-r3",
+      "downloadKey": "codec-build-musl-dev",
+      "sha256": "45afe0a9f78de3402b6b5d11f5153ed955bf59d59b45344d9c3fed9f4bbf2f66",
+      "sizeBytes": 2540248,
+      "installedSizeBytes": 11683508,
+      "license": "MIT",
+      "sourceOrigin": "musl",
+      "aportsCommit": "8f79d39391b46d6dbf1800fb68b8212a21d5ee2e",
+      "upstreamUrl": "https://musl.libc.org/",
+      "dependencies": [
+        "musl=1.2.6-r3"
+      ],
+      "provides": [
+        "libc-dev=1.2.6-r3"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "ncurses-dev",
+      "version": "6.6_p20260516-r0",
+      "downloadKey": "codec-build-ncurses-dev",
+      "sha256": "922779f40033893f813eb887ab58c59516b8e51a9ec0576758ade65167952af4",
+      "sizeBytes": 72006,
+      "installedSizeBytes": 349702,
+      "license": "X11",
+      "sourceOrigin": "ncurses",
+      "aportsCommit": "2cee8a7328d061418336ad327b512d96bcd7bc5e",
+      "upstreamUrl": "https://invisible-island.net/ncurses/",
+      "dependencies": [
+        "libformw=6.6_p20260516-r0",
+        "libmenuw=6.6_p20260516-r0",
+        "libncurses++=6.6_p20260516-r0",
+        "libncursesw=6.6_p20260516-r0",
+        "libpanelw=6.6_p20260516-r0",
+        "pkgconfig"
+      ],
+      "provides": [
+        "cmd:ncursesw6-config=6.6_p20260516-r0",
+        "pc:curses=6.6.20260516",
+        "pc:form=6.6.20260516",
+        "pc:formw=6.6.20260516",
+        "pc:menu=6.6.20260516",
+        "pc:menuw=6.6.20260516",
+        "pc:ncurses++=6.6.20260516",
+        "pc:ncurses++w=6.6.20260516",
+        "pc:ncurses=6.6.20260516",
+        "pc:ncursesw=6.6.20260516",
+        "pc:panel=6.6.20260516",
+        "pc:panelw=6.6.20260516",
+        "pc:tic=6.6.20260516",
+        "pc:tinfo=6.6.20260516"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "ncurses-terminfo-base",
+      "version": "6.6_p20260516-r0",
+      "downloadKey": "codec-build-ncurses-terminfo-base",
+      "sha256": "e0c546b9461bdce206a90bc720cb69aa4628b5a5b8d908c3e5084e00f28f6a9d",
+      "sizeBytes": 22150,
+      "installedSizeBytes": 103017,
+      "license": "X11",
+      "sourceOrigin": "ncurses",
+      "aportsCommit": "2cee8a7328d061418336ad327b512d96bcd7bc5e",
+      "upstreamUrl": "https://invisible-island.net/ncurses/",
+      "dependencies": [],
+      "provides": [],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "noarch",
+      "repository": "main"
+    },
+    {
+      "name": "pcre2",
+      "version": "10.49-r0",
+      "downloadKey": "codec-build-pcre2",
+      "sha256": "03efd0b29f7f38deb10a9ccb54f56e19683eb7ac27eb1f347e6dbd2e59ea000d",
+      "sizeBytes": 320291,
+      "installedSizeBytes": 855784,
+      "license": "BSD-3-Clause",
+      "sourceOrigin": "pcre2",
+      "aportsCommit": "3d497cbb3217749c4fb85f90f3b6f7908b0c1f95",
+      "upstreamUrl": "https://pcre.org/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libpcre2-8.so.0=0.16.1",
+        "so:libpcre2-posix.so.3=3.0.9"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "pcre2-dev",
+      "version": "10.49-r0",
+      "downloadKey": "codec-build-pcre2-dev",
+      "sha256": "5af8ecfec3059ddb2b2727d08484335c45422b5993fc31481bafee04683e9495",
+      "sizeBytes": 17153,
+      "installedSizeBytes": 63232,
+      "license": "BSD-3-Clause",
+      "sourceOrigin": "pcre2",
+      "aportsCommit": "3d497cbb3217749c4fb85f90f3b6f7908b0c1f95",
+      "upstreamUrl": "https://pcre.org/",
+      "dependencies": [
+        "libedit-dev",
+        "zlib-dev",
+        "libpcre2-16=10.49-r0",
+        "libpcre2-32=10.49-r0",
+        "pcre2=10.49-r0",
+        "pkgconfig"
+      ],
+      "provides": [
+        "cmd:pcre2-config=10.49-r0",
+        "pc:libpcre2-16=10.49",
+        "pc:libpcre2-32=10.49",
+        "pc:libpcre2-8=10.49",
+        "pc:libpcre2-posix=10.49"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "pkgconf",
+      "version": "2.5.1-r0",
+      "downloadKey": "codec-build-pkgconf",
+      "sha256": "6b716719ac9457bd35c8ea5373da1dc33ae86863bbb0f411aed0cb5e71b9cf2d",
+      "sizeBytes": 56279,
+      "installedSizeBytes": 218707,
+      "license": "ISC",
+      "sourceOrigin": "pkgconf",
+      "aportsCommit": "c6f80aa8e59c70d19e2d556c526f151656058536",
+      "upstreamUrl": "https://gitea.treehouse.systems/ariadne/pkgconf",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "pkgconfig=1",
+        "cmd:bomtool=2.5.1-r0",
+        "cmd:pkg-config=2.5.1-r0",
+        "cmd:pkgconf=2.5.1-r0",
+        "so:libpkgconf.so.7=7.0.0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "py3-packaging",
+      "version": "26.2-r0",
+      "downloadKey": "codec-build-py3-packaging",
+      "sha256": "9638da0a102f1de1f02d54a208068e64d3301b503b6c083c3839755b23f0ea0a",
+      "sizeBytes": 94529,
+      "installedSizeBytes": 381974,
+      "license": "Apache-2.0 AND BSD-2-Clause",
+      "sourceOrigin": "py3-packaging",
+      "aportsCommit": "8752a7b58577daa7f37849591e675172eadb4055",
+      "upstreamUrl": "https://pypi.org/project/packaging",
+      "dependencies": [
+        "python3",
+        "py3-parsing",
+        "python3~3.14"
+      ],
+      "provides": [
+        "py-packaging=26.2-r0",
+        "py3.14:packaging=26.2-r0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "noarch",
+      "repository": "main"
+    },
+    {
+      "name": "py3-parsing",
+      "version": "3.3.2-r1",
+      "downloadKey": "codec-build-py3-parsing",
+      "sha256": "5231d541e3142527f94cd716da27384270d030907bb5ea74e4cbf315906d7f46",
+      "sizeBytes": 117446,
+      "installedSizeBytes": 464007,
+      "license": "MIT",
+      "sourceOrigin": "py3-parsing",
+      "aportsCommit": "91175ae0a18da54ff1f4fbe77636c8d4ca7ec024",
+      "upstreamUrl": "https://github.com/pyparsing/pyparsing",
+      "dependencies": [
+        "python3",
+        "python3~3.14"
+      ],
+      "provides": [
+        "py-parsing=3.3.2-r1",
+        "py3.14:pyparsing=3.3.2-r1"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "noarch",
+      "repository": "main"
+    },
+    {
+      "name": "python3",
+      "version": "3.14.10-r1",
+      "downloadKey": "codec-build-python3",
+      "sha256": "980b5108e756f1aae298c041ef6bb229b655b7a5393b8c001f6bac8a03825429",
+      "sizeBytes": 8332404,
+      "installedSizeBytes": 26165039,
+      "license": "PSF-2.0",
+      "sourceOrigin": "python3",
+      "aportsCommit": "831cfeb7301d5010c027905e42958312698f4e4a",
+      "upstreamUrl": "https://www.python.org/",
+      "dependencies": [
+        "libssl3>=3.3.0",
+        "libexpat>=2.9.0",
+        "so:libbz2.so.1",
+        "so:libc.musl-aarch64.so.1",
+        "so:libcrypto.so.3",
+        "so:libexpat.so.1",
+        "so:libffi.so.8",
+        "so:libgdbm_compat.so.4",
+        "so:liblzma.so.5",
+        "so:libmpdec.so.4",
+        "so:libncursesw.so.6",
+        "so:libpanelw.so.6",
+        "so:libreadline.so.8",
+        "so:libsqlite3.so.0",
+        "so:libssl.so.3",
+        "so:libz.so.1"
+      ],
+      "provides": [
+        "pythonispython3=3.14.10-r1",
+        "cmd:pydoc3.14=3.14.10-r1",
+        "cmd:pydoc3=3.14.10-r1",
+        "cmd:python3.14=3.14.10-r1",
+        "cmd:python3=3.14.10-r1",
+        "cmd:python=3.14.10-r1",
+        "so:libpython3.14.so.1.0=1.0",
+        "so:libpython3.so=0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "readline",
+      "version": "8.3.3-r1",
+      "downloadKey": "codec-build-readline",
+      "sha256": "9f0ae0923c02b0d6aba62e9173542b65396ba3f0efefcbf087ea32f1120e7b34",
+      "sizeBytes": 129706,
+      "installedSizeBytes": 352692,
+      "license": "GPL-3.0-or-later",
+      "sourceOrigin": "readline",
+      "aportsCommit": "a854c03acdac188901fb012f7acbee70a36e8041",
+      "upstreamUrl": "https://tiswww.cwru.edu/php/chet/readline/rltop.html",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:libncursesw.so.6"
+      ],
+      "provides": [
+        "so:libreadline.so.8=8.3"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "samurai",
+      "version": "1.2-r8",
+      "downloadKey": "codec-build-samurai",
+      "sha256": "37776aa84fe45e5f8430df347050e1e11b750e892a88b9ee24d479776f0594d8",
+      "sizeBytes": 29621,
+      "installedSizeBytes": 67488,
+      "license": "Apache-2.0",
+      "sourceOrigin": "samurai",
+      "aportsCommit": "d7d0e7c6dea902bafc0462da51e5e5a6c0b685d5",
+      "upstreamUrl": "https://github.com/michaelforney/samurai",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "ninja",
+        "cmd:ninja=1.2-r8",
+        "cmd:samu=1.2-r8"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "shared-mime-info",
+      "version": "2.4-r7",
+      "downloadKey": "codec-build-shared-mime-info",
+      "sha256": "d22666ee4ab5d0384040e0da3a1564bb9404cea20480e178bb2aea78acd7f87a",
+      "sizeBytes": 371215,
+      "installedSizeBytes": 2557518,
+      "license": "GPL-2.0-or-later",
+      "sourceOrigin": "shared-mime-info",
+      "aportsCommit": "74df86bcbb3a36bdffe8a4738fadbd44ede405bc",
+      "upstreamUrl": "https://www.freedesktop.org/Software/shared-mime-info",
+      "dependencies": [
+        "/bin/sh",
+        "pkgconfig",
+        "so:libc.musl-aarch64.so.1",
+        "so:libgcc_s.so.1",
+        "so:libglib-2.0.so.0",
+        "so:libstdc++.so.6",
+        "so:libxml2.so.2"
+      ],
+      "provides": [
+        "cmd:update-mime-database=2.4-r7",
+        "pc:shared-mime-info=2.4"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [
+        {
+          "name": ".post-deinstall",
+          "sha256": "8e062939a502b28266aff66251592116c6def38d5c435dc113f477338f3539f1",
+          "text": "#!/bin/sh\n\ncd /usr/share/mime &&\nrm -rf globs globs2 icons treemagic generic-icons types magic XMLnamespaces \\\n\tsubclasses aliases mime.cache version \\\n\tapplication audio chemical font image inode message model multipart text \\\n\tvideo x-content x-epoc\nrmdir /usr/share/mime 2>/dev/null\n\nexit 0\n"
+        },
+        {
+          "name": ".trigger",
+          "sha256": "b68b78c1a662082c7c321649979c3884cbc8d89c7bf07e2dbc723c3d33bce723",
+          "text": "#!/bin/sh\n\nfor i in \"$@\"; do\n\tif [ -d \"$i\" ]; then\n\t\t# redirect stdin to workaround problem with\n\t\t# apk add --overlay-from-stdin\n\t\t# https://gitlab.alpinelinux.org/alpine/aports/-/issues/16692\n\t\tPKGSYSTEM_ENABLE_FSYNC=0 \\\n\t\tupdate-mime-database \"$i\" < /dev/null > /dev/null 2>&1\n\tfi\ndone\n"
+        }
+      ],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "skalibs-libs",
+      "version": "2.15.0.0-r0",
+      "downloadKey": "codec-build-skalibs-libs",
+      "sha256": "7ea58fb512067402b519079fcce8a48381eb2b9c690341c4a017aa15f719c198",
+      "sizeBytes": 91460,
+      "installedSizeBytes": 265384,
+      "license": "ISC",
+      "sourceOrigin": "skalibs",
+      "aportsCommit": "f148233038fa9b35932a7996df29f110b32c2160",
+      "upstreamUrl": "https://skarnet.org/software/skalibs/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libskarnet.so.2.15=2.15.0.0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "sqlite",
+      "version": "3.53.4-r0",
+      "downloadKey": "codec-build-sqlite",
+      "sha256": "753f39e446fa0208a58323147e568326c8426454dc4f7ccc4b375d7e6dd19b3b",
+      "sizeBytes": 1062424,
+      "installedSizeBytes": 1987904,
+      "license": "blessing",
+      "sourceOrigin": "sqlite",
+      "aportsCommit": "a9c3ba8b9129ec0f294d0a9bf538c2f1632bb016",
+      "upstreamUrl": "https://www.sqlite.org/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:libreadline.so.8"
+      ],
+      "provides": [
+        "cmd:sqlite3=3.53.4-r0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "sqlite-dev",
+      "version": "3.53.4-r0",
+      "downloadKey": "codec-build-sqlite-dev",
+      "sha256": "1f407625d425902a7230a62edb80aba78470277a55a4edd5dac3d4e087e15495",
+      "sizeBytes": 186436,
+      "installedSizeBytes": 730274,
+      "license": "blessing",
+      "sourceOrigin": "sqlite",
+      "aportsCommit": "a9c3ba8b9129ec0f294d0a9bf538c2f1632bb016",
+      "upstreamUrl": "https://www.sqlite.org/",
+      "dependencies": [
+        "sqlite=3.53.4-r0",
+        "sqlite-libs=3.53.4-r0",
+        "pkgconfig"
+      ],
+      "provides": [
+        "pc:sqlite3=3.53.4"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "sqlite-libs",
+      "version": "3.53.4-r0",
+      "downloadKey": "codec-build-sqlite-libs",
+      "sha256": "b39d8d73c1208838a436f2d481ba605b52a095f8d6ff781556eafc81cd1a13e9",
+      "sizeBytes": 852532,
+      "installedSizeBytes": 1592000,
+      "license": "blessing",
+      "sourceOrigin": "sqlite",
+      "aportsCommit": "a9c3ba8b9129ec0f294d0a9bf538c2f1632bb016",
+      "upstreamUrl": "https://www.sqlite.org/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libsqlite3.so.0=3.53.4"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "util-linux-dev",
+      "version": "2.42.3-r1",
+      "downloadKey": "codec-build-util-linux-dev",
+      "sha256": "3ef4663393d8822b9373fd149d1ea41d1fe672c28ea177bd46960d979d477d73",
+      "sizeBytes": 28189,
+      "installedSizeBytes": 121504,
+      "license": "GPL-3.0-or-later AND GPL-2.0-or-later AND GPL-2.0-only AND GPL-1.0-only AND LGPL-2.1-or-later AND BSD-1-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND MIT AND Public-Domain",
+      "sourceOrigin": "util-linux",
+      "aportsCommit": "d98c55af59055e6ca60fbe36e171546918709965",
+      "upstreamUrl": "https://git.kernel.org/cgit/utils/util-linux/util-linux.git",
+      "dependencies": [
+        "libblkid=2.42.3-r1",
+        "libfdisk=2.42.3-r1",
+        "liblastlog2=2.42.3-r1",
+        "libmount=2.42.3-r1",
+        "libsmartcols=2.42.3-r1",
+        "libuuid=2.42.3-r1",
+        "pc:sqlite3",
+        "pkgconfig"
+      ],
+      "provides": [
+        "pc:blkid=2.42.3",
+        "pc:fdisk=2.42.3",
+        "pc:lastlog2=2.42.3",
+        "pc:mount=2.42.3",
+        "pc:smartcols=2.42.3",
+        "pc:uuid=2.42.3"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "utmps-libs",
+      "version": "0.1.3.3-r0",
+      "downloadKey": "codec-build-utmps-libs",
+      "sha256": "d6487b6f260728969191314f6706d4cc62527370e757ec3ac6f7fee8ed38cf88",
+      "sizeBytes": 5758,
+      "installedSizeBytes": 67312,
+      "license": "ISC",
+      "sourceOrigin": "utmps",
+      "aportsCommit": "900a4ecef77ae677eab8243b99f2c40cbf8ea35b",
+      "upstreamUrl": "https://skarnet.org/software/utmps/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:libskarnet.so.2.15"
+      ],
+      "provides": [
+        "so:libutmps.so.0.1=0.1.3.3"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "xz",
+      "version": "5.8.4-r0",
+      "downloadKey": "codec-build-xz",
+      "sha256": "05e4e19bc47caf6d2dcf22c493ae5a44a6d7c395b4cedead2328698e52dc6bad",
+      "sizeBytes": 72092,
+      "installedSizeBytes": 358625,
+      "license": "GPL-2.0-or-later AND 0BSD AND Public-Domain AND LGPL-2.1-or-later",
+      "sourceOrigin": "xz",
+      "aportsCommit": "0c088d609f9fe69eedd6b4c7f4b99cdad847c20a",
+      "upstreamUrl": "https://tukaani.org/xz/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1",
+        "so:liblzma.so.5"
+      ],
+      "provides": [
+        "cmd:lzcat=5.8.4-r0",
+        "cmd:lzcmp=5.8.4-r0",
+        "cmd:lzdiff=5.8.4-r0",
+        "cmd:lzegrep=5.8.4-r0",
+        "cmd:lzfgrep=5.8.4-r0",
+        "cmd:lzgrep=5.8.4-r0",
+        "cmd:lzless=5.8.4-r0",
+        "cmd:lzma=5.8.4-r0",
+        "cmd:lzmadec=5.8.4-r0",
+        "cmd:lzmainfo=5.8.4-r0",
+        "cmd:lzmore=5.8.4-r0",
+        "cmd:unlzma=5.8.4-r0",
+        "cmd:unxz=5.8.4-r0",
+        "cmd:xz=5.8.4-r0",
+        "cmd:xzcat=5.8.4-r0",
+        "cmd:xzcmp=5.8.4-r0",
+        "cmd:xzdec=5.8.4-r0",
+        "cmd:xzdiff=5.8.4-r0",
+        "cmd:xzegrep=5.8.4-r0",
+        "cmd:xzfgrep=5.8.4-r0",
+        "cmd:xzgrep=5.8.4-r0",
+        "cmd:xzless=5.8.4-r0",
+        "cmd:xzmore=5.8.4-r0"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "xz-libs",
+      "version": "5.8.4-r0",
+      "downloadKey": "codec-build-xz-libs",
+      "sha256": "9be375832e747afe14f98e400e8b55d8f6fde25e41663090c81600628daab093",
+      "sizeBytes": 119423,
+      "installedSizeBytes": 263928,
+      "license": "GPL-2.0-or-later AND 0BSD AND Public-Domain AND LGPL-2.1-or-later",
+      "sourceOrigin": "xz",
+      "aportsCommit": "0c088d609f9fe69eedd6b4c7f4b99cdad847c20a",
+      "upstreamUrl": "https://tukaani.org/xz/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:liblzma.so.5=5.8.4"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "zlib",
+      "version": "1.4-r0",
+      "downloadKey": "codec-build-zlib",
+      "sha256": "d3e30d012a3445222b0b4a28f1d4d97ce67387f8b48561921111696da174f0de",
+      "sizeBytes": 55056,
+      "installedSizeBytes": 133008,
+      "license": "Zlib",
+      "sourceOrigin": "zlib",
+      "aportsCommit": "bdf501c870a92a05c097857401f69c48c4810384",
+      "upstreamUrl": "https://zlib.net/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libz.so.1=1.4"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "zlib-dev",
+      "version": "1.4-r0",
+      "downloadKey": "codec-build-zlib-dev",
+      "sha256": "a74c9e3ca4e52700066c6cfee6a965dc1bc2e5e7896f987625afd9fdb121ada3",
+      "sizeBytes": 34770,
+      "installedSizeBytes": 122415,
+      "license": "Zlib",
+      "sourceOrigin": "zlib",
+      "aportsCommit": "bdf501c870a92a05c097857401f69c48c4810384",
+      "upstreamUrl": "https://zlib.net/",
+      "dependencies": [
+        "zlib=1.4-r0",
+        "pkgconfig"
+      ],
+      "provides": [
+        "pc:zlib=1.4"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    },
+    {
+      "name": "zstd-libs",
+      "version": "1.5.7-r2",
+      "downloadKey": "codec-build-zstd-libs",
+      "sha256": "2bb5136c89f5b0bbe1554c8915a3b520d5aa63ae2a51d4d821eb81698db5a818",
+      "sizeBytes": 365383,
+      "installedSizeBytes": 657240,
+      "license": "BSD-3-Clause OR GPL-2.0-or-later",
+      "sourceOrigin": "zstd",
+      "aportsCommit": "3c6e2ee2b16f403d53eab39c4426eb61f003c322",
+      "upstreamUrl": "https://facebook.github.io/zstd/",
+      "dependencies": [
+        "so:libc.musl-aarch64.so.1"
+      ],
+      "provides": [
+        "so:libzstd.so.1=1.5.7"
+      ],
+      "signatureKey": "alpine-devel@lists.alpinelinux.org-616ae350.rsa.pub",
+      "installScripts": [],
+      "architecture": "aarch64",
+      "repository": "main"
+    }
+  ],
+  "decodingVerification": [
+    {
+      "fixture": "trusted.png",
+      "width": 2,
+      "height": 2,
+      "decoded": true
+    },
+    {
+      "fixture": "trusted.xpm",
+      "width": 2,
+      "height": 2,
+      "decoded": true
+    }
+  ],
+  "needed": "\nDynamic section at offset 0x2f4b8 contains 34 entries:\n  Tag        Type                         Name/Value\n 0x0000000000000001 (NEEDED)             Shared library: [libglib-2.0.so.0]\n 0x0000000000000001 (NEEDED)             Shared library: [libintl.so.8]\n 0x0000000000000001 (NEEDED)             Shared library: [libgobject-2.0.so.0]\n 0x0000000000000001 (NEEDED)             Shared library: [libgmodule-2.0.so.0]\n 0x0000000000000001 (NEEDED)             Shared library: [libgio-2.0.so.0]\n 0x0000000000000001 (NEEDED)             Shared library: [libpng16.so.16]\n 0x0000000000000001 (NEEDED)             Shared library: [libc.musl-aarch64.so.1]\n 0x000000000000000e (SONAME)             Library soname: [libgdk_pixbuf-2.0.so.0]\n 0x0000000000000010 (SYMBOLIC)           0x0\n 0x000000000000000c (INIT)               0x6f98\n 0x000000000000000d (FINI)               0x1e1ec\n 0x0000000000000019 (INIT_ARRAY)         0x3f220\n 0x000000000000001b (INIT_ARRAYSZ)       8 (bytes)\n 0x000000000000001a (FINI_ARRAY)         0x3f228\n 0x000000000000001c (FINI_ARRAYSZ)       8 (bytes)\n 0x000000006ffffef5 (GNU_HASH)           0x1f0\n 0x0000000000000005 (STRTAB)             0x2da0\n 0x0000000000000006 (SYMTAB)             0x8b0\n 0x000000000000000a (STRSZ)              8237 (bytes)\n 0x000000000000000b (SYMENT)             24 (bytes)\n 0x0000000000000003 (PLTGOT)             0x3f718\n 0x0000000000000002 (PLTRELSZ)           5976 (bytes)\n 0x0000000000000014 (PLTREL)             RELA\n 0x0000000000000017 (JMPREL)             0x5840\n 0x0000000000000007 (RELA)               0x5108\n 0x0000000000000008 (RELASZ)             1848 (bytes)\n 0x0000000000000009 (RELAENT)            24 (bytes)\n 0x000000000000001e (FLAGS)              SYMBOLIC BIND_NOW\n 0x000000006ffffffb (FLAGS_1)            Flags: NOW\n 0x000000006ffffffe (VERNEED)            0x50e8\n 0x000000006fffffff (VERNEEDNUM)         1\n 0x000000006ffffff0 (VERSYM)             0x4dce\n 0x000000006ffffff9 (RELACOUNT)          59\n 0x0000000000000000 (NULL)               0x0\n"
+}

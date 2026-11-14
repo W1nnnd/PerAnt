@@ -1,0 +1,27 @@
+# SPDX-License-Identifier: GPL-3.0-only
+name: perant_platform
+description: Native capability diagnostics and runtime channel contracts for PerAnt.
+version: 0.1.0
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: '>=3.6.0 <4.0.0'
+  flutter: '>=3.38.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: dev.perant.platform
+        pluginClass: PerantPlatformPlugin
+      ios:
+        pluginClass: PerantPlatformPlugin

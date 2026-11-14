@@ -1,0 +1,1842 @@
+{
+  "description": "Retained reference license terms from the SPDX license-list-data project at a fixed commit. Actual package sources/notices are identified in desktop-source-recipes.json; complete corresponding source and copyright notice distribution remains required before public binary publication.",
+  "spdxSourceCommit": "31846481de7ea17d92f2f46fad76abe58b2e9bb0",
+  "licenseExpressions": [
+    "AFL-2.1 OR GPL-2.0-or-later",
+    "Apache-2.0",
+    "Apache-2.0 OR CC0-1.0",
+    "Apache-2.0 OR MIT",
+    "Artistic-1.0-Perl OR GPL-1.0-or-later",
+    "BSD-2-Clause",
+    "BSD-2-Clause AND GPL-2.0-or-later",
+    "BSD-2-Clause AND custom",
+    "BSD-3-Clause",
+    "BSD-3-Clause AND BSD-2-Clause AND ISC AND Beerware AND Public Domain",
+    "BSD-3-Clause AND GPL-2.0-or-later",
+    "BSD-3-Clause AND IJG AND Zlib",
+    "BSD-3-Clause OR GPL-2.0-only",
+    "BSD-3-Clause OR GPL-2.0-or-later",
+    "BSD-3-Clause-Attribution AND BSD-4-Clause",
+    "BSD-3-Clause-Clear",
+    "BSD-4-Clause",
+    "BSL-1.0",
+    "Bitstream-Vera",
+    "CC0-1.0",
+    "FDK-AAC",
+    "FTL OR GPL-2.0-or-later",
+    "GPL-2.0-only",
+    "GPL-2.0-or-later",
+    "GPL-2.0-or-later AND LGPL-2.0-or-later",
+    "GPL-2.0-or-later AND LGPL-2.1-or-later",
+    "GPL-2.0-or-later LGPL-2.0-only",
+    "GPL-2.0-or-later LGPL-2.0-or-later",
+    "GPL-2.0-or-later LGPL-2.0-or-later MPL-1.1",
+    "GPL-2.0-or-later OR LGPL-2.1-or-later OR MPL-1.1",
+    "GPL-2.0-or-later OR LGPL-3.0-or-later",
+    "GPL-2.0-or-later OR XFree86-1.1",
+    "GPL-3.0-or-later",
+    "GPL-3.0-or-later AND ( GPL-2.0-or-later OR LGPL-3.0-or-later )",
+    "GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later",
+    "ICU",
+    "ISC",
+    "LGPL-2.0-or-later",
+    "LGPL-2.0-or-later AND GPL-2.0-or-later",
+    "LGPL-2.0-or-later AND GPL-2.0-or-later AND MIT",
+    "LGPL-2.0-or-later OR Apache-2.0",
+    "LGPL-2.1-only",
+    "LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only AND Qt-GPL-exception-1.0",
+    "LGPL-2.1-or-later",
+    "LGPL-2.1-or-later AND GPL-2.0-or-later",
+    "LGPL-2.1-or-later AND GPL-3.0-or-later",
+    "LGPL-2.1-or-later OR MPL-1.1",
+    "LGPL-3.0-only AND GPL-2.0-only AND GPL-3.0-only",
+    "LGPL-3.0-or-later",
+    "LGPL-3.0-or-later AND MIT",
+    "LGPL-3.0-or-later OR CC-BY-SA-3.0",
+    "LGPL-3.0-or-later OR GPL-2.0-or-later",
+    "LGPL-3.0-or-later OR MPL-2.0",
+    "Libpng",
+    "MIT",
+    "MIT AND MIT-open-group AND HPND AND HPND-sell-variant AND LicenseRef-digital-equipment-corporation",
+    "MIT AND SGI-B-2.0 AND BSL-1.0",
+    "MIT AND X11",
+    "MPL-1.1 GPL-2.0-or-later LGPL-2.0-or-later",
+    "MPL-2.0",
+    "MPL-2.0 AND MIT",
+    "MPL-2.0 LGPL-2.1-or-later",
+    "MPL-2.0 OR LGPL-2.0-or-later",
+    "OLDAP-2.8",
+    "Public Domain",
+    "Public-Domain",
+    "TU-Berlin-2.0",
+    "X11",
+    "Zlib",
+    "curl",
+    "custom",
+    "libtiff"
+  ],
+  "files": [
+    {
+      "license": "AFL-2.1",
+      "file": "Desktop-SPDX-AFL-2.1.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/AFL-2.1.txt",
+      "sha256": "fbedf33db9a433cf87c6f0974f7e488599ee0c9446ed543235c99785ce7d22e6",
+      "purpose": "Reference terms only; actual upstream copyright notices must also be retained."
+    },
+    {
+      "license": "Apache-2.0",
+      "file": "Desktop-SPDX-Apache-2.0.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/Apache-2.0.txt",
+      "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "Artistic-1.0-Perl",
+      "file": "Desktop-SPDX-Artistic-1.0-Perl.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/Artistic-1.0-Perl.txt",
+      "sha256": "9e18ef4d50faba562e3efa37d8961d6e9956d1c103bfc4fc1caeb07e8effe885",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "BSD-2-Clause",
+      "file": "Desktop-SPDX-BSD-2-Clause.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/BSD-2-Clause.txt",
+      "sha256": "f32fb3b417a194167cfad068223fc975ba96c5960513a10f66a3c28720aec1df",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "BSD-3-Clause",
+      "file": "Desktop-SPDX-BSD-3-Clause.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/BSD-3-Clause.txt",
+      "sha256": "5a93d5831e1297ab10fe643e1a631e83be392896da14ee2951285a79012df69d",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "BSD-3-Clause-Attribution",
+      "file": "Desktop-SPDX-BSD-3-Clause-Attribution.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/BSD-3-Clause-Attribution.txt",
+      "sha256": "088b09c3bff4d190ca86eb8742ca494af321e3abd309c1c9ad9ccdd86dc5b3ef",
+      "purpose": "Reference terms only; actual upstream copyright notices must also be retained."
+    },
+    {
+      "license": "BSD-3-Clause-Clear",
+      "file": "Desktop-SPDX-BSD-3-Clause-Clear.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/BSD-3-Clause-Clear.txt",
+      "sha256": "4495ed59005765e600a16457dc52a2d39757dbfeae081e68b59fe7c177c78589",
+      "purpose": "Reference terms only; actual upstream copyright notices must also be retained."
+    },
+    {
+      "license": "BSD-4-Clause",
+      "file": "Desktop-SPDX-BSD-4-Clause.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/BSD-4-Clause.txt",
+      "sha256": "c80d927f03db7212ba43a869a383e249c19b40859ff0d9e2e2f968e4fdcf005f",
+      "purpose": "Reference terms only; actual upstream copyright notices must also be retained."
+    },
+    {
+      "license": "BSL-1.0",
+      "file": "Desktop-SPDX-BSL-1.0.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/BSL-1.0.txt",
+      "sha256": "84c6ef3ea9e3254a54d0acf5d3e0c61ae011b8fef7dd6940591cf060e6380a8f",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "Beerware",
+      "file": "Desktop-SPDX-Beerware.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/Beerware.txt",
+      "sha256": "991d8a58e0b4be84a174a9bd333a8ca33807a0c1ce6d23a2e25a21f7ece482d0",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "Bitstream-Vera",
+      "file": "Desktop-SPDX-Bitstream-Vera.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/Bitstream-Vera.txt",
+      "sha256": "5b3b4d3cef4029bda987a71f4bfb6087e40c5e91a2cb853fe7f6ccb78d9d8e38",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "CC-BY-SA-3.0",
+      "file": "Desktop-SPDX-CC-BY-SA-3.0.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/CC-BY-SA-3.0.txt",
+      "sha256": "3f941b3b89cf7b8370ceb83cc76d2120d471b58735d8ca60238a751a48d7f72f",
+      "purpose": "Reference terms only; actual upstream copyright notices must also be retained."
+    },
+    {
+      "license": "CC0-1.0",
+      "file": "Desktop-SPDX-CC0-1.0.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/CC0-1.0.txt",
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "purpose": "Reference terms only; actual upstream copyright notices must also be retained."
+    },
+    {
+      "license": "FDK-AAC",
+      "file": "Desktop-SPDX-FDK-AAC.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/FDK-AAC.txt",
+      "sha256": "c90edceefc6bd9352cc44912a94fcf74a683d918a3995deadefbf10a6770f6c2",
+      "purpose": "Reference terms only; actual upstream copyright notices must also be retained."
+    },
+    {
+      "license": "FTL",
+      "file": "Desktop-SPDX-FTL.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/FTL.txt",
+      "sha256": "ced6622122ce451cb1ea0c3c3f507a640e2a44c075c04900ddd9fae8acb5369f",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "GPL-1.0-or-later",
+      "file": "Desktop-SPDX-GPL-1.0-or-later.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/GPL-1.0-or-later.txt",
+      "sha256": "da37ffd5fcdf0a7d76af862a4330ea1076e1443b51782b2f912148357b7acabe",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "GPL-2.0-only",
+      "file": "Desktop-SPDX-GPL-2.0-only.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/GPL-2.0-only.txt",
+      "sha256": "aaf135472f81c5b4a0dca9367e5bb5e9750032b5bebe5442b36e4c0a47430df3",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "GPL-2.0-or-later",
+      "file": "Desktop-SPDX-GPL-2.0-or-later.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/GPL-2.0-or-later.txt",
+      "sha256": "aaf135472f81c5b4a0dca9367e5bb5e9750032b5bebe5442b36e4c0a47430df3",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "GPL-3.0-only",
+      "file": "Desktop-SPDX-GPL-3.0-only.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/GPL-3.0-only.txt",
+      "sha256": "fb981668c18a279e285fc4d83fba1e836cc84dd4daa73c9697d3cfd2d8aca6e0",
+      "purpose": "Reference terms only; actual upstream copyright notices must also be retained."
+    },
+    {
+      "license": "GPL-3.0-or-later",
+      "file": "Desktop-SPDX-GPL-3.0-or-later.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/GPL-3.0-or-later.txt",
+      "sha256": "fb981668c18a279e285fc4d83fba1e836cc84dd4daa73c9697d3cfd2d8aca6e0",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "HPND",
+      "file": "Desktop-SPDX-HPND.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/HPND.txt",
+      "sha256": "4d9ae4a36816338dfa153d1d6f92645c45f25eaa46908d3096922e2431fb571e",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "HPND-sell-variant",
+      "file": "Desktop-SPDX-HPND-sell-variant.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/HPND-sell-variant.txt",
+      "sha256": "235abc578371bf9861e3d6eee0a9ad16228f9be18408e17fc569c6a98ba69d5f",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "ICU",
+      "file": "Desktop-SPDX-ICU.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/ICU.txt",
+      "sha256": "c7922dccc709c9e19ab6ba970fe00af174229484b05160fb07a3913f4d04cf50",
+      "purpose": "Reference terms only; actual upstream copyright notices must also be retained."
+    },
+    {
+      "license": "IJG",
+      "file": "Desktop-SPDX-IJG.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/IJG.txt",
+      "sha256": "7658542977bfdced9e1059a6c934ce4281de76d103b831007b825917dc62511a",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "ISC",
+      "file": "Desktop-SPDX-ISC.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/ISC.txt",
+      "sha256": "521c6f0ed8e64736684f89843d16a4df6b4b7449acbcfc6ca6630a3037ca8c53",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "LGPL-2.0-only",
+      "file": "Desktop-SPDX-LGPL-2.0-only.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/LGPL-2.0-only.txt",
+      "sha256": "86dc99d7e5060915ab1dfc1378b7dd351c62088bfa74067e8aa1868c6fdba7d8",
+      "purpose": "Reference terms only; actual upstream copyright notices must also be retained."
+    },
+    {
+      "license": "LGPL-2.0-or-later",
+      "file": "Desktop-SPDX-LGPL-2.0-or-later.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/LGPL-2.0-or-later.txt",
+      "sha256": "86dc99d7e5060915ab1dfc1378b7dd351c62088bfa74067e8aa1868c6fdba7d8",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "LGPL-2.1-only",
+      "file": "Desktop-SPDX-LGPL-2.1-only.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/LGPL-2.1-only.txt",
+      "sha256": "5749785c8bdefafcb5d798270ed0a967036fe2ca63dcedade1627565dfef81d2",
+      "purpose": "Reference terms only; actual upstream copyright notices must also be retained."
+    },
+    {
+      "license": "LGPL-2.1-or-later",
+      "file": "Desktop-SPDX-LGPL-2.1-or-later.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/LGPL-2.1-or-later.txt",
+      "sha256": "5749785c8bdefafcb5d798270ed0a967036fe2ca63dcedade1627565dfef81d2",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "LGPL-3.0-only",
+      "file": "Desktop-SPDX-LGPL-3.0-only.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/LGPL-3.0-only.txt",
+      "sha256": "996af0513df21f7496288951c41428a03c174e9e4a9d63665c57d670f845ccb1",
+      "purpose": "Reference terms only; actual upstream copyright notices must also be retained."
+    },
+    {
+      "license": "LGPL-3.0-or-later",
+      "file": "Desktop-SPDX-LGPL-3.0-or-later.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/LGPL-3.0-or-later.txt",
+      "sha256": "996af0513df21f7496288951c41428a03c174e9e4a9d63665c57d670f845ccb1",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "Libpng",
+      "file": "Desktop-SPDX-Libpng.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/Libpng.txt",
+      "sha256": "7667a8c88c7a63690244988d626bcddd27ed895526e2c3ab1a9adb463a5fa287",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "MIT",
+      "file": "Desktop-SPDX-MIT.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/MIT.txt",
+      "sha256": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "MIT-open-group",
+      "file": "Desktop-SPDX-MIT-open-group.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/MIT-open-group.txt",
+      "sha256": "d5942d51b7e079b0eab4d6f9e06f1b8625f918b8802117a9c3127c004c5df9b6",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "MPL-1.1",
+      "file": "Desktop-SPDX-MPL-1.1.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/MPL-1.1.txt",
+      "sha256": "6214f8b1300bb9f37b16ebc146f8f61af0187e0025042ff95c8b3030744a8795",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "MPL-2.0",
+      "file": "Desktop-SPDX-MPL-2.0.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/MPL-2.0.txt",
+      "sha256": "66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "OLDAP-2.8",
+      "file": "Desktop-SPDX-OLDAP-2.8.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/OLDAP-2.8.txt",
+      "sha256": "bf30f8254b6698a79e867d0a7d641bbbd3460f7c2f16cab9c6816718815c2ded",
+      "purpose": "Reference terms only; actual upstream copyright notices must also be retained."
+    },
+    {
+      "license": "Qt-GPL-exception-1.0",
+      "file": "Desktop-SPDX-Qt-GPL-exception-1.0.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/Qt-GPL-exception-1.0.txt",
+      "sha256": "fad799fdc248a52b9c0fa17823b6d4bc9907a19d6e8c78b8a071c9b551ea9c60",
+      "purpose": "Reference terms only; actual upstream copyright notices must also be retained."
+    },
+    {
+      "license": "SGI-B-2.0",
+      "file": "Desktop-SPDX-SGI-B-2.0.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/SGI-B-2.0.txt",
+      "sha256": "cbe043cc819b6afbac13c11d83c8bdcd566d1539881f17cab28615edd7af3acf",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "TU-Berlin-2.0",
+      "file": "Desktop-SPDX-TU-Berlin-2.0.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/TU-Berlin-2.0.txt",
+      "sha256": "765c0f8c765bf95b48bd6ab14a10bf06d76941b5079502fe385f847aaf8128ec",
+      "purpose": "Reference terms only; actual upstream copyright notices must also be retained."
+    },
+    {
+      "license": "X11",
+      "file": "Desktop-SPDX-X11.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/X11.txt",
+      "sha256": "e1963c9958b93bc2578b34f8ae22cfe205e8c0e7d5be7235cfdbdefbf92a5423",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "XFree86-1.1",
+      "file": "Desktop-SPDX-XFree86-1.1.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/XFree86-1.1.txt",
+      "sha256": "f87e1172d544674ad152378494a267e8260005b45ecfaf240af8b3bddae1eac8",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "Zlib",
+      "file": "Desktop-SPDX-Zlib.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/Zlib.txt",
+      "sha256": "bfb1112d49db5b1daecdfef24bd7e2f3ea0bafb33aa67aa0ab51e2bf8407c03d",
+      "purpose": "Reference license text only; not a substitute for upstream copyright notices."
+    },
+    {
+      "license": "curl",
+      "file": "Desktop-SPDX-curl.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/curl.txt",
+      "sha256": "272d1239bdcef73bb98bac206168ca1040bd4a31296755fadfb7515bcea18df3",
+      "purpose": "Reference terms only; actual upstream copyright notices must also be retained."
+    },
+    {
+      "license": "libtiff",
+      "file": "Desktop-SPDX-libtiff.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/spdx/license-list-data/31846481de7ea17d92f2f46fad76abe58b2e9bb0/text/libtiff.txt",
+      "sha256": "a6ecaa20c8c1b7a8215ed05e5f58764f821596e36d31acc05282c6154cf0dc44",
+      "purpose": "Reference terms only; actual upstream copyright notices must also be retained."
+    }
+  ],
+  "upstreamNoticeFiles": [
+    {
+      "origin": "libjpeg-turbo",
+      "package": "libjpeg-turbo-doc",
+      "packageVersion": "3.1.3-r0",
+      "file": "Desktop-notice-libjpeg-turbo-doc-usr_share_doc_libjpeg-turbo_LICENSE.md.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/libjpeg-turbo-doc-3.1.3-r0.apk",
+      "sourceArchiveSha256": "663c7159ada58aab5558ee46e3bade67fee59ed24b53ed298e425bf27ace3396",
+      "archiveMember": "usr/share/doc/libjpeg-turbo/LICENSE.md",
+      "decoder": null,
+      "sha256": "2189dc45a8fe96204069f8124caa53a148dfdc193f50f584c6ca7849a6072872"
+    },
+    {
+      "origin": "libmd",
+      "package": "libmd-doc",
+      "packageVersion": "1.2.0-r0",
+      "file": "Desktop-notice-libmd-doc-usr_share_licenses_libmd_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/libmd-doc-1.2.0-r0.apk",
+      "sourceArchiveSha256": "3bdb2927ee75eadc90922dd40e0eb6750361767c575b470120feb5a4b01f3822",
+      "archiveMember": "usr/share/licenses/libmd/COPYING",
+      "decoder": null,
+      "sha256": "4971a2b7065117a01cb04430b53ba37c4c6181d4aa8a3a983a3f7042d1625f19"
+    },
+    {
+      "origin": "libpciaccess",
+      "package": "libpciaccess-doc",
+      "packageVersion": "0.19-r0",
+      "file": "Desktop-notice-libpciaccess-doc-usr_share_licenses_libpciaccess_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/libpciaccess-doc-0.19-r0.apk",
+      "sourceArchiveSha256": "6cdc0c8459adc5b2dc37f2a832b16d8828cb19c76dbb1134433f25cc0a72fc5f",
+      "archiveMember": "usr/share/licenses/libpciaccess/COPYING",
+      "decoder": null,
+      "sha256": "f33f360f8905940dac01aa21597fe8a6727ca6f4ffa43b380e2116fd0666aa8a"
+    },
+    {
+      "origin": "libx11",
+      "package": "libx11-doc",
+      "packageVersion": "1.8.14-r0",
+      "file": "Desktop-notice-libx11-doc-usr_share_licenses_libx11_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/libx11-doc-1.8.14-r0.apk",
+      "sourceArchiveSha256": "968946e6f0649803943d4e1f42309816d2467fddb9b02254c9e08e56e0dd95ba",
+      "archiveMember": "usr/share/licenses/libx11/COPYING",
+      "decoder": null,
+      "sha256": "eda0c2ed1cae0280c7fe79762eaad8ad31c044afc64e71e92ef2c6f3cd7bc395"
+    },
+    {
+      "origin": "libxau",
+      "package": "libxau-doc",
+      "packageVersion": "1.0.12-r0",
+      "file": "Desktop-notice-libxau-doc-usr_share_licenses_libxau_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/libxau-doc-1.0.12-r0.apk",
+      "sourceArchiveSha256": "efb83a50dd6f171ac85e5dacc860c48121b78eed5912935290dff902c5f6f37c",
+      "archiveMember": "usr/share/licenses/libxau/COPYING",
+      "decoder": null,
+      "sha256": "56abe29bb1d9806a9e04fa9f80fed2c0f18027594df3f098148d814aef6bddfa"
+    },
+    {
+      "origin": "libxcursor",
+      "package": "libxcursor-doc",
+      "packageVersion": "1.2.3-r0",
+      "file": "Desktop-notice-libxcursor-doc-usr_share_man_man3_XcursorNoticeCreateBitmap.3.gz.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/libxcursor-doc-1.2.3-r0.apk",
+      "sourceArchiveSha256": "9b65f6ebd2ef7e1280335c49c86bb78c1bbd30159c7bee51eb214eba920e0a38",
+      "archiveMember": "usr/share/man/man3/XcursorNoticeCreateBitmap.3.gz",
+      "decoder": "gzip",
+      "sha256": "1073791ef6b6f6781e66917cda34c88929060eaa0ea53ea4a4e539c37130f809"
+    },
+    {
+      "origin": "libxcursor",
+      "package": "libxcursor-doc",
+      "packageVersion": "1.2.3-r0",
+      "file": "Desktop-notice-libxcursor-doc-usr_share_man_man3_XcursorNoticePutBitmap.3.gz.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/libxcursor-doc-1.2.3-r0.apk",
+      "sourceArchiveSha256": "9b65f6ebd2ef7e1280335c49c86bb78c1bbd30159c7bee51eb214eba920e0a38",
+      "archiveMember": "usr/share/man/man3/XcursorNoticePutBitmap.3.gz",
+      "decoder": "gzip",
+      "sha256": "1073791ef6b6f6781e66917cda34c88929060eaa0ea53ea4a4e539c37130f809"
+    },
+    {
+      "origin": "libxft",
+      "package": "libxft-doc",
+      "packageVersion": "2.3.9-r0",
+      "file": "Desktop-notice-libxft-doc-usr_share_licenses_libxft_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/libxft-doc-2.3.9-r0.apk",
+      "sourceArchiveSha256": "25f30d8a4feea7024844109d43131040fdf3bc3a08b6b4b15a00b427b0b41670",
+      "archiveMember": "usr/share/licenses/libxft/COPYING",
+      "decoder": null,
+      "sha256": "7cda22286b1379b9b73df695f72cbad36595e65b039a5fbc5c89b69ecc44438c"
+    },
+    {
+      "origin": "libxkbcommon",
+      "package": "libxkbcommon-doc",
+      "packageVersion": "1.13.1-r0",
+      "file": "Desktop-notice-libxkbcommon-doc-usr_share_doc_libxkbcommon_html_detailed-license.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/libxkbcommon-doc-1.13.1-r0.apk",
+      "sourceArchiveSha256": "3076b564d71fe71254e6c987225c950ced726b6848e800ce1ca40046d498dd1a",
+      "archiveMember": "usr/share/doc/libxkbcommon/html/detailed-license.html",
+      "decoder": null,
+      "sha256": "09d43b7886d5003d199162ae16c391fdfbeb3a0af7c71650f525c23b7f1d332e"
+    },
+    {
+      "origin": "libxkbfile",
+      "package": "libxkbfile-doc",
+      "packageVersion": "1.2.0-r0",
+      "file": "Desktop-notice-libxkbfile-doc-usr_share_licenses_libxkbfile_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/libxkbfile-doc-1.2.0-r0.apk",
+      "sourceArchiveSha256": "b0c6250485b8946556da309c8ccc4627f68803d9fbc5e9cb26c7424bed246d69",
+      "archiveMember": "usr/share/licenses/libxkbfile/COPYING",
+      "decoder": null,
+      "sha256": "e1b3fdad8037ab3f986ef9caaa7c8da47d8d55875e680c7d6011f6c07363ea7c"
+    },
+    {
+      "origin": "libxmu",
+      "package": "libxmu-doc",
+      "packageVersion": "1.3.1-r0",
+      "file": "Desktop-notice-libxmu-doc-usr_share_licenses_libxmu_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/libxmu-doc-1.3.1-r0.apk",
+      "sourceArchiveSha256": "3ed0e55acf68e038ebfc126bf336c6b2b6383045dfc4c7b2b0b44fb882d98db6",
+      "archiveMember": "usr/share/licenses/libxmu/COPYING",
+      "decoder": null,
+      "sha256": "8f0f2ca7a05cfd10bf9e307a272182de7cb52d7a603feaf17b9943c2c9a4838e"
+    },
+    {
+      "origin": "libxt",
+      "package": "libxt-doc",
+      "packageVersion": "1.3.1-r0",
+      "file": "Desktop-notice-libxt-doc-usr_share_man_man3_XtNoticeSignal.3.gz.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/libxt-doc-1.3.1-r0.apk",
+      "sourceArchiveSha256": "6e8b66ab2dcee77f38c4b6d592561e3e9823aa250183b6483e78f195327822d9",
+      "archiveMember": "usr/share/man/man3/XtNoticeSignal.3.gz",
+      "decoder": "gzip",
+      "sha256": "2360a9b1244b9523735864368cc71c1fed8f142e836320f15afe0604a715aaa4"
+    },
+    {
+      "origin": "libxtst",
+      "package": "libxtst-doc",
+      "packageVersion": "1.2.6-r0",
+      "file": "Desktop-notice-libxtst-doc-usr_share_licenses_libxtst_LICENSE.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/libxtst-doc-1.2.6-r0.apk",
+      "sourceArchiveSha256": "744f60c98b6512f1a8eba6658cc86a632b958f43ad52d06a97072cab262a9b95",
+      "archiveMember": "usr/share/licenses/libxtst/LICENSE",
+      "decoder": null,
+      "sha256": "940190489c7a0e5ae3d83fc4fcbd79e0cd1b765bf1a4efd408293c1ee0332ceb"
+    },
+    {
+      "origin": "libxxf86vm",
+      "package": "libxxf86vm-doc",
+      "packageVersion": "1.1.7-r0",
+      "file": "Desktop-notice-libxxf86vm-doc-usr_share_licenses_libxxf86vm_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/libxxf86vm-doc-1.1.7-r0.apk",
+      "sourceArchiveSha256": "69d558fa669fbcfbd95da4ddd241b96dab096f34164c5b4448d20cbd5793ad3c",
+      "archiveMember": "usr/share/licenses/libxxf86vm/COPYING",
+      "decoder": null,
+      "sha256": "f3da8eaed19e27e4f67e6f076d4ebdb8d649e15a8ad33a415fb65a23de1b6689"
+    },
+    {
+      "origin": "pcre2",
+      "package": "pcre2-doc",
+      "packageVersion": "10.49-r0",
+      "file": "Desktop-notice-pcre2-doc-usr_share_doc_pcre2-10.49_AUTHORS.md.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/pcre2-doc-10.49-r0.apk",
+      "sourceArchiveSha256": "0198601f21a2201a99622ffad95173bea3ac63b8b99abba090edf884f6033ea0",
+      "archiveMember": "usr/share/doc/pcre2-10.49/AUTHORS.md",
+      "decoder": null,
+      "sha256": "412ace3355a4d6a4d835c350a7df172903811eafda7b13500dacf58429ee757e"
+    },
+    {
+      "origin": "pcre2",
+      "package": "pcre2-doc",
+      "packageVersion": "10.49-r0",
+      "file": "Desktop-notice-pcre2-doc-usr_share_doc_pcre2-10.49_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/pcre2-doc-10.49-r0.apk",
+      "sourceArchiveSha256": "0198601f21a2201a99622ffad95173bea3ac63b8b99abba090edf884f6033ea0",
+      "archiveMember": "usr/share/doc/pcre2-10.49/COPYING",
+      "decoder": null,
+      "sha256": "99272c55f3dcfa07a8a7e15a5c1a33096e4727de74241d65fa049fccfdd59507"
+    },
+    {
+      "origin": "pkgconf",
+      "package": "pkgconf-doc",
+      "packageVersion": "2.5.1-r0",
+      "file": "Desktop-notice-pkgconf-doc-usr_share_doc_pkgconf_AUTHORS.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/pkgconf-doc-2.5.1-r0.apk",
+      "sourceArchiveSha256": "46c56c00176a8eace52c6cae9b5d87f64f958cfe3da83c0bc909f01875cf8baf",
+      "archiveMember": "usr/share/doc/pkgconf/AUTHORS",
+      "decoder": null,
+      "sha256": "1579e0bd23bd6e3e24aab6bc6bf7efa3bca6c25f83bb2a1f56c5bdbdbfb1d40f"
+    },
+    {
+      "origin": "skalibs",
+      "package": "skalibs-doc",
+      "packageVersion": "2.15.0.0-r0",
+      "file": "Desktop-notice-skalibs-doc-usr_share_doc_skalibs_license.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/skalibs-doc-2.15.0.0-r0.apk",
+      "sourceArchiveSha256": "a6878d8d7ae877fdb114bb18458d8b73435b1d32187ac3730b8b5268ddbb66a2",
+      "archiveMember": "usr/share/doc/skalibs/license.html",
+      "decoder": null,
+      "sha256": "e906b62c3a57a9f6c20a9e04809b86d03cc3a118eb56974913fba8e7891525b4"
+    },
+    {
+      "origin": "skalibs",
+      "package": "skalibs-doc",
+      "packageVersion": "2.15.0.0-r0",
+      "file": "Desktop-notice-skalibs-doc-usr_share_licenses_skalibs_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/skalibs-doc-2.15.0.0-r0.apk",
+      "sourceArchiveSha256": "a6878d8d7ae877fdb114bb18458d8b73435b1d32187ac3730b8b5268ddbb66a2",
+      "archiveMember": "usr/share/licenses/skalibs/COPYING",
+      "decoder": null,
+      "sha256": "26bee3a3c78ae6a29c81c18832cadb1a4433cf8a786624312f11667d93fcce41"
+    },
+    {
+      "origin": "libxcvt",
+      "package": "libxcvt-doc",
+      "packageVersion": "0.1.3-r0",
+      "file": "Desktop-notice-libxcvt-doc-usr_share_licenses_libxcvt_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/libxcvt-doc-0.1.3-r0.apk",
+      "sourceArchiveSha256": "54289db9508e63cef49ecc5e0303eb1689237f50dc57b8c80e83215f21de5e2b",
+      "archiveMember": "usr/share/licenses/libxcvt/COPYING",
+      "decoder": null,
+      "sha256": "4849851554bdeda9a2a85ce93946b786605e009685941b8b907a9a36b02ae068"
+    },
+    {
+      "origin": "xauth",
+      "package": "xauth-doc",
+      "packageVersion": "1.1.5-r0",
+      "file": "Desktop-notice-xauth-doc-usr_share_licenses_xauth_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/xauth-doc-1.1.5-r0.apk",
+      "sourceArchiveSha256": "413a959960839ff75aa9f77f214d7aec66c07c2507ba18dcaab2cbada6f68056",
+      "archiveMember": "usr/share/licenses/xauth/COPYING",
+      "decoder": null,
+      "sha256": "dcdf5fa36a652efbe61a21def1301739b0010334ae3f049f1cff433221a8c7a5"
+    },
+    {
+      "origin": "xmodmap",
+      "package": "xmodmap-doc",
+      "packageVersion": "1.0.11-r1",
+      "file": "Desktop-notice-xmodmap-doc-usr_share_licenses_xmodmap_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/xmodmap-doc-1.0.11-r1.apk",
+      "sourceArchiveSha256": "a74fa64687403bc03cc9a8187976ccefef39fb42e1c753929ec66bcde8c542ab",
+      "archiveMember": "usr/share/licenses/xmodmap/COPYING",
+      "decoder": null,
+      "sha256": "c149563cf2cb0ecfb1148b6eb8f604c62bed43452a0d0fbafb97286a97840f5c"
+    },
+    {
+      "origin": "adwaita-icon-theme",
+      "package": "adwaita-icon-theme-doc",
+      "packageVersion": "50.0-r1",
+      "file": "Desktop-notice-adwaita-icon-theme-doc-usr_share_licenses_adwaita-icon-theme_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/adwaita-icon-theme-doc-50.0-r1.apk",
+      "sourceArchiveSha256": "afa69eeddcbdc9b3a032f69d6b21d50c9c4f2390afa037ea9ea13f11d48787d4",
+      "archiveMember": "usr/share/licenses/adwaita-icon-theme/COPYING",
+      "decoder": null,
+      "sha256": "51f83b2b4e9ed2beebc9b8eed2ecad29314a58ed8c5184b22ad8f9df703d3ce5"
+    },
+    {
+      "origin": "adwaita-icon-theme",
+      "package": "adwaita-icon-theme-doc",
+      "packageVersion": "50.0-r1",
+      "file": "Desktop-notice-adwaita-icon-theme-doc-usr_share_licenses_adwaita-icon-theme_COPYING_CCBYSA3.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/adwaita-icon-theme-doc-50.0-r1.apk",
+      "sourceArchiveSha256": "afa69eeddcbdc9b3a032f69d6b21d50c9c4f2390afa037ea9ea13f11d48787d4",
+      "archiveMember": "usr/share/licenses/adwaita-icon-theme/COPYING_CCBYSA3",
+      "decoder": null,
+      "sha256": "207fe75c396c0ae197c57d42c727163428b6667d98cef3644e41c6f1afe1895f"
+    },
+    {
+      "origin": "adwaita-icon-theme",
+      "package": "adwaita-icon-theme-doc",
+      "packageVersion": "50.0-r1",
+      "file": "Desktop-notice-adwaita-icon-theme-doc-usr_share_licenses_adwaita-icon-theme_COPYING_LGPL.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/adwaita-icon-theme-doc-50.0-r1.apk",
+      "sourceArchiveSha256": "afa69eeddcbdc9b3a032f69d6b21d50c9c4f2390afa037ea9ea13f11d48787d4",
+      "archiveMember": "usr/share/licenses/adwaita-icon-theme/COPYING_LGPL",
+      "decoder": null,
+      "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768"
+    },
+    {
+      "origin": "cups",
+      "package": "cups-doc",
+      "packageVersion": "2.4.19-r1",
+      "file": "Desktop-notice-cups-doc-usr_share_cups_help_license.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/cups-doc-2.4.19-r1.apk",
+      "sourceArchiveSha256": "6801d7eebafe43cc30d6eb881d46750bd91bf574f3a319fff6ce99197b731191",
+      "archiveMember": "usr/share/cups/help/license.html",
+      "decoder": null,
+      "sha256": "e5105af30e35b0254dd922310d31ae897763ee65fac12544079fb3260e491f76"
+    },
+    {
+      "origin": "libexif",
+      "package": "libexif-doc",
+      "packageVersion": "0.6.26-r0",
+      "file": "Desktop-notice-libexif-doc-usr_share_doc_libexif_AUTHORS.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/libexif-doc-0.6.26-r0.apk",
+      "sourceArchiveSha256": "5134cd66e3be0dca650abbe29273a319bb8e27a44df9dc49d1e872a71b98ea7e",
+      "archiveMember": "usr/share/doc/libexif/AUTHORS",
+      "decoder": null,
+      "sha256": "a19ef6f43014fc57829658087d0c2bf59d97482e015cf553d7a68124603cbc44"
+    },
+    {
+      "origin": "libexif",
+      "package": "libexif-doc",
+      "packageVersion": "0.6.26-r0",
+      "file": "Desktop-notice-libexif-doc-usr_share_doc_libexif_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/libexif-doc-0.6.26-r0.apk",
+      "sourceArchiveSha256": "5134cd66e3be0dca650abbe29273a319bb8e27a44df9dc49d1e872a71b98ea7e",
+      "archiveMember": "usr/share/doc/libexif/COPYING",
+      "decoder": null,
+      "sha256": "36b6d3fa47916943fd5fec313c584784946047ec1337a78b440e5992cb595f89"
+    },
+    {
+      "origin": "libxcomposite",
+      "package": "libxcomposite-doc",
+      "packageVersion": "0.4.7-r0",
+      "file": "Desktop-notice-libxcomposite-doc-usr_share_licenses_libxcomposite_LICENSE.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/libxcomposite-doc-0.4.7-r0.apk",
+      "sourceArchiveSha256": "060843c8b1d3a25cce0f2cd192afdf56e758c8fb092673f64848a463bb622fd7",
+      "archiveMember": "usr/share/licenses/libxcomposite/LICENSE",
+      "decoder": null,
+      "sha256": "4ff0d7645aaf5b0402904190e841905a1569132f1d95509eaf0e739b852e2458"
+    },
+    {
+      "origin": "libxi",
+      "package": "libxi-doc",
+      "packageVersion": "1.8.4-r0",
+      "file": "Desktop-notice-libxi-doc-usr_share_licenses_libxi_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/libxi-doc-1.8.4-r0.apk",
+      "sourceArchiveSha256": "ab1bd752225358f016dcc99b0383ad1b5460f0eb552b43479e9e98ae057ef228",
+      "archiveMember": "usr/share/licenses/libxi/COPYING",
+      "decoder": null,
+      "sha256": "9392174bc86e291369fd2f61f3ed325962735a5f5c585ce8d7ebd365e2a5639f"
+    },
+    {
+      "origin": "icu",
+      "package": "icu-doc",
+      "packageVersion": "78.1-r0",
+      "file": "Desktop-notice-icu-doc-usr_share_licenses_icu_license.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/icu-doc-78.1-r0.apk",
+      "sourceArchiveSha256": "cdad654e8ccf42e38342758e7246a70a98b4a2ba73170752762dd8e5ebe06529",
+      "archiveMember": "usr/share/licenses/icu/license.html",
+      "decoder": null,
+      "sha256": "c62d7697c03979f5056d28b338fafc7a1152820f7b379adf4a9d88cd37160f96"
+    },
+    {
+      "origin": "libxfce4util",
+      "package": "libxfce4util-doc",
+      "packageVersion": "4.20.1-r0",
+      "file": "Desktop-notice-libxfce4util-doc-usr_share_gtk-doc_html_libxfce4util_libxfce4util-Software-Licenses.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/libxfce4util-doc-4.20.1-r0.apk",
+      "sourceArchiveSha256": "eb54618fd68655571a99240fe729333502bfcf7bd139ff39dd00a7a4ab82df66",
+      "archiveMember": "usr/share/gtk-doc/html/libxfce4util/libxfce4util-Software-Licenses.html",
+      "decoder": null,
+      "sha256": "20d9fe63bdf94677af351444545202424b94f2560b1f8add419f4b4319e47f4e"
+    },
+    {
+      "origin": "libxres",
+      "package": "libxres-doc",
+      "packageVersion": "1.2.3-r0",
+      "file": "Desktop-notice-libxres-doc-usr_share_licenses_libxres_LICENSE.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/libxres-doc-1.2.3-r0.apk",
+      "sourceArchiveSha256": "5882452920068ebc703095e3f69ba2e93ad9640089a8f532493dc7d18d7f846d",
+      "archiveMember": "usr/share/licenses/libxres/LICENSE",
+      "decoder": null,
+      "sha256": "0d7300168f85833ea2564835f66a61e036ede90b33e76c06a7b4078096fedbcc"
+    },
+    {
+      "origin": "simdutf",
+      "package": "simdutf-doc",
+      "packageVersion": "9.0.0-r0",
+      "file": "Desktop-notice-simdutf-doc-usr_share_licenses_simdutf_LICENSE-MIT.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/simdutf-doc-9.0.0-r0.apk",
+      "sourceArchiveSha256": "91f22a55e07a1a3e21ecde231b6e142ad6683714f5f40dd2ece7f505b51fe142",
+      "archiveMember": "usr/share/licenses/simdutf/LICENSE-MIT",
+      "decoder": null,
+      "sha256": "fc8dbc04e03ad4efc08a647ffe7f995b811a95bc04c0e85a56d5277c6593fa5f"
+    },
+    {
+      "origin": "upower",
+      "package": "upower-doc",
+      "packageVersion": "1.91.0-r2",
+      "file": "Desktop-notice-upower-doc-usr_share_gtk-doc_html_UPower_license.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/upower-doc-1.91.0-r2.apk",
+      "sourceArchiveSha256": "0034a2ae63662e186e2ac3a50d24cdbcc1a517bdf1e00c4c41d99ed23ea74383",
+      "archiveMember": "usr/share/gtk-doc/html/UPower/license.html",
+      "decoder": null,
+      "sha256": "90578dc36ed3c252d1914531915e68ef71e24baa351d3f518c81324e2ad38c43"
+    },
+    {
+      "origin": "aom",
+      "package": "aom-doc",
+      "packageVersion": "3.14.1-r0",
+      "file": "Desktop-notice-aom-doc-usr_share_doc_aom_LICENSE.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/aom-doc-3.14.1-r0.apk",
+      "sourceArchiveSha256": "2e32d2b9ea4517575f10ddbf7bb215e2eb9d0fe4253aa65403b10d4941faead7",
+      "archiveMember": "usr/share/doc/aom/LICENSE",
+      "decoder": null,
+      "sha256": "4764a286d8b2faeaf42f4418e7d7a28d58fc8fd4d00a3d0a7f44b0a4099de7f2"
+    },
+    {
+      "origin": "boost1.84",
+      "package": "boost1.84-doc",
+      "packageVersion": "1.84.0-r6",
+      "file": "Desktop-notice-boost1.84-doc-usr_share_licenses_boost1.84_LICENSE_1_0.txt.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/boost1.84-doc-1.84.0-r6.apk",
+      "sourceArchiveSha256": "c3b4b70d7a481a198de3d0355a34df57f8ce160a7704ea43ea4b61174dce9aa9",
+      "archiveMember": "usr/share/licenses/boost1.84/LICENSE_1_0.txt",
+      "decoder": null,
+      "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566"
+    },
+    {
+      "origin": "duktape",
+      "package": "duktape-doc",
+      "packageVersion": "2.7.0-r3",
+      "file": "Desktop-notice-duktape-doc-usr_share_licenses_duktape_AUTHORS.rst.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/duktape-doc-2.7.0-r3.apk",
+      "sourceArchiveSha256": "91fb56c27ad5df41779453f7be3fda6edf10c5a2c1ad62a7bd23fed4a350dcd9",
+      "archiveMember": "usr/share/licenses/duktape/AUTHORS.rst",
+      "decoder": null,
+      "sha256": "524cb94c58a5a8d219f19e013234375c14868824e7010e24317be9701a5596d7"
+    },
+    {
+      "origin": "duktape",
+      "package": "duktape-doc",
+      "packageVersion": "2.7.0-r3",
+      "file": "Desktop-notice-duktape-doc-usr_share_licenses_duktape_LICENSE.txt.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/duktape-doc-2.7.0-r3.apk",
+      "sourceArchiveSha256": "91fb56c27ad5df41779453f7be3fda6edf10c5a2c1ad62a7bd23fed4a350dcd9",
+      "archiveMember": "usr/share/licenses/duktape/LICENSE.txt",
+      "decoder": null,
+      "sha256": "c6b6659630ca6cb837afe982ecc79511bfca878b56296d628b02eb6f18789c29"
+    },
+    {
+      "origin": "fdk-aac",
+      "package": "fdk-aac-doc",
+      "packageVersion": "2.0.2-r4",
+      "file": "Desktop-notice-fdk-aac-doc-usr_share_licenses_libfdk-aac_NOTICE.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/fdk-aac-doc-2.0.2-r4.apk",
+      "sourceArchiveSha256": "49d4bf217f6f7dfccdc30f1e5034198fea4976b720470ddc7036f615e79739be",
+      "archiveMember": "usr/share/licenses/libfdk-aac/NOTICE",
+      "decoder": null,
+      "sha256": "95ec80da40b4af12ad4c4f3158c9cfb80f2479f3246e4260cb600827cc8c7836"
+    },
+    {
+      "origin": "gtk4.0",
+      "package": "gtk4.0-doc",
+      "packageVersion": "4.22.4-r0",
+      "file": "Desktop-notice-gtk4.0-doc-usr_share_doc_gdk4_const.KEY_copyright.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/gtk4.0-doc-4.22.4-r0.apk",
+      "sourceArchiveSha256": "acfa523c36af38c84e806300f842b53b2115f37060176d1389aab61261bd8476",
+      "archiveMember": "usr/share/doc/gdk4/const.KEY_copyright.html",
+      "decoder": null,
+      "sha256": "95bfe4551bb73a27a8a76ce55275099dc4398a10c55a5b4e1017d2f12930cd2d"
+    },
+    {
+      "origin": "gtk4.0",
+      "package": "gtk4.0-doc",
+      "packageVersion": "4.22.4-r0",
+      "file": "Desktop-notice-gtk4.0-doc-usr_share_doc_gdk4_const.KEY_phonographcopyright.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/gtk4.0-doc-4.22.4-r0.apk",
+      "sourceArchiveSha256": "acfa523c36af38c84e806300f842b53b2115f37060176d1389aab61261bd8476",
+      "archiveMember": "usr/share/doc/gdk4/const.KEY_phonographcopyright.html",
+      "decoder": null,
+      "sha256": "0300047b9146dabb695f9d9b66c21fe879f0cd8cdfebf383bea5ee918369c041"
+    },
+    {
+      "origin": "gtk4.0",
+      "package": "gtk4.0-doc",
+      "packageVersion": "4.22.4-r0",
+      "file": "Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_enum.License.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/gtk4.0-doc-4.22.4-r0.apk",
+      "sourceArchiveSha256": "acfa523c36af38c84e806300f842b53b2115f37060176d1389aab61261bd8476",
+      "archiveMember": "usr/share/doc/gtk4/enum.License.html",
+      "decoder": null,
+      "sha256": "d38194e92fd6d4f0960879462640cfadffd0fe4b42e6d36882b8d362460b3f03"
+    },
+    {
+      "origin": "gtk4.0",
+      "package": "gtk4.0-doc",
+      "packageVersion": "4.22.4-r0",
+      "file": "Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.get_authors.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/gtk4.0-doc-4.22.4-r0.apk",
+      "sourceArchiveSha256": "acfa523c36af38c84e806300f842b53b2115f37060176d1389aab61261bd8476",
+      "archiveMember": "usr/share/doc/gtk4/method.AboutDialog.get_authors.html",
+      "decoder": null,
+      "sha256": "a61b75c713c2e882ee016315ded7e41eed5d0b36792aa7a27847190c626f02a7"
+    },
+    {
+      "origin": "gtk4.0",
+      "package": "gtk4.0-doc",
+      "packageVersion": "4.22.4-r0",
+      "file": "Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.get_copyright.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/gtk4.0-doc-4.22.4-r0.apk",
+      "sourceArchiveSha256": "acfa523c36af38c84e806300f842b53b2115f37060176d1389aab61261bd8476",
+      "archiveMember": "usr/share/doc/gtk4/method.AboutDialog.get_copyright.html",
+      "decoder": null,
+      "sha256": "7910e8cc0bb872da51ccff710c5d1abb0991bba79d5fa3e9e29b4d4264909579"
+    },
+    {
+      "origin": "gtk4.0",
+      "package": "gtk4.0-doc",
+      "packageVersion": "4.22.4-r0",
+      "file": "Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.get_license.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/gtk4.0-doc-4.22.4-r0.apk",
+      "sourceArchiveSha256": "acfa523c36af38c84e806300f842b53b2115f37060176d1389aab61261bd8476",
+      "archiveMember": "usr/share/doc/gtk4/method.AboutDialog.get_license.html",
+      "decoder": null,
+      "sha256": "fddfb32ce724963cad11d05620783aa8ca26245684998b86803ea14f1b5c09ad"
+    },
+    {
+      "origin": "gtk4.0",
+      "package": "gtk4.0-doc",
+      "packageVersion": "4.22.4-r0",
+      "file": "Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.get_license_type.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/gtk4.0-doc-4.22.4-r0.apk",
+      "sourceArchiveSha256": "acfa523c36af38c84e806300f842b53b2115f37060176d1389aab61261bd8476",
+      "archiveMember": "usr/share/doc/gtk4/method.AboutDialog.get_license_type.html",
+      "decoder": null,
+      "sha256": "08aad515d3f02b3f47889fa486c7ca6a77fbef6157ec44821dbe80ee3e30b193"
+    },
+    {
+      "origin": "gtk4.0",
+      "package": "gtk4.0-doc",
+      "packageVersion": "4.22.4-r0",
+      "file": "Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.get_wrap_license.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/gtk4.0-doc-4.22.4-r0.apk",
+      "sourceArchiveSha256": "acfa523c36af38c84e806300f842b53b2115f37060176d1389aab61261bd8476",
+      "archiveMember": "usr/share/doc/gtk4/method.AboutDialog.get_wrap_license.html",
+      "decoder": null,
+      "sha256": "c249652d26809aecca95f0d86535e90880cde84ce04021e605fa667bbef31cd0"
+    },
+    {
+      "origin": "gtk4.0",
+      "package": "gtk4.0-doc",
+      "packageVersion": "4.22.4-r0",
+      "file": "Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.set_authors.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/gtk4.0-doc-4.22.4-r0.apk",
+      "sourceArchiveSha256": "acfa523c36af38c84e806300f842b53b2115f37060176d1389aab61261bd8476",
+      "archiveMember": "usr/share/doc/gtk4/method.AboutDialog.set_authors.html",
+      "decoder": null,
+      "sha256": "fe923a6befef62fc2d0117b088a95d3e2a81fadcede1b72ca7d52b449c1ef9e0"
+    },
+    {
+      "origin": "gtk4.0",
+      "package": "gtk4.0-doc",
+      "packageVersion": "4.22.4-r0",
+      "file": "Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.set_copyright.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/gtk4.0-doc-4.22.4-r0.apk",
+      "sourceArchiveSha256": "acfa523c36af38c84e806300f842b53b2115f37060176d1389aab61261bd8476",
+      "archiveMember": "usr/share/doc/gtk4/method.AboutDialog.set_copyright.html",
+      "decoder": null,
+      "sha256": "28f58f8b7e102e946a93aec85bd277f3dc45fc91c300adab932cc78b89e2038b"
+    },
+    {
+      "origin": "gtk4.0",
+      "package": "gtk4.0-doc",
+      "packageVersion": "4.22.4-r0",
+      "file": "Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.set_license.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/gtk4.0-doc-4.22.4-r0.apk",
+      "sourceArchiveSha256": "acfa523c36af38c84e806300f842b53b2115f37060176d1389aab61261bd8476",
+      "archiveMember": "usr/share/doc/gtk4/method.AboutDialog.set_license.html",
+      "decoder": null,
+      "sha256": "cebd1a91404ba9903640023460b9d4f52f475d435d2f6b3405903fdde908e609"
+    },
+    {
+      "origin": "gtk4.0",
+      "package": "gtk4.0-doc",
+      "packageVersion": "4.22.4-r0",
+      "file": "Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.set_license_type.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/gtk4.0-doc-4.22.4-r0.apk",
+      "sourceArchiveSha256": "acfa523c36af38c84e806300f842b53b2115f37060176d1389aab61261bd8476",
+      "archiveMember": "usr/share/doc/gtk4/method.AboutDialog.set_license_type.html",
+      "decoder": null,
+      "sha256": "327f6ebaedc85224a4eca9bcb9d8cadcb271ce457571fe7088469ec498ec45c5"
+    },
+    {
+      "origin": "gtk4.0",
+      "package": "gtk4.0-doc",
+      "packageVersion": "4.22.4-r0",
+      "file": "Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.set_wrap_license.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/gtk4.0-doc-4.22.4-r0.apk",
+      "sourceArchiveSha256": "acfa523c36af38c84e806300f842b53b2115f37060176d1389aab61261bd8476",
+      "archiveMember": "usr/share/doc/gtk4/method.AboutDialog.set_wrap_license.html",
+      "decoder": null,
+      "sha256": "9fd1d2f5ba4fed67c0c4abd23532e4fce389ac9a83f000d1cdc22accdce00171"
+    },
+    {
+      "origin": "gtk4.0",
+      "package": "gtk4.0-doc",
+      "packageVersion": "4.22.4-r0",
+      "file": "Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_property.AboutDialog.authors.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/gtk4.0-doc-4.22.4-r0.apk",
+      "sourceArchiveSha256": "acfa523c36af38c84e806300f842b53b2115f37060176d1389aab61261bd8476",
+      "archiveMember": "usr/share/doc/gtk4/property.AboutDialog.authors.html",
+      "decoder": null,
+      "sha256": "60c9a47b67c54408955bc99a58a8ddf636667c5736684033d2a2ba0352e1f979"
+    },
+    {
+      "origin": "gtk4.0",
+      "package": "gtk4.0-doc",
+      "packageVersion": "4.22.4-r0",
+      "file": "Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_property.AboutDialog.copyright.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/gtk4.0-doc-4.22.4-r0.apk",
+      "sourceArchiveSha256": "acfa523c36af38c84e806300f842b53b2115f37060176d1389aab61261bd8476",
+      "archiveMember": "usr/share/doc/gtk4/property.AboutDialog.copyright.html",
+      "decoder": null,
+      "sha256": "79adb39f71e1115608d5f243c84e046eb12a778fff58d61824205b22142aa499"
+    },
+    {
+      "origin": "gtk4.0",
+      "package": "gtk4.0-doc",
+      "packageVersion": "4.22.4-r0",
+      "file": "Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_property.AboutDialog.license-type.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/gtk4.0-doc-4.22.4-r0.apk",
+      "sourceArchiveSha256": "acfa523c36af38c84e806300f842b53b2115f37060176d1389aab61261bd8476",
+      "archiveMember": "usr/share/doc/gtk4/property.AboutDialog.license-type.html",
+      "decoder": null,
+      "sha256": "85fd4a14d14028ed02151f949ba1810758208861bcaf7a4839f181ae8b786af0"
+    },
+    {
+      "origin": "gtk4.0",
+      "package": "gtk4.0-doc",
+      "packageVersion": "4.22.4-r0",
+      "file": "Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_property.AboutDialog.license.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/gtk4.0-doc-4.22.4-r0.apk",
+      "sourceArchiveSha256": "acfa523c36af38c84e806300f842b53b2115f37060176d1389aab61261bd8476",
+      "archiveMember": "usr/share/doc/gtk4/property.AboutDialog.license.html",
+      "decoder": null,
+      "sha256": "d791b5ec9bcdf804928656c49857ce3087d8ac740e2a46d9b215e873750fce43"
+    },
+    {
+      "origin": "gtk4.0",
+      "package": "gtk4.0-doc",
+      "packageVersion": "4.22.4-r0",
+      "file": "Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_property.AboutDialog.wrap-license.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/gtk4.0-doc-4.22.4-r0.apk",
+      "sourceArchiveSha256": "acfa523c36af38c84e806300f842b53b2115f37060176d1389aab61261bd8476",
+      "archiveMember": "usr/share/doc/gtk4/property.AboutDialog.wrap-license.html",
+      "decoder": null,
+      "sha256": "96b8f451fc8222eec9d7a3c0efc001cd8e374cba70ef752662bef44516099756"
+    },
+    {
+      "origin": "libdvdcss",
+      "package": "libdvdcss-doc",
+      "packageVersion": "1.4.3-r0",
+      "file": "Desktop-notice-libdvdcss-doc-usr_share_doc_libdvdcss_AUTHORS.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/libdvdcss-doc-1.4.3-r0.apk",
+      "sourceArchiveSha256": "d00899eabf5fa557a55570f2d2939f9bbb88ada8dce1e8c642ab6e87a6a56ed1",
+      "archiveMember": "usr/share/doc/libdvdcss/AUTHORS",
+      "decoder": null,
+      "sha256": "b2de31ac3382bbadd18eb2f9abea4e209372c62bdf722c96a62043ad074e93b1"
+    },
+    {
+      "origin": "libdvdcss",
+      "package": "libdvdcss-doc",
+      "packageVersion": "1.4.3-r0",
+      "file": "Desktop-notice-libdvdcss-doc-usr_share_doc_libdvdcss_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/libdvdcss-doc-1.4.3-r0.apk",
+      "sourceArchiveSha256": "d00899eabf5fa557a55570f2d2939f9bbb88ada8dce1e8c642ab6e87a6a56ed1",
+      "archiveMember": "usr/share/doc/libdvdcss/COPYING",
+      "decoder": null,
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    {
+      "origin": "libdvdnav",
+      "package": "libdvdnav-doc",
+      "packageVersion": "6.1.1-r1",
+      "file": "Desktop-notice-libdvdnav-doc-usr_share_doc_libdvdnav_AUTHORS.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/libdvdnav-doc-6.1.1-r1.apk",
+      "sourceArchiveSha256": "0140b4cf4b4cdba4701296660242310e2544bbff283cd7a957ef875494998086",
+      "archiveMember": "usr/share/doc/libdvdnav/AUTHORS",
+      "decoder": null,
+      "sha256": "120360d44a585630a4bcef395da624620690023ec177857b1cb6baa02513265b"
+    },
+    {
+      "origin": "libdvdnav",
+      "package": "libdvdnav-doc",
+      "packageVersion": "6.1.1-r1",
+      "file": "Desktop-notice-libdvdnav-doc-usr_share_doc_libdvdnav_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/libdvdnav-doc-6.1.1-r1.apk",
+      "sourceArchiveSha256": "0140b4cf4b4cdba4701296660242310e2544bbff283cd7a957ef875494998086",
+      "archiveMember": "usr/share/doc/libdvdnav/COPYING",
+      "decoder": null,
+      "sha256": "32b1062f7da84967e7019d01ab805935caa7ab7321a7ced0e30ebe75e5df1670"
+    },
+    {
+      "origin": "libdvdread",
+      "package": "libdvdread-doc",
+      "packageVersion": "6.1.3-r2",
+      "file": "Desktop-notice-libdvdread-doc-usr_share_doc_libdvdread_AUTHORS.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/libdvdread-doc-6.1.3-r2.apk",
+      "sourceArchiveSha256": "69441e3ff7a4db85e8c98bc56d25461600daa38ad08948d845811ce151f12b7c",
+      "archiveMember": "usr/share/doc/libdvdread/AUTHORS",
+      "decoder": null,
+      "sha256": "fa94e2d6c994ac16bc1fdc0348f694b9794fd2453fab40e3ddbc2c6401750085"
+    },
+    {
+      "origin": "libdvdread",
+      "package": "libdvdread-doc",
+      "packageVersion": "6.1.3-r2",
+      "file": "Desktop-notice-libdvdread-doc-usr_share_doc_libdvdread_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/libdvdread-doc-6.1.3-r2.apk",
+      "sourceArchiveSha256": "69441e3ff7a4db85e8c98bc56d25461600daa38ad08948d845811ce151f12b7c",
+      "archiveMember": "usr/share/doc/libdvdread/COPYING",
+      "decoder": null,
+      "sha256": "d6cb0e9e560f51085556949a84af12b79a00f10ab8b66c752537faf7cd665572"
+    },
+    {
+      "origin": "libe-book",
+      "package": "libe-book-doc",
+      "packageVersion": "0.1.3-r26",
+      "file": "Desktop-notice-libe-book-doc-usr_share_doc_libe-book_html_classlibebook_1_1FictionBook2Authors-members.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/libe-book-doc-0.1.3-r26.apk",
+      "sourceArchiveSha256": "114783e67d437ae1d9e7c96b3c9c73eb697e0e385df60219bcae238d66c915c2",
+      "archiveMember": "usr/share/doc/libe-book/html/classlibebook_1_1FictionBook2Authors-members.html",
+      "decoder": null,
+      "sha256": "4ba60862ea7c36c06aba97472d3c2855ec6a3a39e68afc20dbaee3a43796853d"
+    },
+    {
+      "origin": "libe-book",
+      "package": "libe-book-doc",
+      "packageVersion": "0.1.3-r26",
+      "file": "Desktop-notice-libe-book-doc-usr_share_doc_libe-book_html_classlibebook_1_1FictionBook2Authors.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/libe-book-doc-0.1.3-r26.apk",
+      "sourceArchiveSha256": "114783e67d437ae1d9e7c96b3c9c73eb697e0e385df60219bcae238d66c915c2",
+      "archiveMember": "usr/share/doc/libe-book/html/classlibebook_1_1FictionBook2Authors.html",
+      "decoder": null,
+      "sha256": "94740f1beb697dd9be0dfb013651a784f29a03a17666cd3761543cbb22354121"
+    },
+    {
+      "origin": "libe-book",
+      "package": "libe-book-doc",
+      "packageVersion": "0.1.3-r26",
+      "file": "Desktop-notice-libe-book-doc-usr_share_doc_libe-book_html_structlibebook_1_1FictionBook2Authors_1_1Data-members.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/libe-book-doc-0.1.3-r26.apk",
+      "sourceArchiveSha256": "114783e67d437ae1d9e7c96b3c9c73eb697e0e385df60219bcae238d66c915c2",
+      "archiveMember": "usr/share/doc/libe-book/html/structlibebook_1_1FictionBook2Authors_1_1Data-members.html",
+      "decoder": null,
+      "sha256": "b7fc615c76b3808d0267094536a4d7587d1b9539a13ddf68892c05d348582f01"
+    },
+    {
+      "origin": "libe-book",
+      "package": "libe-book-doc",
+      "packageVersion": "0.1.3-r26",
+      "file": "Desktop-notice-libe-book-doc-usr_share_doc_libe-book_html_structlibebook_1_1FictionBook2Authors_1_1Data.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/libe-book-doc-0.1.3-r26.apk",
+      "sourceArchiveSha256": "114783e67d437ae1d9e7c96b3c9c73eb697e0e385df60219bcae238d66c915c2",
+      "archiveMember": "usr/share/doc/libe-book/html/structlibebook_1_1FictionBook2Authors_1_1Data.html",
+      "decoder": null,
+      "sha256": "61466f70923e4f55eef4c625ca60647598563e9f4fc64384c062f890425072b8"
+    },
+    {
+      "origin": "flac",
+      "package": "flac-doc",
+      "packageVersion": "1.4.3-r2",
+      "file": "Desktop-notice-flac-doc-usr_share_licenses_flac_COPYING.Xiph.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/flac-doc-1.4.3-r2.apk",
+      "sourceArchiveSha256": "8d1fccf440415a24da0f670503c233cd8a282396a98789610ce0a42a50339630",
+      "archiveMember": "usr/share/licenses/flac/COPYING.Xiph",
+      "decoder": null,
+      "sha256": "12600ea1a7affcbf469bd0d8b2cd725e4167114a2ee834b88f5d2857bfd7ddbf"
+    },
+    {
+      "origin": "libmodplug",
+      "package": "libmodplug-doc",
+      "packageVersion": "0.8.9.0-r3",
+      "file": "Desktop-notice-libmodplug-doc-usr_share_licenses_libmodplug_LICENSE.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/libmodplug-doc-0.8.9.0-r3.apk",
+      "sourceArchiveSha256": "1ee791d1953381181419e4e5903cdbe3586d7e49d07523da1f3f5b1107fa3223",
+      "archiveMember": "usr/share/licenses/libmodplug/LICENSE",
+      "decoder": null,
+      "sha256": "49942e7b3b175f549e751feb08b5270ca6f6c5fb7a1be9f9517db275ec32c92e"
+    },
+    {
+      "origin": "cyrus-sasl",
+      "package": "cyrus-sasl-doc",
+      "packageVersion": "2.1.28-r9",
+      "file": "Desktop-notice-cyrus-sasl-doc-usr_share_licenses_cyrus-sasl_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/cyrus-sasl-doc-2.1.28-r9.apk",
+      "sourceArchiveSha256": "abd163413799fe404291cae7bd5aaf834a648f1a5a1af1325c06131d4f8e739f",
+      "archiveMember": "usr/share/licenses/cyrus-sasl/COPYING",
+      "decoder": null,
+      "sha256": "9d6e5d1632140a6c135b251260953650d17d87cd1124f87aaf72192aa4580d4b"
+    },
+    {
+      "origin": "libxslt",
+      "package": "libxslt-doc",
+      "packageVersion": "1.1.43-r4",
+      "file": "Desktop-notice-libxslt-doc-usr_share_licenses_libxslt_Copyright.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/libxslt-doc-1.1.43-r4.apk",
+      "sourceArchiveSha256": "47a396acfec4cb021e2af4c767c3c49d7b4b1ae4c1eebd54895f0bdbd9404260",
+      "archiveMember": "usr/share/licenses/libxslt/Copyright",
+      "decoder": null,
+      "sha256": "7e48e290b6bfccc2ec1b297023a1d77f2fd87417f71fbb9f50aabef40a851819"
+    },
+    {
+      "origin": "libxv",
+      "package": "libxv-doc",
+      "packageVersion": "1.0.13-r0",
+      "file": "Desktop-notice-libxv-doc-usr_share_licenses_libxv_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/libxv-doc-1.0.13-r0.apk",
+      "sourceArchiveSha256": "395ea54cf6d046915f7ad5d52639bb612f3d7a1bf0b049a98ebf641041a83473",
+      "archiveMember": "usr/share/licenses/libxv/COPYING",
+      "decoder": null,
+      "sha256": "4fac4d581d00f11c459d68b7cb970f3d4e5a5bbfb53784d85f59a90076280301"
+    },
+    {
+      "origin": "zbar",
+      "package": "zbar-doc",
+      "packageVersion": "0.23.93-r2",
+      "file": "Desktop-notice-zbar-doc-usr_share_doc_zbar_COPYING.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/zbar-doc-0.23.93-r2.apk",
+      "sourceArchiveSha256": "9261ceb8b09a56bc7de1043428e18e1f14c7e484e965e847d8e78968a67d5293",
+      "archiveMember": "usr/share/doc/zbar/COPYING",
+      "decoder": null,
+      "sha256": "c635190c86f74415ba2170ced60caf1260c563a65a3f716d4b1c17326f66e216"
+    },
+    {
+      "origin": "zbar",
+      "package": "zbar-doc",
+      "packageVersion": "0.23.93-r2",
+      "file": "Desktop-notice-zbar-doc-usr_share_doc_zbar_LICENSE.md.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/zbar-doc-0.23.93-r2.apk",
+      "sourceArchiveSha256": "9261ceb8b09a56bc7de1043428e18e1f14c7e484e965e847d8e78968a67d5293",
+      "archiveMember": "usr/share/doc/zbar/LICENSE.md",
+      "decoder": null,
+      "sha256": "44260f9252c7fe38ba8dfb645330504f4a375e3a5e9dd7d5d6b9f04adb4952f1"
+    },
+    {
+      "origin": "opus",
+      "package": "opus-doc",
+      "packageVersion": "1.6.1-r0",
+      "file": "Desktop-notice-opus-doc-usr_share_licenses_opus_LICENSE.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/opus-doc-1.6.1-r0.apk",
+      "sourceArchiveSha256": "f86e597dbb3bb6e4f63f2f478b9e065545a14370e8e97e2260134c4ac7d85bc5",
+      "archiveMember": "usr/share/licenses/opus/LICENSE",
+      "decoder": null,
+      "sha256": "01e1167d54a096d123cf6dfbbeb19587278845c6481d2d66d545669846079551"
+    },
+    {
+      "origin": "tiff",
+      "package": "tiff-doc",
+      "packageVersion": "4.7.2-r0",
+      "file": "Desktop-notice-tiff-doc-usr_share_doc_tiff_manual_html__sources_project_license.rst.txt.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/tiff-doc-4.7.2-r0.apk",
+      "sourceArchiveSha256": "64c2f6ec064198899dbeb6d000f32a546bce703497147ef800b280dda6fc7a77",
+      "archiveMember": "usr/share/doc/tiff/manual/html/_sources/project/license.rst.txt",
+      "decoder": null,
+      "sha256": "02e86af3b805e0f2075ebb5ac512831f6ab2a97ddeb186de076c418956418ba1"
+    },
+    {
+      "origin": "tiff",
+      "package": "tiff-doc",
+      "packageVersion": "4.7.2-r0",
+      "file": "Desktop-notice-tiff-doc-usr_share_doc_tiff_manual_html_project_license.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/tiff-doc-4.7.2-r0.apk",
+      "sourceArchiveSha256": "64c2f6ec064198899dbeb6d000f32a546bce703497147ef800b280dda6fc7a77",
+      "archiveMember": "usr/share/doc/tiff/manual/html/project/license.html",
+      "decoder": null,
+      "sha256": "6c9436f8e9f58a79e044949e360291b9c910715fad31cdaed66bc61b0dcf33e6"
+    },
+    {
+      "origin": "libreoffice",
+      "package": "libreoffice-common",
+      "packageVersion": "25.8.7.3-r0",
+      "file": "Desktop-notice-libreoffice-common-LICENSE.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/libreoffice-common-25.8.7.3-r0.apk",
+      "sourceArchiveSha256": "a7f1015aa89c811f958884e962b1112ef64aac64fc79c508d75cf106c675a350",
+      "archiveMember": "usr/lib/libreoffice/LICENSE",
+      "decoder": null,
+      "sha256": "f9ea0002aa202ed6e5c085abf9e2a592e742dc224dc551806d9928c3e8e0ab5f"
+    },
+    {
+      "origin": "libreoffice",
+      "package": "libreoffice-common",
+      "packageVersion": "25.8.7.3-r0",
+      "file": "Desktop-notice-libreoffice-common-LICENSE.html.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/libreoffice-common-25.8.7.3-r0.apk",
+      "sourceArchiveSha256": "a7f1015aa89c811f958884e962b1112ef64aac64fc79c508d75cf106c675a350",
+      "archiveMember": "usr/lib/libreoffice/LICENSE.html",
+      "decoder": null,
+      "sha256": "40ce4f5466d93066f28704b01c131b6a3475b5696d4ed1c48bc581015dea6898"
+    },
+    {
+      "origin": "libreoffice",
+      "package": "libreoffice-common",
+      "packageVersion": "25.8.7.3-r0",
+      "file": "Desktop-notice-libreoffice-common-NOTICE.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/libreoffice-common-25.8.7.3-r0.apk",
+      "sourceArchiveSha256": "a7f1015aa89c811f958884e962b1112ef64aac64fc79c508d75cf106c675a350",
+      "archiveMember": "usr/lib/libreoffice/NOTICE",
+      "decoder": null,
+      "sha256": "8d34210ebbfaee4ba258ef7b30c3044170f356ab82c8259c81b53860bcdeef7b"
+    }
+  ],
+  "fontNoticeFiles": [
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuMathTeXGyre.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuMathTeXGyre.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "71c45968427a04635e73e33a83c728e90461461b28787f1a549b64f1c15fd907"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSans-Bold.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSans-Bold.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "4f90d7148c1d8dd57b6c2d248b592a3d09a11859e15ec4dcef6f5447c2d52a35"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSans-BoldOblique.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSans-BoldOblique.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "fc39bee37bc2eef62e84b0f788cf82cfde56e427269879477d2f91e03ddd0f8c"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSans-ExtraLight.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSans-ExtraLight.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "ba44b3dc4b16e529f34dc0b639178e0e62b09f111012c9171025a83a937bf51e"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSans-Oblique.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSans-Oblique.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "43388258e112efc1ff1a7a84d95d4c765d29ca9a7d21b6dbbb0a8479a008ddb7"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSans.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSans.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "fb6d7d92dc7338aeaeaa5135cf3de332ca6ba4a07947732f1fdddbbf29ac8268"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSansCondensed-Bold.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSansCondensed-Bold.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "15e1a790faf9d32ce5f9cb92f0a78b41485896af5949734f918594be6e7d5d54"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSansCondensed-BoldOblique.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSansCondensed-BoldOblique.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "2b9088a2b8cd46d26d37d4be2e60ec4b5cf46c55b60a4e9a7f07dabdf6a6219d"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSansCondensed-Oblique.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSansCondensed-Oblique.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "85ce83bb64cb3dc1fae625202561c2941203a4e4956d7a64fe7f36e88aa81c21"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSansCondensed.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSansCondensed.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "14815afc9ca7bfdf019219d62c660477077d42098b2cc0985c0577e782a3fdcf"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSansMono-Bold.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSansMono-Bold.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "e4f39cbb93d8d2c583af0aadf6c07e7284b7304f09ae7450abe413b7af87539d"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSansMono-BoldOblique.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSansMono-BoldOblique.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "4cd974be56087c5848229853716a54a3d53d8ba9a3c3f2804b836dc5fb3c3525"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSansMono-Oblique.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSansMono-Oblique.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "9ffdd59ea8bf80586c03f2cc99ceb422c8758aa329385424d31eeec5fab50830"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSansMono.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSansMono.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "c6e3246173cd5ed09d57f8afe6fbca0b496826704c40f5b2e30b6053a9bbd3e4"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSerif-Bold.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSerif-Bold.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "0d93f319a131c1819a9eb5bfc27296e04e1b53dd83933868010cafff3d5b28f0"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSerif-BoldItalic.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSerif-BoldItalic.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "aa3394ac03f422112f6682b4e55655ec8eddd1a3b2ec552a764807ddaea8ab16"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSerif-Italic.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSerif-Italic.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "136fc984e37682b2a4f0b3915923975fd51932806ca31001db8f13656a7c80ec"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSerif.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSerif.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "6dbd37d921fbb21769ef03c1007f8608fd64a9779cfd543a3c90c6e5c4c79626"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSerifCondensed-Bold.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSerifCondensed-Bold.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "b3de91eb06d5f7aa8eb1c9d1ad0018b5c10a3e3e2920f0206baba42530447435"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSerifCondensed-BoldItalic.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSerifCondensed-BoldItalic.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "2a53313f87726ad7f8cbf6e8c9c3f1f934db54edd5dbef6be02fc8f878c987db"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSerifCondensed-Italic.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSerifCondensed-Italic.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "534d19306c68b38aeae74fcc9559b9feaeecd6d062f7da8a1dc513632b318f05"
+    },
+    {
+      "origin": "font-dejavu",
+      "package": "font-dejavu",
+      "packageVersion": "2.37-r6",
+      "file": "Desktop-font-notice-font-dejavu-DejaVuSerifCondensed.ttf.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/font-dejavu-2.37-r6.apk",
+      "sourceArchiveSha256": "786ad1bca0938ebb59e52894102cc31e2e8ef7a940f97d0e0b97d7a0caa5790e",
+      "archiveMember": "usr/share/fonts/dejavu/DejaVuSerifCondensed.ttf",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "5f2f46c0ec1e39f19522319728f45e2b941a4660758a753e44ce84032bf50bd4"
+    },
+    {
+      "origin": "font-wqy-zenhei",
+      "package": "font-wqy-zenhei",
+      "packageVersion": "0.9.46-r0",
+      "file": "Desktop-font-notice-font-wqy-zenhei-wqy-zenhei.ttc.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/community/aarch64/font-wqy-zenhei-0.9.46-r0.apk",
+      "sourceArchiveSha256": "9bd8687bbbaa58bbf314056b79575565b60ad37c893db4c3e1d028df7d306277",
+      "archiveMember": "usr/share/fonts/wqy-zenhei/wqy-zenhei.ttc",
+      "decoder": "OpenType name table IDs 0/7/8/9/11/13/14; original Unicode strings retained",
+      "sha256": "61935d143356279e504f23d3d9aa38013b8e1db5453a0f663f77d24b74f32440"
+    }
+  ],
+  "upstreamSourceNoticeFiles": [
+    {
+      "origin": "exo",
+      "file": "Desktop-source-exo-4.20.0-AUTHORS.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/exo/4.20/exo-4.20.0.tar.bz2",
+      "sourceArchiveSha256": "4277f799245f1efde01cd917fd538ba6b12cf91c9f8a73fe2035fd5456ec078d",
+      "sourceArchiveSha512": "7481f47bb0c8eb5cdc8d7db3e67c1cdaa81e3ef0833281b5380f3eab41e3c2f7112a22b37a3ce305a052b261444fd9f11c130150663deb1b4a220a998321284b",
+      "archiveMember": "exo-4.20.0/AUTHORS",
+      "sha256": "e0f9baa7a44556e406f0447bc18f411e16c137e99564f22be49ab9a7b56be399"
+    },
+    {
+      "origin": "exo",
+      "file": "Desktop-source-exo-4.20.0-COPYING.LIB.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/exo/4.20/exo-4.20.0.tar.bz2",
+      "sourceArchiveSha256": "4277f799245f1efde01cd917fd538ba6b12cf91c9f8a73fe2035fd5456ec078d",
+      "sourceArchiveSha512": "7481f47bb0c8eb5cdc8d7db3e67c1cdaa81e3ef0833281b5380f3eab41e3c2f7112a22b37a3ce305a052b261444fd9f11c130150663deb1b4a220a998321284b",
+      "archiveMember": "exo-4.20.0/COPYING.LIB",
+      "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+    },
+    {
+      "origin": "exo",
+      "file": "Desktop-source-exo-4.20.0-COPYING.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/exo/4.20/exo-4.20.0.tar.bz2",
+      "sourceArchiveSha256": "4277f799245f1efde01cd917fd538ba6b12cf91c9f8a73fe2035fd5456ec078d",
+      "sourceArchiveSha512": "7481f47bb0c8eb5cdc8d7db3e67c1cdaa81e3ef0833281b5380f3eab41e3c2f7112a22b37a3ce305a052b261444fd9f11c130150663deb1b4a220a998321284b",
+      "archiveMember": "exo-4.20.0/COPYING",
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    {
+      "origin": "garcon",
+      "file": "Desktop-source-garcon-4.20.0-AUTHORS.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/garcon/4.20/garcon-4.20.0.tar.bz2",
+      "sourceArchiveSha256": "7fb8517c12309ca4ddf8b42c34bc0c315e38ea077b5442bfcc4509415feada8f",
+      "sourceArchiveSha512": "5ed8b031cceb5943af56d006b05dc9f8ac28695a35d17a8f27f8bde1a0a75067fc4d307c87250a436d1b317f92d501f01ce4078b5c961e4e9daccd175f2f261a",
+      "archiveMember": "garcon-4.20.0/AUTHORS",
+      "sha256": "d85e5c809a58777e6add5f7dd8c30ea0d8ec1284bb67ae95e6bc9f0c1cc2d073"
+    },
+    {
+      "origin": "garcon",
+      "file": "Desktop-source-garcon-4.20.0-COPYING.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/garcon/4.20/garcon-4.20.0.tar.bz2",
+      "sourceArchiveSha256": "7fb8517c12309ca4ddf8b42c34bc0c315e38ea077b5442bfcc4509415feada8f",
+      "sourceArchiveSha512": "5ed8b031cceb5943af56d006b05dc9f8ac28695a35d17a8f27f8bde1a0a75067fc4d307c87250a436d1b317f92d501f01ce4078b5c961e4e9daccd175f2f261a",
+      "archiveMember": "garcon-4.20.0/COPYING",
+      "sha256": "1831caabf4993e5efcd270b5b9f701153cc00305e545da522c6cb1efabc6f8ab"
+    },
+    {
+      "origin": "libxfce4ui",
+      "file": "Desktop-source-libxfce4ui-4.20.1-AUTHORS.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/libxfce4ui/4.20/libxfce4ui-4.20.1.tar.bz2",
+      "sourceArchiveSha256": "ec99f0b8f6d7cd4222c8f8e3bca51d144fb240d719829344b354900eb3a07100",
+      "sourceArchiveSha512": "f530e14302a4e11cc04111d5488ad4b8727bc016bfdef5fd29e1098209fd5e886dde3102bd0feab7c49daff964a4fa208b67dd83be806171f832f09e27ba40a7",
+      "archiveMember": "libxfce4ui-4.20.1/AUTHORS",
+      "sha256": "29862979cb0c6e8513ff71191ed934b4863dc1767cd83d3f4fbff2af2daad389"
+    },
+    {
+      "origin": "libxfce4ui",
+      "file": "Desktop-source-libxfce4ui-4.20.1-COPYING.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/libxfce4ui/4.20/libxfce4ui-4.20.1.tar.bz2",
+      "sourceArchiveSha256": "ec99f0b8f6d7cd4222c8f8e3bca51d144fb240d719829344b354900eb3a07100",
+      "sourceArchiveSha512": "f530e14302a4e11cc04111d5488ad4b8727bc016bfdef5fd29e1098209fd5e886dde3102bd0feab7c49daff964a4fa208b67dd83be806171f832f09e27ba40a7",
+      "archiveMember": "libxfce4ui-4.20.1/COPYING",
+      "sha256": "681e386e44a19d7d0674b4320272c90e66b6610b741e7e6305f8219c42e85366"
+    },
+    {
+      "origin": "libxfce4util",
+      "file": "Desktop-source-libxfce4util-4.20.1-AUTHORS.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/libxfce4util/4.20/libxfce4util-4.20.1.tar.bz2",
+      "sourceArchiveSha256": "84bfc4daab9e466193540c3665eee42b2cf4d24e3f38fc3e8d1e0a2bebe3b8f1",
+      "sourceArchiveSha512": "b9eecac47245c37a46f8e381ed5c672233aae3a78cae8ac0b25a79598847210267172cd03d64d5f4d0405640608f4885092fd62431914b58a930c7b401067268",
+      "archiveMember": "libxfce4util-4.20.1/AUTHORS",
+      "sha256": "de072dd75b1e7334307453aa29eaadbb95fb30777e8954d339961a8147e07651"
+    },
+    {
+      "origin": "libxfce4util",
+      "file": "Desktop-source-libxfce4util-4.20.1-COPYING.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/libxfce4util/4.20/libxfce4util-4.20.1.tar.bz2",
+      "sourceArchiveSha256": "84bfc4daab9e466193540c3665eee42b2cf4d24e3f38fc3e8d1e0a2bebe3b8f1",
+      "sourceArchiveSha512": "b9eecac47245c37a46f8e381ed5c672233aae3a78cae8ac0b25a79598847210267172cd03d64d5f4d0405640608f4885092fd62431914b58a930c7b401067268",
+      "archiveMember": "libxfce4util-4.20.1/COPYING",
+      "sha256": "681e386e44a19d7d0674b4320272c90e66b6610b741e7e6305f8219c42e85366"
+    },
+    {
+      "origin": "libxfce4windowing",
+      "file": "Desktop-source-libxfce4windowing-4.20.6-COPYING.txt",
+      "sourceUrl": "https://gitlab.xfce.org/xfce/libxfce4windowing/-/archive/libxfce4windowing-4.20.6/libxfce4windowing-libxfce4windowing-4.20.6.tar.bz2",
+      "sourceArchiveSha256": "aac9e6061cb5f4bdc4244f1a23b40c6c0e8ea41d3705ef7f17f7e5a2674dd4d5",
+      "sourceArchiveSha512": "b141b09fd542f61b43e6242bcb1d51ad61b00decac08875d89eacca47987953310078246511222fe94b57121cc21d4bbedaa0bf7c00e5c9410b2cfb1624a0f52",
+      "archiveMember": "libxfce4windowing-libxfce4windowing-4.20.6/COPYING",
+      "sha256": "b3aa400aca6d2ba1f0bd03bd98d03d1fe7489a3bbb26969d72016360af8a5c9d"
+    },
+    {
+      "origin": "mousepad",
+      "file": "Desktop-source-mousepad-0.7.0-AUTHORS.txt",
+      "sourceUrl": "https://archive.xfce.org/src/apps/mousepad/0.7/mousepad-0.7.0.tar.xz",
+      "sourceArchiveSha256": "e86c59feb08126d4cace368432c16b2dee8e519aaca8a9d2b409ae1cdd200802",
+      "sourceArchiveSha512": "ac89e64b48e60643a3d261f80732551d014426ac851fc2f58cefc96f11b85ea0b2dcf6d890b257bbe02b79bf68e3204990b436da6c34deaa9bb676d399b310bb",
+      "archiveMember": "mousepad-0.7.0/AUTHORS",
+      "sha256": "317b7bd0783784781ee3166cd75a40085fe913e96816abe89748f2c5e91c2315"
+    },
+    {
+      "origin": "mousepad",
+      "file": "Desktop-source-mousepad-0.7.0-COPYING.txt",
+      "sourceUrl": "https://archive.xfce.org/src/apps/mousepad/0.7/mousepad-0.7.0.tar.xz",
+      "sourceArchiveSha256": "e86c59feb08126d4cace368432c16b2dee8e519aaca8a9d2b409ae1cdd200802",
+      "sourceArchiveSha512": "ac89e64b48e60643a3d261f80732551d014426ac851fc2f58cefc96f11b85ea0b2dcf6d890b257bbe02b79bf68e3204990b436da6c34deaa9bb676d399b310bb",
+      "archiveMember": "mousepad-0.7.0/COPYING",
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    {
+      "origin": "thunar",
+      "file": "Desktop-source-thunar-4.20.8-AUTHORS.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/thunar/4.20/thunar-4.20.8.tar.bz2",
+      "sourceArchiveSha256": "cc735954d948a88eba2e40016a94c598f876309b736686c9f4d0273a05870c69",
+      "sourceArchiveSha512": "b9e45bacaf01bc60b20e5a1a0a20367f6bbf8b6ab6c8bdb54fd84014e70cb57313c8c0e3f1e11375ee20cd7ca9a4e5d52d9dcb950b66f14a82764819f1369f49",
+      "archiveMember": "thunar-4.20.8/AUTHORS",
+      "sha256": "044fdfe8cefb7a4714c3a08644b42e2fbb719b5faac94ec52d31faba37109119"
+    },
+    {
+      "origin": "thunar",
+      "file": "Desktop-source-thunar-4.20.8-COPYING.LIB.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/thunar/4.20/thunar-4.20.8.tar.bz2",
+      "sourceArchiveSha256": "cc735954d948a88eba2e40016a94c598f876309b736686c9f4d0273a05870c69",
+      "sourceArchiveSha512": "b9e45bacaf01bc60b20e5a1a0a20367f6bbf8b6ab6c8bdb54fd84014e70cb57313c8c0e3f1e11375ee20cd7ca9a4e5d52d9dcb950b66f14a82764819f1369f49",
+      "archiveMember": "thunar-4.20.8/COPYING.LIB",
+      "sha256": "c12422b73b26686e48afb876dca33c939b31ed921b8045ed707fb364eff197a9"
+    },
+    {
+      "origin": "thunar",
+      "file": "Desktop-source-thunar-4.20.8-COPYING.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/thunar/4.20/thunar-4.20.8.tar.bz2",
+      "sourceArchiveSha256": "cc735954d948a88eba2e40016a94c598f876309b736686c9f4d0273a05870c69",
+      "sourceArchiveSha512": "b9e45bacaf01bc60b20e5a1a0a20367f6bbf8b6ab6c8bdb54fd84014e70cb57313c8c0e3f1e11375ee20cd7ca9a4e5d52d9dcb950b66f14a82764819f1369f49",
+      "archiveMember": "thunar-4.20.8/COPYING",
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    {
+      "origin": "xfce4-appfinder",
+      "file": "Desktop-source-xfce4-appfinder-4.20.0-AUTHORS.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/xfce4-appfinder/4.20/xfce4-appfinder-4.20.0.tar.bz2",
+      "sourceArchiveSha256": "82ca82f77dc83e285db45438c2fe31df445148aa986ffebf2faabee4af9e7304",
+      "sourceArchiveSha512": "eae593d075cfe091680fc0093236e95172fddab88a251765e1c6574688a5456fb03f3547eede1d2c6766f8b05b18f0bcbeae607e61d97ac92a927dbe2283790f",
+      "archiveMember": "xfce4-appfinder-4.20.0/AUTHORS",
+      "sha256": "67261278cb572920e3f125e66e6ebbd4e992ed5f4e01f2e018cba04779998de4"
+    },
+    {
+      "origin": "xfce4-appfinder",
+      "file": "Desktop-source-xfce4-appfinder-4.20.0-COPYING.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/xfce4-appfinder/4.20/xfce4-appfinder-4.20.0.tar.bz2",
+      "sourceArchiveSha256": "82ca82f77dc83e285db45438c2fe31df445148aa986ffebf2faabee4af9e7304",
+      "sourceArchiveSha512": "eae593d075cfe091680fc0093236e95172fddab88a251765e1c6574688a5456fb03f3547eede1d2c6766f8b05b18f0bcbeae607e61d97ac92a927dbe2283790f",
+      "archiveMember": "xfce4-appfinder-4.20.0/COPYING",
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    {
+      "origin": "xfce4-panel",
+      "file": "Desktop-source-xfce4-panel-4.20.7-AUTHORS.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/xfce4-panel/4.20/xfce4-panel-4.20.7.tar.bz2",
+      "sourceArchiveSha256": "696e3eff0b1b5bfa8ba90fd7afdea58f5b06e5547840a7443d11388f2fd578ea",
+      "sourceArchiveSha512": "776319ce0dc0c087f8c1f963b34e5876870d21a91a47cca9b8bcc651dc469a59a0cabc47abdb170e5ab5420783e1d65354ced2778716159751da325697e6107f",
+      "archiveMember": "xfce4-panel-4.20.7/AUTHORS",
+      "sha256": "7c0b84958443c8d0376907ccf6a275b18f6bea8e3dd709ad46e279507c90b6f9"
+    },
+    {
+      "origin": "xfce4-panel",
+      "file": "Desktop-source-xfce4-panel-4.20.7-COPYING.LIB.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/xfce4-panel/4.20/xfce4-panel-4.20.7.tar.bz2",
+      "sourceArchiveSha256": "696e3eff0b1b5bfa8ba90fd7afdea58f5b06e5547840a7443d11388f2fd578ea",
+      "sourceArchiveSha512": "776319ce0dc0c087f8c1f963b34e5876870d21a91a47cca9b8bcc651dc469a59a0cabc47abdb170e5ab5420783e1d65354ced2778716159751da325697e6107f",
+      "archiveMember": "xfce4-panel-4.20.7/COPYING.LIB",
+      "sha256": "64e647f03752f296a36e9af47771f5ec0378a55f1b4fc71e11fa1bae97052608"
+    },
+    {
+      "origin": "xfce4-panel",
+      "file": "Desktop-source-xfce4-panel-4.20.7-COPYING.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/xfce4-panel/4.20/xfce4-panel-4.20.7.tar.bz2",
+      "sourceArchiveSha256": "696e3eff0b1b5bfa8ba90fd7afdea58f5b06e5547840a7443d11388f2fd578ea",
+      "sourceArchiveSha512": "776319ce0dc0c087f8c1f963b34e5876870d21a91a47cca9b8bcc651dc469a59a0cabc47abdb170e5ab5420783e1d65354ced2778716159751da325697e6107f",
+      "archiveMember": "xfce4-panel-4.20.7/COPYING",
+      "sha256": "6f16336b34fbe20bc7f0acfc22916468ab0d88822d955d372ce338de8899c21f"
+    },
+    {
+      "origin": "xfce4-session",
+      "file": "Desktop-source-xfce4-session-4.20.2-AUTHORS.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/xfce4-session/4.20/xfce4-session-4.20.2.tar.bz2",
+      "sourceArchiveSha256": "a0b80b7136515bc3c0c54fa859ad420365e29b715b6da0b58a2d2781bfbe73c3",
+      "sourceArchiveSha512": "561b10b6efe011dfd2dd43d05fda4282f1950e30a0fdcd28c8a28f420990390e5dc94bf7b6ad344346eabc0c3752c393489d681edab61a6f58e9c81854a45201",
+      "archiveMember": "xfce4-session-4.20.2/AUTHORS",
+      "sha256": "a7beb0ad0fd70a8caf84a09c55116897e19380fd87cc9995d371f267e8f148c6"
+    },
+    {
+      "origin": "xfce4-session",
+      "file": "Desktop-source-xfce4-session-4.20.2-COPYING.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/xfce4-session/4.20/xfce4-session-4.20.2.tar.bz2",
+      "sourceArchiveSha256": "a0b80b7136515bc3c0c54fa859ad420365e29b715b6da0b58a2d2781bfbe73c3",
+      "sourceArchiveSha512": "561b10b6efe011dfd2dd43d05fda4282f1950e30a0fdcd28c8a28f420990390e5dc94bf7b6ad344346eabc0c3752c393489d681edab61a6f58e9c81854a45201",
+      "archiveMember": "xfce4-session-4.20.2/COPYING",
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    {
+      "origin": "xfce4-settings",
+      "file": "Desktop-source-xfce4-settings-4.20.4-AUTHORS.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/xfce4-settings/4.20/xfce4-settings-4.20.4.tar.bz2",
+      "sourceArchiveSha256": "ad5c3c5bfb36f5eb091c05897d60f468d0d5cc4364c8d1d38ca53d8bb04387da",
+      "sourceArchiveSha512": "40fc31ff45690f2adedeaa49cf728ac39f2f474fbe9f67ff459f7aeeb0867c30cc5d3dfb015fe3b2bf477feac28c1c97b1c706c19f8a9fc059b053e47f417acb",
+      "archiveMember": "xfce4-settings-4.20.4/AUTHORS",
+      "sha256": "06c257c69204b739d7835ccde96e4bf705b1eb72bb8af19ecf5dbc8b79fdd57b"
+    },
+    {
+      "origin": "xfce4-settings",
+      "file": "Desktop-source-xfce4-settings-4.20.4-COPYING.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/xfce4-settings/4.20/xfce4-settings-4.20.4.tar.bz2",
+      "sourceArchiveSha256": "ad5c3c5bfb36f5eb091c05897d60f468d0d5cc4364c8d1d38ca53d8bb04387da",
+      "sourceArchiveSha512": "40fc31ff45690f2adedeaa49cf728ac39f2f474fbe9f67ff459f7aeeb0867c30cc5d3dfb015fe3b2bf477feac28c1c97b1c706c19f8a9fc059b053e47f417acb",
+      "archiveMember": "xfce4-settings-4.20.4/COPYING",
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    {
+      "origin": "xfce4-terminal",
+      "file": "Desktop-source-xfce4-terminal-1.2.0-AUTHORS.txt",
+      "sourceUrl": "https://archive.xfce.org/src/apps/xfce4-terminal/1.2/xfce4-terminal-1.2.0.tar.xz",
+      "sourceArchiveSha256": "6874c7b975cc3dc3bd636d57ffec723de7458202defe65377593d3a7e0734b94",
+      "sourceArchiveSha512": "b0ac9330d7df046955bad43a535a1eb58bb7461d97d7145924df6e179c2b276817ecd607b72fae881d5e724a3ee5b29f2bd309ebadda5b88cc0afab52b33da13",
+      "archiveMember": "xfce4-terminal-1.2.0/AUTHORS",
+      "sha256": "893b1578a23f71bd39f844d3efa81ba67c3eb871f53f459de13ba8231b39e07e"
+    },
+    {
+      "origin": "xfce4-terminal",
+      "file": "Desktop-source-xfce4-terminal-1.2.0-COPYING.txt",
+      "sourceUrl": "https://archive.xfce.org/src/apps/xfce4-terminal/1.2/xfce4-terminal-1.2.0.tar.xz",
+      "sourceArchiveSha256": "6874c7b975cc3dc3bd636d57ffec723de7458202defe65377593d3a7e0734b94",
+      "sourceArchiveSha512": "b0ac9330d7df046955bad43a535a1eb58bb7461d97d7145924df6e179c2b276817ecd607b72fae881d5e724a3ee5b29f2bd309ebadda5b88cc0afab52b33da13",
+      "archiveMember": "xfce4-terminal-1.2.0/COPYING",
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    {
+      "origin": "xfconf",
+      "file": "Desktop-source-xfconf-4.20.0-AUTHORS.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/xfconf/4.20/xfconf-4.20.0.tar.bz2",
+      "sourceArchiveSha256": "8bc43c60f1716b13cf35fc899e2a36ea9c6cdc3478a8f051220eef0f53567efd",
+      "sourceArchiveSha512": "87ae4e9366cccb6c2f13229539e8317d26bfb3fc5333e769ec2de1b596e04348595bb2e85ca90fb63c6c64968e5108e59490700028aeb077b32b9cd03062d9e9",
+      "archiveMember": "xfconf-4.20.0/AUTHORS",
+      "sha256": "c6e26c1b397a06bcab9774eb30f0e79c6b4007742178c74239ecc6f28f65f9b0"
+    },
+    {
+      "origin": "xfconf",
+      "file": "Desktop-source-xfconf-4.20.0-COPYING.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/xfconf/4.20/xfconf-4.20.0.tar.bz2",
+      "sourceArchiveSha256": "8bc43c60f1716b13cf35fc899e2a36ea9c6cdc3478a8f051220eef0f53567efd",
+      "sourceArchiveSha512": "87ae4e9366cccb6c2f13229539e8317d26bfb3fc5333e769ec2de1b596e04348595bb2e85ca90fb63c6c64968e5108e59490700028aeb077b32b9cd03062d9e9",
+      "archiveMember": "xfconf-4.20.0/COPYING",
+      "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+    },
+    {
+      "origin": "xfdesktop",
+      "file": "Desktop-source-xfdesktop-4.20.1-AUTHORS.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/xfdesktop/4.20/xfdesktop-4.20.1.tar.bz2",
+      "sourceArchiveSha256": "acccde849265bbf4093925ba847977b7abf70bb2977e4f78216570e887c157b8",
+      "sourceArchiveSha512": "11f422e31fb5b4f789ac61252a79ef9b139fd0a3e29f1346d5e3c06779567f1809fd78d751df5595cdb5510d0349e908276e85f6325b8ac90dfd00c79ca5d0e2",
+      "archiveMember": "xfdesktop-4.20.1/AUTHORS",
+      "sha256": "abc44dd133937c6622813fcbf3795a718282e565891fc95cf7154ad88441f65f"
+    },
+    {
+      "origin": "xfdesktop",
+      "file": "Desktop-source-xfdesktop-4.20.1-COPYING.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/xfdesktop/4.20/xfdesktop-4.20.1.tar.bz2",
+      "sourceArchiveSha256": "acccde849265bbf4093925ba847977b7abf70bb2977e4f78216570e887c157b8",
+      "sourceArchiveSha512": "11f422e31fb5b4f789ac61252a79ef9b139fd0a3e29f1346d5e3c06779567f1809fd78d751df5595cdb5510d0349e908276e85f6325b8ac90dfd00c79ca5d0e2",
+      "archiveMember": "xfdesktop-4.20.1/COPYING",
+      "sha256": "32b1062f7da84967e7019d01ab805935caa7ab7321a7ced0e30ebe75e5df1670"
+    },
+    {
+      "origin": "xfwm4",
+      "file": "Desktop-source-xfwm4-4.20.0-AUTHORS.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/xfwm4/4.20/xfwm4-4.20.0.tar.bz2",
+      "sourceArchiveSha256": "a58b63e49397aa0d8d1dcf0636be93c8bb5926779aef5165e0852890190dcf06",
+      "sourceArchiveSha512": "1fa22d5bdf44d5907cbe362d20b7a99a610cfd38954a6cb5b7efad3481de5b450deb4fbf14ae2c1642ab5f7a39179016bb0f1558fe2941997cd931e9f8cc8dc8",
+      "archiveMember": "xfwm4-4.20.0/AUTHORS",
+      "sha256": "68351bb6a5d8d5c1f8725102644c585fcf64c9330afa18c52561f6dcceb03597"
+    },
+    {
+      "origin": "xfwm4",
+      "file": "Desktop-source-xfwm4-4.20.0-COPYING.txt",
+      "sourceUrl": "https://archive.xfce.org/src/xfce/xfwm4/4.20/xfwm4-4.20.0.tar.bz2",
+      "sourceArchiveSha256": "a58b63e49397aa0d8d1dcf0636be93c8bb5926779aef5165e0852890190dcf06",
+      "sourceArchiveSha512": "1fa22d5bdf44d5907cbe362d20b7a99a610cfd38954a6cb5b7efad3481de5b450deb4fbf14ae2c1642ab5f7a39179016bb0f1558fe2941997cd931e9f8cc8dc8",
+      "archiveMember": "xfwm4-4.20.0/COPYING",
+      "sha256": "e1aa57b16350b3f421e49bd8b9401252d2b667616def1718c72576286249ae4f"
+    },
+    {
+      "origin": "gdk-pixbuf",
+      "file": "Desktop-source-gdk-pixbuf-2.44.7-COPYING.txt",
+      "sourceUrl": "https://download.gnome.org/sources/gdk-pixbuf/2.44/gdk-pixbuf-2.44.7.tar.xz",
+      "sourceArchiveSha256": "172f80e3626ec31520a970400f1a3694e04718f6c2cd2885f75250fb5a6995a4",
+      "sourceArchiveSha512": "6f6a9aeeafe244267be7afe914ac5c239c2b44daa677e6cfb83bfbdb81421b209db3fc8a5d7a78e228e8939f00bf464e1bdb9e691b6e40228180e8a8d1d4ecc7",
+      "archiveMember": "gdk-pixbuf-2.44.7/COPYING",
+      "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+    }
+  ]
+}

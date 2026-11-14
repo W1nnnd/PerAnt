@@ -1,0 +1,107 @@
+{
+  "description": "Retained upstream license text provenance. Not a complete corresponding-source bundle.",
+  "files": [
+    {
+      "file": "GCC-15.2.0-GPL-2.0.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-15.2.0/COPYING",
+      "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+    },
+    {
+      "file": "GCC-15.2.0-GPL-3.0.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-15.2.0/COPYING3",
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    },
+    {
+      "file": "GCC-15.2.0-LGPL-2.1.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-15.2.0/COPYING.LIB",
+      "sha256": "a9bdde5616ecdd1e980b44f360600ee8783b1f99b8cc83a2beb163a0a390e861"
+    },
+    {
+      "file": "GCC-15.2.0-RUNTIME-EXCEPTION.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-15.2.0/COPYING.RUNTIME",
+      "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74"
+    },
+    {
+      "file": "Python-3.14.10-LICENSE.txt",
+      "sourceUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/main/aarch64/python3-3.14.10-r1.apk",
+      "sourceArchiveSha256": "980b5108e756f1aae298c041ef6bb229b655b7a5393b8c001f6bac8a03825429",
+      "archiveMember": "usr/lib/python3.14/LICENSE.txt",
+      "sha256": "b0e25a78cffb43f4d92de8b61ccfa1f1f98ecbc22330b54b5251e7b6ba010231"
+    },
+    {
+      "file": "SQLite-PUBLIC-DOMAIN.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/sqlite/sqlite/version-3.53.4/LICENSE.md",
+      "sha256": "ee6af51062b30d532991face5164136ae6f84e265ecf8abe89dc69dac45ca1e7"
+    },
+    {
+      "file": "bzip2-1.0.8-LICENSE.txt",
+      "sourceUrl": "https://sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz",
+      "sourceArchiveSha256": "ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269",
+      "archiveMember": "bzip2-1.0.8/LICENSE",
+      "sha256": "c6dbbf828498be844a89eaa3b84adbab3199e342eb5cb2ed2f0d4ba7ec0f38a3"
+    },
+    {
+      "file": "expat-2.10.0-COPYING.txt",
+      "sourceUrl": "https://github.com/libexpat/libexpat/releases/download/R_2_10_0/expat-2.10.0.tar.xz",
+      "sourceArchiveSha256": "c624ba2998fc65df1163a49641ff3f9ab73138b11641d92c86bee0fb01b1bc7f",
+      "archiveMember": "expat-2.10.0/COPYING",
+      "sha256": "31b15de82aa19a845156169a17a5488bf597e561b2c318d159ed583139b25e87"
+    },
+    {
+      "file": "libffi-3.5.2-LICENSE.txt",
+      "sourceUrl": "https://github.com/libffi/libffi/releases/download/v3.5.2/libffi-3.5.2.tar.gz",
+      "sourceArchiveSha256": "f3a3082a23b37c293a4fcd1053147b371f2ff91fa7ea1b2a52e335676bac82dc",
+      "archiveMember": "libffi-3.5.2/LICENSE",
+      "sha256": "d5699fa516968e3a1550e6c902b7441c78856f2603d61bedd0b0662a26655366"
+    },
+    {
+      "file": "mpdecimal-4.0.1-COPYRIGHT.txt",
+      "sourceUrl": "https://www.bytereef.org/software/mpdecimal/releases/mpdecimal-4.0.1.tar.gz",
+      "sourceArchiveSha256": "96d33abb4bb0070c7be0fed4246cd38416188325f820468214471938545b1ac8",
+      "archiveMember": "mpdecimal-4.0.1/COPYRIGHT.txt",
+      "sha256": "dba079e24a0286052f9f36a5e0b4f6cc95bc83ada657eb26bef8c0b6473f6512"
+    },
+    {
+      "file": "ncurses-6.6-20260516-COPYING.txt",
+      "sourceUrl": "https://distfiles.alpinelinux.org/distfiles/v3.24/ncurses-6.6-20260516.tgz",
+      "sourceArchiveSha256": "933438009f594f54656c53c7bc347a7e0ff21881700fc3db811086f7a3fd3b60",
+      "archiveMember": "ncurses-6.6-20260516/COPYING",
+      "sha256": "a85ca5bef8ce71f013bc5f4306c681881b248450f3b63722589891f0b69ea52d"
+    },
+    {
+      "file": "xz-5.8.4-COPYING.0BSD.txt",
+      "sourceUrl": "https://codeload.github.com/tukaani-project/xz/tar.gz/refs/tags/v5.8.4",
+      "sourceArchiveSha256": "b6b34c52e672e810d339db14e0c10b5b6f5f67a30d8d05cdac5d8cb4d82f78d5",
+      "archiveMember": "xz-5.8.4/COPYING.0BSD",
+      "sha256": "0b01625d853911cd0e2e088dcfb743261034a091bb379246cb25a14cc4c74bf1"
+    },
+    {
+      "file": "xz-5.8.4-COPYING.GPLv2.txt",
+      "sourceUrl": "https://codeload.github.com/tukaani-project/xz/tar.gz/refs/tags/v5.8.4",
+      "sourceArchiveSha256": "b6b34c52e672e810d339db14e0c10b5b6f5f67a30d8d05cdac5d8cb4d82f78d5",
+      "archiveMember": "xz-5.8.4/COPYING.GPLv2",
+      "sha256": "edaef632cbb643e4e7a221717a6c441a4c1a7c918e6e4d56debc3d8739b233f6"
+    },
+    {
+      "file": "xz-5.8.4-COPYING.GPLv3.txt",
+      "sourceUrl": "https://codeload.github.com/tukaani-project/xz/tar.gz/refs/tags/v5.8.4",
+      "sourceArchiveSha256": "b6b34c52e672e810d339db14e0c10b5b6f5f67a30d8d05cdac5d8cb4d82f78d5",
+      "archiveMember": "xz-5.8.4/COPYING.GPLv3",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    {
+      "file": "xz-5.8.4-COPYING.LGPLv2.1.txt",
+      "sourceUrl": "https://codeload.github.com/tukaani-project/xz/tar.gz/refs/tags/v5.8.4",
+      "sourceArchiveSha256": "b6b34c52e672e810d339db14e0c10b5b6f5f67a30d8d05cdac5d8cb4d82f78d5",
+      "archiveMember": "xz-5.8.4/COPYING.LGPLv2.1",
+      "sha256": "20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95"
+    },
+    {
+      "file": "xz-5.8.4-COPYING.txt",
+      "sourceUrl": "https://codeload.github.com/tukaani-project/xz/tar.gz/refs/tags/v5.8.4",
+      "sourceArchiveSha256": "b6b34c52e672e810d339db14e0c10b5b6f5f67a30d8d05cdac5d8cb4d82f78d5",
+      "archiveMember": "xz-5.8.4/COPYING",
+      "sha256": "616a3ad264ce29b8f1cb97e53037b139d406899ca8d1f799651e17bfa09830b8"
+    }
+  ]
+}

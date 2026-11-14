@@ -1,0 +1,18 @@
+analyzer:
+  exclude:
+    - .tooling/**
+    - '**/build/**'
+    - '**/*.g.dart'
+  errors:
+    missing_required_param: error
+    missing_return: error
+linter:
+  rules:
+    - avoid_print
+    - cancel_subscriptions
+    - close_sinks
+    - collection_methods_unrelated_type
+    - discarded_futures
+    - no_duplicate_case_values
+    - prefer_final_locals
+    - unawaited_futures

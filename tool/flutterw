@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-3.0-only
+set -euo pipefail
+project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+export PUB_CACHE="${PUB_CACHE:-$project_root/.tooling/pub-cache}"
+export GRADLE_USER_HOME="${GRADLE_USER_HOME:-$project_root/.tooling/gradle}"
+export ANDROID_USER_HOME="${ANDROID_USER_HOME:-$project_root/.tooling/android-user}"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$project_root/.tooling/config}"
+export ANALYZER_STATE_LOCATION_OVERRIDE="${ANALYZER_STATE_LOCATION_OVERRIDE:-$project_root/.tooling/analyzer-state}"
+if [[ -z "${JAVA_HOME:-}" ]]; then
+  for perant_jdk in "$project_root"/.tooling/jdk/*/Contents/Home; do
+    if [[ -x "$perant_jdk/bin/java" ]]; then
+      export JAVA_HOME="$perant_jdk"
+      break
+    fi
+  done
+fi
+if [[ -z "${ANDROID_HOME:-}" && -d "$project_root/.tooling/android-sdk" ]]; then
+  export ANDROID_HOME="$project_root/.tooling/android-sdk"
+fi
+if [[ -n "${ANDROID_HOME:-}" ]]; then
+  export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-$ANDROID_HOME}"
+fi
+if [[ -n "${PERANT_FLUTTER_SDK:-}" ]]; then
+  flutter_bin="$PERANT_FLUTTER_SDK/bin/flutter"
+elif [[ -x "$project_root/.tooling/flutter/bin/flutter" ]]; then
+  flutter_bin="$project_root/.tooling/flutter/bin/flutter"
+elif command -v flutter >/dev/null 2>&1; then
+  flutter_bin="$(command -v flutter)"
+else
+  printf '%s\n' 'Flutter SDK not found. Install Flutter or set PERANT_FLUTTER_SDK.' >&2
+  exit 1
+fi
+exec "$flutter_bin" --suppress-analytics "$@"

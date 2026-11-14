@@ -1,0 +1,122 @@
+# 开发状态
+
+更新日期：2026-11-14。当前源码版本：**0.8.0+2008，网页正文保存到共享工作区**。完整 `tool/check`、Android JVM 72/72、共享 C 发布核心 probe 6/6、本轮 Android 集成 19/19 及最终 0.8 APK 静态/安装一致性均已通过；最终人工保存→桌面打开流程未完成。历史 0.7 的 28 项设备结果不累加为本轮通过数。M0 双端与完整 M1-D 关卡仍未完成。
+
+文中标注的本地开发证据和构建产物（如 `artifacts/`、`.tooling/` 与生成的运行资源）未随本次源码发布；源码预览的验证范围以文内记录为准。
+
+## 当前实现
+
+| 部分 | 当前内容 | 验证边界 |
+| --- | --- | --- |
+| 工作区与许可 | Flutter 共享应用、三个包、SDK 包装器、GPL-3.0-only | 本地开发，远端发布结果另记 |
+| 对话与模型配置 | nanoMuse 参考、多会话、可跳过 API、预设与凭据引用；两种 OpenAI 格式协议 | 未用真实用户 Key 验证所有供应商 |
+| Linux / Python | PRoot/匹配 loader、Alpine 3.24.4、Python 3.14.10、JNI PTY、独立 `/workspace` | Android ARM64；iOS、实体低配手机和其他 ROM 待测 |
+| Linux 桌面与办公 | Xvnc/Xfce、Thunar、终端、Mousepad、设置；LibreOffice Writer/Calc/Impress、zh_CN、GTK3、私有办公配置 | 历史 0.7 v6 桌面 3/3、Writer ODT/DOCX 2/2；本轮未重跑，Calc/Impress 和复杂格式未验 |
+| 原生浏览器 | 同一电脑工作区内的 Android WebView；地址、历史导航、网页交互与接管；电脑应用面板/聊天更多入口 | 用户明确选择原生浏览器路线；Linux Firefox 原型失败并已移除；历史 0.7 原生设备 5/5；本轮 0.8 浏览器回归 5/5 |
+| 按需显示 | 桌面前台连续 RFB、隐藏释放帧和图像；浏览器按需捕获 PNG、临时挂载与 Bitmap 释放 | 保留 X server/窗口和 WebView 会话仍占内存；隐藏不保证 JS timers 或网络停止 |
+| 模型协作 | 文件、Shell、desktop 工具及 browser_open/capture/action/save_page；最新观察/revision、控制权与取消检查 | 模型协议 17 项通过，使用 fixture PNG / MockClient；未连接真实视觉供应商 |
+| 网页正文资料 | 用户“保存网页文字”、模型 `browser_save_page`；固定 DOM 提取、来源/时间、明确截断、256 KiB Markdown、根目录新建 | 本轮 Android 保存 4/4、最终 APK/安装一致性通过；最终人工保存→桌面打开流程未完成，不等于下载附件或上传 |
+| 文件与产物预览 | `/workspace` UTF-8 编辑、SHA256 冲突、Markdown、独立静态 HTML WebView | 通用文件 API 与活跃 guest/桌面互斥；专用正文导入允许已就绪桌面；静态预览继续禁脚本、禁网络 |
+| 数据与恢复 | SQLite 文档/任务/会话/操作，凭据存储；取消及重开不重放；PNG 不入库 | 不含向量索引、长期记忆、完整备份或跨进程恢复 |
+| 本地文字整理 | 固定 Python、真实 Markdown 草稿、编辑和确认 | 保留原文并规范排版，不生成语义摘要 |
+
+## 0.8.0 本轮状态
+
+| 检查 | 当前结果 |
+| --- | --- |
+| 格式、静态分析、完整宿主测试 | **通过：Dart 252**（核心/网关 38、平台/应用 214）、**Python 14**，全格式与静态分析通过；另 2 项可选截图跳过 |
+| 模型浏览器协议 | **17/17 通过**；含 Chat/Responses 保存回执持久化、单次观察、无云授权拒绝、取消/接管、未知结果屏障和回执保存失败后不重试；属于模拟 API/桥接测试 |
+| Android JVM | **72/72 通过**，不代替真实 WebView、JNI 或应用端到端结果 |
+| Android 原生共享发布核心 | **6/6 通过**；实际 API 36 ARM64 probe 使用生产 JNI 同一 `workspace_import.h`，测试独立临时目录，未访问应用数据；结果（`artifacts/android-browser-save-v08/native-workspace-import-probe.json`）与来源摘要（`artifacts/android-browser-save-v08/native-workspace-import-provenance.json`） |
+| 本轮 Android 集成 | **19/19 通过**：网页保存 4、既有浏览器 5、容器 7、原生存储/文档 3；见汇总（`artifacts/android-browser-save-v08/integration-results.json`） |
+| 最终 0.8 APK / 安装一致性 | **通过**：冻结包（`artifacts/apk/PerAnt-0.8.0-debug-arm64.apk`）、SHA-256（`artifacts/apk/PerAnt-0.8.0-debug-arm64.apk.sha256`）、静态核验（`artifacts/android-browser-save-v08/apk-verification.json`）与安装记录（`artifacts/android-browser-save-v08/installed-apk-verification.json`）；0.8.0/2008、ARM64、min29/target36、v2 |
+| 最终 0.8 APK 人工入口 | **未完成**，状态 `incomplete`；人工记录（`artifacts/android-browser-save-v08/manual-apk-check.json`）及原始画面（`artifacts/android-browser-save-v08/manual-input-transfer-incomplete.png`）。未成功输入/提交目标网址，未取得保存回执或桌面编辑证据 |
+
+本轮选择独立测试 AVD `emulator-5556`：API 36、ARM64、配置 3072 MiB / 2 核，实际 WebView `com.google.android.webview / 133.0.6943.137`，系统报告 MemTotal 3,047,188 KiB。原有 `emulator-5554` 的个人桌面与窗口保留；先前停止该会话的自动审批未通过，采用独立 AVD 继续验证。这个模拟器配置不是 4 GB 实体低配手机资源验收。
+
+原生核心 probe 6 项与已通过的 Flutter 集成 19 项分别计数；本轮不重跑旧 Linux/Python 8、Writer 2 和桌面 3，不把历史通过数加成 0.8 设备总数。原生核心探针不证明完整应用链路，JVM 不证明实际 JNI 发布。最终记录集中在0.8 验收报告（`artifacts/android-browser-save-v08/VERIFICATION.md`）。
+
+网页保存 4/4（`artifacts/android-browser-save-v08/page-save-results.json`）覆盖真实 DOM 排除、SPA 导航使旧 revision 失效、超限明确截断（最终 Markdown 262,142 字节）、已就绪桌面下发布并保留同 session/PID 6041 与可绘制 RFB，以及普通终端忙时拒绝导入。最终成功用例文件 343 字节，停止测试桌面后实际读回 SHA256 与独立 guest `sha256sum` 一致；这份读回证据与仅描述发布字节的正常工具回执分开。另浏览器 5/5（`artifacts/android-browser-save-v08/native-browser-results.json`）和容器/原生存储 10/10（`artifacts/android-browser-save-v08/runtime-regression-results.json`）均通过。
+
+冻结 0.8 APK 为 **503,977,705 字节（480.63 MiB）**，SHA-256：`d2209156497c5e8f194719426c9e46987bf82649535098fef5dc305aced4a649`。375 项资源、211 项归属与源码匹配，包内新增 JNI 动态符号已核验，17 项生产来源摘要与已完成宿主检查匹配；通过 `--use-application-binary` 启动的设备安装字节摘要一致，未重建或热更新。
+
+测试过程中保留失败及重试记录。只修改了测试 PTY 事件归属和轮询方式，未修改生产初始化、放宽断言、预热或延长原有 100 秒完成等待；最终冷路径通过。调度竞争仍只是推测，不写成已确认原因。见尝试记录（`artifacts/android-browser-save-v08/test-attempts.json`）及测试源码检查（`artifacts/android-browser-save-v08/fixture-source-checks.json`）。
+
+最终包在 Android Studio 嵌入的测试模拟器中启动到对话主界面，“更多 → 浏览器”打开 `about:blank`，保存按钮存在且处于禁用状态。人工尝试中宿主键盘/粘贴未按预期填入地址，软键盘输入出现丢字和重音字符，一次 CUA 调用超时；冷启动后曾出现 System UI 无响应提示并选择 Wait。上述观察不证明具体根因，也不是成功导航或保存。没有实际保存回执和在 Linux 编辑器打开文件的人工证据，人工链路仍未完成；自动化 19/19 与包体/安装一致性保持各自通过范围。
+
+新增功能契约见[网页文字保存](BROWSER_PAGE_SAVE.md)：文件回执描述发布字节，不是活跃 Linux 后续修改后的读回；不覆盖原件，不下载附件或上传，不停止原桌面，取消后已发布文件可能保留。
+
+## 历史 0.7.0+2007 验收
+
+以下结果只证明该版冻结 APK 和当时的 v6 资源，不代替新增网页保存或本轮回归。
+
+| 检查 | 当前结果 |
+| --- | --- |
+| 格式、静态分析、完整宿主测试 | **通过：Dart 223 项**（核心/网关 38、平台/应用 185）、**Python 14 项**、格式与全仓静态分析；另 2 项可选截图跳过。浏览器服务/查看器定向 **21 项**通过；使用模拟桥接/API，不等于设备或真实供应商验收 |
+| 新增浏览器模型协议 | 9 项通过：Chat/Responses PNG 多模态、错误页 PNG 与加载状态回执、工具回执与来源标签、普通聊天无授权、过期观察、取消/接管后迟到截图、回执保存期间撤权、URL 与图片预算拒绝 |
+| Android JVM | **66/66 通过**；属于原生契约与组件测试，不证明 WebView 实际渲染或办公 GUI 可用 |
+| v6 原生桌面基线 | **3/3 通过**：真实菜单/Thunar/终端/设置/编辑器和文件持久化、隐藏单帧观察、paused 双图像句柄同步释放/恢复与 unmount 清理。见证据（`artifacts/android-desktop-v07/desktop-results.json`）；生命周期由 binding 注入 |
+| 原生浏览器 | **5/5 通过**，含真实 JS/输入/像素、真实平台视图触控及旧 revision 拒绝、隐藏同页观察/重挂载、长按取消、历史/尺寸/关闭、弹窗取消、HTML 与空正文 HTTP 404 错误保留和恢复；见证据（`artifacts/android-desktop-v07/native-browser-results.json`） |
+| 既有 Android 回归 | **18/18 通过**：容器 7、Linux/Python 8、原生存储/文档 3，见本轮结果（`artifacts/android-desktop-v07/runtime-regression-results.json`）；Linux 9 条记录属于 8 个用例，不按记录数累加 |
+| Android 自动化合计 | **28/28 通过**：浏览器 5 + Writer 2 + 桌面 3 + 容器 7 + Linux/Python 8 + 原生存储/文档 3；均为实际 Android，未请求真实模型 |
+| Office 启动器兼容 | 仅重试 `NORMAL_RESTART=81`，最多总计 3 次；3 个生成脚本语法检查与 21 个独立 Shell 功能场景通过，保留参数、环境、profile 和 stdout/stderr，其他错误码不重试。见证据（`artifacts/android-desktop-v07/office-launcher-shell-check.json`）；由新增 2 个 Python unittest 方法覆盖并纳入 Python 14，不按 21 个场景再次累加 |
+| LibreOffice Writer | **2/2 通过**：ODT、DOCX 从测试模板经 GUI Save As 创建新文件，原模板不变；停止桌面后核对 ZIP/XML，重开追加保存后哈希改变且原文保留。DOCX 两次真实点击“使用 Word 2007 格式”，不使用 Alt+U。见证据（`artifacts/android-desktop-v07/office-results.json`） |
+| 运行资源 | v6 冻结 manifest：355 个官方签名桌面/办公 APK、375 项运行资源，合计 **432,783,532 字节**；375 项资源与 211 项许可/归属文件已按最终 APK 逐项核对源码 |
+| 0.7.0 APK | 冻结 APK（`artifacts/apk/PerAnt-0.7.0-debug-arm64.apk`） / SHA-256（`artifacts/apk/PerAnt-0.7.0-debug-arm64.apk.sha256`） 已通过 ZIP/签名/manifest/资源/许可校验，0.7.0/2007、ARM64、min29/target36、v2；设备安装摘要与交付一致。见包体（`artifacts/android-desktop-v07/apk-verification.json`）和安装记录（`artifacts/android-desktop-v07/installed-apk-verification.json`） |
+| 人工入口复核 | **通过**；同一冻结 APK 的聊天/电脑浏览器、正式 Writer 入口与浏览器返回原 Writer 均已实际观察。见人工记录（`artifacts/android-desktop-v07/manual-apk-check.json`），状态 `passed`；Mac 解锁阻塞已解除 |
+
+人工复核使用原冻结 APK，没有源码修改或热更新。浏览器返回后自动重连同一 Writer；Xvnc 30411、Xfce 30415、Writer 31023 前后保持不变。入口与往返不等于再次执行保存测试，保存/重开以独立的两项 Writer 设备结果为准。
+
+冻结资源 manifest SHA-256 为 `60ee1f699facf6eb71985de0ca4b082cddd622701a410ccc667bd843bb8c66e6`。manifest 大小为 **99,837 字节**；对应启动脚本 **30,319 字节**，SHA-256 为 `5a4e3867a63d8256ee380ae75ab71568d4c68fbf759d3e339a3d6241bb84e73d`。这是资源清单及脚本摘要，不是 APK 摘要；最终交付包大小、摘要与签名已由包体记录确认，设备安装字节摘要一致。
+
+LibreOffice 启动器直接使用官方 `soffice.bin`、显式 `URE_BOOTSTRAP`、GTK3 与 `SAL_ENABLE_FILE_LOCKING=1`；私有配置位于 `/root/.perant-office`，文档在 `/workspace`。浏览器采用独立 Android WebView，不依赖 Linux Firefox 或桌面查看器；没有模型 JS/关闭工具，也不开放网页下载、文件选择上传或权限授予流程。应用与使用入口见[基础应用说明](DESKTOP_APPLICATIONS.md)。
+
+`browser_open` 回执只表示已请求打开。观察携带实际 PNG、`loading`、`error` 与 `page_loaded`；错误页截图仍可成功返回，`page_loaded` 只表示观察时加载已结束且无已知错误，不等于任务或内容成功。HTTP 404（有正文及空正文）错误保留与恢复、隐藏 alert/confirm/prompt 取消、远程明文地址导航前拒绝已纳入本轮 5/5；公网网站与 TLS 服务兼容性未在 loopback 场景中验收。
+
+浏览器需要前台 Activity 才能按需观察和操作；隐藏查看页时卸载 viewer、停止连续截图并释放 Bitmap，保留同一页面会话。`onPause` / 隐藏不保证 JavaScript timers、网页网络或 Chromium renderer 内存归零，显式关闭才销毁会话。桌面隐藏也不终止 Linux 应用。后台常驻与锁屏续跑未实现。
+
+自动化原生浏览器 **5/5 通过**，见本轮浏览器证据（`artifacts/android-desktop-v07/native-browser-results.json`）。测试 provider 为 `com.google.android.webview / 145.0.7632.218`，使用本机 loopback 页面，未导航公网或请求真实模型；系统 IME、OS 后台调度与 4 GB 资源不在这次通过范围。
+
+Writer 的 ODT / DOCX 真实 GUI 保存与重开 **2/2 通过**，模板保持不变，停止桌面后核对实际 ZIP/XML 与修改哈希，见办公证据（`artifacts/android-desktop-v07/office-results.json`）。v6 桌面最终基线 **3/3 通过**，见桌面证据（`artifacts/android-desktop-v07/desktop-results.json`）；生命周期由真实 Android 上的 Flutter binding 注入，不证明 OS 后台调度。Calc/Impress、复杂格式与系统中文输入法不在这两项 Writer 通过范围内。
+
+历史 0.7 Android 自动化合计 **28/28 通过**：浏览器 5、Writer 2、桌面 3，加既有回归 18（`artifacts/android-desktop-v07/runtime-regression-results.json`）（容器 7、Linux/Python 8、原生存储/文档 3）。Linux 日志有 9 条检查记录，但对应 8 个测试用例，按 8 项计数；均在实际 Android 上执行，没有真实模型请求。最终 APK 已通过静态校验与安装一致性，人工入口与往返复核已通过。
+
+历史 0.7 冻结交付：ARM64 调试 APK（`artifacts/apk/PerAnt-0.7.0-debug-arm64.apk`）、SHA-256 文件（`artifacts/apk/PerAnt-0.7.0-debug-arm64.apk.sha256`）；自动化总结果（`artifacts/android-desktop-v07/integration-results.json`）、包体校验（`artifacts/android-desktop-v07/apk-verification.json`）、安装一致性（`artifacts/android-desktop-v07/installed-apk-verification.json`）。版本 0.7.0/2007、仅 ARM64、min SDK 29 / target 36、v2 签名；375 项运行资源与 211 项许可/归属文件已逐项核对源码。最终 APK 通过 `--use-application-binary` 启动，设备安装字节摘要与冻结交付一致；人工入口与往返复核已通过。
+
+最终冻结 APK 的人工入口与往返复核（`artifacts/android-desktop-v07/manual-apk-check.json`）已通过：聊天“更多”打开原生浏览器，实际显示 `https://example.org/` 正文；电脑“应用 → 文档”打开“未命名 1 — LibreOffice Writer”；“应用 → 浏览器”恢复同一 URL 和正文，页头返回后自动 RFB 重连到原 Writer。Xvnc/Xfce/Writer 进程保持不变，未修改源码或热更新。三张原始 1080×2400 PNG：聊天浏览器（`artifacts/android-desktop-v07/browser-apk-api37.png`）、Writer 入口（`artifacts/android-desktop-v07/writer-apk-api37.png`）、电脑浏览器（`artifacts/android-desktop-v07/browser-from-computer-apk-api37.png`）。返回 Writer 已实际观察但未另存截图；文档保存证据仍来自独立的两项设备测试。这次公网 HTTPS 人工观察与自动化 loopback 场景分开，不代表真实模型、系统中文 IME、长期后台或低配设备已验收。
+
+本轮浏览器保留 10 张原生 PNG 证据，包括隐藏 JS 结果（`artifacts/android-desktop-v07/browser-native-hidden-js-result.png`）、同页重挂载（`artifacts/android-desktop-v07/browser-native-remounted-same-page.png`）和空正文 HTTP 404（`artifacts/android-desktop-v07/browser-native-real-http404-empty.png`）。设备日志明确未验证系统 IME 注入或实际 OS 后台切换，不能扩大为已完成中文输入或系统续跑。
+
+## 历史 0.6.0+2006
+
+以下只证明 **v4 Xfce 核心桌面与当时最终 APK**，不代替 0.7.0 浏览器、办公应用或 v6 环境验收。
+
+| 检查 | 0.6 历史结果 |
+| --- | --- |
+| 完整 `tool/check` | Dart 208（核心/网关 38、平台/应用 170）、Python 12，格式与静态分析通过；另 2 项截图默认跳过 |
+| Android JVM | 56/56 通过 |
+| API 37 ARM64 原生集成 | 21/21：Xfce 桌面 3、既有回归 18（容器 7、Linux/Python 8、存储/文档 3） |
+| 历史资源 | 198 项运行资源、152 项许可/来源文件、178 个桌面 APK、144 个桌面源码来源及配方已核对 |
+| 历史人工复核 | 聊天电脑卡进入 Xfce、Thunar、短时最近任务切换后恢复同一窗口；不证明长期后台、锁屏或 4 GB 目标 |
+
+记录见结构化结果（`artifacts/android-desktop-v06/integration-results.json`）、验收报告（`artifacts/android-desktop-v06/VERIFICATION.md`）、人工记录（`artifacts/android-desktop-v06/manual-apk-check.json`）和包体校验（`artifacts/android-desktop-v06/apk-verification.json`）。绑定注入的生命周期事件不等于系统后台任务调度；当时也未发送真实模型请求。
+
+## 更早的历史证据
+
+| 版本 | 记录与限制 |
+| --- | --- |
+| 0.5.0 图形桌面 | Dart 198、Python 12、JVM 51；桌面 3/3 与既有回归 18/18。见历史报告（`artifacts/android-desktop/VERIFICATION.md`）与包体校验（`artifacts/android-desktop/apk-verification.json`），不证明后续 Xfce/办公/浏览器 |
+| 0.4.0 文件工作台 | Dart 160、Python 12、JVM 47；设备 18/18，最终 APK HTML 编辑/静态预览记录见历史报告（`artifacts/android-container/VERIFICATION.md`） |
+| 0.3.0 Python | Linux 8/8、原生存储/文档 3/3；Dart 125、Python 12、JVM 36。见历史报告（`artifacts/android-python/VERIFICATION.md`） |
+| 0.2.0 终端 | APK 安装、手动终端与键盘 smoke，见历史报告（`artifacts/android-linux/VERIFICATION.md`） |
+| iOS 早期模拟器构建 | 曾完成 Debug 编译；未接 iSH、本地推理或本轮浏览器，不能代替双端验收 |
+
+## 仍需完成
+
+- **完整共控：**真实视觉供应商、中文输入法、模型制作文件→GUI 打开→用户修改→模型重新观察继续，以及浏览器与办公混合任务。
+- **本地模型与低配：**llama.cpp、候选模型、下载与调度，4 GB 整机内存和约 5 秒基础响应均未实测。
+- **双端与后台：**iSH、iPhone 真机、Android 前台服务、锁屏、回收与步骤恢复；查看器释放不能替代这些关卡。
+- **文档与知识：**DOCX/PDF 导入导出、1,000 份资料的混合检索、长期记忆和迁移；LibreOffice GUI 不是宿主文档导出服务的替代验收。
+- **分发与边界：**完整对应源码分发包、其他设备/ROM、PRoot 权限边界与任意 Shell 行为；不把文件 API 的路径拒绝称为强隔离。
+
+所有移动运行结论以对应版本的原生 APK 和设备证据为准。M0 与完整 M1-D 保持未完成，直到取得各项要求的数据。

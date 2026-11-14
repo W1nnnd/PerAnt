@@ -1,0 +1,51 @@
+# Local development tools and caches
+.tooling/
+.dart_tool/
+.flutter-plugins-dependencies
+.packages
+**/build/
+coverage/
+__pycache__/
+*.py[cod]
+
+# Platform build state and personal signing
+**/.gradle/
+**/.cxx/
+**/.externalNativeBuild/
+**/local.properties
+**/Pods/
+**/.symlinks/
+**/Flutter/ephemeral/
+**/Flutter/Generated.xcconfig
+**/Flutter/flutter_export_environment.sh
+**/GeneratedPluginRegistrant.*
+**/xcuserdata/
+**/DerivedData/
+*.jks
+*.keystore
+*.mobileprovision
+
+# Personal configuration and credentials
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.p8
+perant-data/
+
+# Editors and OS files
+.DS_Store
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+
+# Generated documentation and test captures
+artifacts/
+
+# Rebuilt from pinned sources with tool/prepare-linux-runtime
+packages/perant_platform/android/src/main/assets/perant-linux/
+packages/perant_platform/android/src/main/jniLibs/**/*.so

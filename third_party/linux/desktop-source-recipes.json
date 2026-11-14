@@ -1,0 +1,2325 @@
+{
+  "description": "Pinned official Alpine build recipes identify original sources, patches, source checksums and license paths. Not a complete corresponding-source distribution.",
+  "recipes": [
+    {
+      "origin": "adwaita-fonts",
+      "repository": "community",
+      "commit": "b4f0590773788cde0df58f4aef035be023277464",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/b4f0590773788cde0df58f4aef035be023277464/community/adwaita-fonts/APKBUILD",
+      "recipeSha256": "923fe0d4a0f2bddc0741fc7c7b660c7cc0a9b968d94ec05b0ae5f76ab0241dee",
+      "cacheFile": "adwaita-fonts-b4f0590773788cde0df58f4aef035be023277464.APKBUILD"
+    },
+    {
+      "origin": "adwaita-icon-theme",
+      "repository": "community",
+      "commit": "2702d8eeb05f2b8ada1c204f2415e6e0b071ef4c",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/2702d8eeb05f2b8ada1c204f2415e6e0b071ef4c/community/adwaita-icon-theme/APKBUILD",
+      "recipeSha256": "b7df537420ef732d8477587b419401e5aad91bf78bae367582886b4e71682374",
+      "cacheFile": "adwaita-icon-theme-2702d8eeb05f2b8ada1c204f2415e6e0b071ef4c.APKBUILD"
+    },
+    {
+      "origin": "alsa-lib",
+      "repository": "main",
+      "commit": "2939b0cfc6acaf6eeb012f4e371d46c537d4e9f9",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/2939b0cfc6acaf6eeb012f4e371d46c537d4e9f9/main/alsa-lib/APKBUILD",
+      "recipeSha256": "d12e144ce6d51a24b0e158c391994225ff3f9ee21615a91eed149af9339cb4d6",
+      "cacheFile": "alsa-lib-2939b0cfc6acaf6eeb012f4e371d46c537d4e9f9.APKBUILD"
+    },
+    {
+      "origin": "aom",
+      "repository": "main",
+      "commit": "ca6a710df98ad5e2b596cf06b44cd82a5ceefc4e",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/ca6a710df98ad5e2b596cf06b44cd82a5ceefc4e/main/aom/APKBUILD",
+      "recipeSha256": "d8e6849aa59ed4d40cf927913e6f5c7a483a2b126851804986df0c21d8ad54b1",
+      "cacheFile": "aom-ca6a710df98ad5e2b596cf06b44cd82a5ceefc4e.APKBUILD"
+    },
+    {
+      "origin": "argon2",
+      "repository": "main",
+      "commit": "33283848034c9885d984c8e8697c645c57324938",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/33283848034c9885d984c8e8697c645c57324938/main/argon2/APKBUILD",
+      "recipeSha256": "52e1f836119eb4381423497f74506df15a4cd986864bab61f4b7a74cf522a026",
+      "cacheFile": "argon2-33283848034c9885d984c8e8697c645c57324938.APKBUILD"
+    },
+    {
+      "origin": "at-spi2-core",
+      "repository": "main",
+      "commit": "127aabdda292243f9eddbf9d4690d52a167de5c3",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/127aabdda292243f9eddbf9d4690d52a167de5c3/main/at-spi2-core/APKBUILD",
+      "recipeSha256": "cd36968d075e0e894344b7b54e1417248398401b3189f779c005d4c5afe02315",
+      "cacheFile": "at-spi2-core-127aabdda292243f9eddbf9d4690d52a167de5c3.APKBUILD"
+    },
+    {
+      "origin": "avahi",
+      "repository": "main",
+      "commit": "c8147a84799898ff9780bc4f3c179ccc141e8e67",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/c8147a84799898ff9780bc4f3c179ccc141e8e67/main/avahi/APKBUILD",
+      "recipeSha256": "380b06634077323a070ef770a6664bc4fea12649175107a5049da5442d8ea788",
+      "cacheFile": "avahi-c8147a84799898ff9780bc4f3c179ccc141e8e67.APKBUILD"
+    },
+    {
+      "origin": "boost1.84",
+      "repository": "main",
+      "commit": "00de196d70821acfc9097299ba10472a0e9847b7",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/00de196d70821acfc9097299ba10472a0e9847b7/main/boost1.84/APKBUILD",
+      "recipeSha256": "082de0469b9407d4d6a47484c7c1cf8f4c9e55db36e669df1242ec8c568e13e2",
+      "cacheFile": "boost1.84-00de196d70821acfc9097299ba10472a0e9847b7.APKBUILD"
+    },
+    {
+      "origin": "box2d",
+      "repository": "community",
+      "commit": "bc6f0aa2ab726625fbb0122460a62255e5e6995f",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/bc6f0aa2ab726625fbb0122460a62255e5e6995f/community/box2d/APKBUILD",
+      "recipeSha256": "1dcc30b54815523dc4b23e788db95603f42d0fcd640b4676e66a9c7411c3f414",
+      "cacheFile": "box2d-bc6f0aa2ab726625fbb0122460a62255e5e6995f.APKBUILD"
+    },
+    {
+      "origin": "brotli",
+      "repository": "main",
+      "commit": "8313352127992a9d82e2c2024494f6c38a4dffb4",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/8313352127992a9d82e2c2024494f6c38a4dffb4/main/brotli/APKBUILD",
+      "recipeSha256": "f9a8f0e7a72518e32c90098916a889a18469aa0148fa0c088be4e4c5d9473f29",
+      "cacheFile": "brotli-8313352127992a9d82e2c2024494f6c38a4dffb4.APKBUILD"
+    },
+    {
+      "origin": "bubblewrap",
+      "repository": "main",
+      "commit": "21ce0edacfd8b359eeb3abc29fbd0b49b023ca1b",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/21ce0edacfd8b359eeb3abc29fbd0b49b023ca1b/main/bubblewrap/APKBUILD",
+      "recipeSha256": "3a5fba25e3e62805bdd213e08e85abc07604fe1a1c91508f90e5ffdef57a8cb3",
+      "cacheFile": "bubblewrap-21ce0edacfd8b359eeb3abc29fbd0b49b023ca1b.APKBUILD"
+    },
+    {
+      "origin": "c-ares",
+      "repository": "main",
+      "commit": "50f178d7a4c30ea44b54b7d4731ab58558c38b14",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/50f178d7a4c30ea44b54b7d4731ab58558c38b14/main/c-ares/APKBUILD",
+      "recipeSha256": "c15c4c8efe5fad0961f612cffb05f8ab8848ce1e3c108b65af25377b86807c40",
+      "cacheFile": "c-ares-50f178d7a4c30ea44b54b7d4731ab58558c38b14.APKBUILD"
+    },
+    {
+      "origin": "ca-certificates",
+      "repository": "main",
+      "commit": "e78f5987166c6ffbe23f6472e2e8f040298fe2da",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/e78f5987166c6ffbe23f6472e2e8f040298fe2da/main/ca-certificates/APKBUILD",
+      "recipeSha256": "7b35fb8e11790105578f47d57a3b22831227b0d8ad7d064e575bad146023f3da",
+      "cacheFile": "ca-certificates-e78f5987166c6ffbe23f6472e2e8f040298fe2da.APKBUILD"
+    },
+    {
+      "origin": "cairo",
+      "repository": "main",
+      "commit": "e54632f6ef658146c2393a8cbd0368a3707d4991",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/e54632f6ef658146c2393a8cbd0368a3707d4991/main/cairo/APKBUILD",
+      "recipeSha256": "5ccc4cad116c4b2d5c1058764f64b0451759194a4ba6742e53462b7dda7343c5",
+      "cacheFile": "cairo-e54632f6ef658146c2393a8cbd0368a3707d4991.APKBUILD"
+    },
+    {
+      "origin": "cdparanoia",
+      "repository": "main",
+      "commit": "c878341873168fef6b5c91c8f5c924a1af67c7c3",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/c878341873168fef6b5c91c8f5c924a1af67c7c3/main/cdparanoia/APKBUILD",
+      "recipeSha256": "aecdf4143d907b216aabeb2d21fc86dab0b61d4640f4a511f2eab122ab1f46e9",
+      "cacheFile": "cdparanoia-c878341873168fef6b5c91c8f5c924a1af67c7c3.APKBUILD"
+    },
+    {
+      "origin": "clucene",
+      "repository": "main",
+      "commit": "6a56a74cb41e59aea34800094f3e6205ccb4655f",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6a56a74cb41e59aea34800094f3e6205ccb4655f/main/clucene/APKBUILD",
+      "recipeSha256": "0f340ee8a01d634c198cc92fe2edfffd138f82146412a18b8be312e200ffb5b3",
+      "cacheFile": "clucene-6a56a74cb41e59aea34800094f3e6205ccb4655f.APKBUILD"
+    },
+    {
+      "origin": "colord",
+      "repository": "community",
+      "commit": "a7c11fb75debe853e13fc2f6599506a001365611",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/a7c11fb75debe853e13fc2f6599506a001365611/community/colord/APKBUILD",
+      "recipeSha256": "6ece8d3175a79231200f882a4d61be95f99b26cfee6dbafe1b0c09adc544b3cf",
+      "cacheFile": "colord-a7c11fb75debe853e13fc2f6599506a001365611.APKBUILD"
+    },
+    {
+      "origin": "cups",
+      "repository": "main",
+      "commit": "636370bb6f28ad23a01cefdd5316b06c85fa5761",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/636370bb6f28ad23a01cefdd5316b06c85fa5761/main/cups/APKBUILD",
+      "recipeSha256": "432c6c46930199c56c6b0934c179ead21f5222c732a62ac3d46d092f290c6609",
+      "cacheFile": "cups-636370bb6f28ad23a01cefdd5316b06c85fa5761.APKBUILD"
+    },
+    {
+      "origin": "curl",
+      "repository": "main",
+      "commit": "c65a7b3f6d6bc4b3c0a8a6fff759d8fd05a167ce",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/c65a7b3f6d6bc4b3c0a8a6fff759d8fd05a167ce/main/curl/APKBUILD",
+      "recipeSha256": "13e89ad8f7bcf78396b626a0dd38e307a347a0680aae3b58600009ba00d86a3f",
+      "cacheFile": "curl-c65a7b3f6d6bc4b3c0a8a6fff759d8fd05a167ce.APKBUILD"
+    },
+    {
+      "origin": "cyrus-sasl",
+      "repository": "main",
+      "commit": "fac808c0fddf93e8980ec1f55972e6f69b78ba6f",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/fac808c0fddf93e8980ec1f55972e6f69b78ba6f/main/cyrus-sasl/APKBUILD",
+      "recipeSha256": "7bdec6a39ee51dda594196c0ae099964dcd2f0aebfe736df7a2c6e6bdf95b43d",
+      "cacheFile": "cyrus-sasl-fac808c0fddf93e8980ec1f55972e6f69b78ba6f.APKBUILD"
+    },
+    {
+      "origin": "dav1d",
+      "repository": "main",
+      "commit": "6a13170ddff8fdf27712aa7d0e5437aa2407ff56",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6a13170ddff8fdf27712aa7d0e5437aa2407ff56/main/dav1d/APKBUILD",
+      "recipeSha256": "0ca482efbfb2b8b8a3a2b206773e1cb4a3165353b95a08df34e0db4bfd640d75",
+      "cacheFile": "dav1d-6a13170ddff8fdf27712aa7d0e5437aa2407ff56.APKBUILD"
+    },
+    {
+      "origin": "dbus",
+      "repository": "main",
+      "commit": "0dac2d7bf76016e3bb78ccc734edbb157a1d4b51",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/0dac2d7bf76016e3bb78ccc734edbb157a1d4b51/main/dbus/APKBUILD",
+      "recipeSha256": "c6734c71215433cec823a644f2ef5431118827baadd34d590649c1861df79785",
+      "cacheFile": "dbus-0dac2d7bf76016e3bb78ccc734edbb157a1d4b51.APKBUILD"
+    },
+    {
+      "origin": "desktop-file-utils",
+      "repository": "community",
+      "commit": "6bd45b53fb316dc01bda59f5feaf1e127eb64f22",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6bd45b53fb316dc01bda59f5feaf1e127eb64f22/community/desktop-file-utils/APKBUILD",
+      "recipeSha256": "08b2764b1a7fcd7cf2fceb3bf63640772bdf809976e200e402ce80dfded53b1e",
+      "cacheFile": "desktop-file-utils-6bd45b53fb316dc01bda59f5feaf1e127eb64f22.APKBUILD"
+    },
+    {
+      "origin": "directfb",
+      "repository": "community",
+      "commit": "81718313f55b85e4727ef421addae5a8e3b0004e",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/81718313f55b85e4727ef421addae5a8e3b0004e/community/directfb/APKBUILD",
+      "recipeSha256": "1a9394601565a0766fe48e082edbab82fc108202c9c9fbab0ed82470fc197782",
+      "cacheFile": "directfb-81718313f55b85e4727ef421addae5a8e3b0004e.APKBUILD"
+    },
+    {
+      "origin": "double-conversion",
+      "repository": "community",
+      "commit": "f5a68812ed21e88e804fcc91715517696d37d6a3",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/f5a68812ed21e88e804fcc91715517696d37d6a3/community/double-conversion/APKBUILD",
+      "recipeSha256": "d89ea7b8daa062410285a19e29bcb14c747798abb8982ff1a12f23ca4e88566f",
+      "cacheFile": "double-conversion-f5a68812ed21e88e804fcc91715517696d37d6a3.APKBUILD"
+    },
+    {
+      "origin": "duktape",
+      "repository": "community",
+      "commit": "a9e2a2dc46f377eb25884f7fea9834492de7f518",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/a9e2a2dc46f377eb25884f7fea9834492de7f518/community/duktape/APKBUILD",
+      "recipeSha256": "62f2a5d894f7bb0a3cfe4cbc65a168c756b2ca16192f6c6d88a1dd9fef15dec6",
+      "cacheFile": "duktape-a9e2a2dc46f377eb25884f7fea9834492de7f518.APKBUILD"
+    },
+    {
+      "origin": "elfutils",
+      "repository": "main",
+      "commit": "8f13294206888f3dd44ed74a8eb3dd9934499e81",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/8f13294206888f3dd44ed74a8eb3dd9934499e81/main/elfutils/APKBUILD",
+      "recipeSha256": "57b8c49081d81828697e169512ec93943ae2d376a407f34b8062b5667ff41684",
+      "cacheFile": "elfutils-8f13294206888f3dd44ed74a8eb3dd9934499e81.APKBUILD"
+    },
+    {
+      "origin": "enchant2",
+      "repository": "community",
+      "commit": "29f5e8636649b9b1bd07d694fe8fe3a9b5e0e0e9",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/29f5e8636649b9b1bd07d694fe8fe3a9b5e0e0e9/community/enchant2/APKBUILD",
+      "recipeSha256": "c97d2a60c990fc91f36ec4e62feadb402cf65f68a5e440c8e3e7cee3a9dbdd84",
+      "cacheFile": "enchant2-29f5e8636649b9b1bd07d694fe8fe3a9b5e0e0e9.APKBUILD"
+    },
+    {
+      "origin": "encodings",
+      "repository": "main",
+      "commit": "c690d2215724c06db60faa7a7de4b8f0d2720682",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/c690d2215724c06db60faa7a7de4b8f0d2720682/main/encodings/APKBUILD",
+      "recipeSha256": "d23f967cdaf8b447939064fa34035e1658a1cfe762e4356522fa0e8912810e85",
+      "cacheFile": "encodings-c690d2215724c06db60faa7a7de4b8f0d2720682.APKBUILD"
+    },
+    {
+      "origin": "eudev",
+      "repository": "main",
+      "commit": "4133df77f8cc98f92679b79de07736589fa48bff",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/4133df77f8cc98f92679b79de07736589fa48bff/main/eudev/APKBUILD",
+      "recipeSha256": "6f0dac3b22e2b29acfe280ed57da0464419ab097c9c578f82c797553519c93a5",
+      "cacheFile": "eudev-4133df77f8cc98f92679b79de07736589fa48bff.APKBUILD"
+    },
+    {
+      "origin": "exo",
+      "repository": "community",
+      "commit": "31e7aacc5ace446f28a537ed062e7cff27547587",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/31e7aacc5ace446f28a537ed062e7cff27547587/community/exo/APKBUILD",
+      "recipeSha256": "92673ac27c4708563cd7aeb698b3861e129a3c99f4259a86c1818aacfa45f06f",
+      "cacheFile": "exo-31e7aacc5ace446f28a537ed062e7cff27547587.APKBUILD"
+    },
+    {
+      "origin": "faac",
+      "repository": "community",
+      "commit": "fd133eb9c5bdad4ab8aa2bda85a4b1a0ff18837b",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/fd133eb9c5bdad4ab8aa2bda85a4b1a0ff18837b/community/faac/APKBUILD",
+      "recipeSha256": "2e8291cdddc48a3a1b45202b2a6721791cb30ef5755d089e080d0ecb05550a6a",
+      "cacheFile": "faac-fd133eb9c5bdad4ab8aa2bda85a4b1a0ff18837b.APKBUILD"
+    },
+    {
+      "origin": "faad2",
+      "repository": "community",
+      "commit": "333c64f70965994ccb525551c617af7974e39fc8",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/333c64f70965994ccb525551c617af7974e39fc8/community/faad2/APKBUILD",
+      "recipeSha256": "2c3c58b57c8d62b603be031ac14313b346b890135cb9659849c1d683a4a3e1a5",
+      "cacheFile": "faad2-333c64f70965994ccb525551c617af7974e39fc8.APKBUILD"
+    },
+    {
+      "origin": "fdk-aac",
+      "repository": "community",
+      "commit": "80739e9ec0682399ed55876d26966ea77d6242fb",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/80739e9ec0682399ed55876d26966ea77d6242fb/community/fdk-aac/APKBUILD",
+      "recipeSha256": "522f11b9e28f4b1b998cf6e9e444d0897742030945923a22abc2de57bd0214f8",
+      "cacheFile": "fdk-aac-80739e9ec0682399ed55876d26966ea77d6242fb.APKBUILD"
+    },
+    {
+      "origin": "file",
+      "repository": "main",
+      "commit": "a05d36fa86411cd0ce86d756f818e525d0eee1c3",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/a05d36fa86411cd0ce86d756f818e525d0eee1c3/main/file/APKBUILD",
+      "recipeSha256": "cd9913cc14452e65282da778cd03d7ba7afefca160f3b300dfccc04cfc019085",
+      "cacheFile": "file-a05d36fa86411cd0ce86d756f818e525d0eee1c3.APKBUILD"
+    },
+    {
+      "origin": "flac",
+      "repository": "main",
+      "commit": "253ee9b07f7696cc02f7dda9df81793e506a6c2d",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/253ee9b07f7696cc02f7dda9df81793e506a6c2d/main/flac/APKBUILD",
+      "recipeSha256": "adfd5a898afdbbac4ff44891520b87e19845ed5bc55938c8af164ee6a3834f3f",
+      "cacheFile": "flac-253ee9b07f7696cc02f7dda9df81793e506a6c2d.APKBUILD"
+    },
+    {
+      "origin": "flite",
+      "repository": "main",
+      "commit": "a9e2a2dc46f377eb25884f7fea9834492de7f518",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/a9e2a2dc46f377eb25884f7fea9834492de7f518/main/flite/APKBUILD",
+      "recipeSha256": "48c34b9180bf08260a37a145590628007f1fb34ea91eb684e52c63b33822e2c3",
+      "cacheFile": "flite-a9e2a2dc46f377eb25884f7fea9834492de7f518.APKBUILD"
+    },
+    {
+      "origin": "font-dejavu",
+      "repository": "main",
+      "commit": "59420f440b2e664f7be1a6e135a3175aab56cd51",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/59420f440b2e664f7be1a6e135a3175aab56cd51/main/font-dejavu/APKBUILD",
+      "recipeSha256": "4bc9973a8acdb3c596b1069e85391a341e9b7afe6594822f4c35f6634c184634",
+      "cacheFile": "font-dejavu-59420f440b2e664f7be1a6e135a3175aab56cd51.APKBUILD"
+    },
+    {
+      "origin": "font-wqy-zenhei",
+      "repository": "community",
+      "commit": "c069a297fdf3e572f81774b787875655512ca1d4",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/c069a297fdf3e572f81774b787875655512ca1d4/community/font-wqy-zenhei/APKBUILD",
+      "recipeSha256": "177759d615822a64683ba19f3673e2c518001ffa67ae6bf873fb2c91374db17f",
+      "cacheFile": "font-wqy-zenhei-c069a297fdf3e572f81774b787875655512ca1d4.APKBUILD"
+    },
+    {
+      "origin": "fontconfig",
+      "repository": "main",
+      "commit": "07061cb5a28861b108b09adc09ebd4fd962e549f",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/07061cb5a28861b108b09adc09ebd4fd962e549f/main/fontconfig/APKBUILD",
+      "recipeSha256": "4648e5c02e92ebdd7cc0a3cdb837f8054842318cf6708ed3995c871ecb6f0d40",
+      "cacheFile": "fontconfig-07061cb5a28861b108b09adc09ebd4fd962e549f.APKBUILD"
+    },
+    {
+      "origin": "freetype",
+      "repository": "main",
+      "commit": "ad16b0afc1a315c4095a75ff72ebbe3cfa29b671",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/ad16b0afc1a315c4095a75ff72ebbe3cfa29b671/main/freetype/APKBUILD",
+      "recipeSha256": "f3a9cd80e85de497c7811222fbdb2ce5805b8fbc4866b214171e10ee809c8609",
+      "cacheFile": "freetype-ad16b0afc1a315c4095a75ff72ebbe3cfa29b671.APKBUILD"
+    },
+    {
+      "origin": "fribidi",
+      "repository": "main",
+      "commit": "5c9b8291bfb31116907f54dad1c7e03fec51eddb",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/5c9b8291bfb31116907f54dad1c7e03fec51eddb/main/fribidi/APKBUILD",
+      "recipeSha256": "a373e5e0521e7143b2d9a76d1cb4fa0e76d973de8eeec4c6a293fdd65c4b6b0a",
+      "cacheFile": "fribidi-5c9b8291bfb31116907f54dad1c7e03fec51eddb.APKBUILD"
+    },
+    {
+      "origin": "garcon",
+      "repository": "community",
+      "commit": "55613be702fe8b3fac184c25616873bd6914c44e",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/55613be702fe8b3fac184c25616873bd6914c44e/community/garcon/APKBUILD",
+      "recipeSha256": "8bee46bc2daf3659b0ff6dacf8814d0a26469f83f7b07e9c0b561f4a51735e6b",
+      "cacheFile": "garcon-55613be702fe8b3fac184c25616873bd6914c44e.APKBUILD"
+    },
+    {
+      "origin": "gcc",
+      "repository": "main",
+      "commit": "423a8ad043d07f2c7546c8ec3e2b0384cda360ae",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/423a8ad043d07f2c7546c8ec3e2b0384cda360ae/main/gcc/APKBUILD",
+      "recipeSha256": "71d831dbef88c2b0ff7b36b7422e878a07751419583a44b06cda2e561cdb82d4",
+      "cacheFile": "gcc-423a8ad043d07f2c7546c8ec3e2b0384cda360ae.APKBUILD"
+    },
+    {
+      "origin": "gdk-pixbuf",
+      "repository": "community",
+      "commit": "a21007f809f4d279cbce1345fb3c29af0887ffdc",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/a21007f809f4d279cbce1345fb3c29af0887ffdc/community/gdk-pixbuf/APKBUILD",
+      "recipeSha256": "3b42ec66020324f202603ec01803c9889b0dadfa7494ed2ccab39ab051f285c6",
+      "cacheFile": "gdk-pixbuf-a21007f809f4d279cbce1345fb3c29af0887ffdc.APKBUILD"
+    },
+    {
+      "origin": "gettext",
+      "repository": "main",
+      "commit": "a0b12dbf67fb047e79a1b76c6dfe6f2904d0d391",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/a0b12dbf67fb047e79a1b76c6dfe6f2904d0d391/main/gettext/APKBUILD",
+      "recipeSha256": "e22f0eecaf4e5f1f5febe725f47ee019481ded75cdcf76d3c9dd5e7a9e590d13",
+      "cacheFile": "gettext-a0b12dbf67fb047e79a1b76c6dfe6f2904d0d391.APKBUILD"
+    },
+    {
+      "origin": "glib",
+      "repository": "main",
+      "commit": "bd96e2db11c9ba7d7795454d16af620d577614c7",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/bd96e2db11c9ba7d7795454d16af620d577614c7/main/glib/APKBUILD",
+      "recipeSha256": "f57b710ffa828970b545f8e778e42e50932d19758d238500e5db90db1ae55060",
+      "cacheFile": "glib-bd96e2db11c9ba7d7795454d16af620d577614c7.APKBUILD"
+    },
+    {
+      "origin": "glycin",
+      "repository": "community",
+      "commit": "78ed74f69dc1a13b83b66986968d454e415acf9a",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/78ed74f69dc1a13b83b66986968d454e415acf9a/community/glycin/APKBUILD",
+      "recipeSha256": "59ab75163ff002c88a87395bc8b01c63fff1cab96689f36c1ccfc272f94cec69",
+      "cacheFile": "glycin-78ed74f69dc1a13b83b66986968d454e415acf9a.APKBUILD"
+    },
+    {
+      "origin": "gmp",
+      "repository": "main",
+      "commit": "206e7b39f7884d62a174aba4d33a42454518c1c2",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/206e7b39f7884d62a174aba4d33a42454518c1c2/main/gmp/APKBUILD",
+      "recipeSha256": "290bb17b403afbc3c70a370b7db5b262b547240f611101486d6223e488e270c0",
+      "cacheFile": "gmp-206e7b39f7884d62a174aba4d33a42454518c1c2.APKBUILD"
+    },
+    {
+      "origin": "gnupg",
+      "repository": "main",
+      "commit": "d71dde667049817d90cb84fe7b1e21630784b52f",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/d71dde667049817d90cb84fe7b1e21630784b52f/main/gnupg/APKBUILD",
+      "recipeSha256": "a8202cc914ef4ed2ee8eb87da6681df5efbe4e82af1cbe4e4a8c5d301240c4db",
+      "cacheFile": "gnupg-d71dde667049817d90cb84fe7b1e21630784b52f.APKBUILD"
+    },
+    {
+      "origin": "gnutls",
+      "repository": "main",
+      "commit": "c09f2e94a4b0b4077da49683cf0faa09ed63fb5b",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/c09f2e94a4b0b4077da49683cf0faa09ed63fb5b/main/gnutls/APKBUILD",
+      "recipeSha256": "3154d6cd6507d7e60fdd7941d0d8175a9520d111ee1bedad7ab6c77ea174960b",
+      "cacheFile": "gnutls-c09f2e94a4b0b4077da49683cf0faa09ed63fb5b.APKBUILD"
+    },
+    {
+      "origin": "gobject-introspection",
+      "repository": "main",
+      "commit": "f48701aa97c725aaabe89f85bb040ce56954d0bd",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/f48701aa97c725aaabe89f85bb040ce56954d0bd/main/gobject-introspection/APKBUILD",
+      "recipeSha256": "3d42e2a636c1663ef835724b72640460d694d23969ebd8b1e3e9c83950d8649c",
+      "cacheFile": "gobject-introspection-f48701aa97c725aaabe89f85bb040ce56954d0bd.APKBUILD"
+    },
+    {
+      "origin": "gpgme",
+      "repository": "community",
+      "commit": "34ecdac2b99b3520c96e821645115a26dab45af6",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/34ecdac2b99b3520c96e821645115a26dab45af6/community/gpgme/APKBUILD",
+      "recipeSha256": "266bdf37584f46c7b8875b65a8db211ddbc3f7689ccd7e490495036771cbbfa5",
+      "cacheFile": "gpgme-34ecdac2b99b3520c96e821645115a26dab45af6.APKBUILD"
+    },
+    {
+      "origin": "gpgmepp",
+      "repository": "community",
+      "commit": "81b89d3811e1f0d0690d58b020e7d5bb6c647233",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/81b89d3811e1f0d0690d58b020e7d5bb6c647233/community/gpgmepp/APKBUILD",
+      "recipeSha256": "43e538b82719f0a6e04f451790b06e10205c1ec9e633cbe24685f7a97a16be87",
+      "cacheFile": "gpgmepp-81b89d3811e1f0d0690d58b020e7d5bb6c647233.APKBUILD"
+    },
+    {
+      "origin": "graphene",
+      "repository": "main",
+      "commit": "6bd45b53fb316dc01bda59f5feaf1e127eb64f22",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6bd45b53fb316dc01bda59f5feaf1e127eb64f22/main/graphene/APKBUILD",
+      "recipeSha256": "ec3d67ab5e54dfc096db8ba6c4931fcb20523534c3a5b05cea66668f911a2230",
+      "cacheFile": "graphene-6bd45b53fb316dc01bda59f5feaf1e127eb64f22.APKBUILD"
+    },
+    {
+      "origin": "graphite2",
+      "repository": "main",
+      "commit": "0016c47e531622da02431c8958156d300ba3ec12",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/0016c47e531622da02431c8958156d300ba3ec12/main/graphite2/APKBUILD",
+      "recipeSha256": "c338169907363ac12d7edf3e96333618594f02e617092b669db4521a4983d859",
+      "cacheFile": "graphite2-0016c47e531622da02431c8958156d300ba3ec12.APKBUILD"
+    },
+    {
+      "origin": "gsm",
+      "repository": "main",
+      "commit": "aa638de6f94994a5d6f56238d52795988df90778",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/aa638de6f94994a5d6f56238d52795988df90778/main/gsm/APKBUILD",
+      "recipeSha256": "99f3b6ab587839808491ae94aad8391deffd70f9268bd3f6913d991e4e050fa1",
+      "cacheFile": "gsm-aa638de6f94994a5d6f56238d52795988df90778.APKBUILD"
+    },
+    {
+      "origin": "gspell",
+      "repository": "community",
+      "commit": "5096e84ddd90092e38118640a17e2e9bbb16640f",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/5096e84ddd90092e38118640a17e2e9bbb16640f/community/gspell/APKBUILD",
+      "recipeSha256": "f9985f76263743eac3f448a321902e715c0ad83b8b1383ea93fe71fd0f943418",
+      "cacheFile": "gspell-5096e84ddd90092e38118640a17e2e9bbb16640f.APKBUILD"
+    },
+    {
+      "origin": "gst-plugins-bad",
+      "repository": "community",
+      "commit": "3a9f73115455709c59f4d4895c3562fecbb78c59",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/3a9f73115455709c59f4d4895c3562fecbb78c59/community/gst-plugins-bad/APKBUILD",
+      "recipeSha256": "73151d953e2f59f7d581d21bb329534fe1e9e24ee12b1273aabdf505dfd6b1e1",
+      "cacheFile": "gst-plugins-bad-3a9f73115455709c59f4d4895c3562fecbb78c59.APKBUILD"
+    },
+    {
+      "origin": "gst-plugins-base",
+      "repository": "main",
+      "commit": "5b722a808deeaaf6cb437c7ff6617e2e7adec0d1",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/5b722a808deeaaf6cb437c7ff6617e2e7adec0d1/main/gst-plugins-base/APKBUILD",
+      "recipeSha256": "7653d7b0337a36498507dabe94e041546f14e6ae9b79266c91bd60440566fcba",
+      "cacheFile": "gst-plugins-base-5b722a808deeaaf6cb437c7ff6617e2e7adec0d1.APKBUILD"
+    },
+    {
+      "origin": "gstreamer",
+      "repository": "main",
+      "commit": "b9a0c60026b2d5cce0b74d5469ea49a2208c4a58",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/b9a0c60026b2d5cce0b74d5469ea49a2208c4a58/main/gstreamer/APKBUILD",
+      "recipeSha256": "bd923bf928dd49675001c859a5f210c0d905c966276814cbed902ccdf40e2dc3",
+      "cacheFile": "gstreamer-b9a0c60026b2d5cce0b74d5469ea49a2208c4a58.APKBUILD"
+    },
+    {
+      "origin": "gtk+3.0",
+      "repository": "community",
+      "commit": "81ac3343fbf0ae01ce4105c13ae592294cad8843",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/81ac3343fbf0ae01ce4105c13ae592294cad8843/community/gtk+3.0/APKBUILD",
+      "recipeSha256": "5c60cb8e994ae435ccc3b17e15cf4636fb5fb79dbd356097a6ac7506032cfd85",
+      "cacheFile": "gtk+3.0-81ac3343fbf0ae01ce4105c13ae592294cad8843.APKBUILD"
+    },
+    {
+      "origin": "gtk-layer-shell",
+      "repository": "community",
+      "commit": "da0413d829c68c5ce136a980277edc6522e5622d",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/da0413d829c68c5ce136a980277edc6522e5622d/community/gtk-layer-shell/APKBUILD",
+      "recipeSha256": "db404f99c5b90a489bf39bfae997718882e02f75737f5dc068b1e644f6f12eb0",
+      "cacheFile": "gtk-layer-shell-da0413d829c68c5ce136a980277edc6522e5622d.APKBUILD"
+    },
+    {
+      "origin": "gtk4.0",
+      "repository": "community",
+      "commit": "c697330c5aef79c143b47481cce5e5b7eb1d2b42",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/c697330c5aef79c143b47481cce5e5b7eb1d2b42/community/gtk4.0/APKBUILD",
+      "recipeSha256": "6e7f976b30b70c697a3daa262a4ac2d6a3e4f6e43d3e70cfc474360f2ea935ea",
+      "cacheFile": "gtk4.0-c697330c5aef79c143b47481cce5e5b7eb1d2b42.APKBUILD"
+    },
+    {
+      "origin": "gtksourceview4",
+      "repository": "community",
+      "commit": "c97799aa548f601eb43cfd276ba52f1a9da85d48",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/c97799aa548f601eb43cfd276ba52f1a9da85d48/community/gtksourceview4/APKBUILD",
+      "recipeSha256": "468795c9c64727ea9672b270776a37c3b1f4913d1fd0a22f803aa8fba04313a4",
+      "cacheFile": "gtksourceview4-c97799aa548f601eb43cfd276ba52f1a9da85d48.APKBUILD"
+    },
+    {
+      "origin": "harfbuzz",
+      "repository": "main",
+      "commit": "0e23da21a00fc68f2e5ddc352354a9d11d12ee24",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/0e23da21a00fc68f2e5ddc352354a9d11d12ee24/main/harfbuzz/APKBUILD",
+      "recipeSha256": "7cec611bccea60fa1ffca0ccc3a83d7e0781319e3ce62f6cf6ff7c8485d3392e",
+      "cacheFile": "harfbuzz-0e23da21a00fc68f2e5ddc352354a9d11d12ee24.APKBUILD"
+    },
+    {
+      "origin": "hicolor-icon-theme",
+      "repository": "main",
+      "commit": "0d5b763d2fa803e7d71b4d2272a138842e4966fa",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/0d5b763d2fa803e7d71b4d2272a138842e4966fa/main/hicolor-icon-theme/APKBUILD",
+      "recipeSha256": "8b11f22efc6bcf3588ce23521c505e05da4ee7bfcf5a23191bfa8f9ad5816d41",
+      "cacheFile": "hicolor-icon-theme-0d5b763d2fa803e7d71b4d2272a138842e4966fa.APKBUILD"
+    },
+    {
+      "origin": "hunspell",
+      "repository": "main",
+      "commit": "88fe9d7d1000629d4fe6548ca4e1bfea2e333218",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/88fe9d7d1000629d4fe6548ca4e1bfea2e333218/main/hunspell/APKBUILD",
+      "recipeSha256": "7486d708f8b781d28ac79bc41c85d4e2bf6c059cfa55e56ecd2e0a7579f21b02",
+      "cacheFile": "hunspell-88fe9d7d1000629d4fe6548ca4e1bfea2e333218.APKBUILD"
+    },
+    {
+      "origin": "hwdata",
+      "repository": "main",
+      "commit": "6f27b0b36ae7a3874f59cedf8c361b4016ee30ac",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6f27b0b36ae7a3874f59cedf8c361b4016ee30ac/main/hwdata/APKBUILD",
+      "recipeSha256": "fd1efb1b1c1f9af81ed009584ca79dd316d4a00671a7ca66e86d6fa9987ca258",
+      "cacheFile": "hwdata-6f27b0b36ae7a3874f59cedf8c361b4016ee30ac.APKBUILD"
+    },
+    {
+      "origin": "hyphen",
+      "repository": "community",
+      "commit": "3994b45b6a9e37fd106a57e0f7ab05c2fc04d2d5",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/3994b45b6a9e37fd106a57e0f7ab05c2fc04d2d5/community/hyphen/APKBUILD",
+      "recipeSha256": "c8a3e8545ec03607d3e7d62da91c38a36f9afeb00f3c2d4cae883d80d2a78d03",
+      "cacheFile": "hyphen-3994b45b6a9e37fd106a57e0f7ab05c2fc04d2d5.APKBUILD"
+    },
+    {
+      "origin": "iceauth",
+      "repository": "community",
+      "commit": "fc755c5738a0d0027307d7dbd9bb949e8dc4c3d5",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/fc755c5738a0d0027307d7dbd9bb949e8dc4c3d5/community/iceauth/APKBUILD",
+      "recipeSha256": "c99c89fcc8d7bbd04d9fda1300a4a548d1df84dc02b99ae82558f9ff49cfe7f1",
+      "cacheFile": "iceauth-fc755c5738a0d0027307d7dbd9bb949e8dc4c3d5.APKBUILD"
+    },
+    {
+      "origin": "icu",
+      "repository": "main",
+      "commit": "6755fdb21483ba250d374c3244f0f48bc63447e2",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6755fdb21483ba250d374c3244f0f48bc63447e2/main/icu/APKBUILD",
+      "recipeSha256": "7d3b5fdc268d3d0edc51ea0b96f8342a9b154515a889b6770547ccb43b3b508a",
+      "cacheFile": "icu-6755fdb21483ba250d374c3244f0f48bc63447e2.APKBUILD"
+    },
+    {
+      "origin": "imath",
+      "repository": "community",
+      "commit": "ba80e98e4c18b25ca0d02269b2248abc4f039a10",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/ba80e98e4c18b25ca0d02269b2248abc4f039a10/community/imath/APKBUILD",
+      "recipeSha256": "50b9cccc0b4dbca7616e8c5d50db283ab1385fa9c3cd855d203bb51aa808222c",
+      "cacheFile": "imath-ba80e98e4c18b25ca0d02269b2248abc4f039a10.APKBUILD"
+    },
+    {
+      "origin": "iso-codes",
+      "repository": "main",
+      "commit": "3a49dfeacdd77c88349f55632e5f14195bd16cd5",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/3a49dfeacdd77c88349f55632e5f14195bd16cd5/main/iso-codes/APKBUILD",
+      "recipeSha256": "5326c67bcafbb5cd9451005769dc467f01b8390c68184a149d0fdb2680815b19",
+      "cacheFile": "iso-codes-3a49dfeacdd77c88349f55632e5f14195bd16cd5.APKBUILD"
+    },
+    {
+      "origin": "json-glib",
+      "repository": "community",
+      "commit": "2941f70a86453446dd4b7c66c09f9aea5aa7c402",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/2941f70a86453446dd4b7c66c09f9aea5aa7c402/community/json-glib/APKBUILD",
+      "recipeSha256": "e3bd6eba1d5d856907bfb0eded012c676e8aae9dca0c3bbfc2d18555976f8101",
+      "cacheFile": "json-glib-2941f70a86453446dd4b7c66c09f9aea5aa7c402.APKBUILD"
+    },
+    {
+      "origin": "lame",
+      "repository": "main",
+      "commit": "ffd76e0bae9921b604c4d3fab6e236e6c7b4039a",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/ffd76e0bae9921b604c4d3fab6e236e6c7b4039a/main/lame/APKBUILD",
+      "recipeSha256": "667504c7fd2c5d5d307d415e7ccecdc3887ab87e8b868e68fd4b0461fda37122",
+      "cacheFile": "lame-ffd76e0bae9921b604c4d3fab6e236e6c7b4039a.APKBUILD"
+    },
+    {
+      "origin": "lcms2",
+      "repository": "main",
+      "commit": "b103184b887bd33a5672484a96704363084b2901",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/b103184b887bd33a5672484a96704363084b2901/main/lcms2/APKBUILD",
+      "recipeSha256": "4358dd9c19c5dc38346963bd02efaa1d74d367826f4d326b6f06556a2e99060a",
+      "cacheFile": "lcms2-b103184b887bd33a5672484a96704363084b2901.APKBUILD"
+    },
+    {
+      "origin": "libabw",
+      "repository": "community",
+      "commit": "4934de29ff8e2a5de9b695476d4aba835b82a790",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/4934de29ff8e2a5de9b695476d4aba835b82a790/community/libabw/APKBUILD",
+      "recipeSha256": "a40734f872c3f24bc9f87c148908c6c1575a5c6fc5510b7a507fb37e1d109889",
+      "cacheFile": "libabw-4934de29ff8e2a5de9b695476d4aba835b82a790.APKBUILD"
+    },
+    {
+      "origin": "libass",
+      "repository": "community",
+      "commit": "18b069a4afa2e455d2e4fe5e5bc7565855c09f96",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/18b069a4afa2e455d2e4fe5e5bc7565855c09f96/community/libass/APKBUILD",
+      "recipeSha256": "a83533e84d047f8cda180c5910208c0899affcd68ba35af37d0e585f40fabb3a",
+      "cacheFile": "libass-18b069a4afa2e455d2e4fe5e5bc7565855c09f96.APKBUILD"
+    },
+    {
+      "origin": "libassuan",
+      "repository": "main",
+      "commit": "dc3fc2d94931a406ff0810e5fb276e289d771d99",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/dc3fc2d94931a406ff0810e5fb276e289d771d99/main/libassuan/APKBUILD",
+      "recipeSha256": "3af411befd6ddc8815bf0b4f678b3e5629fc13d862e47f4c9ab3249d9145b0d4",
+      "cacheFile": "libassuan-dc3fc2d94931a406ff0810e5fb276e289d771d99.APKBUILD"
+    },
+    {
+      "origin": "libasyncns",
+      "repository": "community",
+      "commit": "a9e2a2dc46f377eb25884f7fea9834492de7f518",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/a9e2a2dc46f377eb25884f7fea9834492de7f518/community/libasyncns/APKBUILD",
+      "recipeSha256": "d84d3093d7f47bfdf775c350b8088b99f0cb56abfdfee15870e947e50c851d9d",
+      "cacheFile": "libasyncns-a9e2a2dc46f377eb25884f7fea9834492de7f518.APKBUILD"
+    },
+    {
+      "origin": "libb2",
+      "repository": "community",
+      "commit": "4f8157b2e125ac222cade929bb25bda16305fefc",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/4f8157b2e125ac222cade929bb25bda16305fefc/community/libb2/APKBUILD",
+      "recipeSha256": "54ff9d9e68e6ba4764dd64aa679a1b8f0def5b2f4ffa76480efaa9927b80838c",
+      "cacheFile": "libb2-4f8157b2e125ac222cade929bb25bda16305fefc.APKBUILD"
+    },
+    {
+      "origin": "libbsd",
+      "repository": "main",
+      "commit": "02365e78d654a7beb23fd35d7d69f4a649009ede",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/02365e78d654a7beb23fd35d7d69f4a649009ede/main/libbsd/APKBUILD",
+      "recipeSha256": "db881fac5ce6d33e7b09a30abf01ab56643e51ed267ca7402677b00592830fbb",
+      "cacheFile": "libbsd-02365e78d654a7beb23fd35d7d69f4a649009ede.APKBUILD"
+    },
+    {
+      "origin": "libcap",
+      "repository": "main",
+      "commit": "0c35848136c4c16a1b1672cb812efa88fffef1c2",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/0c35848136c4c16a1b1672cb812efa88fffef1c2/main/libcap/APKBUILD",
+      "recipeSha256": "cd8d61fc19aefcbf850b12053729c7085a8116c66a914708be7b3dcf28eba7fa",
+      "cacheFile": "libcap-0c35848136c4c16a1b1672cb812efa88fffef1c2.APKBUILD"
+    },
+    {
+      "origin": "libcdr",
+      "repository": "community",
+      "commit": "74101a450fb881c879097c6a7088d8f5c8cab91f",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/74101a450fb881c879097c6a7088d8f5c8cab91f/community/libcdr/APKBUILD",
+      "recipeSha256": "9241ea8312b5f40c2c795610aaf9bbc4f4e543a5ea4e24041b0ac3fd3a87dec2",
+      "cacheFile": "libcdr-74101a450fb881c879097c6a7088d8f5c8cab91f.APKBUILD"
+    },
+    {
+      "origin": "libcmis",
+      "repository": "community",
+      "commit": "cb553f0a823e9e4119ba83761a74ca2374363c20",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/cb553f0a823e9e4119ba83761a74ca2374363c20/community/libcmis/APKBUILD",
+      "recipeSha256": "bb177717d7a552f3dc013c890bc84519bfc28402c93005efea0cc3bca9d6289d",
+      "cacheFile": "libcmis-cb553f0a823e9e4119ba83761a74ca2374363c20.APKBUILD"
+    },
+    {
+      "origin": "libdbusmenu-glib",
+      "repository": "community",
+      "commit": "80739e9ec0682399ed55876d26966ea77d6242fb",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/80739e9ec0682399ed55876d26966ea77d6242fb/community/libdbusmenu-glib/APKBUILD",
+      "recipeSha256": "8b2f248dd01d42a844cc1fa105115d31e2a1a1dc7cafd9dbdc7369f02f506eb9",
+      "cacheFile": "libdbusmenu-glib-80739e9ec0682399ed55876d26966ea77d6242fb.APKBUILD"
+    },
+    {
+      "origin": "libdc1394",
+      "repository": "community",
+      "commit": "6867e384dbfbd0b8efadbca989e9778190e89496",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6867e384dbfbd0b8efadbca989e9778190e89496/community/libdc1394/APKBUILD",
+      "recipeSha256": "d881c75c0b707723daebfe15f32956bf93990977248c35a5d7d52fcfcef8a242",
+      "cacheFile": "libdc1394-6867e384dbfbd0b8efadbca989e9778190e89496.APKBUILD"
+    },
+    {
+      "origin": "libde265",
+      "repository": "main",
+      "commit": "c91a404808a54ac43837f3e459595fb868d5d6e1",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/c91a404808a54ac43837f3e459595fb868d5d6e1/main/libde265/APKBUILD",
+      "recipeSha256": "4f56031717f12f864e34164a003ab8f092ede88c0f690ad255a3b78d9d39b880",
+      "cacheFile": "libde265-c91a404808a54ac43837f3e459595fb868d5d6e1.APKBUILD"
+    },
+    {
+      "origin": "libdeflate",
+      "repository": "community",
+      "commit": "8bb1666230b293a8b2e27408be4731194b57a4ee",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/8bb1666230b293a8b2e27408be4731194b57a4ee/community/libdeflate/APKBUILD",
+      "recipeSha256": "8f472e3a097f8b305d821d7047964350f0daa9839c504975f826a46bfac1164d",
+      "cacheFile": "libdeflate-8bb1666230b293a8b2e27408be4731194b57a4ee.APKBUILD"
+    },
+    {
+      "origin": "libdisplay-info",
+      "repository": "main",
+      "commit": "5c472425b8443bb2d7ee40589f4b3365496eb747",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/5c472425b8443bb2d7ee40589f4b3365496eb747/main/libdisplay-info/APKBUILD",
+      "recipeSha256": "c7c8035302f38d00ebeddf474e50e42eda04927ea7c98c37d84ac9c8c8c6d2ee",
+      "cacheFile": "libdisplay-info-5c472425b8443bb2d7ee40589f4b3365496eb747.APKBUILD"
+    },
+    {
+      "origin": "libdrm",
+      "repository": "main",
+      "commit": "2015800769b781bef45917b668d10bffe2ac538f",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/2015800769b781bef45917b668d10bffe2ac538f/main/libdrm/APKBUILD",
+      "recipeSha256": "fead5cbbe05848be7f5a529d6218872bdded3e07732ba2e1e8d20a19481ba0d0",
+      "cacheFile": "libdrm-2015800769b781bef45917b668d10bffe2ac538f.APKBUILD"
+    },
+    {
+      "origin": "libdvdcss",
+      "repository": "community",
+      "commit": "3add37f3a9a86b35717f2cf7187158d28b328c2b",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/3add37f3a9a86b35717f2cf7187158d28b328c2b/community/libdvdcss/APKBUILD",
+      "recipeSha256": "325787113e5d9a6aeb5080d041acdaebf764357b4022768089f62dde8eaf0854",
+      "cacheFile": "libdvdcss-3add37f3a9a86b35717f2cf7187158d28b328c2b.APKBUILD"
+    },
+    {
+      "origin": "libdvdnav",
+      "repository": "community",
+      "commit": "be0f852b928313f12250ef38f4f68e62f73308cc",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/be0f852b928313f12250ef38f4f68e62f73308cc/community/libdvdnav/APKBUILD",
+      "recipeSha256": "c3c541c8927b1496eb60357991a3fd00417b257bec128ef9a927edfb62558c1b",
+      "cacheFile": "libdvdnav-be0f852b928313f12250ef38f4f68e62f73308cc.APKBUILD"
+    },
+    {
+      "origin": "libdvdread",
+      "repository": "community",
+      "commit": "4f8157b2e125ac222cade929bb25bda16305fefc",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/4f8157b2e125ac222cade929bb25bda16305fefc/community/libdvdread/APKBUILD",
+      "recipeSha256": "7152cc31187f835a4153c4ca818b42d94f4e4a5487ac5f4bd120f80035404e3a",
+      "cacheFile": "libdvdread-4f8157b2e125ac222cade929bb25bda16305fefc.APKBUILD"
+    },
+    {
+      "origin": "libe-book",
+      "repository": "community",
+      "commit": "af87140e657a328b6af9cf227f3ce4c598af8932",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/af87140e657a328b6af9cf227f3ce4c598af8932/community/libe-book/APKBUILD",
+      "recipeSha256": "83ae85dc43def324063d74d24e8cf10301aaf1f414eccedd70186fafdee69c7b",
+      "cacheFile": "libe-book-af87140e657a328b6af9cf227f3ce4c598af8932.APKBUILD"
+    },
+    {
+      "origin": "libeconf",
+      "repository": "main",
+      "commit": "62db33049768522f381410614d59c7d732f72c3a",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/62db33049768522f381410614d59c7d732f72c3a/main/libeconf/APKBUILD",
+      "recipeSha256": "b54a5cbbccacc5bd6df56ae141e27fc7ca9ee08accc4c01d9420cc81ba9e8fba",
+      "cacheFile": "libeconf-62db33049768522f381410614d59c7d732f72c3a.APKBUILD"
+    },
+    {
+      "origin": "libepoxy",
+      "repository": "main",
+      "commit": "6bd45b53fb316dc01bda59f5feaf1e127eb64f22",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6bd45b53fb316dc01bda59f5feaf1e127eb64f22/main/libepoxy/APKBUILD",
+      "recipeSha256": "33367b2ff986d01132b1c445bb40ad8bb23e9ee7c0636dc79686d4debc45ef05",
+      "cacheFile": "libepoxy-6bd45b53fb316dc01bda59f5feaf1e127eb64f22.APKBUILD"
+    },
+    {
+      "origin": "libepubgen",
+      "repository": "community",
+      "commit": "c76155ebfb111fbafa5d9b235025319eaa4d6859",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/c76155ebfb111fbafa5d9b235025319eaa4d6859/community/libepubgen/APKBUILD",
+      "recipeSha256": "eeebe73126b77077cdc7a5004b587a69a949c7e461b0b3e565e37558da40e58d",
+      "cacheFile": "libepubgen-c76155ebfb111fbafa5d9b235025319eaa4d6859.APKBUILD"
+    },
+    {
+      "origin": "libetonyek",
+      "repository": "community",
+      "commit": "fbd9ad4d02deba044955bc89b055804a12705327",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/fbd9ad4d02deba044955bc89b055804a12705327/community/libetonyek/APKBUILD",
+      "recipeSha256": "420503c9a95f7dd68a2ec919e80d27107e1fd91d5521158180640b530dbd3b71",
+      "cacheFile": "libetonyek-fbd9ad4d02deba044955bc89b055804a12705327.APKBUILD"
+    },
+    {
+      "origin": "libevdev",
+      "repository": "community",
+      "commit": "2af4dd0082956420a61fe680bb3da04034e67e34",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/2af4dd0082956420a61fe680bb3da04034e67e34/community/libevdev/APKBUILD",
+      "recipeSha256": "47d65c9a885c452ae15ad55b905279d5609441938f9b20d63c491529f5d9b166",
+      "cacheFile": "libevdev-2af4dd0082956420a61fe680bb3da04034e67e34.APKBUILD"
+    },
+    {
+      "origin": "libexif",
+      "repository": "community",
+      "commit": "a23b258858b29698b59c0f7b09cef0df1f8345dc",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/a23b258858b29698b59c0f7b09cef0df1f8345dc/community/libexif/APKBUILD",
+      "recipeSha256": "b34d0cf2282ed717f364e7098cf39967a4720d503f6490d095d917b33a755cf6",
+      "cacheFile": "libexif-a23b258858b29698b59c0f7b09cef0df1f8345dc.APKBUILD"
+    },
+    {
+      "origin": "libexttextcat",
+      "repository": "community",
+      "commit": "4f8157b2e125ac222cade929bb25bda16305fefc",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/4f8157b2e125ac222cade929bb25bda16305fefc/community/libexttextcat/APKBUILD",
+      "recipeSha256": "77f4188c154d0d04e885bb42cb4661d797eaa24f8671102a14cd0712224f15c3",
+      "cacheFile": "libexttextcat-4f8157b2e125ac222cade929bb25bda16305fefc.APKBUILD"
+    },
+    {
+      "origin": "libfontenc",
+      "repository": "main",
+      "commit": "9667f1121e207bb3819d91ab6734375f7698e5a7",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/9667f1121e207bb3819d91ab6734375f7698e5a7/main/libfontenc/APKBUILD",
+      "recipeSha256": "3258119cd49ecf7b79555d4cc5769fb9ff75dcfda1bcc13573347c4d4e4a2ca8",
+      "cacheFile": "libfontenc-9667f1121e207bb3819d91ab6734375f7698e5a7.APKBUILD"
+    },
+    {
+      "origin": "libfreeaptx",
+      "repository": "community",
+      "commit": "dda0b5a100ff8cb4bd50d64de0fc75157b33ca48",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/dda0b5a100ff8cb4bd50d64de0fc75157b33ca48/community/libfreeaptx/APKBUILD",
+      "recipeSha256": "2720fd02c614906607bcb508a7c74a0c8c1235e4a61e8fc34d2fba0750e5bd4d",
+      "cacheFile": "libfreeaptx-dda0b5a100ff8cb4bd50d64de0fc75157b33ca48.APKBUILD"
+    },
+    {
+      "origin": "libfreehand",
+      "repository": "community",
+      "commit": "3327d0f4d9a8f763ca2a3b282c265d8b8e85b4dd",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/3327d0f4d9a8f763ca2a3b282c265d8b8e85b4dd/community/libfreehand/APKBUILD",
+      "recipeSha256": "c6c204cb04c8bc7fc818e73873c246cc9bbaede5b953d40148f05bdaaef47fb4",
+      "cacheFile": "libfreehand-3327d0f4d9a8f763ca2a3b282c265d8b8e85b4dd.APKBUILD"
+    },
+    {
+      "origin": "libgcrypt",
+      "repository": "main",
+      "commit": "0ae860b01c54e362509a5b1354f3dd2369b9dffc",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/0ae860b01c54e362509a5b1354f3dd2369b9dffc/main/libgcrypt/APKBUILD",
+      "recipeSha256": "62c9341bda9b59825b9edf04bb5478d23118767d24f9c2d82787e2c7c9fe7fe6",
+      "cacheFile": "libgcrypt-0ae860b01c54e362509a5b1354f3dd2369b9dffc.APKBUILD"
+    },
+    {
+      "origin": "libglycin",
+      "repository": "community",
+      "commit": "ce376ccfea45bbc2bede2c6646f170c477c383c1",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/ce376ccfea45bbc2bede2c6646f170c477c383c1/community/libglycin/APKBUILD",
+      "recipeSha256": "aa79e3fe99503f711540cd195afd1d8c825df6f5e156b250b5887a28b4f574c8",
+      "cacheFile": "libglycin-ce376ccfea45bbc2bede2c6646f170c477c383c1.APKBUILD"
+    },
+    {
+      "origin": "libgpg-error",
+      "repository": "main",
+      "commit": "8caf2102b9e8f0d9189cc11ad1069060d8a10f53",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/8caf2102b9e8f0d9189cc11ad1069060d8a10f53/main/libgpg-error/APKBUILD",
+      "recipeSha256": "d626047d228b872e68adc0f9dd6bcf3239c2391495b51deb24723cc10c4cb0f7",
+      "cacheFile": "libgpg-error-8caf2102b9e8f0d9189cc11ad1069060d8a10f53.APKBUILD"
+    },
+    {
+      "origin": "libgtop",
+      "repository": "community",
+      "commit": "6313b174fa1e738932aebfc3caea2a24b0a5970e",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6313b174fa1e738932aebfc3caea2a24b0a5970e/community/libgtop/APKBUILD",
+      "recipeSha256": "93bb3f31d4477dc5cae8b3e898f7e6cda6a50f9c3244be5a5b7f385d345773fa",
+      "cacheFile": "libgtop-6313b174fa1e738932aebfc3caea2a24b0a5970e.APKBUILD"
+    },
+    {
+      "origin": "libgudev",
+      "repository": "community",
+      "commit": "c97799aa548f601eb43cfd276ba52f1a9da85d48",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/c97799aa548f601eb43cfd276ba52f1a9da85d48/community/libgudev/APKBUILD",
+      "recipeSha256": "9f65c0cf62af8056ea71a521e0cea7476e97ffecf977f44f11adaf2863739489",
+      "cacheFile": "libgudev-c97799aa548f601eb43cfd276ba52f1a9da85d48.APKBUILD"
+    },
+    {
+      "origin": "libice",
+      "repository": "main",
+      "commit": "d4941e833167c30aa1172e6d8420d084698254ab",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/d4941e833167c30aa1172e6d8420d084698254ab/main/libice/APKBUILD",
+      "recipeSha256": "c20d0dddc17219ea918c6e1626d238b29a219352ec887c3b5094d8f00339407c",
+      "cacheFile": "libice-d4941e833167c30aa1172e6d8420d084698254ab.APKBUILD"
+    },
+    {
+      "origin": "libidn2",
+      "repository": "main",
+      "commit": "8240e09aa2fdd8f9979b2016be082273965aff0c",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/8240e09aa2fdd8f9979b2016be082273965aff0c/main/libidn2/APKBUILD",
+      "recipeSha256": "b10c820249ffdf9eea4864bee27618a56163a297f06708362203d553de54a34a",
+      "cacheFile": "libidn2-8240e09aa2fdd8f9979b2016be082273965aff0c.APKBUILD"
+    },
+    {
+      "origin": "libinput",
+      "repository": "community",
+      "commit": "3241f28bdb5504c76850ce79362f9f38d44d4fa6",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/3241f28bdb5504c76850ce79362f9f38d44d4fa6/community/libinput/APKBUILD",
+      "recipeSha256": "2bbd81a4653814fd688f1b55b0290163272fd8d84ffbeae4e8c960ed0bd4a45e",
+      "cacheFile": "libinput-3241f28bdb5504c76850ce79362f9f38d44d4fa6.APKBUILD"
+    },
+    {
+      "origin": "libixion",
+      "repository": "community",
+      "commit": "9038d4a127408473b320cb715d0915053183eb6d",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/9038d4a127408473b320cb715d0915053183eb6d/community/libixion/APKBUILD",
+      "recipeSha256": "ab23bd5f8e88d13c7459874fe06bb5d71b4ed89f3b233ba1d762afd8d3dcdb87",
+      "cacheFile": "libixion-9038d4a127408473b320cb715d0915053183eb6d.APKBUILD"
+    },
+    {
+      "origin": "libjpeg-turbo",
+      "repository": "main",
+      "commit": "5fe6bebf850fc964a8525c81548397c39cb6f7cd",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/5fe6bebf850fc964a8525c81548397c39cb6f7cd/main/libjpeg-turbo/APKBUILD",
+      "recipeSha256": "1218c9432f4de37d43ed320d4ddb78989f0e9f8660f00c67df8505240821de61",
+      "cacheFile": "libjpeg-turbo-5fe6bebf850fc964a8525c81548397c39cb6f7cd.APKBUILD"
+    },
+    {
+      "origin": "libksba",
+      "repository": "main",
+      "commit": "a753c0e07020a12107aaf290e8e9b02e149f6666",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/a753c0e07020a12107aaf290e8e9b02e149f6666/main/libksba/APKBUILD",
+      "recipeSha256": "86a4a9bcafb15ce0466d9e8443817170a14e29f127732e18bea909df43591cc5",
+      "cacheFile": "libksba-a753c0e07020a12107aaf290e8e9b02e149f6666.APKBUILD"
+    },
+    {
+      "origin": "liblangtag",
+      "repository": "community",
+      "commit": "4f8157b2e125ac222cade929bb25bda16305fefc",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/4f8157b2e125ac222cade929bb25bda16305fefc/community/liblangtag/APKBUILD",
+      "recipeSha256": "7d357b2e54cdfd0c35a0ed2edc5d7898f21d4949e6ce9649c5e7482dc274f576",
+      "cacheFile": "liblangtag-4f8157b2e125ac222cade929bb25bda16305fefc.APKBUILD"
+    },
+    {
+      "origin": "libldac",
+      "repository": "community",
+      "commit": "a7ec97e438d943083c5e7ffb0c7a20b546c60d31",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/a7ec97e438d943083c5e7ffb0c7a20b546c60d31/community/libldac/APKBUILD",
+      "recipeSha256": "fe25b5c10601b55f087b1405f4cdd902e9ef881a34db7776e87a49e572357079",
+      "cacheFile": "libldac-a7ec97e438d943083c5e7ffb0c7a20b546c60d31.APKBUILD"
+    },
+    {
+      "origin": "libmd",
+      "repository": "main",
+      "commit": "87b78bc6890645c317d3167bdbb0187502d0cda9",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/87b78bc6890645c317d3167bdbb0187502d0cda9/main/libmd/APKBUILD",
+      "recipeSha256": "666cbb883c1723674806743c02246f75b391fab030f066481b927dc53bd15716",
+      "cacheFile": "libmd-87b78bc6890645c317d3167bdbb0187502d0cda9.APKBUILD"
+    },
+    {
+      "origin": "libmodplug",
+      "repository": "community",
+      "commit": "33283848034c9885d984c8e8697c645c57324938",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/33283848034c9885d984c8e8697c645c57324938/community/libmodplug/APKBUILD",
+      "recipeSha256": "39a00650d32af3bcf0920c0ee26df204a51dbd1071b4b948e07f3f1d6c7a0459",
+      "cacheFile": "libmodplug-33283848034c9885d984c8e8697c645c57324938.APKBUILD"
+    },
+    {
+      "origin": "libmspub",
+      "repository": "community",
+      "commit": "8bb896dfe37d125c40c2068fbe2e4eae6688207c",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/8bb896dfe37d125c40c2068fbe2e4eae6688207c/community/libmspub/APKBUILD",
+      "recipeSha256": "774dfab7a446b02fa0661e486e7a8b082354536e6c06a07af4796ebb3f4b4e44",
+      "cacheFile": "libmspub-8bb896dfe37d125c40c2068fbe2e4eae6688207c.APKBUILD"
+    },
+    {
+      "origin": "libmwaw",
+      "repository": "community",
+      "commit": "e38808863da4b33393e78313c8c55741a0730214",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/e38808863da4b33393e78313c8c55741a0730214/community/libmwaw/APKBUILD",
+      "recipeSha256": "417a87d1bb2123361e4b3041bd2870014f9b32d2bf0e41b3bb4f313f84dd5105",
+      "cacheFile": "libmwaw-e38808863da4b33393e78313c8c55741a0730214.APKBUILD"
+    },
+    {
+      "origin": "libnotify",
+      "repository": "community",
+      "commit": "25517fad2ccae8578a3adceddc305d9718913ab9",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/25517fad2ccae8578a3adceddc305d9718913ab9/community/libnotify/APKBUILD",
+      "recipeSha256": "fee54f45b96b35d2aeb94b805d3224438c6f64ce5c44c0fc8cad0fab1a4d7f16",
+      "cacheFile": "libnotify-25517fad2ccae8578a3adceddc305d9718913ab9.APKBUILD"
+    },
+    {
+      "origin": "libnumbertext",
+      "repository": "community",
+      "commit": "4f8157b2e125ac222cade929bb25bda16305fefc",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/4f8157b2e125ac222cade929bb25bda16305fefc/community/libnumbertext/APKBUILD",
+      "recipeSha256": "521872b82f2d61b467fb882e4ad6c8180a3af0cd6937c7aaf658468b0e0d0177",
+      "cacheFile": "libnumbertext-4f8157b2e125ac222cade929bb25bda16305fefc.APKBUILD"
+    },
+    {
+      "origin": "libodfgen",
+      "repository": "community",
+      "commit": "5ffbab2e7a86b4bd6c1b45b310677f9f0b7d46cc",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/5ffbab2e7a86b4bd6c1b45b310677f9f0b7d46cc/community/libodfgen/APKBUILD",
+      "recipeSha256": "aef8c2c7145b9eff508f1fc3078f121a4a72a8872729befd43557a5d4a24d590",
+      "cacheFile": "libodfgen-5ffbab2e7a86b4bd6c1b45b310677f9f0b7d46cc.APKBUILD"
+    },
+    {
+      "origin": "libogg",
+      "repository": "main",
+      "commit": "c17e8cd839de47006a648ae64294616569946b3f",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/c17e8cd839de47006a648ae64294616569946b3f/main/libogg/APKBUILD",
+      "recipeSha256": "8e4c7d0481c98678e25bcc57bae02d2940143f861a1f1e0cb95e9dd679d597f3",
+      "cacheFile": "libogg-c17e8cd839de47006a648ae64294616569946b3f.APKBUILD"
+    },
+    {
+      "origin": "liborcus",
+      "repository": "community",
+      "commit": "8a122fbf188a6eaf1e77f4d497faf904b229f089",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/8a122fbf188a6eaf1e77f4d497faf904b229f089/community/liborcus/APKBUILD",
+      "recipeSha256": "88406faf2de043c777be6843e4427e317525020f58b7a8ae3a86a2377ab736fe",
+      "cacheFile": "liborcus-8a122fbf188a6eaf1e77f4d497faf904b229f089.APKBUILD"
+    },
+    {
+      "origin": "libpagemaker",
+      "repository": "community",
+      "commit": "69cd685a91155d392cab1b13d9c70aef22cb661a",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/69cd685a91155d392cab1b13d9c70aef22cb661a/community/libpagemaker/APKBUILD",
+      "recipeSha256": "06e3a52706c07031c63b4e002152f1b5b76555fa1cc001f0c795e214c3aa4e18",
+      "cacheFile": "libpagemaker-69cd685a91155d392cab1b13d9c70aef22cb661a.APKBUILD"
+    },
+    {
+      "origin": "libpciaccess",
+      "repository": "main",
+      "commit": "d5de88aad8098d25c1b9e53d4ca5e6ff6c90e234",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/d5de88aad8098d25c1b9e53d4ca5e6ff6c90e234/main/libpciaccess/APKBUILD",
+      "recipeSha256": "9b247fbd1a8c179665b7bf514d8e90f797534ea7cda4cf84c858ef454ddba743",
+      "cacheFile": "libpciaccess-d5de88aad8098d25c1b9e53d4ca5e6ff6c90e234.APKBUILD"
+    },
+    {
+      "origin": "libpng",
+      "repository": "main",
+      "commit": "8f222b50cd6e31c83f7dd69ab7c00e7471e11d4b",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/8f222b50cd6e31c83f7dd69ab7c00e7471e11d4b/main/libpng/APKBUILD",
+      "recipeSha256": "1de1354d00b75a9acec130edbcc5c3eeceb8d65a37b73737c6e716fe2dc176b2",
+      "cacheFile": "libpng-8f222b50cd6e31c83f7dd69ab7c00e7471e11d4b.APKBUILD"
+    },
+    {
+      "origin": "libproxy",
+      "repository": "community",
+      "commit": "851c5e6677e09a71066d12f6585699453fd3d245",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/851c5e6677e09a71066d12f6585699453fd3d245/community/libproxy/APKBUILD",
+      "recipeSha256": "b88567e2ae22570ad21182f9f7fcfc7f87e213de5c937c55e60331880bda9638",
+      "cacheFile": "libproxy-851c5e6677e09a71066d12f6585699453fd3d245.APKBUILD"
+    },
+    {
+      "origin": "libpsl",
+      "repository": "main",
+      "commit": "6bd45b53fb316dc01bda59f5feaf1e127eb64f22",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6bd45b53fb316dc01bda59f5feaf1e127eb64f22/main/libpsl/APKBUILD",
+      "recipeSha256": "b68a1b2d744a902cf296a641631f013d172a3dee2ec78c324e9ec73031a7d2ad",
+      "cacheFile": "libpsl-6bd45b53fb316dc01bda59f5feaf1e127eb64f22.APKBUILD"
+    },
+    {
+      "origin": "libqxp",
+      "repository": "community",
+      "commit": "71f8d6a8599a305d4e1bfafad5e4a188a02daa86",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/71f8d6a8599a305d4e1bfafad5e4a188a02daa86/community/libqxp/APKBUILD",
+      "recipeSha256": "e48d3826f93f65d0fcdec54bb5888b2d24f3bc52c9412a50252b57d65d04466e",
+      "cacheFile": "libqxp-71f8d6a8599a305d4e1bfafad5e4a188a02daa86.APKBUILD"
+    },
+    {
+      "origin": "libraw1394",
+      "repository": "community",
+      "commit": "4f8157b2e125ac222cade929bb25bda16305fefc",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/4f8157b2e125ac222cade929bb25bda16305fefc/community/libraw1394/APKBUILD",
+      "recipeSha256": "9e1c007912db8589faa80b36f6997ced73fcb5d5bf933bd892b4fbe91d095500",
+      "cacheFile": "libraw1394-4f8157b2e125ac222cade929bb25bda16305fefc.APKBUILD"
+    },
+    {
+      "origin": "libreoffice",
+      "repository": "community",
+      "commit": "689d7588bdeeb05d867cdc7914c08f512f40eab4",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/689d7588bdeeb05d867cdc7914c08f512f40eab4/community/libreoffice/APKBUILD",
+      "recipeSha256": "e002880b38183da0350002adea792378fe39109fc6e4efba1c07e4c39b596af0",
+      "cacheFile": "libreoffice-689d7588bdeeb05d867cdc7914c08f512f40eab4.APKBUILD"
+    },
+    {
+      "origin": "librevenge",
+      "repository": "community",
+      "commit": "d55d4919e0bafc481b5b235ce55a72c6617b764d",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/d55d4919e0bafc481b5b235ce55a72c6617b764d/community/librevenge/APKBUILD",
+      "recipeSha256": "eaaa4fd7dc62aee29e2ba06196d84383a2a1ad017827fe50f3203c5f78ec0def",
+      "cacheFile": "librevenge-d55d4919e0bafc481b5b235ce55a72c6617b764d.APKBUILD"
+    },
+    {
+      "origin": "librsvg",
+      "repository": "community",
+      "commit": "c760246e855451fa4c2a2d77c1938ce51d9d1c77",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/c760246e855451fa4c2a2d77c1938ce51d9d1c77/community/librsvg/APKBUILD",
+      "recipeSha256": "8171b78bfffd46b3f1c4eb294b28afd2618d71311ee71d83acdd64dce0b534f6",
+      "cacheFile": "librsvg-c760246e855451fa4c2a2d77c1938ce51d9d1c77.APKBUILD"
+    },
+    {
+      "origin": "libseccomp",
+      "repository": "main",
+      "commit": "3e05bdc04e1cd023978e0671150ac6190076169b",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/3e05bdc04e1cd023978e0671150ac6190076169b/main/libseccomp/APKBUILD",
+      "recipeSha256": "64cb585ea9619879ac3cc4246db0e0291ae961ef887b75369d86390a3fe02ea4",
+      "cacheFile": "libseccomp-3e05bdc04e1cd023978e0671150ac6190076169b.APKBUILD"
+    },
+    {
+      "origin": "libsm",
+      "repository": "main",
+      "commit": "4eaa957537767ad0344894ad0e609068b26bf85d",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/4eaa957537767ad0344894ad0e609068b26bf85d/main/libsm/APKBUILD",
+      "recipeSha256": "9e651738f9f00af5323eebe66bf0800af11d4fa4697283a721aefa8ecd0df8a2",
+      "cacheFile": "libsm-4eaa957537767ad0344894ad0e609068b26bf85d.APKBUILD"
+    },
+    {
+      "origin": "libsndfile",
+      "repository": "main",
+      "commit": "3acdcc403bf369664fa1f448972400bc9e79cb98",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/3acdcc403bf369664fa1f448972400bc9e79cb98/main/libsndfile/APKBUILD",
+      "recipeSha256": "ff1d97731dde649156ce97c533d8348c89246117a1b4269ccf41586104a73bea",
+      "cacheFile": "libsndfile-3acdcc403bf369664fa1f448972400bc9e79cb98.APKBUILD"
+    },
+    {
+      "origin": "libsrt",
+      "repository": "community",
+      "commit": "2d9f0a6490c47e67a952cab2584fb5ae0531094f",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/2d9f0a6490c47e67a952cab2584fb5ae0531094f/community/libsrt/APKBUILD",
+      "recipeSha256": "1765b5eb37f4d83daf0ae9bef661fdfbad1ef3771e2983d51e098915497ea2b2",
+      "cacheFile": "libsrt-2d9f0a6490c47e67a952cab2584fb5ae0531094f.APKBUILD"
+    },
+    {
+      "origin": "libsrtp",
+      "repository": "main",
+      "commit": "49d5e530d0a021d96900b50de673d87b748a0dfd",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/49d5e530d0a021d96900b50de673d87b748a0dfd/main/libsrtp/APKBUILD",
+      "recipeSha256": "0fc4b6d9f1b782796f4d5c72165f02b2db34e0a5552846d6a15f12de9740dcf9",
+      "cacheFile": "libsrtp-49d5e530d0a021d96900b50de673d87b748a0dfd.APKBUILD"
+    },
+    {
+      "origin": "libstaroffice",
+      "repository": "community",
+      "commit": "1fe7307a8fa8b2e365b6beb18ab9731747b5440c",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/1fe7307a8fa8b2e365b6beb18ab9731747b5440c/community/libstaroffice/APKBUILD",
+      "recipeSha256": "13cf5fa11196a62e5c557ef3e8f501a1c7537a65e8cc77864130dec8562721c2",
+      "cacheFile": "libstaroffice-1fe7307a8fa8b2e365b6beb18ab9731747b5440c.APKBUILD"
+    },
+    {
+      "origin": "libtasn1",
+      "repository": "main",
+      "commit": "771f180774aa0d9d3783d7f4eb9e3788c615658b",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/771f180774aa0d9d3783d7f4eb9e3788c615658b/main/libtasn1/APKBUILD",
+      "recipeSha256": "23c9685d8b0d19f0f9b09e7a9c87bc10ef8cdefd47688f3b9aa7afdf4410d840",
+      "cacheFile": "libtasn1-771f180774aa0d9d3783d7f4eb9e3788c615658b.APKBUILD"
+    },
+    {
+      "origin": "libtheora",
+      "repository": "main",
+      "commit": "5e1b822309fb17cc2ebd46d6fbacb1763acbcdd1",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/5e1b822309fb17cc2ebd46d6fbacb1763acbcdd1/main/libtheora/APKBUILD",
+      "recipeSha256": "cfc530c8192fc963a53da131f2be557a6709a04d90617264f0fe44ac7b4ce631",
+      "cacheFile": "libtheora-5e1b822309fb17cc2ebd46d6fbacb1763acbcdd1.APKBUILD"
+    },
+    {
+      "origin": "libtool",
+      "repository": "main",
+      "commit": "21b05914806e37e3e9de9d1e5a037fc688cbebd6",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/21b05914806e37e3e9de9d1e5a037fc688cbebd6/main/libtool/APKBUILD",
+      "recipeSha256": "ceee1bfdcdc16decfea6b5565d823b0bd6ff23efb6e2b9323a6879c957338dc1",
+      "cacheFile": "libtool-21b05914806e37e3e9de9d1e5a037fc688cbebd6.APKBUILD"
+    },
+    {
+      "origin": "libunibreak",
+      "repository": "community",
+      "commit": "80739e9ec0682399ed55876d26966ea77d6242fb",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/80739e9ec0682399ed55876d26966ea77d6242fb/community/libunibreak/APKBUILD",
+      "recipeSha256": "bcebf0f0cdb3efb001685803f41be3a59d67c284787d9bf85bd728b936d1cf6b",
+      "cacheFile": "libunibreak-80739e9ec0682399ed55876d26966ea77d6242fb.APKBUILD"
+    },
+    {
+      "origin": "libunistring",
+      "repository": "main",
+      "commit": "30d9f19340385b2cd16eaf1cc6a9a8b30c4afe1c",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/30d9f19340385b2cd16eaf1cc6a9a8b30c4afe1c/main/libunistring/APKBUILD",
+      "recipeSha256": "897e2505f928b37f16ebae9fa0b31d0ef67a8523f3dd5c4dcebc825c13d2fcfa",
+      "cacheFile": "libunistring-30d9f19340385b2cd16eaf1cc6a9a8b30c4afe1c.APKBUILD"
+    },
+    {
+      "origin": "libusb",
+      "repository": "main",
+      "commit": "01432283613d87d80efdd9f78362a4c58c895439",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/01432283613d87d80efdd9f78362a4c58c895439/main/libusb/APKBUILD",
+      "recipeSha256": "c4e5e86dbc0f37f8180a005c08dfcf2626e4edb666f38de77b3b3a5691a8969f",
+      "cacheFile": "libusb-01432283613d87d80efdd9f78362a4c58c895439.APKBUILD"
+    },
+    {
+      "origin": "libutempter",
+      "repository": "main",
+      "commit": "5695697d36c38feb090b6ff87b3540fb0edff528",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/5695697d36c38feb090b6ff87b3540fb0edff528/main/libutempter/APKBUILD",
+      "recipeSha256": "a406821f8d239b1d9276dde27d0371bf9aad5160c2e614d4d005caa39631cbba",
+      "cacheFile": "libutempter-5695697d36c38feb090b6ff87b3540fb0edff528.APKBUILD"
+    },
+    {
+      "origin": "libva",
+      "repository": "main",
+      "commit": "217e378f7609433dab89ca791cf5dd01f59a5667",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/217e378f7609433dab89ca791cf5dd01f59a5667/main/libva/APKBUILD",
+      "recipeSha256": "187294e368a6fbe721d0797bc176326c81687e112a10ecf0b37db8534a1195c7",
+      "cacheFile": "libva-217e378f7609433dab89ca791cf5dd01f59a5667.APKBUILD"
+    },
+    {
+      "origin": "libvisio",
+      "repository": "community",
+      "commit": "b45ae1396c47f3118d7b1f9bdba2fd1ab5439f86",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/b45ae1396c47f3118d7b1f9bdba2fd1ab5439f86/community/libvisio/APKBUILD",
+      "recipeSha256": "f5f18677037e9fe06df3484161382d669f8b32874f549101664c8c939e910a1d",
+      "cacheFile": "libvisio-b45ae1396c47f3118d7b1f9bdba2fd1ab5439f86.APKBUILD"
+    },
+    {
+      "origin": "libvorbis",
+      "repository": "main",
+      "commit": "fc95c59998285564fbcb0bfb2443898c62e10171",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/fc95c59998285564fbcb0bfb2443898c62e10171/main/libvorbis/APKBUILD",
+      "recipeSha256": "8c3a3a1cffcf8d2a88f43addffbf3adcc5a382664a1503a919b69f8db34722bb",
+      "cacheFile": "libvorbis-fc95c59998285564fbcb0bfb2443898c62e10171.APKBUILD"
+    },
+    {
+      "origin": "libwebp",
+      "repository": "main",
+      "commit": "af8b48fabd19b69b00f5efe192f461896a38cf74",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/af8b48fabd19b69b00f5efe192f461896a38cf74/main/libwebp/APKBUILD",
+      "recipeSha256": "fa01d83adb827d69372ef67b622ad667f4e39f94b4a85aeabef733e88d9f3d8a",
+      "cacheFile": "libwebp-af8b48fabd19b69b00f5efe192f461896a38cf74.APKBUILD"
+    },
+    {
+      "origin": "libwnck3",
+      "repository": "community",
+      "commit": "d3ace5fd88041c2d5f94b13803c299cc4e13db3f",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/d3ace5fd88041c2d5f94b13803c299cc4e13db3f/community/libwnck3/APKBUILD",
+      "recipeSha256": "d25698941878925b77c341c9794f872427d8407d7ed66a4ae45e55f1a8d3c63f",
+      "cacheFile": "libwnck3-d3ace5fd88041c2d5f94b13803c299cc4e13db3f.APKBUILD"
+    },
+    {
+      "origin": "libwpd",
+      "repository": "community",
+      "commit": "6d3f459f1e2a47230cb5fb845d196b48fbbe1ae5",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6d3f459f1e2a47230cb5fb845d196b48fbbe1ae5/community/libwpd/APKBUILD",
+      "recipeSha256": "84c9821d3eb366bc80aa176a7b5ef9a007c53d3da50fb76e8926e6bbc51fae5f",
+      "cacheFile": "libwpd-6d3f459f1e2a47230cb5fb845d196b48fbbe1ae5.APKBUILD"
+    },
+    {
+      "origin": "libwpg",
+      "repository": "community",
+      "commit": "65cebe6008729bcbbbadc49529e9db647d7721e5",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/65cebe6008729bcbbbadc49529e9db647d7721e5/community/libwpg/APKBUILD",
+      "recipeSha256": "a7e9e1a16bd3bd4b3ebf33c841fc33d0746bf1aba7e65c5948dbe78987bd58ef",
+      "cacheFile": "libwpg-65cebe6008729bcbbbadc49529e9db647d7721e5.APKBUILD"
+    },
+    {
+      "origin": "libwps",
+      "repository": "community",
+      "commit": "cacc68b430aef6dcf6410f78a27cc2261e79ec4d",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/cacc68b430aef6dcf6410f78a27cc2261e79ec4d/community/libwps/APKBUILD",
+      "recipeSha256": "aa381ef63d6451a9f87c96a2f4db6a60aec3ec0e976e73a42803f59bed0f0ccd",
+      "cacheFile": "libwps-cacc68b430aef6dcf6410f78a27cc2261e79ec4d.APKBUILD"
+    },
+    {
+      "origin": "libx11",
+      "repository": "main",
+      "commit": "e129d974905f6cf078e41390b58241a73519f572",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/e129d974905f6cf078e41390b58241a73519f572/main/libx11/APKBUILD",
+      "recipeSha256": "c159d58e883895ef75e4bcd635857b4a08f4122d7688d7515f45c363cda100df",
+      "cacheFile": "libx11-e129d974905f6cf078e41390b58241a73519f572.APKBUILD"
+    },
+    {
+      "origin": "libxau",
+      "repository": "main",
+      "commit": "6bd45b53fb316dc01bda59f5feaf1e127eb64f22",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6bd45b53fb316dc01bda59f5feaf1e127eb64f22/main/libxau/APKBUILD",
+      "recipeSha256": "fb79c8b54af8d1700d7ac25ebda40c50d9d6acb2543aa36edbd6179fc2562d64",
+      "cacheFile": "libxau-6bd45b53fb316dc01bda59f5feaf1e127eb64f22.APKBUILD"
+    },
+    {
+      "origin": "libxcb",
+      "repository": "main",
+      "commit": "5e1b822309fb17cc2ebd46d6fbacb1763acbcdd1",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/5e1b822309fb17cc2ebd46d6fbacb1763acbcdd1/main/libxcb/APKBUILD",
+      "recipeSha256": "8bac16e286e2e6284340ff21443b02a35c399f8c6283e803a7ab268114d10db9",
+      "cacheFile": "libxcb-5e1b822309fb17cc2ebd46d6fbacb1763acbcdd1.APKBUILD"
+    },
+    {
+      "origin": "libxcomposite",
+      "repository": "main",
+      "commit": "c0827d5370257f42994fa6711c985015efdf9037",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/c0827d5370257f42994fa6711c985015efdf9037/main/libxcomposite/APKBUILD",
+      "recipeSha256": "be6f69939027fa715d7b760c6951ef1fa06ff66464118342ce112c180478759d",
+      "cacheFile": "libxcomposite-c0827d5370257f42994fa6711c985015efdf9037.APKBUILD"
+    },
+    {
+      "origin": "libxcursor",
+      "repository": "main",
+      "commit": "1d6d12ed6f5cc1fc2e382d0bdc6fc90712745e8a",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/1d6d12ed6f5cc1fc2e382d0bdc6fc90712745e8a/main/libxcursor/APKBUILD",
+      "recipeSha256": "6b65d702a48d50f85b6c80973abf89d62595b8884ce123ded922a3af130073c4",
+      "cacheFile": "libxcursor-1d6d12ed6f5cc1fc2e382d0bdc6fc90712745e8a.APKBUILD"
+    },
+    {
+      "origin": "libxcvt",
+      "repository": "community",
+      "commit": "6bd45b53fb316dc01bda59f5feaf1e127eb64f22",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6bd45b53fb316dc01bda59f5feaf1e127eb64f22/community/libxcvt/APKBUILD",
+      "recipeSha256": "f512ff3efd6b54a42d50202564c4cbcd6dc34b6e5855d81c5d4aa27b7b7116e8",
+      "cacheFile": "libxcvt-6bd45b53fb316dc01bda59f5feaf1e127eb64f22.APKBUILD"
+    },
+    {
+      "origin": "libxdamage",
+      "repository": "main",
+      "commit": "5ef54777a8564f6c7515d1e0b04883cbd11ffa32",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/5ef54777a8564f6c7515d1e0b04883cbd11ffa32/main/libxdamage/APKBUILD",
+      "recipeSha256": "5110016a27ac96856ae5a8fef00070a13e8ff2d8f5056e5100b70c3cf52e0428",
+      "cacheFile": "libxdamage-5ef54777a8564f6c7515d1e0b04883cbd11ffa32.APKBUILD"
+    },
+    {
+      "origin": "libxdmcp",
+      "repository": "main",
+      "commit": "614e9166706cec427fc3d907b8d981390a42e088",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/614e9166706cec427fc3d907b8d981390a42e088/main/libxdmcp/APKBUILD",
+      "recipeSha256": "f47cf4f70e4553c3a7996f24466556b49d42b4eb51b7be4b863509b06b13ae44",
+      "cacheFile": "libxdmcp-614e9166706cec427fc3d907b8d981390a42e088.APKBUILD"
+    },
+    {
+      "origin": "libxext",
+      "repository": "main",
+      "commit": "4ec252fa3e6e8edf16d0d6da3fe6dd39e2263942",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/4ec252fa3e6e8edf16d0d6da3fe6dd39e2263942/main/libxext/APKBUILD",
+      "recipeSha256": "40f385d173a94ac0e8e7725936554f6c5b71e918c21bbdcfdb69adcdc8853561",
+      "cacheFile": "libxext-4ec252fa3e6e8edf16d0d6da3fe6dd39e2263942.APKBUILD"
+    },
+    {
+      "origin": "libxfce4ui",
+      "repository": "community",
+      "commit": "7817930ca80be14b1ad8517ead5c5f636d820157",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/7817930ca80be14b1ad8517ead5c5f636d820157/community/libxfce4ui/APKBUILD",
+      "recipeSha256": "ea984b0ffc6ee4ae866584135ac4c9e913d043cab1f87539f82db2a9b58723fb",
+      "cacheFile": "libxfce4ui-7817930ca80be14b1ad8517ead5c5f636d820157.APKBUILD"
+    },
+    {
+      "origin": "libxfce4util",
+      "repository": "community",
+      "commit": "a4d154d9e1012b3fbcd1edbb5fecb38f87b87db9",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/a4d154d9e1012b3fbcd1edbb5fecb38f87b87db9/community/libxfce4util/APKBUILD",
+      "recipeSha256": "2d46ae78064fbb97533edb7284b2bd966424da9afbe8763920cf3bbe43445c34",
+      "cacheFile": "libxfce4util-a4d154d9e1012b3fbcd1edbb5fecb38f87b87db9.APKBUILD"
+    },
+    {
+      "origin": "libxfce4windowing",
+      "repository": "community",
+      "commit": "c82eb606485db9f6c6e9d73f0871e4c1762af62b",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/c82eb606485db9f6c6e9d73f0871e4c1762af62b/community/libxfce4windowing/APKBUILD",
+      "recipeSha256": "90fa17b973c7097a6dbc9bc90d85b303caedea74d1c3e5fe389fbbfd021d3cfc",
+      "cacheFile": "libxfce4windowing-c82eb606485db9f6c6e9d73f0871e4c1762af62b.APKBUILD"
+    },
+    {
+      "origin": "libxfixes",
+      "repository": "main",
+      "commit": "9d33b3af389f39ad78c80e3274aaf5adbbdb8150",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/9d33b3af389f39ad78c80e3274aaf5adbbdb8150/main/libxfixes/APKBUILD",
+      "recipeSha256": "684f038ec614bfdd6d4f8cdf98082216c7a1b3c8d592b6c1d94505cc360532f1",
+      "cacheFile": "libxfixes-9d33b3af389f39ad78c80e3274aaf5adbbdb8150.APKBUILD"
+    },
+    {
+      "origin": "libxfont2",
+      "repository": "community",
+      "commit": "1ad07911a02441114c991576c13fa0f4746e685b",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/1ad07911a02441114c991576c13fa0f4746e685b/community/libxfont2/APKBUILD",
+      "recipeSha256": "e885a75aae0fecef266e891fb366b95bb485a1822696f9b59fbdb9b4d11674f1",
+      "cacheFile": "libxfont2-1ad07911a02441114c991576c13fa0f4746e685b.APKBUILD"
+    },
+    {
+      "origin": "libxft",
+      "repository": "main",
+      "commit": "9a4062b0f278b43370faa58195206c5ef94e7899",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/9a4062b0f278b43370faa58195206c5ef94e7899/main/libxft/APKBUILD",
+      "recipeSha256": "b38eb26971196bf01d49e28d036c95ac2b821ca4e70ced53ffb1321fd08caa17",
+      "cacheFile": "libxft-9a4062b0f278b43370faa58195206c5ef94e7899.APKBUILD"
+    },
+    {
+      "origin": "libxi",
+      "repository": "main",
+      "commit": "d7f98a7160b7857b74d67d052ae0cc56c833a90c",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/d7f98a7160b7857b74d67d052ae0cc56c833a90c/main/libxi/APKBUILD",
+      "recipeSha256": "8e71cbcfde8e79e2af755d42a3ff0f2d18f79fe51e453af2631d8564427e6b38",
+      "cacheFile": "libxi-d7f98a7160b7857b74d67d052ae0cc56c833a90c.APKBUILD"
+    },
+    {
+      "origin": "libxinerama",
+      "repository": "main",
+      "commit": "4b83e9a57e623461c4173c3cf261045b7f225b44",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/4b83e9a57e623461c4173c3cf261045b7f225b44/main/libxinerama/APKBUILD",
+      "recipeSha256": "5f8eb015e6343d3028eaa3fe72215c661edab2998fc594da91f40900c4607164",
+      "cacheFile": "libxinerama-4b83e9a57e623461c4173c3cf261045b7f225b44.APKBUILD"
+    },
+    {
+      "origin": "libxkbcommon",
+      "repository": "main",
+      "commit": "76aa0b70442b4172a6770da5875b1bcbe38f3965",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/76aa0b70442b4172a6770da5875b1bcbe38f3965/main/libxkbcommon/APKBUILD",
+      "recipeSha256": "4424e7083d26fbf95d4bc77ddd6f684a99e00211362da9db7b9774c61e710ccb",
+      "cacheFile": "libxkbcommon-76aa0b70442b4172a6770da5875b1bcbe38f3965.APKBUILD"
+    },
+    {
+      "origin": "libxkbfile",
+      "repository": "main",
+      "commit": "4caf66685895cb1db7bfdfc9f63c1dbf726712fd",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/4caf66685895cb1db7bfdfc9f63c1dbf726712fd/main/libxkbfile/APKBUILD",
+      "recipeSha256": "82a690d69ec40792bf13b0dd413d8174beab873bc18b980e0d15760024cd0a1a",
+      "cacheFile": "libxkbfile-4caf66685895cb1db7bfdfc9f63c1dbf726712fd.APKBUILD"
+    },
+    {
+      "origin": "libxklavier",
+      "repository": "community",
+      "commit": "33283848034c9885d984c8e8697c645c57324938",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/33283848034c9885d984c8e8697c645c57324938/community/libxklavier/APKBUILD",
+      "recipeSha256": "6e93cc199ab3152e8a2d6ee81752b876225e723ca92f6ddad3eda78b9f04a1a4",
+      "cacheFile": "libxklavier-33283848034c9885d984c8e8697c645c57324938.APKBUILD"
+    },
+    {
+      "origin": "libxml2",
+      "repository": "main",
+      "commit": "f1bd5b6767a0e7fdda380c95138a1c938eb6e102",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/f1bd5b6767a0e7fdda380c95138a1c938eb6e102/main/libxml2/APKBUILD",
+      "recipeSha256": "843a8013c86b73c9873735bfe5f155f4b9b6b4cbfbf9794a6c98b57d141a52ab",
+      "cacheFile": "libxml2-f1bd5b6767a0e7fdda380c95138a1c938eb6e102.APKBUILD"
+    },
+    {
+      "origin": "libxmu",
+      "repository": "main",
+      "commit": "6975763371783f76ea45b6a55d224ca72b73d090",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6975763371783f76ea45b6a55d224ca72b73d090/main/libxmu/APKBUILD",
+      "recipeSha256": "f1ad6809d842e2032ea5642cb2283a45b16dc59bc55bf2fb7454afece46f1840",
+      "cacheFile": "libxmu-6975763371783f76ea45b6a55d224ca72b73d090.APKBUILD"
+    },
+    {
+      "origin": "libxpresent",
+      "repository": "community",
+      "commit": "98ac3e31d3e99c79ecb358e6e56d59e7fe7d2ac6",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/98ac3e31d3e99c79ecb358e6e56d59e7fe7d2ac6/community/libxpresent/APKBUILD",
+      "recipeSha256": "df859643f9cf343142de776cef5c758531be38ccbf3d9fb20bf2f6e05a4712f5",
+      "cacheFile": "libxpresent-98ac3e31d3e99c79ecb358e6e56d59e7fe7d2ac6.APKBUILD"
+    },
+    {
+      "origin": "libxrandr",
+      "repository": "main",
+      "commit": "4a608248a9e09710a60f3d9027f19a14a5971dac",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/4a608248a9e09710a60f3d9027f19a14a5971dac/main/libxrandr/APKBUILD",
+      "recipeSha256": "89dc32158a129f6b4e980161b82cffbe579e0bd5a9b6cceaa497eca576a6e75e",
+      "cacheFile": "libxrandr-4a608248a9e09710a60f3d9027f19a14a5971dac.APKBUILD"
+    },
+    {
+      "origin": "libxrender",
+      "repository": "main",
+      "commit": "5ccdccc7a1dbc47bea804a77db56dfecf31b10ad",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/5ccdccc7a1dbc47bea804a77db56dfecf31b10ad/main/libxrender/APKBUILD",
+      "recipeSha256": "2ad90f2c1cdcf167b8f0d619b16af061210279b04601ac118462a4bf2eb45833",
+      "cacheFile": "libxrender-5ccdccc7a1dbc47bea804a77db56dfecf31b10ad.APKBUILD"
+    },
+    {
+      "origin": "libxres",
+      "repository": "community",
+      "commit": "ec786ae36b6704318eea7dad9ad05286cb0e9aca",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/ec786ae36b6704318eea7dad9ad05286cb0e9aca/community/libxres/APKBUILD",
+      "recipeSha256": "03cbb6bf4c459e3d8a09628c146f04b3de20e83d105709b83859ee845fda25ca",
+      "cacheFile": "libxres-ec786ae36b6704318eea7dad9ad05286cb0e9aca.APKBUILD"
+    },
+    {
+      "origin": "libxshmfence",
+      "repository": "main",
+      "commit": "8bac74716d06c84627ab02d101fd9d2bafd0a34c",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/8bac74716d06c84627ab02d101fd9d2bafd0a34c/main/libxshmfence/APKBUILD",
+      "recipeSha256": "6ea91747c3797cf7203f1dc41335850d9aa07564f0ec521a74d10a2d83053d6b",
+      "cacheFile": "libxshmfence-8bac74716d06c84627ab02d101fd9d2bafd0a34c.APKBUILD"
+    },
+    {
+      "origin": "libxslt",
+      "repository": "main",
+      "commit": "e85ecba78539486bd0a685963ca5da3e1652fbd0",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/e85ecba78539486bd0a685963ca5da3e1652fbd0/main/libxslt/APKBUILD",
+      "recipeSha256": "b8b665ac4db34f7aaef152ba5fed01e931a98d60d2c15a7ce89381611bb70707",
+      "cacheFile": "libxslt-e85ecba78539486bd0a685963ca5da3e1652fbd0.APKBUILD"
+    },
+    {
+      "origin": "libxt",
+      "repository": "main",
+      "commit": "60222ebeadec75e483e49194130c6963d0fcbf75",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/60222ebeadec75e483e49194130c6963d0fcbf75/main/libxt/APKBUILD",
+      "recipeSha256": "76e6c124a48b28e1f6b0d6631b0b9e895d1f5771bd983d62ef3077bf8ca0703f",
+      "cacheFile": "libxt-60222ebeadec75e483e49194130c6963d0fcbf75.APKBUILD"
+    },
+    {
+      "origin": "libxtst",
+      "repository": "main",
+      "commit": "9b53c2882fa653cbe6c1df82ac18a7b7f511aa06",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/9b53c2882fa653cbe6c1df82ac18a7b7f511aa06/main/libxtst/APKBUILD",
+      "recipeSha256": "fd633ae198f475d787ee46d262e2a1142a39ebcba3bc9ae2bfd0057883416ccd",
+      "cacheFile": "libxtst-9b53c2882fa653cbe6c1df82ac18a7b7f511aa06.APKBUILD"
+    },
+    {
+      "origin": "libxv",
+      "repository": "main",
+      "commit": "9ce32dfd15fa7aa84849ad3f5ec8e8044ac93b07",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/9ce32dfd15fa7aa84849ad3f5ec8e8044ac93b07/main/libxv/APKBUILD",
+      "recipeSha256": "e76a87ec0172203e52f54a062e24f4a8e38b65518299212271dfff50beaf7eed",
+      "cacheFile": "libxv-9ce32dfd15fa7aa84849ad3f5ec8e8044ac93b07.APKBUILD"
+    },
+    {
+      "origin": "libxxf86vm",
+      "repository": "main",
+      "commit": "ac89fbb35d37756385378e461847c2b0a61613dd",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/ac89fbb35d37756385378e461847c2b0a61613dd/main/libxxf86vm/APKBUILD",
+      "recipeSha256": "c2279e12ad3dd0ad174f68f098f2877581f6fa3e9d07b73eb555e7b759dc2379",
+      "cacheFile": "libxxf86vm-ac89fbb35d37756385378e461847c2b0a61613dd.APKBUILD"
+    },
+    {
+      "origin": "libzmf",
+      "repository": "community",
+      "commit": "c19a1518cd3b27bd42965ce2976243481155879d",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/c19a1518cd3b27bd42965ce2976243481155879d/community/libzmf/APKBUILD",
+      "recipeSha256": "e48e31ffc4ed01e43a20fce07b48438e7a6eb2813e93532dbcfa3aa7e704ec01",
+      "cacheFile": "libzmf-c19a1518cd3b27bd42965ce2976243481155879d.APKBUILD"
+    },
+    {
+      "origin": "linux-pam",
+      "repository": "main",
+      "commit": "b30bac94ff81d73cc5038f795cf60d82c2497a93",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/b30bac94ff81d73cc5038f795cf60d82c2497a93/main/linux-pam/APKBUILD",
+      "recipeSha256": "35ee6e3efe1195d490f64a7c3649f4478967a7d8818fe918f210c79034b1c09e",
+      "cacheFile": "linux-pam-b30bac94ff81d73cc5038f795cf60d82c2497a93.APKBUILD"
+    },
+    {
+      "origin": "llvm22",
+      "repository": "main",
+      "commit": "7d10bc6cb2ec4d1202cc140ecc753d3200d84fc2",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/7d10bc6cb2ec4d1202cc140ecc753d3200d84fc2/main/llvm22/APKBUILD",
+      "recipeSha256": "41afe46bf4c9b7930734faa90356d9c695ac200f2fbed77e6474b28599550c08",
+      "cacheFile": "llvm22-7d10bc6cb2ec4d1202cc140ecc753d3200d84fc2.APKBUILD"
+    },
+    {
+      "origin": "lz4",
+      "repository": "main",
+      "commit": "1f16962f34234a77fab0f4651459c4381b4a0cd6",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/1f16962f34234a77fab0f4651459c4381b4a0cd6/main/lz4/APKBUILD",
+      "recipeSha256": "224936afd99a354d66019ac3ef6438981bb5a1231ee10a030344ffee7150ef09",
+      "cacheFile": "lz4-1f16962f34234a77fab0f4651459c4381b4a0cd6.APKBUILD"
+    },
+    {
+      "origin": "mariadb-connector-c",
+      "repository": "main",
+      "commit": "1b83a7a9a62de98e2985a62c5676325f6da3fe67",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/1b83a7a9a62de98e2985a62c5676325f6da3fe67/main/mariadb-connector-c/APKBUILD",
+      "recipeSha256": "082ef657e10265a477aa0f5125401626c05b7aa9b5fcb931d5dd10516b0c25cc",
+      "cacheFile": "mariadb-connector-c-1b83a7a9a62de98e2985a62c5676325f6da3fe67.APKBUILD"
+    },
+    {
+      "origin": "mesa",
+      "repository": "main",
+      "commit": "b94e73658216f4e91c701bfdeb420e6874910a74",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/b94e73658216f4e91c701bfdeb420e6874910a74/main/mesa/APKBUILD",
+      "recipeSha256": "3a7720d1dab3e2cde0fb0383d9215b19e3f79bd224786d6519ee12ba50c7ac65",
+      "cacheFile": "mesa-b94e73658216f4e91c701bfdeb420e6874910a74.APKBUILD"
+    },
+    {
+      "origin": "mkfontscale",
+      "repository": "main",
+      "commit": "e4301c788920ece9e1cd96dfa9d0ea6e7875e755",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/e4301c788920ece9e1cd96dfa9d0ea6e7875e755/main/mkfontscale/APKBUILD",
+      "recipeSha256": "cce96dedf36c98bd4719f1e90c6cee199b2bda684f085cded9d30954e6030fc1",
+      "cacheFile": "mkfontscale-e4301c788920ece9e1cd96dfa9d0ea6e7875e755.APKBUILD"
+    },
+    {
+      "origin": "mousepad",
+      "repository": "community",
+      "commit": "e9a6cce7cecd3488b553e57057cba277ffe10910",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/e9a6cce7cecd3488b553e57057cba277ffe10910/community/mousepad/APKBUILD",
+      "recipeSha256": "a05aaa82ebbf0c1c89af9b5b0951e05f61e19b0065f3b0418924ffa26dfa9881",
+      "cacheFile": "mousepad-e9a6cce7cecd3488b553e57057cba277ffe10910.APKBUILD"
+    },
+    {
+      "origin": "mpg123",
+      "repository": "main",
+      "commit": "017919108b432743fd6862fb290980809c9cf60f",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/017919108b432743fd6862fb290980809c9cf60f/main/mpg123/APKBUILD",
+      "recipeSha256": "886182ef398f9d14b7ee667d100b3527f2df3a1f2185d013d73b6c47f7b20441",
+      "cacheFile": "mpg123-017919108b432743fd6862fb290980809c9cf60f.APKBUILD"
+    },
+    {
+      "origin": "mtdev",
+      "repository": "community",
+      "commit": "6867e384dbfbd0b8efadbca989e9778190e89496",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6867e384dbfbd0b8efadbca989e9778190e89496/community/mtdev/APKBUILD",
+      "recipeSha256": "8504d4f5d360e65560b985a14292587ad8dbc30581bbd39a0f9c3055da8ed4a6",
+      "cacheFile": "mtdev-6867e384dbfbd0b8efadbca989e9778190e89496.APKBUILD"
+    },
+    {
+      "origin": "mythes",
+      "repository": "community",
+      "commit": "8eadce67233f289385ce1bba74e2195bdc144e4a",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/8eadce67233f289385ce1bba74e2195bdc144e4a/community/mythes/APKBUILD",
+      "recipeSha256": "80d7f9bd3820d610708f1bc4add686cf5ba307574d606a4aa407b026551c43ab",
+      "cacheFile": "mythes-8eadce67233f289385ce1bba74e2195bdc144e4a.APKBUILD"
+    },
+    {
+      "origin": "neon",
+      "repository": "main",
+      "commit": "932473be5945fbbc94d2932d0d9408a142e6aaf7",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/932473be5945fbbc94d2932d0d9408a142e6aaf7/main/neon/APKBUILD",
+      "recipeSha256": "a880df549a2029291691c2fe0a0f00951655edd174cf61fd491ba6aeb6b9242a",
+      "cacheFile": "neon-932473be5945fbbc94d2932d0d9408a142e6aaf7.APKBUILD"
+    },
+    {
+      "origin": "nettle",
+      "repository": "main",
+      "commit": "bf898e6d067c1c0ecc0f5ff39c79fc893399acd8",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/bf898e6d067c1c0ecc0f5ff39c79fc893399acd8/main/nettle/APKBUILD",
+      "recipeSha256": "b7934415ee1478994232cdbb873451c9f66ec53f9d1066fe32de4ec48b7e8804",
+      "cacheFile": "nettle-bf898e6d067c1c0ecc0f5ff39c79fc893399acd8.APKBUILD"
+    },
+    {
+      "origin": "nghttp2",
+      "repository": "main",
+      "commit": "d5a34efc88bbe8d18737fda28125071c4aef8517",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/d5a34efc88bbe8d18737fda28125071c4aef8517/main/nghttp2/APKBUILD",
+      "recipeSha256": "a4428f82a616800eaaae34b7d8c1020199fc38d672ac639b452f21274c22c7dd",
+      "cacheFile": "nghttp2-d5a34efc88bbe8d18737fda28125071c4aef8517.APKBUILD"
+    },
+    {
+      "origin": "npth",
+      "repository": "main",
+      "commit": "bf86ff2a6bc3bc18850fada852dc3653434f2d41",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/bf86ff2a6bc3bc18850fada852dc3653434f2d41/main/npth/APKBUILD",
+      "recipeSha256": "f17199dabdc878de64d5b4a7c6af7c17271f4f54a834764eddb208becb8ef39d",
+      "cacheFile": "npth-bf86ff2a6bc3bc18850fada852dc3653434f2d41.APKBUILD"
+    },
+    {
+      "origin": "nspr",
+      "repository": "main",
+      "commit": "4e10628e0ece580cd8f88bec18b55ddbd0be249a",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/4e10628e0ece580cd8f88bec18b55ddbd0be249a/main/nspr/APKBUILD",
+      "recipeSha256": "571b2779ea2d19bf032ec20e62e7aceca204c5f6060c5823a189a15979ba4099",
+      "cacheFile": "nspr-4e10628e0ece580cd8f88bec18b55ddbd0be249a.APKBUILD"
+    },
+    {
+      "origin": "nss",
+      "repository": "main",
+      "commit": "422faa8d3631e64d35b5b210b698a05cac32f2be",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/422faa8d3631e64d35b5b210b698a05cac32f2be/main/nss/APKBUILD",
+      "recipeSha256": "1b7d5f06e78fe976463931af86a3e625bc90f23a524a4e35012f44b30eb06024",
+      "cacheFile": "nss-422faa8d3631e64d35b5b210b698a05cac32f2be.APKBUILD"
+    },
+    {
+      "origin": "numactl",
+      "repository": "main",
+      "commit": "ac972e48bfad3673dd72e92890f04ffd879215be",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/ac972e48bfad3673dd72e92890f04ffd879215be/main/numactl/APKBUILD",
+      "recipeSha256": "52408fcd7e988c2d8a482aa2fcf02365708091c052e738624be244d4f3c48088",
+      "cacheFile": "numactl-ac972e48bfad3673dd72e92890f04ffd879215be.APKBUILD"
+    },
+    {
+      "origin": "openal-soft",
+      "repository": "community",
+      "commit": "095a01c525c5b68543ae82ffa1a4ec4c94d987d2",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/095a01c525c5b68543ae82ffa1a4ec4c94d987d2/community/openal-soft/APKBUILD",
+      "recipeSha256": "781ac55ac7d427d8a287e1a93c63e5718ba69d171267adf28d63af007a7180f2",
+      "cacheFile": "openal-soft-095a01c525c5b68543ae82ffa1a4ec4c94d987d2.APKBUILD"
+    },
+    {
+      "origin": "openexr",
+      "repository": "community",
+      "commit": "75e07796e3e41455a6ec7575766d5f03fb38df53",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/75e07796e3e41455a6ec7575766d5f03fb38df53/community/openexr/APKBUILD",
+      "recipeSha256": "93c650c3a5c3a9b3dc18e5f4152c17542bcc2ea2e6a37bf4ef68897e737ed71c",
+      "cacheFile": "openexr-75e07796e3e41455a6ec7575766d5f03fb38df53.APKBUILD"
+    },
+    {
+      "origin": "openh264",
+      "repository": "community",
+      "commit": "3e3fa0ef3b551ddcd1db850617252696ef8b092a",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/3e3fa0ef3b551ddcd1db850617252696ef8b092a/community/openh264/APKBUILD",
+      "recipeSha256": "0cdf56fba82ab183fae950baf22ed21ee33dc07e339edcbf9be18f56169b5abb",
+      "cacheFile": "openh264-3e3fa0ef3b551ddcd1db850617252696ef8b092a.APKBUILD"
+    },
+    {
+      "origin": "openjpeg",
+      "repository": "main",
+      "commit": "b6d19fe5cb62ff83b899e224cd2408868fc21e5e",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/b6d19fe5cb62ff83b899e224cd2408868fc21e5e/main/openjpeg/APKBUILD",
+      "recipeSha256": "7bee256f2d6fd4b80e583eb34aef808df77bdb1fc2a7930de265bfedc1ab2e39",
+      "cacheFile": "openjpeg-b6d19fe5cb62ff83b899e224cd2408868fc21e5e.APKBUILD"
+    },
+    {
+      "origin": "openldap",
+      "repository": "main",
+      "commit": "dff61c85c6c68e2c5fb8abac65f0dd97d4ad8763",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/dff61c85c6c68e2c5fb8abac65f0dd97d4ad8763/main/openldap/APKBUILD",
+      "recipeSha256": "d19d8ee663943d57f9441c63d86af245aa653a300afe183b16fc02e3abf66225",
+      "cacheFile": "openldap-dff61c85c6c68e2c5fb8abac65f0dd97d4ad8763.APKBUILD"
+    },
+    {
+      "origin": "opus",
+      "repository": "main",
+      "commit": "6664b23b1c7a2d0887ff2cb0edc93fccb1474c8b",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6664b23b1c7a2d0887ff2cb0edc93fccb1474c8b/main/opus/APKBUILD",
+      "recipeSha256": "2228514887abe1b68c97b6d5b645d44002d5cb715d0babe149441ce3155fd8e0",
+      "cacheFile": "opus-6664b23b1c7a2d0887ff2cb0edc93fccb1474c8b.APKBUILD"
+    },
+    {
+      "origin": "orc",
+      "repository": "main",
+      "commit": "35fe4add84d7a6b772d1780cc3e3d7b4ab337bd3",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/35fe4add84d7a6b772d1780cc3e3d7b4ab337bd3/main/orc/APKBUILD",
+      "recipeSha256": "147663064944edc3ae4829e516a2342b8faaa2be8bd879588dea19db250651f5",
+      "cacheFile": "orc-35fe4add84d7a6b772d1780cc3e3d7b4ab337bd3.APKBUILD"
+    },
+    {
+      "origin": "p11-kit",
+      "repository": "main",
+      "commit": "922ca1ffc9cc326f7d95b093b365e31da5cba1a9",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/922ca1ffc9cc326f7d95b093b365e31da5cba1a9/main/p11-kit/APKBUILD",
+      "recipeSha256": "36c00f2297d83c135abee45698e43b5b254fe30eb67ced6a5c94a4af11600ef4",
+      "cacheFile": "p11-kit-922ca1ffc9cc326f7d95b093b365e31da5cba1a9.APKBUILD"
+    },
+    {
+      "origin": "pango",
+      "repository": "main",
+      "commit": "18857621f16b29e66140dace710d0ad4016d9a90",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/18857621f16b29e66140dace710d0ad4016d9a90/main/pango/APKBUILD",
+      "recipeSha256": "324529c7a04bf40938348d09a8c3ecd23cda5d1dc7e282cc4ec9e882fc281d25",
+      "cacheFile": "pango-18857621f16b29e66140dace710d0ad4016d9a90.APKBUILD"
+    },
+    {
+      "origin": "pcre2",
+      "repository": "main",
+      "commit": "3d497cbb3217749c4fb85f90f3b6f7908b0c1f95",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/3d497cbb3217749c4fb85f90f3b6f7908b0c1f95/main/pcre2/APKBUILD",
+      "recipeSha256": "49a612c42929ff12532525282be2e7bb2146b40321e170ca8c03ec6824de25be",
+      "cacheFile": "pcre2-3d497cbb3217749c4fb85f90f3b6f7908b0c1f95.APKBUILD"
+    },
+    {
+      "origin": "perl",
+      "repository": "main",
+      "commit": "202d687a7e8911ce847f7b94051c39ea14c65354",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/202d687a7e8911ce847f7b94051c39ea14c65354/main/perl/APKBUILD",
+      "recipeSha256": "5344bd808404e76a3dd4bb266f2c273a4cfa9dc3662f72ed2f49210b152aac5d",
+      "cacheFile": "perl-202d687a7e8911ce847f7b94051c39ea14c65354.APKBUILD"
+    },
+    {
+      "origin": "pinentry",
+      "repository": "main",
+      "commit": "0c05b7bd82c7560340de5c02bf96db417366b697",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/0c05b7bd82c7560340de5c02bf96db417366b697/main/pinentry/APKBUILD",
+      "recipeSha256": "fcc205079f9cf12031ba75b1a8dd6b456764274906c1c0afaee16e459a60652e",
+      "cacheFile": "pinentry-0c05b7bd82c7560340de5c02bf96db417366b697.APKBUILD"
+    },
+    {
+      "origin": "pixman",
+      "repository": "main",
+      "commit": "9337ac809a431f004386ea3e279e3d55f770e7d3",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/9337ac809a431f004386ea3e279e3d55f770e7d3/main/pixman/APKBUILD",
+      "recipeSha256": "60db2805f638b15ee6e88406dfe062bd05bee55cceec3de5b578b3c7dffda2d6",
+      "cacheFile": "pixman-9337ac809a431f004386ea3e279e3d55f770e7d3.APKBUILD"
+    },
+    {
+      "origin": "pkgconf",
+      "repository": "main",
+      "commit": "c6f80aa8e59c70d19e2d556c526f151656058536",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/c6f80aa8e59c70d19e2d556c526f151656058536/main/pkgconf/APKBUILD",
+      "recipeSha256": "f580adca78751db85f174efb254457ee8caf10ff9d30e069a87c630a6851c61d",
+      "cacheFile": "pkgconf-c6f80aa8e59c70d19e2d556c526f151656058536.APKBUILD"
+    },
+    {
+      "origin": "polkit",
+      "repository": "community",
+      "commit": "025209e827fda3499838c7714346cc029cae62ab",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/025209e827fda3499838c7714346cc029cae62ab/community/polkit/APKBUILD",
+      "recipeSha256": "b859a66a94ae301d6ef3dab2f3f09aba68598394af6d43349fff42d6b7073fe0",
+      "cacheFile": "polkit-025209e827fda3499838c7714346cc029cae62ab.APKBUILD"
+    },
+    {
+      "origin": "procps-ng",
+      "repository": "main",
+      "commit": "99d7511b57e55bc8c6def72765dc59cedbe7e9e5",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/99d7511b57e55bc8c6def72765dc59cedbe7e9e5/main/procps-ng/APKBUILD",
+      "recipeSha256": "4dad3a17b5c7dd597de967de631979bbcea60e3e37fa86487da80063affd9ec4",
+      "cacheFile": "procps-ng-99d7511b57e55bc8c6def72765dc59cedbe7e9e5.APKBUILD"
+    },
+    {
+      "origin": "pulseaudio",
+      "repository": "community",
+      "commit": "e4821ce2dcff6f6918f0c32b3f5d9573887c4c6b",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/e4821ce2dcff6f6918f0c32b3f5d9573887c4c6b/community/pulseaudio/APKBUILD",
+      "recipeSha256": "d85bd2d08f204364060105efa868e3dd508f2edd39ff55130da96c397c25e3f3",
+      "cacheFile": "pulseaudio-e4821ce2dcff6f6918f0c32b3f5d9573887c4c6b.APKBUILD"
+    },
+    {
+      "origin": "qt6-qtbase",
+      "repository": "community",
+      "commit": "6a90a193c394ac5e57468bbf61e7176aa894927e",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6a90a193c394ac5e57468bbf61e7176aa894927e/community/qt6-qtbase/APKBUILD",
+      "recipeSha256": "6ecd831139a148f9a9f504f44678a18709ba886628d22cf3fd5988d989850ed1",
+      "cacheFile": "qt6-qtbase-6a90a193c394ac5e57468bbf61e7176aa894927e.APKBUILD"
+    },
+    {
+      "origin": "qt6-qtdeclarative",
+      "repository": "community",
+      "commit": "6a90a193c394ac5e57468bbf61e7176aa894927e",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6a90a193c394ac5e57468bbf61e7176aa894927e/community/qt6-qtdeclarative/APKBUILD",
+      "recipeSha256": "e60b8df65d2f792414ac87f326a0890ef543bede14faf93a7e828cd323300722",
+      "cacheFile": "qt6-qtdeclarative-6a90a193c394ac5e57468bbf61e7176aa894927e.APKBUILD"
+    },
+    {
+      "origin": "qt6-qtmultimedia",
+      "repository": "community",
+      "commit": "6a90a193c394ac5e57468bbf61e7176aa894927e",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6a90a193c394ac5e57468bbf61e7176aa894927e/community/qt6-qtmultimedia/APKBUILD",
+      "recipeSha256": "70cac2c1cc47a63605ff534f11454158e401facffc30db6afc2bdf956001b76f",
+      "cacheFile": "qt6-qtmultimedia-6a90a193c394ac5e57468bbf61e7176aa894927e.APKBUILD"
+    },
+    {
+      "origin": "qt6-qtsvg",
+      "repository": "community",
+      "commit": "6a90a193c394ac5e57468bbf61e7176aa894927e",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6a90a193c394ac5e57468bbf61e7176aa894927e/community/qt6-qtsvg/APKBUILD",
+      "recipeSha256": "c3e966ee5da0b95e60b0e7d280381b478ee5736521d015be9d94cad8ff9c7f74",
+      "cacheFile": "qt6-qtsvg-6a90a193c394ac5e57468bbf61e7176aa894927e.APKBUILD"
+    },
+    {
+      "origin": "raptor2",
+      "repository": "community",
+      "commit": "c9319703e85b9f6fd7cc86bc4061131fa371577b",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/c9319703e85b9f6fd7cc86bc4061131fa371577b/community/raptor2/APKBUILD",
+      "recipeSha256": "db4b8a17e7f987badc5e656549ac342fd1a55a93549ca64358466ad40a85940d",
+      "cacheFile": "raptor2-c9319703e85b9f6fd7cc86bc4061131fa371577b.APKBUILD"
+    },
+    {
+      "origin": "rasqal",
+      "repository": "community",
+      "commit": "e4e34943fd0c4bdcb3d9640e0cc9b6b3872b6aff",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/e4e34943fd0c4bdcb3d9640e0cc9b6b3872b6aff/community/rasqal/APKBUILD",
+      "recipeSha256": "16b57a31af5aa83164a292e302a18bde622a653a16b1d11d868c4cfaecc2491b",
+      "cacheFile": "rasqal-e4e34943fd0c4bdcb3d9640e0cc9b6b3872b6aff.APKBUILD"
+    },
+    {
+      "origin": "redland",
+      "repository": "community",
+      "commit": "e71d03010c7b236bb117e54c433c7e14894034f8",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/e71d03010c7b236bb117e54c433c7e14894034f8/community/redland/APKBUILD",
+      "recipeSha256": "545880cdd0d939addd36291f873a8e51b9c1705ed8bf20940d468dcd1af4d91d",
+      "cacheFile": "redland-e71d03010c7b236bb117e54c433c7e14894034f8.APKBUILD"
+    },
+    {
+      "origin": "rtmpdump",
+      "repository": "main",
+      "commit": "a96a8227c86de32ad8f0c600abcf7d3469a8ff88",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/a96a8227c86de32ad8f0c600abcf7d3469a8ff88/main/rtmpdump/APKBUILD",
+      "recipeSha256": "2b7d1880cd3cb99c3c4f4d2f4af00b15305ae0035fe71b92debfd61567f7f137",
+      "cacheFile": "rtmpdump-a96a8227c86de32ad8f0c600abcf7d3469a8ff88.APKBUILD"
+    },
+    {
+      "origin": "sbc",
+      "repository": "community",
+      "commit": "2158fff9179327ffdbaaf7789c377cf57964da17",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/2158fff9179327ffdbaaf7789c377cf57964da17/community/sbc/APKBUILD",
+      "recipeSha256": "870712605ee04df15db18a968cbb43d27b59423501485c70483b57dc95152e33",
+      "cacheFile": "sbc-2158fff9179327ffdbaaf7789c377cf57964da17.APKBUILD"
+    },
+    {
+      "origin": "shared-mime-info",
+      "repository": "main",
+      "commit": "74df86bcbb3a36bdffe8a4738fadbd44ede405bc",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/74df86bcbb3a36bdffe8a4738fadbd44ede405bc/main/shared-mime-info/APKBUILD",
+      "recipeSha256": "cf5526166bd46845462f07612511865be684ba43f907dc12d8c7f7376df4bb32",
+      "cacheFile": "shared-mime-info-74df86bcbb3a36bdffe8a4738fadbd44ede405bc.APKBUILD"
+    },
+    {
+      "origin": "simdutf",
+      "repository": "main",
+      "commit": "752189178a5d79d5c1593825b389526f1fd684fd",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/752189178a5d79d5c1593825b389526f1fd684fd/main/simdutf/APKBUILD",
+      "recipeSha256": "d4ce4294e47ae36d52990d1990b9c87ebf2ab0939ed5782c5004daf60e0fd27d",
+      "cacheFile": "simdutf-752189178a5d79d5c1593825b389526f1fd684fd.APKBUILD"
+    },
+    {
+      "origin": "skalibs",
+      "repository": "main",
+      "commit": "f148233038fa9b35932a7996df29f110b32c2160",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/f148233038fa9b35932a7996df29f110b32c2160/main/skalibs/APKBUILD",
+      "recipeSha256": "7878dd8832e4248e5ad535f7b8beabc9c962cdfc059b1c732d30742d57adc027",
+      "cacheFile": "skalibs-f148233038fa9b35932a7996df29f110b32c2160.APKBUILD"
+    },
+    {
+      "origin": "soundtouch",
+      "repository": "community",
+      "commit": "eca3b12c11bd315f8fc843808cf1e89dea4043fc",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/eca3b12c11bd315f8fc843808cf1e89dea4043fc/community/soundtouch/APKBUILD",
+      "recipeSha256": "bbcd2f7f7fd8ea55802acf86b9a40726ee29840932646155677f6f21ed099f54",
+      "cacheFile": "soundtouch-eca3b12c11bd315f8fc843808cf1e89dea4043fc.APKBUILD"
+    },
+    {
+      "origin": "soxr",
+      "repository": "community",
+      "commit": "a7ec97e438d943083c5e7ffb0c7a20b546c60d31",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/a7ec97e438d943083c5e7ffb0c7a20b546c60d31/community/soxr/APKBUILD",
+      "recipeSha256": "e8f560d9e9e83d67838ad44d1d7fb028f3c57553ca5da5a5f1a5e6ce8f1ad5a7",
+      "cacheFile": "soxr-a7ec97e438d943083c5e7ffb0c7a20b546c60d31.APKBUILD"
+    },
+    {
+      "origin": "spandsp",
+      "repository": "main",
+      "commit": "9024026ee6838388f8b87e52a17495786ed85d4e",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/9024026ee6838388f8b87e52a17495786ed85d4e/main/spandsp/APKBUILD",
+      "recipeSha256": "748aaca516c4733a06fa57eb6ca451178e4357b8691562b9e028df79c700ff27",
+      "cacheFile": "spandsp-9024026ee6838388f8b87e52a17495786ed85d4e.APKBUILD"
+    },
+    {
+      "origin": "speexdsp",
+      "repository": "main",
+      "commit": "33283848034c9885d984c8e8697c645c57324938",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/33283848034c9885d984c8e8697c645c57324938/main/speexdsp/APKBUILD",
+      "recipeSha256": "c943ac87fd737190c1d2a94acba6818f6003a94682d206886568f9edf1215010",
+      "cacheFile": "speexdsp-33283848034c9885d984c8e8697c645c57324938.APKBUILD"
+    },
+    {
+      "origin": "spirv-tools",
+      "repository": "main",
+      "commit": "5115d4d26db3422769415dddaf4c909f8aca0017",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/5115d4d26db3422769415dddaf4c909f8aca0017/main/spirv-tools/APKBUILD",
+      "recipeSha256": "d9f038b205ca648e0dabf2966e852480623edcd5aae16ee6e2c4852f74a2cbd4",
+      "cacheFile": "spirv-tools-5115d4d26db3422769415dddaf4c909f8aca0017.APKBUILD"
+    },
+    {
+      "origin": "startup-notification",
+      "repository": "community",
+      "commit": "2f99c9e0b8bca06e7dd4994d08e96cc8df138b0d",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/2f99c9e0b8bca06e7dd4994d08e96cc8df138b0d/community/startup-notification/APKBUILD",
+      "recipeSha256": "f986cef1d6871b83ec866d9dda1c9da233f50ddb6b05595e638bf88c13bcb3eb",
+      "cacheFile": "startup-notification-2f99c9e0b8bca06e7dd4994d08e96cc8df138b0d.APKBUILD"
+    },
+    {
+      "origin": "svt-av1",
+      "repository": "community",
+      "commit": "a75bcf7a688f62f2576d62a1ecfa3a1a67df6e3b",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/a75bcf7a688f62f2576d62a1ecfa3a1a67df6e3b/community/svt-av1/APKBUILD",
+      "recipeSha256": "dd0c1d8662d9850aeeef0960c6597339074e976657a9e7c7ea3ac6465351b6ca",
+      "cacheFile": "svt-av1-a75bcf7a688f62f2576d62a1ecfa3a1a67df6e3b.APKBUILD"
+    },
+    {
+      "origin": "tdb",
+      "repository": "main",
+      "commit": "138cce73b696a2c7b1af3f4d4c2e7da8b643839d",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/138cce73b696a2c7b1af3f4d4c2e7da8b643839d/main/tdb/APKBUILD",
+      "recipeSha256": "9d2ff3aefd5d1234754ed443a16e8235c4f92918304a6e22317560226928cefd",
+      "cacheFile": "tdb-138cce73b696a2c7b1af3f4d4c2e7da8b643839d.APKBUILD"
+    },
+    {
+      "origin": "thunar",
+      "repository": "community",
+      "commit": "ea30abe11e3da4951f88268619a37be06bb8ca2b",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/ea30abe11e3da4951f88268619a37be06bb8ca2b/community/thunar/APKBUILD",
+      "recipeSha256": "baa37dcbb1e1a5d09e38c139611cd7d582f11ce563db7feeb9d478bfe4c7703c",
+      "cacheFile": "thunar-ea30abe11e3da4951f88268619a37be06bb8ca2b.APKBUILD"
+    },
+    {
+      "origin": "tiff",
+      "repository": "main",
+      "commit": "bbcfbafeadf5dac4744d065ac69338c1b58fc0d1",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/bbcfbafeadf5dac4744d065ac69338c1b58fc0d1/main/tiff/APKBUILD",
+      "recipeSha256": "8b7e2998b389cb5ece3c8951a59935675fdef3052847dcf35bf875b34a4a3b7a",
+      "cacheFile": "tiff-bbcfbafeadf5dac4744d065ac69338c1b58fc0d1.APKBUILD"
+    },
+    {
+      "origin": "tigervnc",
+      "repository": "community",
+      "commit": "673687c3b22fb7e048c98b7572d54c9291772f5d",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/673687c3b22fb7e048c98b7572d54c9291772f5d/community/tigervnc/APKBUILD",
+      "recipeSha256": "4a061cff9a0d637a2841bb5b77263bf3deb450d6756827d3b71a7441c733e825",
+      "cacheFile": "tigervnc-673687c3b22fb7e048c98b7572d54c9291772f5d.APKBUILD"
+    },
+    {
+      "origin": "tslib",
+      "repository": "community",
+      "commit": "a83fa360ad5763f7af99da39c0e948c824f0926b",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/a83fa360ad5763f7af99da39c0e948c824f0926b/community/tslib/APKBUILD",
+      "recipeSha256": "4c7ffd2434781bfdce5653c36f680aa18a3ea00f8e24d4c508f5e552a7675ef2",
+      "cacheFile": "tslib-a83fa360ad5763f7af99da39c0e948c824f0926b.APKBUILD"
+    },
+    {
+      "origin": "tzdata",
+      "repository": "main",
+      "commit": "63faba7f731ad47f4cd60d3ff34ff1aadd49c091",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/63faba7f731ad47f4cd60d3ff34ff1aadd49c091/main/tzdata/APKBUILD",
+      "recipeSha256": "870a4f9a463ca5f4ac848784d358007656ca8ca80e8ec8b623556c17ec5e83cf",
+      "cacheFile": "tzdata-63faba7f731ad47f4cd60d3ff34ff1aadd49c091.APKBUILD"
+    },
+    {
+      "origin": "upower",
+      "repository": "community",
+      "commit": "141ab05cb68ff13a2e922efc2434e87b72dad6e8",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/141ab05cb68ff13a2e922efc2434e87b72dad6e8/community/upower/APKBUILD",
+      "recipeSha256": "352c3c4364e99b88e4b0bf4d174c3de336937479818da6d75869e07447db3ae4",
+      "cacheFile": "upower-141ab05cb68ff13a2e922efc2434e87b72dad6e8.APKBUILD"
+    },
+    {
+      "origin": "util-linux",
+      "repository": "main",
+      "commit": "d98c55af59055e6ca60fbe36e171546918709965",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/d98c55af59055e6ca60fbe36e171546918709965/main/util-linux/APKBUILD",
+      "recipeSha256": "5347f9d386c8684e7f5cc160ae8595c5c3d3cfedcfdc758f5e022a46e560b944",
+      "cacheFile": "util-linux-d98c55af59055e6ca60fbe36e171546918709965.APKBUILD"
+    },
+    {
+      "origin": "utmps",
+      "repository": "main",
+      "commit": "900a4ecef77ae677eab8243b99f2c40cbf8ea35b",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/900a4ecef77ae677eab8243b99f2c40cbf8ea35b/main/utmps/APKBUILD",
+      "recipeSha256": "40e59c8bf91709421c237776b427d95aed192ee8d7453ba31bde751230f06fa4",
+      "cacheFile": "utmps-900a4ecef77ae677eab8243b99f2c40cbf8ea35b.APKBUILD"
+    },
+    {
+      "origin": "vo-aacenc",
+      "repository": "community",
+      "commit": "ec85fe7c1a78cb5e8e5d7d48913efe7947a0d2a8",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/ec85fe7c1a78cb5e8e5d7d48913efe7947a0d2a8/community/vo-aacenc/APKBUILD",
+      "recipeSha256": "fc143b8fff84169df0ef975bd38ec1f294b44c086e8d082066fcd006417e6c36",
+      "cacheFile": "vo-aacenc-ec85fe7c1a78cb5e8e5d7d48913efe7947a0d2a8.APKBUILD"
+    },
+    {
+      "origin": "vo-amrwbenc",
+      "repository": "community",
+      "commit": "5c59dec30aa538ae88d9dcfd533c3ed64b81421b",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/5c59dec30aa538ae88d9dcfd533c3ed64b81421b/community/vo-amrwbenc/APKBUILD",
+      "recipeSha256": "75cec3f326791667a98cdede4b7dc332ac4d4a9727d43fb7a688927fb721708b",
+      "cacheFile": "vo-amrwbenc-5c59dec30aa538ae88d9dcfd533c3ed64b81421b.APKBUILD"
+    },
+    {
+      "origin": "vte3",
+      "repository": "community",
+      "commit": "bec8b026686323b496365b825ad14fdf4473adf2",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/bec8b026686323b496365b825ad14fdf4473adf2/community/vte3/APKBUILD",
+      "recipeSha256": "cf4fec304459ec384641fc57fe0ba9aafe1f1cfeea22ab4941582344ba10877b",
+      "cacheFile": "vte3-bec8b026686323b496365b825ad14fdf4473adf2.APKBUILD"
+    },
+    {
+      "origin": "vulkan-loader",
+      "repository": "main",
+      "commit": "07bac49555d7efd5cf8133ae2c4f5cd4c3bb39b4",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/07bac49555d7efd5cf8133ae2c4f5cd4c3bb39b4/main/vulkan-loader/APKBUILD",
+      "recipeSha256": "016c055faeeac0f3246c6ffd1579404613539897196ba86a552edb0f5638001a",
+      "cacheFile": "vulkan-loader-07bac49555d7efd5cf8133ae2c4f5cd4c3bb39b4.APKBUILD"
+    },
+    {
+      "origin": "wayland",
+      "repository": "main",
+      "commit": "5960a969742897aba03257e84f0aa40f3c1e84d6",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/5960a969742897aba03257e84f0aa40f3c1e84d6/main/wayland/APKBUILD",
+      "recipeSha256": "cb292aaec4ac98836d3272fc1dba764d8a9263acb07d8efc2f7504fe829ba1ef",
+      "cacheFile": "wayland-5960a969742897aba03257e84f0aa40f3c1e84d6.APKBUILD"
+    },
+    {
+      "origin": "x265",
+      "repository": "main",
+      "commit": "d3b7a03815c4db9a1561bcad406ade4209c08145",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/d3b7a03815c4db9a1561bcad406ade4209c08145/main/x265/APKBUILD",
+      "recipeSha256": "b161503a2a4e40d3bb7aa07f1f12a936cd7648a62a07d84492e4699a69e92b65",
+      "cacheFile": "x265-d3b7a03815c4db9a1561bcad406ade4209c08145.APKBUILD"
+    },
+    {
+      "origin": "xauth",
+      "repository": "community",
+      "commit": "f26dc74fee419e8a1d85d27df6bd760540dd8329",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/f26dc74fee419e8a1d85d27df6bd760540dd8329/community/xauth/APKBUILD",
+      "recipeSha256": "5b2511058d860cefbc66b5a8aa6b9ef33bfddb7d7f6d96540676e927f636e992",
+      "cacheFile": "xauth-f26dc74fee419e8a1d85d27df6bd760540dd8329.APKBUILD"
+    },
+    {
+      "origin": "xcb-util",
+      "repository": "main",
+      "commit": "33283848034c9885d984c8e8697c645c57324938",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/33283848034c9885d984c8e8697c645c57324938/main/xcb-util/APKBUILD",
+      "recipeSha256": "646df220ddd8f1e0f8c27a9789169bd529612adf5081598d163f28540ab44193",
+      "cacheFile": "xcb-util-33283848034c9885d984c8e8697c645c57324938.APKBUILD"
+    },
+    {
+      "origin": "xcb-util-cursor",
+      "repository": "community",
+      "commit": "6867e384dbfbd0b8efadbca989e9778190e89496",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6867e384dbfbd0b8efadbca989e9778190e89496/community/xcb-util-cursor/APKBUILD",
+      "recipeSha256": "af1d8ae36fec013d0f67967df94570227cc8bcb4578b611445529ee22a563682",
+      "cacheFile": "xcb-util-cursor-6867e384dbfbd0b8efadbca989e9778190e89496.APKBUILD"
+    },
+    {
+      "origin": "xcb-util-image",
+      "repository": "community",
+      "commit": "6867e384dbfbd0b8efadbca989e9778190e89496",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6867e384dbfbd0b8efadbca989e9778190e89496/community/xcb-util-image/APKBUILD",
+      "recipeSha256": "79f9fc97fbe5a0dd21615d9ace68bcda6ba6f8dec4b97881c0b8e1277be91da7",
+      "cacheFile": "xcb-util-image-6867e384dbfbd0b8efadbca989e9778190e89496.APKBUILD"
+    },
+    {
+      "origin": "xcb-util-keysyms",
+      "repository": "community",
+      "commit": "6867e384dbfbd0b8efadbca989e9778190e89496",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6867e384dbfbd0b8efadbca989e9778190e89496/community/xcb-util-keysyms/APKBUILD",
+      "recipeSha256": "1b53f06bf98f41f35d7e5f7f9114c315c6f35c7c875a1c671ab88b91ddeb6149",
+      "cacheFile": "xcb-util-keysyms-6867e384dbfbd0b8efadbca989e9778190e89496.APKBUILD"
+    },
+    {
+      "origin": "xcb-util-renderutil",
+      "repository": "community",
+      "commit": "72959c97a7f1a16c7cac34bca08b11266602e244",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/72959c97a7f1a16c7cac34bca08b11266602e244/community/xcb-util-renderutil/APKBUILD",
+      "recipeSha256": "5e2a3634b82adf4a48219243e31b507aa2c58345db4d283981f0f123318a6bad",
+      "cacheFile": "xcb-util-renderutil-72959c97a7f1a16c7cac34bca08b11266602e244.APKBUILD"
+    },
+    {
+      "origin": "xcb-util-wm",
+      "repository": "community",
+      "commit": "6867e384dbfbd0b8efadbca989e9778190e89496",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6867e384dbfbd0b8efadbca989e9778190e89496/community/xcb-util-wm/APKBUILD",
+      "recipeSha256": "4d3ce4a81323daa57cec3100a4aa24bccc12a2dff1ba3ec835ef51becaba401b",
+      "cacheFile": "xcb-util-wm-6867e384dbfbd0b8efadbca989e9778190e89496.APKBUILD"
+    },
+    {
+      "origin": "xdg-utils",
+      "repository": "community",
+      "commit": "6867e384dbfbd0b8efadbca989e9778190e89496",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6867e384dbfbd0b8efadbca989e9778190e89496/community/xdg-utils/APKBUILD",
+      "recipeSha256": "c83e51d5e923435bfc1ac0cbfb9a4000ea0c42a4c7c286db48d4b28f9be2d122",
+      "cacheFile": "xdg-utils-6867e384dbfbd0b8efadbca989e9778190e89496.APKBUILD"
+    },
+    {
+      "origin": "xdotool",
+      "repository": "community",
+      "commit": "111f544eb24e75ac4459e7cbd7892a131ed70247",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/111f544eb24e75ac4459e7cbd7892a131ed70247/community/xdotool/APKBUILD",
+      "recipeSha256": "8b60e82f0571dd0ff359a03e66c400ea29eb455c2d400af426540eabe5667c2b",
+      "cacheFile": "xdotool-111f544eb24e75ac4459e7cbd7892a131ed70247.APKBUILD"
+    },
+    {
+      "origin": "xfce4-appfinder",
+      "repository": "community",
+      "commit": "5add03b41ce1184a93da7100c04090b9f893d2a9",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/5add03b41ce1184a93da7100c04090b9f893d2a9/community/xfce4-appfinder/APKBUILD",
+      "recipeSha256": "0c7314a30e742ca8fb7f6237b254beadcfbbaab61a44d55f8b3aaa6d591e92b0",
+      "cacheFile": "xfce4-appfinder-5add03b41ce1184a93da7100c04090b9f893d2a9.APKBUILD"
+    },
+    {
+      "origin": "xfce4-panel",
+      "repository": "community",
+      "commit": "f5f3317f833f2cc00691bd270c5b6808ebe4b37c",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/f5f3317f833f2cc00691bd270c5b6808ebe4b37c/community/xfce4-panel/APKBUILD",
+      "recipeSha256": "ae018bcbd0e96f3633fbdf98b0d805de0be210c01bdb7b47dfb3f9f903c186e9",
+      "cacheFile": "xfce4-panel-f5f3317f833f2cc00691bd270c5b6808ebe4b37c.APKBUILD"
+    },
+    {
+      "origin": "xfce4-session",
+      "repository": "community",
+      "commit": "57bf08728dc8536dc262ae6b93887f4cf012545f",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/57bf08728dc8536dc262ae6b93887f4cf012545f/community/xfce4-session/APKBUILD",
+      "recipeSha256": "751ed82f049fd4f08d8f72c50de56402da3d2bdd7d49726f8e0663d3ad8f7935",
+      "cacheFile": "xfce4-session-57bf08728dc8536dc262ae6b93887f4cf012545f.APKBUILD"
+    },
+    {
+      "origin": "xfce4-settings",
+      "repository": "community",
+      "commit": "08f83e5e50ae708ad6ddca758e7e822b6d23b7d7",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/08f83e5e50ae708ad6ddca758e7e822b6d23b7d7/community/xfce4-settings/APKBUILD",
+      "recipeSha256": "a9a91c9e3d20f00181164f1a6cd5a12c99932398faca4be0a7ecce6581da9f93",
+      "cacheFile": "xfce4-settings-08f83e5e50ae708ad6ddca758e7e822b6d23b7d7.APKBUILD"
+    },
+    {
+      "origin": "xfce4-terminal",
+      "repository": "community",
+      "commit": "be3026e8f70a5751c3b1de0f279c604d83a65543",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/be3026e8f70a5751c3b1de0f279c604d83a65543/community/xfce4-terminal/APKBUILD",
+      "recipeSha256": "524c46cdd482bd5afd8df67baa2a808da566516184a8106bd5afd18a4371a7e3",
+      "cacheFile": "xfce4-terminal-be3026e8f70a5751c3b1de0f279c604d83a65543.APKBUILD"
+    },
+    {
+      "origin": "xfconf",
+      "repository": "community",
+      "commit": "7aa62246f708a5c41413656d6bff6ba9b6369fd4",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/7aa62246f708a5c41413656d6bff6ba9b6369fd4/community/xfconf/APKBUILD",
+      "recipeSha256": "cd4e944173a1ae25b2b73305c010d4983d8e0b5cbf1c213503578f2bdd14bee5",
+      "cacheFile": "xfconf-7aa62246f708a5c41413656d6bff6ba9b6369fd4.APKBUILD"
+    },
+    {
+      "origin": "xfdesktop",
+      "repository": "community",
+      "commit": "44970ec1c11107f27a26b2c4374d349a110d0a57",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/44970ec1c11107f27a26b2c4374d349a110d0a57/community/xfdesktop/APKBUILD",
+      "recipeSha256": "c5d5ac20300be6e1a5cb65bba5f972af454a3c09b4d646fb6963e9ac8b9783df",
+      "cacheFile": "xfdesktop-44970ec1c11107f27a26b2c4374d349a110d0a57.APKBUILD"
+    },
+    {
+      "origin": "xfwm4",
+      "repository": "community",
+      "commit": "8814485de91035d5883b20a68686cd295e50354d",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/8814485de91035d5883b20a68686cd295e50354d/community/xfwm4/APKBUILD",
+      "recipeSha256": "64db82a335759244151728e2ffa4e61658889ad6a522c4c9211a46f92070b7a3",
+      "cacheFile": "xfwm4-8814485de91035d5883b20a68686cd295e50354d.APKBUILD"
+    },
+    {
+      "origin": "xinit",
+      "repository": "community",
+      "commit": "047b564ce73b62cc996735eae70c03591b3d792a",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/047b564ce73b62cc996735eae70c03591b3d792a/community/xinit/APKBUILD",
+      "recipeSha256": "575e14d8021fb7e2677f605ac2978c5652a285d235be596b4b57e8292609ae30",
+      "cacheFile": "xinit-047b564ce73b62cc996735eae70c03591b3d792a.APKBUILD"
+    },
+    {
+      "origin": "xkbcomp",
+      "repository": "main",
+      "commit": "aa8ee026b4c1ab3a33ac7feeba3bbdd2ee151ea6",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/aa8ee026b4c1ab3a33ac7feeba3bbdd2ee151ea6/main/xkbcomp/APKBUILD",
+      "recipeSha256": "e67c70320487f96d4f99d098e9cb3ce045fe9d5614ff98b91b3f68131cb87f97",
+      "cacheFile": "xkbcomp-aa8ee026b4c1ab3a33ac7feeba3bbdd2ee151ea6.APKBUILD"
+    },
+    {
+      "origin": "xkeyboard-config",
+      "repository": "main",
+      "commit": "ec89b244a8f186e061fdc6433d384e93c4155ff7",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/ec89b244a8f186e061fdc6433d384e93c4155ff7/main/xkeyboard-config/APKBUILD",
+      "recipeSha256": "d4615dc0f90fc0ba143d4f21d811475ee988db2013b873454986d527e4352afd",
+      "cacheFile": "xkeyboard-config-ec89b244a8f186e061fdc6433d384e93c4155ff7.APKBUILD"
+    },
+    {
+      "origin": "xmlsec",
+      "repository": "community",
+      "commit": "0e39c5fd62c4875ba596c80eac2feb29f2f44781",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/0e39c5fd62c4875ba596c80eac2feb29f2f44781/community/xmlsec/APKBUILD",
+      "recipeSha256": "9b311c3c28e34d879e96928986ce492e412981d4bbdf56d5313c57607138a0ae",
+      "cacheFile": "xmlsec-0e39c5fd62c4875ba596c80eac2feb29f2f44781.APKBUILD"
+    },
+    {
+      "origin": "xmodmap",
+      "repository": "community",
+      "commit": "1c8874eacceeaf02712129a30a1bbdab7be04528",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/1c8874eacceeaf02712129a30a1bbdab7be04528/community/xmodmap/APKBUILD",
+      "recipeSha256": "0aff8e218989e1a43269c1fbd8e2a8c8d5fd4abe6e35fea167e60563398aee81",
+      "cacheFile": "xmodmap-1c8874eacceeaf02712129a30a1bbdab7be04528.APKBUILD"
+    },
+    {
+      "origin": "xprop",
+      "repository": "community",
+      "commit": "6867e384dbfbd0b8efadbca989e9778190e89496",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6867e384dbfbd0b8efadbca989e9778190e89496/community/xprop/APKBUILD",
+      "recipeSha256": "73c7088cfd484173b1beaae573883838ed8cd21fbaa72ee4e01e9340fb543613",
+      "cacheFile": "xprop-6867e384dbfbd0b8efadbca989e9778190e89496.APKBUILD"
+    },
+    {
+      "origin": "xrdb",
+      "repository": "community",
+      "commit": "6867e384dbfbd0b8efadbca989e9778190e89496",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/6867e384dbfbd0b8efadbca989e9778190e89496/community/xrdb/APKBUILD",
+      "recipeSha256": "a68385c7f151a7cef443ace1fe8af6306e5fb91345795eb8f22b30b2eedda3a6",
+      "cacheFile": "xrdb-6867e384dbfbd0b8efadbca989e9778190e89496.APKBUILD"
+    },
+    {
+      "origin": "xset",
+      "repository": "community",
+      "commit": "e1b77cbba8275696e70cc7c1c4c8d25961f84393",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/e1b77cbba8275696e70cc7c1c4c8d25961f84393/community/xset/APKBUILD",
+      "recipeSha256": "37d6043ebbcf1144fb12b08e9eab836000db9e057427283425afe1820ad408d1",
+      "cacheFile": "xset-e1b77cbba8275696e70cc7c1c4c8d25961f84393.APKBUILD"
+    },
+    {
+      "origin": "yajl",
+      "repository": "main",
+      "commit": "1c89c94632dd77d4ceaa967e685350a2fcc3d301",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/1c89c94632dd77d4ceaa967e685350a2fcc3d301/main/yajl/APKBUILD",
+      "recipeSha256": "58f1bea9fd821050da1d19125892f93b91b7dacc0fb763fd72fe0641b2718f3d",
+      "cacheFile": "yajl-1c89c94632dd77d4ceaa967e685350a2fcc3d301.APKBUILD"
+    },
+    {
+      "origin": "yaml",
+      "repository": "main",
+      "commit": "8bac74716d06c84627ab02d101fd9d2bafd0a34c",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/8bac74716d06c84627ab02d101fd9d2bafd0a34c/main/yaml/APKBUILD",
+      "recipeSha256": "001a7096fcd317e5f8872b7ffa3f6d9a4e53bb365fb8bfeafc744b6723170016",
+      "cacheFile": "yaml-8bac74716d06c84627ab02d101fd9d2bafd0a34c.APKBUILD"
+    },
+    {
+      "origin": "zbar",
+      "repository": "community",
+      "commit": "f3b3b20c95cbbcaf4f81fd1d083352a541c597fa",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/f3b3b20c95cbbcaf4f81fd1d083352a541c597fa/community/zbar/APKBUILD",
+      "recipeSha256": "b9499f34c8af9d734a710d653f0ed0fc44becfe937fe34e171f1f54445dfdc8b",
+      "cacheFile": "zbar-f3b3b20c95cbbcaf4f81fd1d083352a541c597fa.APKBUILD"
+    },
+    {
+      "origin": "zstd",
+      "repository": "main",
+      "commit": "3c6e2ee2b16f403d53eab39c4426eb61f003c322",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/3c6e2ee2b16f403d53eab39c4426eb61f003c322/main/zstd/APKBUILD",
+      "recipeSha256": "635134417b866a71fc0684bfbc1f8b5ff660c3edcd68f1b0b1335f04963ef5c1",
+      "cacheFile": "zstd-3c6e2ee2b16f403d53eab39c4426eb61f003c322.APKBUILD"
+    },
+    {
+      "origin": "zxing-cpp",
+      "repository": "community",
+      "commit": "b1e58a7051a81cc7347f31d21dbca5ea31df6c17",
+      "recipeUrl": "https://raw.githubusercontent.com/alpinelinux/aports/b1e58a7051a81cc7347f31d21dbca5ea31df6c17/community/zxing-cpp/APKBUILD",
+      "recipeSha256": "3c64d010991873658c55a7c4a7ce57cdfc419e8e570106298ede5c6da4c1d9bd",
+      "cacheFile": "zxing-cpp-b1e58a7051a81cc7347f31d21dbca5ea31df6c17.APKBUILD"
+    }
+  ]
+}

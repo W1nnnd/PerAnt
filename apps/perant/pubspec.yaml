@@ -1,0 +1,35 @@
+# SPDX-License-Identifier: GPL-3.0-only
+name: perant
+description: A local-first personal agent workspace for Android and iPhone.
+publish_to: none
+version: 0.8.0+2008
+resolution: workspace
+environment:
+  sdk: '>=3.14.0 <4.0.0'
+  flutter: '>=3.50.0'
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  material_ui: ^1.1.0
+  perant_core:
+    path: ../../packages/perant_core
+  perant_platform:
+    path: ../../packages/perant_platform
+  perant_gateway:
+    path: ../../packages/perant_gateway
+  flutter_secure_storage: ^11.2.0
+  path_provider: ^2.1.6
+  sqflite: ^2.4.6
+  file_selector: ^1.1.0
+  flutter_markdown_plus: ^1.0.12
+  xterm: ^4.0.0
+dev_dependencies:
+  http: ^1.6.0
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true

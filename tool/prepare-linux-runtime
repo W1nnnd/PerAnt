@@ -1,0 +1,449 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: GPL-3.0-only
+# Copyright (C) 2026 PerAnt contributors
+"""Build the pinned Android ARM64 PRoot and install verified Alpine assets.
+
+Only this script's own code is GPL-3.0-only. Downloaded components retain their
+upstream licenses. See third_party/linux/NOTICE.md and docs/LINUX_RUNTIME_SOURCES.md.
+"""
+
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import platform
+import shutil
+import struct
+import subprocess
+import sys
+import tarfile
+import urllib.request
+import zipfile
+
+ROOT = Path(__file__).resolve().parent.parent
+THIRD_PARTY = ROOT / "third_party/linux"
+CACHE = ROOT / ".tooling/linux-runtime"
+DOWNLOADS = CACHE / "downloads"
+BUILD = CACHE / "build"
+LOCK = json.loads((THIRD_PARTY / "sources.lock.json").read_text())
+ASSETS = ROOT / "packages/perant_platform/android/src/main/assets/perant-linux"
+LIBS = ROOT / "packages/perant_platform/android/src/main/jniLibs/arm64-v8a"
+TOOL_SOURCE = ROOT / "packages/perant_platform/android/src/main/python/text_to_markdown.py"
+DESKTOP_SOURCE = ROOT / "packages/perant_platform/android/src/main/desktop/start_desktop.sh"
+CODEC_OUTPUT = CACHE / "native-codec/output/libgdk_pixbuf-2.0.so.0"
+CODEC_RECIPE = THIRD_PARTY / "native-codec/build.sh"
+RUNTIME_ID = "perant-alpine-3.24.4-aarch64-v6"
+
+
+def python_package_manifest():
+    return {"version": LOCK["python"]["version"],
+            "packageVersion": LOCK["python"]["packageVersion"],
+            "packages": [{key: package[key] for key in
+                          ("name", "version", "asset", "sha256", "sizeBytes")}
+                         for package in LOCK["python"]["packages"]]}
+
+
+def tool_manifest():
+    size = TOOL_SOURCE.stat().st_size
+    if size < 1 or size > 1024 * 1024:
+        raise RuntimeError("Invalid bundled text-to-Markdown script size")
+    return {"textToMarkdown": {"asset": "perant-linux/tools/text_to_markdown.py",
+                               "sha256": digest(TOOL_SOURCE), "sizeBytes": size, "version": 1}}
+
+
+def desktop_manifest():
+    size = DESKTOP_SOURCE.stat().st_size
+    if size < 1 or size > 65536:
+        raise RuntimeError("Invalid bundled desktop startup script size")
+    return {"version": LOCK["desktop"]["version"],
+            "packages": [{key: package[key] for key in
+                          ("name", "version", "asset", "sha256", "sizeBytes")}
+                         for package in LOCK["desktop"]["packages"]],
+            "codecLibrary": {"asset": "perant-linux/compat/libgdk_pixbuf-2.0.so.0",
+                             "sha256": LOCK["codec"]["sha256"], "sizeBytes": LOCK["codec"]["sizeBytes"],
+                             "version": LOCK["codec"]["version"], "license": LOCK["codec"]["license"],
+                             "sourceSha256": LOCK["downloads"][LOCK["codec"]["sourceDownloadKey"]]["sha256"],
+                             "mesonOptions": LOCK["codec"]["mesonOptions"]},
+            "startupScript": {"asset": "perant-linux/tools/start_desktop.sh",
+                              "sha256": digest(DESKTOP_SOURCE), "sizeBytes": size, "version": 1}}
+
+
+def bundled_packages():
+    return LOCK["python"]["packages"] + LOCK.get("desktop", {}).get("packages", [])
+
+
+def validate_python_apk(path, package):
+    """Inspect the pinned APK without extracting or executing its payload.
+
+    APKv2 consists of concatenated gzip/tar streams. ignore_zeros reads through
+    stream boundaries. Android's offline `apk add` performs signature checking
+    with Alpine's bundled public key; this host check preserves that signature
+    and ensures the fixed bundle has no extra installation scripts.
+    """
+    if path.stat().st_size != package["sizeBytes"] or digest(path) != package["sha256"]:
+        raise RuntimeError("Python APK size or SHA256 mismatch: " + str(path))
+    with tarfile.open(path, mode="r:gz", ignore_zeros=True) as archive:
+        entries = archive.getmembers()
+        signatures = [entry.name for entry in entries if entry.name.startswith(".SIGN.")]
+        if signatures != [".SIGN.RSA." + package["signatureKey"]]:
+            raise RuntimeError("Unexpected Alpine signing key: " + str(path))
+        scripts = [entry.name for entry in entries if entry.name.startswith(".") and
+                   entry.name != ".PKGINFO" and not entry.name.startswith(".SIGN.")]
+        reviewed = package["installScripts"]
+        if sorted(scripts) != sorted(item["name"] for item in reviewed):
+            raise RuntimeError("Unreviewed APK installation scripts: " + str(path))
+        for script in reviewed:
+            member = archive.extractfile(script["name"])
+            body = member.read(65537) if member else b""
+            if len(body) > 65536 or hashlib.sha256(body).hexdigest() != script["sha256"]:
+                raise RuntimeError("Changed APK installation script: " + str(path))
+        info = archive.extractfile(".PKGINFO")
+        if info is None:
+            raise RuntimeError("Python APK has no metadata: " + str(path))
+        fields = {}
+        for line in info.read(65537).decode("utf-8", errors="strict").splitlines():
+            if " = " in line:
+                key, value = line.split(" = ", 1)
+                fields.setdefault(key, []).append(value)
+        expected = {"pkgname": package["name"], "pkgver": package["version"],
+                    "arch": package["architecture"], "origin": package["sourceOrigin"],
+                    "commit": package["aportsCommit"], "license": package["license"]}
+        for key, value in expected.items():
+            if fields.get(key) != [value]:
+                raise RuntimeError("Unexpected APK metadata " + key + ": " + str(path))
+        if fields.get("depend", []) != package["dependencies"] or fields.get("provides", []) != package["provides"]:
+            raise RuntimeError("Unexpected APK dependency/provides metadata: " + str(path))
+
+
+def digest(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def fetch(name):
+    source = LOCK["downloads"][name]
+    path = DOWNLOADS / source["file"]
+    if not path.is_file():
+        print("Downloading " + source["url"], flush=True)
+        request = urllib.request.Request(source["url"], headers={"User-Agent": "PerAnt-runtime-build"})
+        temporary = path.with_name(path.name + ".part")
+        with urllib.request.urlopen(request, timeout=90) as response, temporary.open("wb") as output:
+            shutil.copyfileobj(response, output)
+        temporary.replace(path)
+    if digest(path) != source["sha256"]:
+        raise RuntimeError("SHA256 mismatch: " + str(path))
+    return path
+
+
+def unpack(archive, destination):
+    # Only hash-verified official source archives are extracted, never rootfs.
+    destination.mkdir(parents=True)
+    if archive.suffix == ".zip":
+        with zipfile.ZipFile(archive) as source:
+            for entry in source.namelist():
+                if entry.startswith("/") or ".." in Path(entry).parts:
+                    raise RuntimeError("Unsafe source archive member: " + entry)
+            source.extractall(destination)
+    else:
+        with tarfile.open(archive) as source:
+            for entry in source.getmembers():
+                if entry.name.startswith("/") or ".." in Path(entry.name).parts:
+                    raise RuntimeError("Unsafe source archive member: " + entry.name)
+                if entry.issym() or entry.islnk():
+                    target = Path(entry.linkname)
+                    if target.is_absolute() or ".." in target.parts:
+                        raise RuntimeError("Unsafe source archive link: " + entry.name)
+            source.extractall(destination)
+    directories = [entry for entry in destination.iterdir() if entry.is_dir()]
+    if len(directories) != 1:
+        raise RuntimeError("Expected one source directory: " + str(archive))
+    return directories[0]
+
+
+def run(args, cwd=None, env=None):
+    subprocess.run([str(arg) for arg in args], cwd=cwd, env=env, check=True)
+
+
+def validate_elf(path, require_alignment=False):
+    data = path.read_bytes()
+    header = data[:64]
+    if len(header) < 64 or header[:6] != b"\x7fELF\x02\x01":
+        raise RuntimeError("Not a little-endian ELF64 file: " + str(path))
+    if struct.unpack_from("<H", header, 18)[0] != 183:
+        raise RuntimeError("Not an AArch64 executable: " + str(path))
+    if struct.unpack_from("<H", header, 16)[0] not in (2, 3):
+        raise RuntimeError("Not an ELF executable or PIE: " + str(path))
+    program_headers = struct.unpack_from("<Q", header, 32)[0]
+    header_size, count = struct.unpack_from("<HH", header, 54)
+    if count == 0 or header_size < 56 or program_headers + header_size * count > len(data):
+        raise RuntimeError("Invalid ELF program headers: " + str(path))
+    load_count = 0
+    for index in range(count):
+        kind, _, offset, address, _, size, memory_size, alignment = struct.unpack_from(
+            "<IIQQQQQQ", data, program_headers + index * header_size)
+        if kind != 1:
+            continue
+        load_count += 1
+        if offset + size > len(data) or memory_size < size:
+            raise RuntimeError("Truncated ELF load segment: " + str(path))
+        if require_alignment and (alignment < 16384 or alignment & (alignment - 1) != 0 or
+                                  offset % 16384 != address % 16384):
+            raise RuntimeError("ELF load segment is not 16 KB aligned: " + str(path))
+    if load_count == 0:
+        raise RuntimeError("No ELF load segments: " + str(path))
+
+
+def loader_pokedata_offset(path):
+    """Read the selected loader's fixed assembly stub without GNU awk.
+
+    assembly.S defines `str x1, [x2]; .word 0xf7f0a000`. Different compilers
+    place it at different offsets. PRoot must use the external loader's offset,
+    not its embedded loader's, when enabling the PTRACE_POKEDATA workaround.
+    """
+    validate_elf(path)
+    data = path.read_bytes()
+    entry, program_headers = struct.unpack_from("<QQ", data, 24)
+    header_size, count = struct.unpack_from("<HH", data, 54)
+    matches = []
+    for index in range(count):
+        kind, flags, offset, address, _, size = struct.unpack_from("<IIQQQQ", data, program_headers + index * header_size)
+        if kind != 1 or flags & 1 == 0:
+            continue
+        code = data[offset:offset + size]
+        marker = bytes.fromhex("410000f900a0f0f7")
+        position = code.find(marker)
+        if position >= 0:
+            if code.find(marker, position + 1) >= 0:
+                raise RuntimeError("Ambiguous POKEDATA stub in " + str(path))
+            matches.append(address + position - entry)
+    if len(matches) != 1 or matches[0] <= 0:
+        raise RuntimeError("Cannot identify selected loader's POKEDATA stub: " + str(path))
+    return matches[0]
+
+
+def install(source, destination):
+    shutil.copyfile(source, destination)
+    destination.chmod(0o755)
+    validate_elf(destination)
+
+
+def verify_existing():
+    """Verify installed build inputs offline, without a compiler or downloads."""
+    manifest = json.loads((ASSETS / "runtime-manifest.json").read_text())
+    expected = {"schemaVersion": 1, "runtimeId": RUNTIME_ID,
+                "abi": "arm64-v8a", "minAndroidApi": 29,
+                "features": {"shell": True, "python": True, "desktop": True},
+                "python": python_package_manifest(), "tools": tool_manifest(), "desktop": desktop_manifest()}
+    for key, value in expected.items():
+        if manifest[key] != value:
+            raise RuntimeError("Unexpected manifest " + key)
+    rootfs = manifest["rootfs"]
+    for key, value in {"asset": "perant-linux/rootfs.tar.gz.bin", "distribution": "Alpine",
+                       "version": "3.24.4", "architecture": "aarch64",
+                       "sha256": LOCK["downloads"]["rootfs"]["sha256"]}.items():
+        if rootfs[key] != value:
+            raise RuntimeError("Unexpected rootfs " + key)
+    for name, path, minimum in [("rootfs", ASSETS / "rootfs.tar.gz.bin", 1000000),
+                                ("proot", LIBS / "libproot.so", 100000),
+                                ("loader", LIBS / "libproot-loader.so", 4000)]:
+        item = manifest[name]
+        if type(item["sizeBytes"]) is not int or path.stat().st_size != item["sizeBytes"] or item["sizeBytes"] < minimum:
+            raise RuntimeError("Size mismatch: " + str(path))
+        if digest(path) != item["sha256"]:
+            raise RuntimeError("SHA256 mismatch: " + str(path))
+        if name != "rootfs":
+            if item["library"] != path.name:
+                raise RuntimeError("Unexpected library name: " + name)
+            validate_elf(path, require_alignment=True)
+    if manifest["proot"]["sourceCommit"] != LOCK["prootCommit"]:
+        raise RuntimeError("Unexpected PRoot source commit")
+    loader = manifest["loader"]
+    if loader["sourceCommit"] != LOCK["termuxProot70Commit"]:
+        raise RuntimeError("Unexpected loader source commit")
+    if loader["selection"] == "vendored":
+        expected_loader_hash = LOCK["downloads"]["loader"]["sha256"]
+    elif loader["selection"] == "rebuilt":
+        expected_loader_hash = manifest["build"]["rebuiltLoaderSha256"]
+    else:
+        raise RuntimeError("Unknown loader selection")
+    if loader["sha256"] != expected_loader_hash:
+        raise RuntimeError("Selected loader hash mismatch")
+    if type(loader["pokedataWorkaroundOffset"]) is not int or loader_pokedata_offset(LIBS / "libproot-loader.so") != loader["pokedataWorkaroundOffset"]:
+        raise RuntimeError("Selected loader POKEDATA stub offset mismatch")
+    for package in bundled_packages():
+        validate_python_apk(ASSETS.parent / package["asset"], package)
+    codec = desktop_manifest()["codecLibrary"]
+    codec_path = ASSETS.parent / codec["asset"]
+    if codec_path.stat().st_size != codec["sizeBytes"] or digest(codec_path) != codec["sha256"]:
+        raise RuntimeError("Missing or outdated native PNG/XPM codec overlay")
+    validate_elf(codec_path)
+    if digest(CODEC_RECIPE) != LOCK["codec"]["recipeSha256"]:
+        raise RuntimeError("Native PNG/XPM codec recipe differs from its source lock")
+    script = ASSETS / "tools/text_to_markdown.py"
+    if digest(script) != digest(TOOL_SOURCE):
+        raise RuntimeError("Missing or outdated bundled text-to-Markdown script")
+    if digest(ASSETS / "tools/start_desktop.sh") != digest(DESKTOP_SOURCE):
+        raise RuntimeError("Missing or outdated bundled desktop startup script")
+    for key, value in LOCK["build"].items():
+        if manifest["build"][key] != value:
+            raise RuntimeError("Unexpected build " + key)
+    # The notices are part of the packaged runtime too. Stale or missing copies
+    # cause a rebuild so build-apk cannot silently omit the third-party notices.
+    notices = [(path, ASSETS / "licenses" / path.name) for path in (THIRD_PARTY / "licenses").iterdir()]
+    notices += [(THIRD_PARTY / name, ASSETS / "licenses" / name) for name in ("NOTICE.md", "alpine-packages.json", "desktop-packages.json", "desktop-source-recipes.json", "native-codec.json")]
+    if {path.name for path in (ASSETS / "licenses").iterdir()} != {source.name for source, _ in notices}:
+        raise RuntimeError("Unexpected or missing generated runtime notice")
+    for source, installed in notices:
+        if digest(source) != digest(installed):
+            raise RuntimeError("Missing or outdated runtime notice: " + str(installed))
+    print("Existing Linux runtime verified offline: hashes, ARM64 ELF, 16 KB alignment, loader pairing, signed Python/desktop APK metadata, fixed scripts and notices.")
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--loader", choices=["vendored", "rebuilt"], default="vendored",
+                        help="Use verified upstream bytes (default) or the source-built comparison loader.")
+    modes = parser.add_mutually_exclusive_group()
+    modes.add_argument("--fetch-only", action="store_true", help="Download and verify all pinned inputs without compiling.")
+    modes.add_argument("--verify-existing", action="store_true", help="Verify generated resources offline without compiling or downloading.")
+    args = parser.parse_args()
+    if args.verify_existing:
+        verify_existing()
+        return
+    DOWNLOADS.mkdir(parents=True, exist_ok=True)
+    inputs = {name: fetch(name) for name in LOCK["downloads"]}
+    for package in bundled_packages():
+        validate_python_apk(inputs[package["downloadKey"]], package)
+    if args.fetch_only:
+        print("All pinned inputs verified.")
+        return
+    run([sys.executable, ROOT / "tool/build-linux-codec"])
+    if CODEC_OUTPUT.stat().st_size != LOCK["codec"]["sizeBytes"] or digest(CODEC_OUTPUT) != LOCK["codec"]["sha256"]:
+        raise RuntimeError("Built native codec differs from its source lock")
+    ndk = Path(os.environ.get("ANDROID_NDK_HOME") or os.environ.get("ANDROID_NDK_ROOT") or
+               ROOT / ".tooling/android-sdk/ndk" / LOCK["build"]["ndkVersion"])
+    properties = (ndk / "source.properties").read_text()
+    if "Pkg.Revision = " + LOCK["build"]["ndkVersion"] not in properties:
+        raise RuntimeError("This recipe requires NDK " + LOCK["build"]["ndkVersion"])
+    host = {"Darwin": "darwin-x86_64", "Linux": "linux-x86_64"}.get(platform.system())
+    if host is None:
+        raise RuntimeError("Unsupported build host: " + platform.system())
+    tools = ndk / "toolchains/llvm/prebuilt" / host / "bin"
+    cc = tools / "aarch64-linux-android29-clang"
+    if not cc.is_file():
+        raise RuntimeError("Missing Android compiler: " + str(cc))
+    if BUILD.exists():
+        shutil.rmtree(BUILD)
+    BUILD.mkdir(parents=True)
+    proot = unpack(inputs["proot"], BUILD / "proot")
+    talloc = unpack(inputs["talloc"], BUILD / "talloc")
+    termux = unpack(inputs["termuxProot70"], BUILD / "termux70")
+    shutil.copyfile(THIRD_PARTY / "talloc-replace.h", talloc / "replace.h")
+    run([cc, "-c", talloc / "talloc.c", "-o", BUILD / "talloc.o", "-I" + str(talloc),
+         "-fPIC", "-O2", "-Wall", "-std=gnu99", "-DHAVE_STDARG_H=1", "-DHAVE_VA_COPY=1",
+         "-DHAVE_UNISTD_H=1", "-DHAVE_INTPTR_T=1"])
+    run([tools / "llvm-ar", "rcs", BUILD / "libtalloc.a", BUILD / "talloc.o"])
+    environment = dict(os.environ)
+    environment.update(SOURCE_DATE_EPOCH=str(LOCK["build"]["sourceDateEpoch"]), LC_ALL="C", TZ="UTC")
+    # The upstream makefile invokes plain `readelf` for its POKEDATA workaround.
+    # macOS has no system readelf; a missing command still yields a success exit
+    # status through awk, silently writing offset=0. Point it at NDK llvm-readelf.
+    host_tools = BUILD / "host-tools"
+    host_tools.mkdir()
+    (host_tools / "readelf").symlink_to(tools / "llvm-readelf")
+    environment["PATH"] = str(host_tools) + os.pathsep + environment.get("PATH", "")
+    make_flags = ["CC=" + str(cc), "STRIP=" + str(tools / "llvm-strip"),
+                  "OBJCOPY=" + str(tools / "llvm-objcopy"), "OBJDUMP=" + str(tools / "llvm-objdump"),
+                  "GIT=false",
+                  "CPPFLAGS=-D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -I. -DARG_MAX=131072 -I" + str(talloc),
+                  "CFLAGS=-O2 -Wall -Wextra -fPIE -ffile-prefix-map=" + str(BUILD) + "=/perant-build",
+                  "LDFLAGS=-Wl,-z,noexecstack,-z,max-page-size=16384 -pie -L" + str(BUILD) + " -ltalloc",
+                  "BUILD_ID_NONE=,--build-id=none"]
+    run(["make", *make_flags, "-j" + str(min(os.cpu_count() or 2, 8))], cwd=proot / "src", env=environment)
+    run([tools / "llvm-strip", proot / "src/proot"])
+    # The historical Termux sources match the vendored loader's source version.
+    # Its bytes need not match: NDK/compiler/linker flags also affect the image.
+    run(["make", *make_flags, "loader/loader"], cwd=termux / "src", env=environment)
+    rebuilt_loader = BUILD / "libproot-loader-rebuilt.so"
+    shutil.copyfile(termux / "src/loader/loader", rebuilt_loader)
+    run([tools / "llvm-strip", rebuilt_loader])
+    validate_elf(rebuilt_loader)
+    selected_loader = inputs["loader"] if args.loader == "vendored" else rebuilt_loader
+    workaround_offset = loader_pokedata_offset(selected_loader)
+    # GNUmakefile's generator relies on GNU awk extensions absent on macOS,
+    # and normally measures the embedded rather than external loader. Override
+    # only its generated value, preserving every downloaded source file.
+    (proot / "src/loader/loader-info.c").write_text(
+        "#include <unistd.h>\nconst ssize_t offset_to_pokedata_workaround=" + str(workaround_offset) + ";\n")
+    run(["make", *make_flags], cwd=proot / "src", env=environment)
+    run([tools / "llvm-strip", proot / "src/proot"])
+    ASSETS.mkdir(parents=True, exist_ok=True)
+    LIBS.mkdir(parents=True, exist_ok=True)
+    install(proot / "src/proot", LIBS / "libproot.so")
+    install(selected_loader, LIBS / "libproot-loader.so")
+    # AAPT treats a .gz suffix as an instruction to transparently decompress
+    # and rename the asset. Keep gzip bytes under .bin so APK and manifest agree.
+    shutil.copyfile(inputs["rootfs"], ASSETS / "rootfs.tar.gz.bin")
+    (ASSETS / "rootfs.tar.gz").unlink(missing_ok=True)
+    package_assets = ASSETS / "packages"
+    package_assets.mkdir(exist_ok=True)
+    expected_packages = {Path(package["asset"]).name for package in bundled_packages()}
+    for stale in package_assets.iterdir():
+        if stale.name not in expected_packages:
+            if not stale.is_file() or stale.is_symlink():
+                raise RuntimeError("Unexpected path in generated APK resources: " + str(stale))
+            stale.unlink()
+    for package in bundled_packages():
+        shutil.copyfile(inputs[package["downloadKey"]], ASSETS.parent / package["asset"])
+    tool_assets = ASSETS / "tools"
+    tool_assets.mkdir(exist_ok=True)
+    shutil.copyfile(TOOL_SOURCE, tool_assets / "text_to_markdown.py")
+    shutil.copyfile(DESKTOP_SOURCE, tool_assets / "start_desktop.sh")
+    codec_assets = ASSETS / "compat"
+    codec_assets.mkdir(exist_ok=True)
+    shutil.copyfile(CODEC_OUTPUT, codec_assets / "libgdk_pixbuf-2.0.so.0")
+    manifest = {
+        "schemaVersion": 1, "runtimeId": RUNTIME_ID,
+        "abi": "arm64-v8a", "minAndroidApi": 29,
+        "rootfs": {"asset": "perant-linux/rootfs.tar.gz.bin", "distribution": "Alpine", "version": "3.24.4",
+                   "architecture": "aarch64", "sha256": digest(ASSETS / "rootfs.tar.gz.bin"),
+                   "sizeBytes": (ASSETS / "rootfs.tar.gz.bin").stat().st_size, "sourceUrl": LOCK["downloads"]["rootfs"]["url"]},
+        "proot": {"library": "libproot.so", "sha256": digest(LIBS / "libproot.so"),
+                  "sizeBytes": (LIBS / "libproot.so").stat().st_size,
+                  "sourceCommit": LOCK["prootCommit"], "sourceUrl": LOCK["downloads"]["proot"]["url"]},
+        "loader": {"library": "libproot-loader.so", "sha256": digest(LIBS / "libproot-loader.so"),
+                   "sizeBytes": (LIBS / "libproot-loader.so").stat().st_size,
+                   "selection": args.loader, "sourceCommit": LOCK["termuxProot70Commit"],
+                   "pokedataWorkaroundOffset": workaround_offset,
+                   "provenance": "OpenMinis vendored Termux 5.1.107-70" if args.loader == "vendored" else "NDK-built Termux 5.1.107-70 comparison loader"},
+        "features": {"shell": True, "python": True, "desktop": True},
+        "python": python_package_manifest(), "tools": tool_manifest(), "desktop": desktop_manifest(),
+        "build": {**LOCK["build"], "rebuiltLoaderSha256": digest(rebuilt_loader)}
+    }
+    (ASSETS / "runtime-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+    notices = ASSETS / "licenses"
+    notices.mkdir(exist_ok=True)
+    expected_notices = {path.name for path in (THIRD_PARTY / "licenses").iterdir()} | {
+        "NOTICE.md", "alpine-packages.json", "desktop-packages.json", "desktop-source-recipes.json", "native-codec.json"}
+    for stale in notices.iterdir():
+        if stale.name not in expected_notices:
+            if not stale.is_file() or stale.is_symlink():
+                raise RuntimeError("Unexpected path in generated runtime notices: " + str(stale))
+            stale.unlink()
+    for path in (THIRD_PARTY / "licenses").iterdir():
+        shutil.copyfile(path, notices / path.name)
+    shutil.copyfile(THIRD_PARTY / "NOTICE.md", notices / "NOTICE.md")
+    shutil.copyfile(THIRD_PARTY / "alpine-packages.json", notices / "alpine-packages.json")
+    shutil.copyfile(THIRD_PARTY / "desktop-packages.json", notices / "desktop-packages.json")
+    shutil.copyfile(THIRD_PARTY / "desktop-source-recipes.json", notices / "desktop-source-recipes.json")
+    shutil.copyfile(THIRD_PARTY / "native-codec.json", notices / "native-codec.json")
+    verify_existing()
+    print("Prepared " + str(ASSETS / "runtime-manifest.json"))
+    print("Source-built comparison loader: " + str(rebuilt_loader))
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except (OSError, RuntimeError, ValueError, KeyError, TypeError, struct.error, subprocess.CalledProcessError) as error:
+        sys.exit("prepare-linux-runtime: " + str(error))
