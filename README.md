@@ -4,6 +4,23 @@ PerAnt 是一个以对话为入口的手机个人智能体工作台。目标是�
 
 当前为 **0.8.0+2008 源码预览版**，主要实现和验证集中在 **Android ARM64**。Flutter 共享界面与业务逻辑，原生组件连接 Linux、桌面和浏览器；复杂任务可使用用户自行配置的 OpenAI 格式兼容 API。**本地小模型、iOS 运行时、长期后台、检索与记忆尚未接入，当前不是完整的双端个人智能体产品。**
 
+## 界面预览
+
+以下为 Android APK 的真实截图：对话页来自 0.6，电脑与浏览器来自 0.7。点击可查看原图，版本和来源见[截图说明](docs/images/README.md)。
+
+<table>
+  <tr>
+    <th>对话优先</th>
+    <th>本地 Linux 电脑</th>
+    <th>原生浏览器</th>
+  </tr>
+  <tr>
+    <td><a href="docs/images/chat-android-v06.png"><img src="docs/images/chat-android-v06.png" alt="PerAnt Android 对话首页与模型电脑入口" width="240"></a></td>
+    <td><a href="docs/images/linux-writer-android-v07.png"><img src="docs/images/linux-writer-android-v07.png" alt="模型电脑中运行的 Linux 桌面与 LibreOffice Writer" width="240"></a></td>
+    <td><a href="docs/images/browser-android-v07.png"><img src="docs/images/browser-android-v07.png" alt="PerAnt Android 原生浏览器显示 Example Domain" width="240"></a></td>
+  </tr>
+</table>
+
 ## 现在可以做什么
 
 - **从对话开始协作。** 多会话、任务进度、操作记录与用户接管；界面参考 nanoMuse 的对话优先思路。API 配置可以跳过，也可自定义兼容服务地址、模型和参数，支持 Chat Completions / Responses。
@@ -86,7 +103,7 @@ adb install -r artifacts/apk/PerAnt-0.8.0-debug-arm64.apk
 
 包装器优先使用 `PERANT_FLUTTER_SDK`，其次项目 `.tooling/flutter`，最后 PATH 中的 Flutter；也会识别项目本地 Android SDK / JDK。SDK、缓存、APK 与生成资源不应提交为源码。
 
-GitHub Actions 会执行检查与 Android 构建，源码预览阶段不上传 APK 产物。文档中的历史设备检查是本地验证记录；原始日志、截图和本机构建包不随源码提交。
+本仓库不配置 GitHub CI 测试，检查和 Android 构建在本地按上述命令执行。文档中的历史设备检查是本地验证记录；原始日志和本机构建包不随源码提交。
 
 ## 代码与文档
 

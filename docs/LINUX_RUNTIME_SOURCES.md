@@ -16,7 +16,7 @@ tool/prepare-linux-runtime --loader rebuilt
 
 默认 NDK 路径是 `.tooling/android-sdk/ndk/28.2.13676358`，也支持 `ANDROID_NDK_HOME` 或 `ANDROID_NDK_ROOT`。要求这个精确 NDK 版本、Python 3、GNU make 和可运行的 NDK clang。支持 macOS 与 Linux x86_64 构建宿主；Android 最低 API 29。
 
-首次准备原生 PNG/XPM 兼容库还需要可用的 Docker daemon；ARM64 宿主直接运行，Linux x86_64 CI 需启用 ARM64 QEMU/binfmt。`tool/build-linux-codec` 从已固定 SHA256 的官方 Alpine minirootfs 导入专用 ARM64 builder，不依赖滚动 Docker Hub tag；81 个构建 APK 的版本、摘要和安装脚本均固定，容器禁网安装并编译。构建依赖不进入应用。已缓存匹配产物时可复用；`--verify-existing` 不启动 Docker、不编译，也不依赖该构建缓存。
+首次准备原生 PNG/XPM 兼容库还需要可用的 Docker daemon；ARM64 宿主直接运行，Linux x86_64 宿主需启用 ARM64 QEMU/binfmt。`tool/build-linux-codec` 从已固定 SHA256 的官方 Alpine minirootfs 导入专用 ARM64 builder，不依赖滚动 Docker Hub tag；81 个构建 APK 的版本、摘要和安装脚本均固定，容器禁网安装并编译。构建依赖不进入应用。已缓存匹配产物时可复用；`--verify-existing` 不启动 Docker、不编译，也不依赖该构建缓存。
 
 产物位于 Flutter 插件的 Android 原生资源目录：
 
@@ -25,7 +25,7 @@ tool/prepare-linux-runtime --loader rebuilt
 - `packages/perant_platform/android/src/main/assets/perant-linux/rootfs.tar.gz.bin`
 - 同目录的 `packages/*.apk.bin`、`tools/text_to_markdown.py`、`tools/start_desktop.sh`、`compat/libgdk_pixbuf-2.0.so.0`、`runtime-manifest.json` 与 `licenses/`
 
-v6 的 manifest 校验 **375 项运行资源**：rootfs、PRoot 与 loader 共 3 项，Python APK 14 项，桌面／应用 APK 355 项，固定脚本 2 项，原生图像兼容库 1 项；manifest 本身与许可来源文件另计。生成的资源目录与 `jniLibs` 二进制被 Git 忽略。源码锁、许可证和本脚本保留在仓库；CI 在安装 SDK/NDK 后执行完整准备，再进行检查和 APK 构建。`--verify-existing` 同时检查 manifest 固定字段、rootfs/ELF/Python 和桌面 APK/工具脚本/兼容库的大小与 SHA256、APK 包身份/依赖/签名 key 名、已审阅安装脚本的名称与内容摘要、ARM64 ELF、16 KB LOAD 对齐、选定 loader 的 POKEDATA stub 偏移，以及 notice/许可证/来源清单副本与仓库原件一致；不依赖 NDK 或下载缓存。实际 APK RSA 签名由设备上的 Alpine 包管理器验证，主机构建检查不冒充设备签名验证。
+v6 的 manifest 校验 **375 项运行资源**：rootfs、PRoot 与 loader 共 3 项，Python APK 14 项，桌面／应用 APK 355 项，固定脚本 2 项，原生图像兼容库 1 项；manifest 本身与许可来源文件另计。生成的资源目录与 `jniLibs` 二进制被 Git 忽略。源码锁、许可证和本脚本保留在仓库；本地安装 SDK/NDK 后执行完整准备，再进行检查和 APK 构建。仓库不配置 GitHub CI 测试。`--verify-existing` 同时检查 manifest 固定字段、rootfs/ELF/Python 和桌面 APK/工具脚本/兼容库的大小与 SHA256、APK 包身份/依赖/签名 key 名、已审阅安装脚本的名称与内容摘要、ARM64 ELF、16 KB LOAD 对齐、选定 loader 的 POKEDATA stub 偏移，以及 notice/许可证/来源清单副本与仓库原件一致；不依赖 NDK 或下载缓存。实际 APK RSA 签名由设备上的 Alpine 包管理器验证，主机构建检查不冒充设备签名验证。
 
 本轮 v6 冻结资源共 **432,783,532 字节**，准备和独立离线校验均通过；原生浏览器 5 项与 Writer 的 ODT／DOCX 保存重开 2 项设备检查通过，不能把包内存在或静态校验当作其他功能验收：
 
