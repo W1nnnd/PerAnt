@@ -1,22 +1,22 @@
 # 公开安装包与对应源码
 
-0.9.0 Android 预览包使用现有完整 ARM64 Linux／Office 运行资源。公开分发时，将 APK、以下 Linux 对应源码分卷、校验清单与匹配的 PerAnt 源码版本放在同一 GitHub Release。附件生成和上传是两个独立步骤；上传完成前，不把本地文件说成已提供公开下载。
+0.0.1 Android 预览包使用现有完整 ARM64 Linux／Office 运行资源，与旧编号 0.9.0 的运行资源逐字节相同（v6，内嵌 manifest 一致）；应用部分的差别见 [0.0.1 说明](releases/0.0.1.md)。公开分发时，将 APK、以下 Linux 对应源码分卷、校验清单与匹配的 PerAnt 源码版本放在同一 GitHub Release。附件生成和上传是两个独立步骤；上传完成前，不把本地文件说成已提供公开下载。
 
-安装包为 `PerAnt-0.9.0-debug-arm64.apk`，543,584,034 字节，SHA256：
+安装包为 `PerAnt-0.0.1-debug-arm64.apk`，543,615,667 字节，SHA256：
 
 ```text
-df28a19867704134053f4d79dd78e10d8d05f18fd25227d2952489b33e06a167
+aa5e7a9f79c4f00abe5ba78d7a319b60e1a364657c8c566ab47a56ee310e916b
 ```
 
-这是 Android 10／API 29 及以上的 ARM64 调试预览包。功能和设备验证边界见 [README](../README.md) 与[开发状态](DEVELOPMENT_STATUS.md)。保持本地 0.9.0 的调试签名，安装前按系统提示授权；云端调用使用用户配置的 API，可能产生供应商正常费用。源码收集不改变应用行为，也不增加功能验收结果。
+这是 Android 10／API 29 及以上的 ARM64 调试预览包。功能和设备验证边界见 [README](../README.md) 与[开发状态](DEVELOPMENT_STATUS.md)。沿用与 0.9.0 相同的本地调试签名，可覆盖安装 0.9.0（构建号 2009 → 2010）；安装前按系统提示授权；云端调用使用用户配置的 API，可能产生供应商正常费用。源码收集不改变应用行为，也不增加功能验收结果。
 
 ## 下载与校验
 
 Release 提供以下文件。Linux 源码分为不超过 1,000,000,000 字节的卷，以满足单附件大小要求：
 
-- `PerAnt-0.9.0-debug-arm64.apk`：直接安装的应用。
-- `PerAnt-0.9.0-linux-sources.tar.part01`、`.part02`、`.part03`：按顺序重组的 Linux 对应源码。
-- `PerAnt-0.9.0-linux-sources-manifest.json`：APK、运行资源 manifest、源码锁、主仓提交与各分卷的绑定关系。
+- `PerAnt-0.0.1-debug-arm64.apk`：直接安装的应用。
+- `PerAnt-0.0.1-linux-sources.tar.part01`、`.part02`、`.part03`：按顺序重组的 Linux 对应源码。
+- `PerAnt-0.0.1-linux-sources-manifest.json`：APK、运行资源 manifest、源码锁、主仓提交与各分卷的绑定关系。
 - `SHA256SUMS`：APK 与各源码分卷的 SHA256。
 - GitHub 自动生成的 Source code：该 Release 标签所指向的 PerAnt 源码。
 
@@ -24,13 +24,13 @@ Release 提供以下文件。Linux 源码分为不超过 1,000,000,000 字节的
 
 ```sh
 shasum -a 256 -c SHA256SUMS
-cat PerAnt-0.9.0-linux-sources.tar.part01 \
-    PerAnt-0.9.0-linux-sources.tar.part02 \
-    PerAnt-0.9.0-linux-sources.tar.part03 > PerAnt-0.9.0-linux-sources.tar
-tar -xf PerAnt-0.9.0-linux-sources.tar
+cat PerAnt-0.0.1-linux-sources.tar.part01 \
+    PerAnt-0.0.1-linux-sources.tar.part02 \
+    PerAnt-0.0.1-linux-sources.tar.part03 > PerAnt-0.0.1-linux-sources.tar
+tar -xf PerAnt-0.0.1-linux-sources.tar
 ```
 
-只下载 APK 时可用 `shasum -a 256 PerAnt-0.9.0-debug-arm64.apk` 与上面的固定摘要比较。Windows 可用 PowerShell 的 `Get-FileHash -Algorithm SHA256` 核对单文件摘要；分卷不是可分别解压的压缩包，需要先按序拼接。
+只下载 APK 时可用 `shasum -a 256 PerAnt-0.0.1-debug-arm64.apk` 与上面的固定摘要比较。Windows 可用 PowerShell 的 `Get-FileHash -Algorithm SHA256` 核对单文件摘要；分卷不是可分别解压的压缩包，需要先按序拼接。
 
 ## 收集与内容
 
@@ -63,12 +63,13 @@ tool/prepare-linux-runtime --verify-existing
 
 # SOURCE_COMMIT 替换为与该 APK 对应的完整 40 位主仓提交。
 tool/package-linux-sources \
-  --apk artifacts/apk/PerAnt-0.9.0-debug-arm64.apk \
-  --revision SOURCE_COMMIT
+  --apk artifacts/apk/PerAnt-0.0.1-debug-arm64.apk \
+  --revision SOURCE_COMMIT \
+  --output artifacts/release-0.0.1
 ```
 
-默认缓存是 `.tooling/linux-sources-v09`，产物写入被忽略的 `artifacts/release-v09`。`--cache` 和 `--output` 可指定其它路径。工具先校验所有源文件和配方归档，再比对固定 APK SHA256 与真实内嵌运行资源 manifest；任一不匹配都会失败。它生成 `.tar`、分卷、外部 manifest 和 SHA256SUMS，不上传文件，不替维护者自动判定新运行资源的闭包完整性。
+默认缓存是 `.tooling/linux-sources-v09`（源码输入自旧编号 0.9.0 起未变，缓存沿用），默认产物目录是被忽略的 `artifacts/release-v09`；0.0.1 使用 `--output artifacts/release-0.0.1`。`--cache` 和 `--output` 可指定其它路径。工具先校验所有源文件和配方归档，再比对固定 APK SHA256 与真实内嵌运行资源 manifest；任一不匹配都会失败。它生成 `.tar`、分卷、外部 manifest 和 SHA256SUMS，不上传文件，不替维护者自动判定新运行资源的闭包完整性。
 
 源码目录保留原始归档；`distfiles/<sha512>/<文件名>` 按摘要分隔，避免不同来源的同名补丁互相覆盖。重建某个 aports 时，从其 manifest 的 source 列表把输入放到该配方的 `SRCDEST`，按完整 APKBUILD 使用匹配的 Alpine aarch64／abuild 和构建依赖。先应用原有补丁，再使用对应 Cargo／Meson 源包。PRoot、loader、talloc 和 PNG／XPM 兼容库的精确构建入口、flags 与工具链版本见 [Linux 运行资源](LINUX_RUNTIME_SOURCES.md)。一般编译器和系统工具按这些步骤安装；它们的二进制不冒充本包的源码。
 
-运行资源包、静态依赖、源码补丁或 Cargo／Meson 引用变化时，重新收集并审阅，再更新源码锁。不得对另一个 APK 复用 0.9.0 的对应源码绑定。所有上游组件保留原许可及版权；PerAnt 的 GPL-3.0-only 不替换它们各自的许可。
+运行资源包、静态依赖、源码补丁或 Cargo／Meson 引用变化时，重新收集并审阅，再更新源码锁。每个公开 APK 都要重新生成并绑定自己的源码包：0.0.1 的运行资源和源码输入与 0.9.0 相同，但 manifest、源码锁中的版本与 APK 摘要、主仓提交均已重新绑定，不能把 0.9.0 的分卷当作 0.0.1 的对应源码。所有上游组件保留原许可及版权；PerAnt 的 GPL-3.0-only 不替换它们各自的许可。

@@ -126,7 +126,7 @@ APK 查看器连接同一实际桌面；离页或后台关闭显示连接并清�
 
 桌面包的[许可来源清单](../third_party/linux/licenses/Desktop-package-license-sources.json)保留固定 SPDX 数据版本的 **45 份参考许可文本**、匹配官方文档／运行 APK 提取的 **81 份上游版权/许可文件**、字体原始 OpenType 数据中的 **23 份版权/许可说明**，以及 15 个经固定 SHA512 核验的 Xfce 原始源档和 GdkPixbuf 源档中的 **33 份 COPYING/COPYING.LIB/AUTHORS**；记录原始归档摘要、成员路径与提取来源。兼容库为 **LGPL-2.1-or-later**，原始 COPYING 保留在 `Desktop-source-gdk-pixbuf-2.44.7-COPYING.txt`，自研构建配方与启动脚本为 GPL-3.0-only，不替代该库的 LGPL。参考许可文本不替代各软件自己的版权声明。[desktop-source-recipes.json](../third_party/linux/desktop-source-recipes.json) 固定 **290 个对应 Alpine aports 构建配方**的 commit、路径和 SHA256，来源集合与当前桌面闭包一致，覆盖上游源码 URL、补丁及来源校验值。移除旧桌面归属和 28 个过期下载输入，不继续打包旧组件 APK 或声明。包清单、配方清单、NOTICE、`native-codec.json` 与许可文本均复制到 APK 的 `perant-linux/licenses/`；准备会清理过期副本，离线校验要求文件集合与字节均和仓库原件一致。
 
-公开分发 APK 时，在同一 GitHub Release 附上完整对应源码分卷、校验清单和匹配的 PerAnt 源码版本。0.9.0 已补齐并校验固定 Alpine 配方目录、源归档、静态依赖和 Rust 依赖；清单见 [release-sources.lock.json](../third_party/linux/release-sources.lock.json)，打包与重组方法见[公开安装包与对应源码](PUBLIC_BINARY_RELEASE.md)。发布附件是否已上线，以 Release 实际文件为准；本地生成完成不等于已公开。
+公开分发 APK 时，在同一 GitHub Release 附上完整对应源码分卷、校验清单和匹配的 PerAnt 源码版本。旧编号 0.9.0 已补齐并校验固定 Alpine 配方目录、源归档、静态依赖和 Rust 依赖，0.0.1 的运行资源未变，沿用同一套输入并重新绑定到新 APK；清单见 [release-sources.lock.json](../third_party/linux/release-sources.lock.json)，打包与重组方法见[公开安装包与对应源码](PUBLIC_BINARY_RELEASE.md)。发布附件是否已上线，以 Release 实际文件为准；本地生成完成不等于已公开。
 
 LibreOffice 保留自己的 MPL-2.0／第三方许可及品牌，PerAnt 不主张其作者身份；实际安装的 `LICENSE`、`LICENSE.html`、`NOTICE` 另复制进许可来源清单。原生浏览器使用系统提供的 Android 引擎，其二进制不作为 Linux APK 或独立浏览器包重新分发。
 

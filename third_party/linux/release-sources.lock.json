@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "version": "0.9.0",
+  "version": "0.0.1",
   "runtimeVersion": "perant-alpine-3.24.4-aarch64-v6",
-  "apkSha256": "df28a19867704134053f4d79dd78e10d8d05f18fd25227d2952489b33e06a167",
+  "apkSha256": "aa5e7a9f79c4f00abe5ba78d7a319b60e1a364657c8c566ab47a56ee310e916b",
   "packageRecordCount": 385,
   "directOriginCount": 309,
   "recipes": [
