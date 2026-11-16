@@ -10,15 +10,15 @@ PerAnt 是一个以对话为入口的手机个人智能体工作台。目标是�
 
 ## 下载与安装
 
-> **公开安装包仍是旧编号的 0.9.0，不包含 0.0.1 的修复。** 0.9.0 发布前没有连接过真实模型服务，实测中自己输入的任务不会真正执行，模型操作桌面和网页也基本不可用。需要可用版本请先[从源码构建](#从源码构建-android-apk)；新的公开安装包要连同对应的 Linux 源码材料重新制作，尚未发布。
+**[下载 Android APK · 0.0.1](https://github.com/W1nnnd/PerAnt/releases/download/v0.0.1/PerAnt-0.0.1-debug-arm64.apk)** · [SHA256 校验清单](https://github.com/W1nnnd/PerAnt/releases/download/v0.0.1/SHA256SUMS) · [同版本对应源码与发布说明](https://github.com/W1nnnd/PerAnt/releases/tag/v0.0.1)
 
-**[下载 Android APK · 旧编号 0.9.0 预览版](https://github.com/W1nnnd/PerAnt/releases/download/v0.9.0-preview/PerAnt-0.9.0-debug-arm64.apk)** · [SHA256 校验清单](https://github.com/W1nnnd/PerAnt/releases/download/v0.9.0-preview/SHA256SUMS) · [同版本对应源码与发布说明](https://github.com/W1nnnd/PerAnt/releases/tag/v0.9.0-preview)
+旧编号的 [0.9.0 预览包](https://github.com/W1nnnd/PerAnt/releases/tag/v0.9.0-preview)仍可下载，但它发布前没有连接过真实模型服务，自己输入的任务不会真正执行，不建议使用。0.0.1 可以直接覆盖安装 0.9.0。
 
-将 APK 下载到手机后打开，按 Android 提示允许安装。已有本机开发版可尝试覆盖安装；如系统提示签名不一致，先保留重要文件，勿直接卸载清除数据。GitHub Release 同时提供三卷 Linux 对应源码与匹配的 PerAnt 源码，普通安装只需 APK；源码重组和校验见[发行材料说明](docs/PUBLIC_BINARY_RELEASE.md)。本机构建见[构建说明](#从源码构建-android-apk)。
+将 APK 下载到手机后打开，按 Android 提示允许安装。已有 0.9.0 或本机开发版可覆盖安装；如系统提示签名不一致，先保留重要文件，勿直接卸载清除数据。GitHub Release 同时提供三卷 Linux 对应源码与匹配的 PerAnt 源码，普通安装只需 APK；源码重组和校验见[发行材料说明](docs/PUBLIC_BINARY_RELEASE.md)。本机构建见[构建说明](#从源码构建-android-apk)。
 
 安装包要求 **Android 10 / API 29 及以上、64 位 ARM（arm64-v8a）**。当前是包含 Linux 和办公组件的调试包，体积约 **518 MiB**；不支持 32 位 ARM 或 x86，尚无 iPhone 安装包。首次启动还需解包 Linux 资源，请预留额外存储空间；解包后的完整空间预算尚待实测。
 
-0.9.0 APK SHA256：`df28a19867704134053f4d79dd78e10d8d05f18fd25227d2952489b33e06a167`。
+APK SHA256：`aa5e7a9f79c4f00abe5ba78d7a319b60e1a364657c8c566ab47a56ee310e916b`。
 
 ## 界面预览
 
@@ -81,7 +81,7 @@ PerAnt 是一个以对话为入口的手机个人智能体工作台。目标是�
 
 按下面的优先级推进，详细范围以[任务规划书](TASK_PLAN.md)为准：
 
-- **发行维护：** 保持 APK、Linux 对应源码、构建配方、静态依赖与校验清单同步；0.9 已完成对应源码收集、核对与分卷打包流程，后续运行资源变化须重新审阅。
+- **发行维护：** 保持 APK、Linux 对应源码、构建配方、静态依赖与校验清单同步；旧编号 0.9 已完成对应源码收集、核对与分卷打包流程，0.0.1 沿用同一套运行资源并重新绑定；后续运行资源变化须重新审阅。
 - **运行基础：** 定位 3 GB 模拟器冷安装超时，测量首启时间、桌面内存与按需显示的释放效果，建立实体低配手机基线。
 
 随后完善以下工作流：
@@ -149,4 +149,4 @@ adb install -r artifacts/apk/PerAnt-0.0.1-debug-arm64.apk
 
 自研代码使用 **GPL-3.0-only**，见 [LICENSE](LICENSE)。第三方组件保留各自许可、版权与声明，见 [Linux 第三方 NOTICE](third_party/linux/NOTICE.md)和[资源来源说明](docs/LINUX_RUNTIME_SOURCES.md)。
 
-**GPL 允许合规商用、修改和再分发**，不能保证阻止他人合规分支或销售，也不自动授予 PerAnt 品牌使用权。0.9 Release 将 APK、对应版本 Linux 源码分卷、构建配方及校验清单放在同一分发渠道；应用源码由同一发布标签提供。第三方源码收集与闭包审阅见[发行材料](docs/PUBLIC_BINARY_RELEASE.md)，不等于独立清洁重建过每个上游二进制，也不承诺跨工具链逐字节重现。
+**GPL 允许合规商用、修改和再分发**，不能保证阻止他人合规分支或销售，也不自动授予 PerAnt 品牌使用权。每个公开 Release 都将 APK、对应版本 Linux 源码分卷、构建配方及校验清单放在同一分发渠道；应用源码由同一发布标签提供。第三方源码收集与闭包审阅见[发行材料](docs/PUBLIC_BINARY_RELEASE.md)，不等于独立清洁重建过每个上游二进制，也不承诺跨工具链逐字节重现。
