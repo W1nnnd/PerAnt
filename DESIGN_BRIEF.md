@@ -11,7 +11,7 @@
 
 ## 品牌
 
-- PerAnt，小蚁是用户的手机个人智能体搭子。真实 Android 开发预览版 0.9.0，尚非完整发布产品。
+- PerAnt，小蚁是用户的手机个人智能体搭子。真实 Android 开发预览版 0.0.1（版本号自 2026-11-16 起重新计算，此前为旧编号 0.9.0），尚非完整发布产品。
 - 暖白 #F8F8F3、白 #FFFFFF、文字 #252A24、次文 #686F60、鼠尾草绿 #455C3E、深绿 #31452C、浅绿 #EDF1E5、边界 #E7EAE0。
 - 现成图标 `assets/app-icon.png`，透明小蚁 `assets/ant-welcome.png`。不要重画品牌或产品界面。
 - 三张真实 APK 截图：`app-chat.png`、`app-computer.png`、`app-files.png`，原图保留 Android 状态栏，不伪造成网页运行的 App。
@@ -23,8 +23,8 @@
 2. 通过截图/切换真实图片和简洁文字，解释“从一句话开始”“需要时，打开我们的电脑”“文件与成果留在手边”。三个入口分别为 对话 / 电脑 / 文件。不要创建可输入的假聊天框或假命令结果。
 3. 对话 → 明确授权 → 使用 Linux 工具 → 查看并保留成果，四步简短说明。提供用户可接管、命令逐条确认、API 自备 Key 的事实。
 4. 当前能力：Android PRoot+Alpine、Python、终端、Xfce、LibreOffice、Android WebView、网页文字保存、SQLite文档版本。桌面仅点击查看时连接取帧；离开查看页停止持续取帧，Linux进程仍可占内存，不承诺后台常驻。
-5. `#download` 安装区：目前完整APK为 0.9.0 debug ARM64，最低 Android10/API29，543,584,034字节，SHA256 df28a19867704134053f4d79dd78e10d8d05f18fd25227d2952489b33e06a167。公开二进制下载须待完整Linux对应源码归档完成；当前不要编造APK下载链接。先给“查看发布记录”https://github.com/W1nnnd/PerAnt/releases 和“从源码构建”https://github.com/W1nnnd/PerAnt#从源码构建-android-apk。用自然简短的状态解释，不要死按钮。后续发布时可以更新此区。
-6. 开发计划不标假日期：当前0.9界面完成；接下来真实API协作与低内存启动优化、本地小模型、后台恢复、混合检索与记忆、内容工作流、iOS运行时验证。当前iOS仅有共享代码和图标，不提供IPA。
+5. `#download` 安装区：目前完整APK为 0.0.1 debug ARM64，最低 Android10/API29，543,615,667字节，SHA256 aa5e7a9f79c4f00abe5ba78d7a319b60e1a364657c8c566ab47a56ee310e916b。公开二进制下载须待完整Linux对应源码归档完成；当前不要编造APK下载链接。先给“查看发布记录”https://github.com/W1nnnd/PerAnt/releases 和“从源码构建”https://github.com/W1nnnd/PerAnt#从源码构建-android-apk。用自然简短的状态解释，不要死按钮。后续发布时可以更新此区。
+6. 开发计划不标假日期：当前0.9界面与0.0.1真实模型实测修复完成；接下来更多模型服务、实体手机与低内存启动、本地小模型、后台恢复、混合检索与记忆、内容工作流、iOS运行时验证。当前iOS仅有共享代码和图标，不提供IPA。
 7. 少量真实FAQ：是否完全离线（小模型未接入，云API需用户配置）；是否虚拟机（PRoot用户空间，共用Android内核，非已证明强隔离）；手机支持（ARM64 Android10+，低配真机尚待验收，3GB模拟器冷安装曾超时）；许可（GPL-3.0-only，允许合规商用，不保证禁止套壳销售）。
 8. 页脚 GitHub / README / GPL / OpenDesign设计来源署名。
 

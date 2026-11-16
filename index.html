@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PerAnt · 和小蚁一起，把事情做完</title>
-  <meta name="description" content="PerAnt 以对话为入口，在手机里与模型共用一台 Linux 电脑。小蚁是你的手机个人智能体搭子，目前为 Android 开发预览版 0.9.0。">
+  <meta name="description" content="PerAnt 以对话为入口，在手机里与模型共用一台 Linux 电脑。小蚁是你的手机个人智能体搭子，目前为 Android 开发预览版 0.0.1。">
   <meta name="theme-color" content="#F8F8F3">
   <link rel="canonical" href="https://w1nnnd.github.io/PerAnt/">
   <meta property="og:type" content="website">
@@ -56,7 +56,7 @@
         <div class="hero-copy">
           <p class="hero-tags">
             <span class="tag">Android ARM64</span>
-            <span class="tag tag-quiet">0.9.0 开发预览</span>
+            <span class="tag tag-quiet">0.0.1 开发预览</span>
           </p>
           <h1 id="hero-title" class="hero-title">和小蚁一起，<br>把事情做完。</h1>
           <p class="hero-lede">以对话为入口，在手机里与模型共用一台 Linux 电脑。</p>
@@ -86,7 +86,7 @@
         <header class="section-head">
           <p class="eyebrow">三个入口</p>
           <h2 id="features-title" class="section-title">对话、电脑、文件，都在一部手机里</h2>
-          <p class="section-lede">下面是 0.9.0 开发预览版的真实截图，可以切换查看。</p>
+          <p class="section-lede">下面是开发预览版的真实截图，可以切换查看。0.0.1 在输入框旁多了一个电脑按钮，其余界面相同。</p>
         </header>
 
         <div class="tabs" data-tabs>
@@ -103,7 +103,7 @@
             <div class="panel-copy">
               <p class="panel-index">01 · 对话</p>
               <h3 class="panel-title">从一句话开始</h3>
-              <p>用平常说话的方式，告诉小蚁你想做什么。它会先说清楚打算怎么做；需要动用 Linux 工具时，会先请你授权，再一步步执行。</p>
+              <p>用平常说话的方式，告诉小蚁你想做什么。直接发送是聊天；想让它动手，就点输入框旁的电脑按钮并确认授权，它才会使用 Linux 工具一步步执行。</p>
               <ul class="panel-points">
                 <li>对话是所有事情的入口</li>
                 <li>结构化 Shell 命令逐条确认</li>
@@ -135,10 +135,10 @@
             <div class="panel-copy">
               <p class="panel-index">03 · 文件</p>
               <h3 class="panel-title">文件与成果留在手边</h3>
-              <p>保存下来的网页文字和本机文档都在手机里，随时可以打开查看，文档的历史版本记录在 SQLite 中。本机文档与 Linux 里的 /workspace 分开管理，目前尚未自动同步。</p>
+              <p>保存下来的网页文字和本机文档都在手机里，随时可以打开查看，文档的版本号与确认状态记录在 SQLite 中，暂不保留历史版本的内容。本机文档与 Linux 里的 /workspace 分开管理，目前尚未自动同步。</p>
               <ul class="panel-points">
                 <li>网页正文可以保存下来</li>
-                <li>本机文档版本记录在 SQLite 中</li>
+                <li>本机文档的版本号与确认状态记录在 SQLite 中</li>
                 <li>与 Linux /workspace 分开管理，尚未自动同步</li>
               </ul>
             </div>
@@ -164,7 +164,7 @@
           <li class="step">
             <span class="step-num" aria-hidden="true">2</span>
             <h3 class="step-title">明确授权</h3>
-            <p>要用到工具时，先征得你的同意。</p>
+            <p>点电脑按钮发起任务，每次都先征得你的同意。</p>
           </li>
           <li class="step">
             <span class="step-num" aria-hidden="true">3</span>
@@ -200,7 +200,7 @@
       <div class="container cap-grid">
         <header class="section-head cap-head">
           <p class="eyebrow">当前能力</p>
-          <h2 id="cap-title" class="section-title">0.9.0 预览版里已经有的</h2>
+          <h2 id="cap-title" class="section-title">0.0.1 预览版里已经有的</h2>
           <p class="section-lede">以下能力已在开发预览版中提供，仍在继续打磨。</p>
         </header>
 
@@ -212,14 +212,14 @@
           <li><strong>LibreOffice</strong><span>在 Linux 中处理办公文档</span></li>
           <li><strong>Android WebView</strong><span>在 App 内浏览网页</span></li>
           <li><strong>网页文字保存</strong><span>把网页正文存到手机里</span></li>
-          <li><strong>SQLite 文档版本</strong><span>记录本机文档的历史版本</span></li>
+          <li><strong>SQLite 文档记录</strong><span>保存本机文档、版本号与确认状态</span></li>
         </ul>
 
         <aside class="cap-note" aria-label="资源与运行说明">
           <h3 class="cap-note-title">关于性能与后台</h3>
           <p>桌面画面只在你点开查看时才连接取帧；离开查看页就停止持续取帧。不过 Linux 进程仍可能占用内存。目前不承诺后台常驻运行。</p>
           <h3 class="cap-note-title">尚未完成的部分</h3>
-          <p>真实模型服务的工具闭环尚未完成。模型需要你配置兼容的 API，本地小模型也还没有接入。</p>
+          <p>真实模型协作目前只用 DeepSeek 在模拟器上验证过，其他模型服务和实体手机还没有测；步骤很多的图形操作可能做不完。模型需要你配置兼容的 API，本地小模型也还没有接入。</p>
         </aside>
       </div>
     </section>
@@ -230,18 +230,18 @@
         <div class="download-copy">
           <p class="eyebrow eyebrow-inverse">Android 预览版</p>
           <h2 id="download-title" class="section-title">把小蚁装进手机</h2>
-          <p>下载 0.9.0 Android 开发预览版，按系统提示安装。这个调试包包含本地 Linux 与办公组件，约 518 MiB；首次启动还需要解包空间。</p>
+          <p>下载 0.0.1 Android 开发预览版，按系统提示安装，可以直接覆盖旧的 0.9.0。这个调试包包含本地 Linux 与办公组件，约 518 MiB；首次使用电脑功能还需要解包空间。</p>
           <p>同一发布页提供匹配的 PerAnt 源码、三卷 Linux 对应源码和校验清单。低配实体手机仍待验证，iPhone 安装包尚未提供。</p>
           <div class="download-actions">
-            <a class="btn btn-light" href="https://github.com/W1nnnd/PerAnt/releases/download/v0.9.0-preview/PerAnt-0.9.0-debug-arm64.apk" rel="noopener">下载 Android APK</a>
-            <a class="btn btn-outline-light" href="https://github.com/W1nnnd/PerAnt/releases/tag/v0.9.0-preview" rel="noopener">源码与发布说明</a>
+            <a class="btn btn-light" href="https://github.com/W1nnnd/PerAnt/releases/download/v0.0.1/PerAnt-0.0.1-debug-arm64.apk" rel="noopener">下载 Android APK</a>
+            <a class="btn btn-outline-light" href="https://github.com/W1nnnd/PerAnt/releases/tag/v0.0.1" rel="noopener">源码与发布说明</a>
           </div>
         </div>
 
         <dl class="spec">
           <div class="spec-row">
             <dt>版本</dt>
-            <dd>0.9.0 debug</dd>
+            <dd>0.0.1 debug</dd>
           </div>
           <div class="spec-row">
             <dt>架构</dt>
@@ -253,12 +253,12 @@
           </div>
           <div class="spec-row">
             <dt>文件大小</dt>
-            <dd><span class="od-nowrap">543,584,034 字节</span></dd>
+            <dd><span class="od-nowrap">543,615,667 字节</span></dd>
           </div>
           <div class="spec-row spec-row-hash">
             <dt>SHA256</dt>
             <dd>
-              <code class="hash" id="apk-sha">df28a19867704134053f4d79dd78e10d8d05f18fd25227d2952489b33e06a167</code>
+              <code class="hash" id="apk-sha">aa5e7a9f79c4f00abe5ba78d7a319b60e1a364657c8c566ab47a56ee310e916b</code>
               <button class="copy-btn" type="button" data-copy="#apk-sha">复制</button>
               <span class="copy-status" role="status" aria-live="polite"></span>
             </dd>
@@ -281,9 +281,13 @@
             <span class="rm-status">已完成</span>
             <span class="rm-text">0.9 界面</span>
           </li>
+          <li class="rm-item rm-done">
+            <span class="rm-status">已完成</span>
+            <span class="rm-text">0.0.1 用真实模型跑通对话与电脑协作</span>
+          </li>
           <li class="rm-item">
             <span class="rm-status">接下来</span>
-            <span class="rm-text">真实 API 协作与低内存启动优化</span>
+            <span class="rm-text">更多模型服务、实体手机与低内存启动</span>
           </li>
           <li class="rm-item">
             <span class="rm-status">计划中</span>
