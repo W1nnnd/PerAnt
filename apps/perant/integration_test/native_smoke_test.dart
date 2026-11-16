@@ -83,10 +83,10 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(find.byTooltip('发送消息'), findsOneWidget);
-        await tester.tap(find.byTooltip('资源库'));
+        await tester.tap(find.byTooltip('文件'));
         await tester.pumpAndSettle();
-        expect(find.text('全部文档'), findsOneWidget);
-        await tester.tap(find.text('新建文档'));
+        expect(find.text('我的文件'), findsOneWidget);
+        await tester.tap(find.text('新建'));
         await tester.pumpAndSettle();
         await tester.enterText(find.byType(TextFormField), title);
         await tester.tap(find.text('创建'));
@@ -114,18 +114,19 @@ void main() {
 
         await tester.tap(find.byTooltip('返回'));
         await tester.pumpAndSettle();
-        await tester.tap(find.byTooltip('任务'));
+        await tester.tap(find.byTooltip('菜单'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('任务与操作记录'));
         await tester.pumpAndSettle();
         expect(find.text('还没有任务记录'), findsOneWidget);
-        await tester.tap(find.byTooltip('聊天'));
+        await tester.tap(find.byTooltip('对话'));
         await tester.pumpAndSettle();
-        await tester.tap(find.byTooltip('会话'));
-        await tester.pumpAndSettle();
-        await tester.tap(find.byTooltip('新聊天'));
+        await tester.tap(find.text('新对话'));
         await _waitUntil(
           tester,
           () => first.controller.conversations.length == 2,
-          reason: 'The conversation drawer did not create a persisted thread.',
+          reason:
+              'The new conversation button did not create a persisted thread.',
         );
         final activeConversationId = first.controller.activeConversation.id;
 
@@ -143,7 +144,7 @@ void main() {
         expect(second.controller.conversations, hasLength(2));
         await tester.pumpWidget(PerantApp(controller: second.controller));
         await tester.pumpAndSettle();
-        await tester.tap(find.byTooltip('资源库'));
+        await tester.tap(find.byTooltip('文件'));
         await tester.pumpAndSettle();
         await tester.tap(find.text(title));
         await tester.pumpAndSettle();
@@ -188,7 +189,7 @@ void main() {
       expect(first.controller.profile, isNull);
       await tester.pumpWidget(PerantApp(controller: first.controller));
       await tester.pumpAndSettle();
-      await tester.tap(find.byTooltip('更多'));
+      await tester.tap(find.byTooltip('添加文件与工具'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('本地整理为 Markdown'));
       await tester.pumpAndSettle();
@@ -205,7 +206,8 @@ void main() {
       await tester.tap(find.text('在本地整理'));
       await tester.pump();
       // Test-owned diagnostics distinguish a missed UI gesture from native
-      // execution. They do not change the 100-second completion condition.
+      // execution. The bridge allows 300 seconds for the bundled desktop's
+      // cold installation; allow that plus the bounded Python task and UI IO.
       // ignore: avoid_print
       print(
         'NATIVE_SMOKE_LOCAL_AFTER_TAP ${jsonEncode({'taskCount': first.controller.tasks.length, 'documentCount': first.controller.documents.length, 'isSending': first.controller.isSending, 'error': first.controller.error})}',
@@ -218,7 +220,7 @@ void main() {
               (first.controller.tasks.isNotEmpty &&
                   !first.controller.isSending),
           reason: 'The real Python task did not finish.',
-          timeout: const Duration(seconds: 100),
+          timeout: const Duration(seconds: 350),
         );
       } catch (_) {
         final diagnostics = <String, Object?>{
@@ -297,8 +299,8 @@ void main() {
         ),
         isTrue,
       );
-      expect(find.text('本地工具 · Python'), findsOneWidget);
-      await tester.tap(find.text('打开文档'));
+      expect(find.text('本地 Python 工具'), findsOneWidget);
+      await tester.tap(find.text('已收好，打开文档'));
       await tester.pumpAndSettle();
       edited = '${draft.markdown}\n## 人工确认\n\n已核对原文。\n';
       await tester.enterText(find.byType(TextField), edited);
@@ -333,32 +335,42 @@ void main() {
     } finally {
       await tester.pumpWidget(const SizedBox.shrink());
       await tester.pumpAndSettle();
-      for (final taskId in ownedTasks) {
-        expect(RegExp(r'^local-text-[0-9]+-[0-9]+$').hasMatch(taskId), isTrue);
-        final bridge = PerantPlatformBridge();
-        final cleanupId = 'cleanup-$nonce';
-        final exited = bridge.events.firstWhere(
-          (event) => event.taskId == cleanupId && event.type == 'linuxExit',
-        );
-        await bridge.ensureRuntimeEventsAttached();
-        await bridge.runLinuxCommand(
-          taskId: cleanupId,
-          command: 'rm -rf -- /workspace/.perant-tasks/$taskId',
-        );
-        expect(
-          (await exited.timeout(const Duration(seconds: 10)))
-              .payload['exitCode'],
-          0,
-        );
+      try {
+        for (final taskId in ownedTasks) {
+          expect(
+            RegExp(r'^local-text-[0-9]+-[0-9]+$').hasMatch(taskId),
+            isTrue,
+          );
+          final bridge = PerantPlatformBridge();
+          final status = await bridge.getLinuxStatus();
+          // A failed cold installation never created a guest task directory.
+          // Preserve that original failure instead of masking it in teardown.
+          if (!status.installed || status.active) continue;
+          final cleanupId = 'cleanup-$nonce';
+          final exited = bridge.events.firstWhere(
+            (event) => event.taskId == cleanupId && event.type == 'linuxExit',
+          );
+          await bridge.ensureRuntimeEventsAttached();
+          await bridge.runLinuxCommand(
+            taskId: cleanupId,
+            command: 'rm -rf -- /workspace/.perant-tasks/$taskId',
+          );
+          expect(
+            (await exited.timeout(const Duration(seconds: 10)))
+                .payload['exitCode'],
+            0,
+          );
+        }
+      } finally {
+        for (final workspace in workspaces.reversed) {
+          await workspace.close();
+        }
+        await deleteDatabase(databasePath);
+        network.close();
       }
-      for (final workspace in workspaces.reversed) {
-        await workspace.close();
-      }
-      await deleteDatabase(databasePath);
-      network.close();
     }
     expect(await File(databasePath).exists(), isFalse);
-  }, timeout: const Timeout(Duration(minutes: 4)));
+  }, timeout: const Timeout(Duration(minutes: 7)));
 }
 
 Future<void> _waitUntil(

@@ -34,8 +34,8 @@ void main() {
   });
 
   for (final capture in [
-    (name: 'mobile-chat', size: const Size(390, 844)),
-    (name: 'desktop-chat', size: const Size(1440, 960)),
+    (name: 'offline-widget-mobile-chat', size: const Size(390, 844)),
+    (name: 'offline-widget-wide-single-column', size: const Size(1440, 960)),
   ]) {
     testWidgets('offline render ${capture.name}', (tester) async {
       tester.view.physicalSize = capture.size;
@@ -96,8 +96,33 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      expect(find.text('有什么想聊的，\n或者想交给我做的？'), findsOneWidget);
+      expect(find.text('嗨，我是小蚁。'), findsOneWidget);
       expect(tester.takeException(), isNull);
+
+      // Asset codecs complete outside the widget test's fake clock. Wait for
+      // the actual providers already mounted by the production avatar before
+      // exporting, so an empty ring cannot be accepted as a finished render.
+      final mountedImages = tester
+          .widgetList<Image>(find.byType(Image))
+          .toList();
+      expect(mountedImages, isNotEmpty);
+      Object? imageFailure;
+      final imageContext = tester.element(find.byType(Image).first);
+      await tester.runAsync(() async {
+        for (final mounted in mountedImages) {
+          await precacheImage(
+            mounted.image,
+            imageContext,
+            onError: (error, _) => imageFailure = error,
+          );
+        }
+      });
+      await tester.pumpAndSettle();
+      expect(
+        imageFailure,
+        isNull,
+        reason: 'Production avatar asset must decode.',
+      );
 
       final boundary =
           boundaryKey.currentContext!.findRenderObject()!

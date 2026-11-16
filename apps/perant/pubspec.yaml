@@ -2,7 +2,7 @@
 name: perant
 description: A local-first personal agent workspace for Android and iPhone.
 publish_to: none
-version: 0.8.0+2008
+version: 0.9.0+2009
 resolution: workspace
 environment:
   sdk: '>=3.14.0 <4.0.0'
@@ -33,3 +33,9 @@ dev_dependencies:
     sdk: flutter
 flutter:
   uses-material-design: true
+  assets:
+    - assets/companion/welcome.png
+    - assets/companion/working.png
+    - assets/companion/resting.png
+    - assets/companion/celebrating.png
+    - assets/companion/working.webp

@@ -146,6 +146,210 @@ void main() {
   }
 
   test(
+    'companion preferences survive reopening without changing workspace data',
+    () async {
+      final persistence = _ControlledPersistence();
+      var requests = 0;
+      http.Client client() => MockClient((_) async {
+        requests++;
+        return _response('');
+      });
+      final controller = controllerFor(persistence, client());
+      await controller.initialize();
+      final document = await controller.createDocument(
+        title: '保留的资料',
+        markdown: '# 保留正文',
+      );
+      final conversation = await controller.newConversation();
+
+      await controller.saveCompanionPreferences(
+        name: '  蚁小伴  ',
+        tone: '利落助手',
+        hapticsEnabled: false,
+      );
+      final reopened = controllerFor(persistence, client());
+      await reopened.initialize();
+
+      expect(reopened.state.companionName, '蚁小伴');
+      expect(reopened.state.companionTone, '利落助手');
+      expect(reopened.state.hapticsEnabled, isFalse);
+      expect(reopened.documents.single.id, document.id);
+      expect(reopened.documents.single.markdown, '# 保留正文');
+      expect(reopened.activeConversation.id, conversation.id);
+      expect(requests, 0);
+    },
+  );
+
+  test('invalid companion changes do not reach persistence', () async {
+    final persistence = _ControlledPersistence();
+    final controller = controllerFor(
+      persistence,
+      MockClient((_) async => _response('')),
+    );
+    await controller.initialize();
+    final previous = jsonEncode(persistence.snapshot);
+    final saveEntered = persistence.saveEntered = Completer<void>();
+    for (final name in ['', '  ', '一二三四五六七八九十一二三', '小\n蚁']) {
+      await expectLater(
+        controller.saveCompanionPreferences(
+          name: name,
+          tone: '随和搭子',
+          hapticsEnabled: false,
+        ),
+        throwsArgumentError,
+      );
+    }
+    await expectLater(
+      controller.saveCompanionPreferences(
+        name: '小蚁',
+        tone: '未定义语气',
+        hapticsEnabled: false,
+      ),
+      throwsArgumentError,
+    );
+
+    expect(saveEntered.isCompleted, isFalse);
+    expect(jsonEncode(persistence.snapshot), previous);
+    expect(controller.state.companionName, '小蚁');
+    expect(controller.state.companionTone, '随和搭子');
+    expect(controller.state.hapticsEnabled, isTrue);
+    expect(controller.isConfiguring, isFalse);
+  });
+
+  test('pending companion save commits only after storage and excludes competing writes', () async {
+    final persistence = _ControlledPersistence();
+    final controller = controllerFor(
+      persistence,
+      MockClient((_) async => _response('')),
+    );
+    await controller.initialize();
+    final saveGate = persistence.saveGate = Completer<void>();
+    final saveEntered = persistence.saveEntered = Completer<void>();
+    addTearDown(() {
+      if (!saveGate.isCompleted) saveGate.complete();
+    });
+    final saving = controller.saveCompanionPreferences(
+      name: '蚁小伴',
+      tone: '脑洞伙伴',
+      hapticsEnabled: false,
+    );
+    await saveEntered.future;
+
+    expect(controller.isConfiguring, isTrue);
+    expect(controller.state.companionName, '小蚁');
+    expect(controller.state.companionTone, '随和搭子');
+    expect(controller.state.hapticsEnabled, isTrue);
+    expect(persistence.snapshot['companionName'], '小蚁');
+    await expectLater(
+      controller.saveCompanionPreferences(
+        name: '另一个昵称',
+        tone: '利落助手',
+        hapticsEnabled: true,
+      ),
+      throwsStateError,
+    );
+    await expectLater(controller.newConversation(), throwsStateError);
+    await expectLater(
+      controller.configure(_profile(), _testKey),
+      throwsStateError,
+    );
+    expect(controller.acquireManualTerminal, throwsStateError);
+
+    saveGate.complete();
+    await saving;
+    expect(controller.isConfiguring, isFalse);
+    expect(controller.state.companionName, '蚁小伴');
+    expect(controller.state.companionTone, '脑洞伙伴');
+    expect(controller.state.hapticsEnabled, isFalse);
+    expect(persistence.snapshot['companionName'], '蚁小伴');
+  });
+
+  test(
+    'failed companion save preserves old values and permits an explicit retry',
+    () async {
+      final persistence = _ControlledPersistence();
+      final controller = controllerFor(
+        persistence,
+        MockClient((_) async => _response('')),
+      );
+      await controller.initialize();
+      final previous = jsonEncode(persistence.snapshot);
+      persistence.failuresRemaining = 1;
+
+      await expectLater(
+        controller.saveCompanionPreferences(
+          name: '蚁小伴',
+          tone: '利落助手',
+          hapticsEnabled: false,
+        ),
+        throwsStateError,
+      );
+      expect(controller.state.companionName, '小蚁');
+      expect(controller.state.companionTone, '随和搭子');
+      expect(controller.state.hapticsEnabled, isTrue);
+      expect(controller.isConfiguring, isFalse);
+      expect(jsonEncode(persistence.snapshot), previous);
+
+      await controller.saveCompanionPreferences(
+        name: '蚁小伴',
+        tone: '利落助手',
+        hapticsEnabled: false,
+      );
+      expect((await persistence.load()).companionName, '蚁小伴');
+      expect(controller.state.companionTone, '利落助手');
+      expect(controller.state.hapticsEnabled, isFalse);
+    },
+  );
+
+  test(
+    'active requests and workspace tasks reject companion changes',
+    () async {
+      final persistence = _ControlledPersistence();
+      final controller = controllerFor(
+        persistence,
+        MockClient((_) async => _response('')),
+      );
+      await controller.initialize();
+      final saveEntered = persistence.saveEntered = Completer<void>();
+      for (final setBusy in <void Function(bool)>[
+        (value) => controller.isSending = value,
+        (value) => controller.isTesting = value,
+        (value) => controller.isConfiguring = value,
+        (value) => controller.isLocalTaskRunning = value,
+        (value) => controller.isContainerTaskRunning = value,
+      ]) {
+        setBusy(true);
+        try {
+          await expectLater(
+            controller.saveCompanionPreferences(
+              name: '蚁小伴',
+              tone: '利落助手',
+              hapticsEnabled: false,
+            ),
+            throwsStateError,
+          );
+        } finally {
+          setBusy(false);
+        }
+      }
+      final lease = controller.acquireManualTerminal();
+      await expectLater(
+        controller.saveCompanionPreferences(
+          name: '蚁小伴',
+          tone: '利落助手',
+          hapticsEnabled: false,
+        ),
+        throwsStateError,
+      );
+      controller.releaseManualTerminal(lease);
+
+      expect(saveEntered.isCompleted, isFalse);
+      expect(controller.state.companionName, '小蚁');
+      expect(controller.state.hapticsEnabled, isTrue);
+    },
+  );
+
+  test(
     'document edits persist and a changed draft needs confirmation again',
     () async {
       final persistence = _ControlledPersistence();

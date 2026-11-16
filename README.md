@@ -1,23 +1,39 @@
 # PerAnt
 
+<img src="apps/perant/assets/branding/perant-launcher-icon-1024.png" alt="PerAnt 小蚁 App 图标" width="88">
+
 PerAnt 是一个以对话为入口的手机个人智能体工作台。目标是让用户与模型在同一台本地“电脑”中协作：查看资料、运行 Linux 工具、编辑文件，再把结果带回对话。
 
-当前为 **0.8.0+2008 源码预览版**，主要实现和验证集中在 **Android ARM64**。Flutter 共享界面与业务逻辑，原生组件连接 Linux、桌面和浏览器；复杂任务可使用用户自行配置的 OpenAI 格式兼容 API。**本地小模型、iOS 运行时、长期后台、检索与记忆尚未接入，当前不是完整的双端个人智能体产品。**
+当前版本为 **0.9.0+2009 · 小蚁界面预览版**，主要实现和验证集中在 **Android ARM64**。Flutter 共享界面与业务逻辑，原生组件连接 Linux、桌面和浏览器；复杂任务可使用用户自行配置的 OpenAI 格式兼容 API。**本地小模型、iOS 运行时、长期后台、检索与记忆尚未接入，当前不是完整的双端个人智能体产品。**
+
+[项目首页](https://w1nnnd.github.io/PerAnt/) · [发布记录](https://github.com/W1nnnd/PerAnt/releases) · [0.9 更新说明](docs/releases/0.9.0-preview.md) · [开发计划](#接下来开发什么)
+
+## 下载与安装
+
+**[下载 Android APK · 0.9.0 预览版](https://github.com/W1nnnd/PerAnt/releases/download/v0.9.0-preview/PerAnt-0.9.0-debug-arm64.apk)** · [SHA256 校验清单](https://github.com/W1nnnd/PerAnt/releases/download/v0.9.0-preview/SHA256SUMS) · [同版本对应源码与发布说明](https://github.com/W1nnnd/PerAnt/releases/tag/v0.9.0-preview)
+
+将 APK 下载到手机后打开，按 Android 提示允许安装。已有本机开发版可尝试覆盖安装；如系统提示签名不一致，先保留重要文件，勿直接卸载清除数据。GitHub Release 同时提供三卷 Linux 对应源码与匹配的 PerAnt 源码，普通安装只需 APK；源码重组和校验见[发行材料说明](docs/PUBLIC_BINARY_RELEASE.md)。本机构建见[构建说明](#从源码构建-android-apk)。
+
+安装包要求 **Android 10 / API 29 及以上、64 位 ARM（arm64-v8a）**。当前是包含 Linux 和办公组件的调试包，体积约 **518 MiB**；不支持 32 位 ARM 或 x86，尚无 iPhone 安装包。首次启动还需解包 Linux 资源，请预留额外存储空间；解包后的完整空间预算尚待实测。
+
+APK SHA256：`df28a19867704134053f4d79dd78e10d8d05f18fd25227d2952489b33e06a167`。
 
 ## 界面预览
 
-以下为 Android APK 的真实截图：对话页来自 0.6，电脑与浏览器来自 0.7。点击可查看原图，版本和来源见[截图说明](docs/images/README.md)。
+0.9 将暖白与鼠尾草绿、圆框小蚁头像和「对话 / 电脑 / 文件」三项导航接入正式 Flutter 应用。昵称、界面语气和震动偏好保存在本机；授权、任务和文件操作继续连接真实控制器。迁移范围见 [Concept 06 实现说明](docs/UI_CONCEPT06_IMPLEMENTATION.md)，图标源图与提示词见 [图标说明](apps/perant/assets/branding/README.md)。
+
+以下为 **0.9.0 Android APK** 在模拟器中的真实截图，使用原始图片，未重绘界面。点击可查看原图，版本与来源见[截图说明](docs/images/README.md)。
 
 <table>
   <tr>
     <th>对话优先</th>
-    <th>本地 Linux 电脑</th>
-    <th>原生浏览器</th>
+    <th>我们的工作区</th>
+    <th>我的文件</th>
   </tr>
   <tr>
-    <td><a href="docs/images/chat-android-v06.png"><img src="docs/images/chat-android-v06.png" alt="PerAnt Android 对话首页与模型电脑入口" width="240"></a></td>
-    <td><a href="docs/images/linux-writer-android-v07.png"><img src="docs/images/linux-writer-android-v07.png" alt="模型电脑中运行的 Linux 桌面与 LibreOffice Writer" width="240"></a></td>
-    <td><a href="docs/images/browser-android-v07.png"><img src="docs/images/browser-android-v07.png" alt="PerAnt Android 原生浏览器显示 Example Domain" width="240"></a></td>
+    <td><a href="docs/images/home-android-v09.png"><img src="docs/images/home-android-v09.png" alt="PerAnt Android 对话首页与小蚁" width="240"></a></td>
+    <td><a href="docs/images/computer-android-v09.png"><img src="docs/images/computer-android-v09.png" alt="PerAnt 本地电脑状态与显式查看入口" width="240"></a></td>
+    <td><a href="docs/images/files-android-v09.png"><img src="docs/images/files-android-v09.png" alt="PerAnt 本机资料与电脑工作区入口" width="240"></a></td>
   </tr>
 </table>
 
@@ -35,18 +51,19 @@ PerAnt 是一个以对话为入口的手机个人智能体工作台。目标是�
 
 ## 预览版状态与限制
 
-0.8 的本地验证记录如下，各类检查分别计数，不累加历史版本结果：
+以下为 **0.9.0 在 2026-11-15 的本地验证记录**，不同类型分别计数：
 
-| 检查 | 当前记录 |
+| 检查 | 结果与范围 |
 | --- | --- |
-| 宿主检查 | Dart 252、Python 14、格式与静态分析通过；另 2 项可选截图跳过 |
-| Android JVM | 72/72 通过，属于原生契约与组件检查 |
-| Android 原生集成 | API 36 ARM64 模拟器 19/19：网页保存 4、浏览器 5、容器 7、原生存储/文档 3 |
-| 独立原生发布核心 | 实际 Android ARM64 probe 6/6，与应用集成分别计数 |
-| 本机构建的 0.8 APK | 静态核验、签名及安装摘要一致性通过 |
-| 最终 APK 人工流程 | **未完成**“打开网页 → 保存文字 → 在 Linux 中打开”全流程；未取得手动保存回执或桌面打开证据 |
+| 格式、静态分析与宿主测试 | Dart 280 项、Python 14 项通过；另 2 项可选离线截图跳过 |
+| Android 原生检查 | API 36 ARM64、4 GB / 4 核 / 宿主 GPU 模拟器 3/3；真实凭据存储、SQLite 重开及 Python 文档整理 |
+| 最终 APK 界面 | 360 × 740、390 × 844、430 × 932 三尺寸；键盘返回、草稿保留、弹层、导航与系统图标已核对 |
+| APK 身份 | 0.9.0 / 2009，ARM64；签名、资源和实际安装字节核对通过 |
+| 低配验证 | 3 GB / 2 核 / 软件渲染配置的 Linux 冷安装曾超时，仍需优化 |
 
-人工尝试中，应用可进入聊天和原生空白浏览器，但目标网址未按预期输入或提交；出现输入丢字、重音字符、粘贴无预期内容及一次界面控制超时，根因尚未确认。自动化通过不能替代这项未完成的人工验收。详情及历史结果见[开发状态](docs/DEVELOPMENT_STATUS.md)。
+4 GB 配置同时改变了内存、核心数与渲染方式，不能据此判断超时原因，也不能代替实体低配手机验收。详见 [Concept 06 迁移与验收说明](docs/UI_CONCEPT06_IMPLEMENTATION.md)。
+
+0.8 的浏览器、容器、桌面及 Office 历史检查单独保留在[开发状态](docs/DEVELOPMENT_STATUS.md)，不累计为 0.9 新增通过项。其中“打开网页 → 保存文字 → 在 Linux 中打开”的最终 APK 人工全流程仍未完成。
 
 还需注意以下边界：
 
@@ -58,7 +75,12 @@ PerAnt 是一个以对话为入口的手机个人智能体工作台。目标是�
 
 ## 接下来开发什么
 
-按验收结果推进，不承诺固定完成日期：
+按下面的优先级推进，详细范围以[任务规划书](TASK_PLAN.md)为准：
+
+- **发行维护：** 保持 APK、Linux 对应源码、构建配方、静态依赖与校验清单同步；0.9 已完成对应源码收集、核对与分卷打包流程，后续运行资源变化须重新审阅。
+- **运行基础：** 定位 3 GB 模拟器冷安装超时，测量首启时间、桌面内存与按需显示的释放效果，建立实体低配手机基线。
+
+随后完善以下工作流：
 
 1. **完成 Android 网页到 Linux 的人工闭环。** 定位输入不稳定，验证实际网址输入、保存回执、文件路径和在桌面编辑的全过程，补齐中文输入与异常恢复。
 2. **跑通真实模型协作。** 使用实际兼容 API 验证工具往返、截图、取消和用户接管，完成“模型生成文件 → 用户修改 → 模型重新观察继续”的共享工作流。
@@ -68,11 +90,11 @@ PerAnt 是一个以对话为入口的手机个人智能体工作台。目标是�
 6. **完善可交付的内容工作流。** 先完成文档与会议纪要的导入、整理、版本确认及 DOCX / PDF 导出，再加入课件和网页生成、预览与导出。
 7. **验证 iOS 可行性。** 对 iSH、原生本地推理、文件交换、取消、生命周期与签名分发完成独立验证，再决定双端可用范围；Flutter 共享代码不等于 iPhone 运行时已就绪。
 
-完整关卡、任务范围与未完成项见[任务规划书](TASK_PLAN.md)。本轮网页保存的增量通过，不代表 M0 双端可行性或完整 M1-D 共控关卡完成。
+现有界面与单项检查不代表 M0 双端可行性或完整 M1-D 共控关卡完成。开发顺序会随设备验证结果调整，不承诺固定完成日期。
 
 ## 从源码构建 Android APK
 
-**首次公开仅提供源码，不附带预编译 APK。**模型权重和生成的 Linux 二进制资源也不包含在源码仓库中。APK 可在本机构建；先完成 Linux 组件的对应源码归档与分发材料核对，再安排公开安装包发行。
+模型权重、生成的 Linux 二进制资源和 APK 不提交到 Git 源码仓库。当前可按下面步骤在本机构建；公开安装包状态见[下载与安装](#下载与安装)。
 
 当前工具链基线为 **Flutter 3.50.0 / Dart 3.14.0**、Android SDK API 36、NDK `28.2.13676358`、JDK 17 及以上（本地验证使用 JDK 21）、Python 3、GNU make，以及用于构建 PNG/XPM 兼容库的 Docker。先按 [Flutter 官方说明](https://docs.flutter.dev/install)准备 SDK；完整资源准备要求见[Linux 资源与来源](docs/LINUX_RUNTIME_SOURCES.md)。首次构建需要下载固定版本输入并预留足够磁盘空间。
 
@@ -88,15 +110,15 @@ tool/build-apk
 脚本生成 Android 10 / API 29 及以上、仅 ARM64 的调试包与校验文件：
 
 ```text
-artifacts/apk/PerAnt-0.8.0-debug-arm64.apk
-artifacts/apk/PerAnt-0.8.0-debug-arm64.apk.sha256
+artifacts/apk/PerAnt-0.9.0-debug-arm64.apk
+artifacts/apk/PerAnt-0.9.0-debug-arm64.apk.sha256
 ```
 
 用已授权 USB 调试的 Android 设备安装：
 
 ```sh
 adb devices
-adb install -r artifacts/apk/PerAnt-0.8.0-debug-arm64.apk
+adb install -r artifacts/apk/PerAnt-0.9.0-debug-arm64.apk
 ```
 
 开发调试先执行 `tool/flutterw devices`，再在 `apps/perant` 中运行 `../../tool/flutterw run -d <设备ID>`。移动端以原生 APK 和设备/模拟器验证，不以网页预览替代。
@@ -115,6 +137,7 @@ adb install -r artifacts/apk/PerAnt-0.8.0-debug-arm64.apk
 | `packages/perant_platform` | Android / iOS 原生边界、Linux / JNI PTY、RFB 与 WebView |
 | `tool` | 检查、固定资源准备和 APK 构建脚本 |
 | `third_party/linux` | 固定来源、许可与重建记录 |
+| `website` | OpenDesign 制作的静态项目首页，部署到 GitHub Pages |
 
 进一步阅读：[任务规划书](TASK_PLAN.md) · [架构说明](docs/ARCHITECTURE.md) · [开发状态](docs/DEVELOPMENT_STATUS.md)。项目以个人配合 AI 的方式持续开发，当前优先把 Android 上的真实协作链路做可靠。
 
@@ -122,4 +145,4 @@ adb install -r artifacts/apk/PerAnt-0.8.0-debug-arm64.apk
 
 自研代码使用 **GPL-3.0-only**，见 [LICENSE](LICENSE)。第三方组件保留各自许可、版权与声明，见 [Linux 第三方 NOTICE](third_party/linux/NOTICE.md)和[资源来源说明](docs/LINUX_RUNTIME_SOURCES.md)。
 
-**GPL 允许合规商用、修改和再分发**，不能保证阻止他人合规分支或销售，也不自动授予 PerAnt 品牌使用权。发布二进制时，仍需按各组件许可提供对应版本的完整源码、修改、构建脚本及必要声明；固定下载地址和来源锁本身不等于完成对应源码分发义务。当前对应源码归档尚未完整，因此本次仅公开项目源码，不分发预编译 APK 或生成的 Linux 二进制资源。
+**GPL 允许合规商用、修改和再分发**，不能保证阻止他人合规分支或销售，也不自动授予 PerAnt 品牌使用权。0.9 Release 将 APK、对应版本 Linux 源码分卷、构建配方及校验清单放在同一分发渠道；应用源码由同一发布标签提供。第三方源码收集与闭包审阅见[发行材料](docs/PUBLIC_BINARY_RELEASE.md)，不等于独立清洁重建过每个上游二进制，也不承诺跨工具链逐字节重现。

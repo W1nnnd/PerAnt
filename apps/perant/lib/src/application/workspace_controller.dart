@@ -153,6 +153,37 @@ final class WorkspaceController extends ChangeNotifier {
     _notify();
   }
 
+  /// These preferences affect interface copy and feedback, not model prompts.
+  Future<void> saveCompanionPreferences({
+    required String name,
+    required String tone,
+    required bool hapticsEnabled,
+  }) async {
+    _ensureConfigurationIdle();
+    if (_disposed || isSending || isTesting) {
+      throw StateError('请先结束当前请求，再修改伴侣偏好。');
+    }
+    final normalizedName = WorkspaceState.normalizeCompanionName(name);
+    final validatedTone = WorkspaceState.validateCompanionTone(tone);
+    final candidateSnapshot = {
+      ...state.toJson(),
+      'companionName': normalizedName,
+      'companionTone': validatedTone,
+      'hapticsEnabled': hapticsEnabled,
+    };
+    isConfiguring = true;
+    _notify();
+    try {
+      await _saveSnapshot(candidateSnapshot);
+      state.companionName = normalizedName;
+      state.companionTone = validatedTone;
+      state.hapticsEnabled = hapticsEnabled;
+    } finally {
+      isConfiguring = false;
+      _notify();
+    }
+  }
+
   Future<void> configure(ProviderProfile value, String apiKey) async {
     if (isSending || isTesting || isConfiguring || manualTerminalActive) {
       throw StateError('请先结束当前请求或配置保存，再修改模型配置。');

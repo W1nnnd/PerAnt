@@ -1,0 +1,303 @@
+[
+  {
+    "name": "nix",
+    "version": "0.31.2",
+    "sha256": "5d6d0705320c1e6ba1d912b5e37cf18071b6c2e9b7fa8215a1e8a7651966f5d3",
+    "url": "https://static.crates.io/crates/nix/nix-0.31.2.crate",
+    "evidence": [
+      "recipes/glycin/78ed74f69dc1a13b83b66986968d454e415acf9a/bump-nix.patch",
+      "recipes/libglycin/ce376ccfea45bbc2bede2c6646f170c477c383c1/bump-nix.patch"
+    ],
+    "reason": "Fixed Alpine patches replace the upstream glycin Cargo.lock nix0.30.1 checksum/version and Cargo.toml requirement."
+  },
+  {
+    "name": "pest_generator",
+    "version": "2.8.0",
+    "sha256": "db7d01726be8ab66ab32f9df467ae8b1148906685bbe75c82d1e65d7f5b3f841",
+    "url": "https://static.crates.io/crates/pest_generator/pest_generator-2.8.0.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/pest_generator-2-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "paste",
+    "version": "1.0.14",
+    "sha256": "de3145af08024dea9fa9914f381a17b8fc6034dfb00f3a84013f7ff43f29ed4c",
+    "url": "https://static.crates.io/crates/paste/paste-1.0.14.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/paste-1-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "libc",
+    "version": "0.2.171",
+    "sha256": "c19937216e9d3aa9956d9bb8dfc0b0c8beb6058fc4f7a4dc4d850edf86a237d6",
+    "url": "https://static.crates.io/crates/libc/libc-0.2.171.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/libc-0.2-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "ucd-trie",
+    "version": "0.1.6",
+    "sha256": "ed646292ffc8188ef8ea4d1e0e0150fb15a5c2e12ad9b8fc191ae7a8a7f3c4b9",
+    "url": "https://static.crates.io/crates/ucd-trie/ucd-trie-0.1.6.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/ucd-trie-0.1-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "windows-link",
+    "version": "0.2.0",
+    "sha256": "45e46c0661abb7180e7b9c281db115305d49ca1709ab8242adf09666d2173c65",
+    "url": "https://static.crates.io/crates/windows-link/windows-link-0.2.0.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/windows-link-0.2-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "errno",
+    "version": "0.3.12",
+    "sha256": "cea14ef9355e3beab063703aa9dab15afd25f0667c341310c1e5274bb1d0da18",
+    "url": "https://static.crates.io/crates/errno/errno-0.3.12.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/errno-0.3-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "pest",
+    "version": "2.8.0",
+    "sha256": "198db74531d58c70a361c42201efde7e2591e976d518caf7662a47dc5720e7b6",
+    "url": "https://static.crates.io/crates/pest/pest-2.8.0.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/pest-2-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "rustc-hash",
+    "version": "2.1.1",
+    "sha256": "357703d41365b4b27c590e3ed91eabb1b663f07c4c084095e60cbed4362dff0d",
+    "url": "https://static.crates.io/crates/rustc-hash/rustc-hash-2.1.1.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/rustc-hash-2-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "roxmltree",
+    "version": "0.20.0",
+    "sha256": "6c20b6793b5c2fa6553b250154b78d6d0db37e72700ae35fad9387a46f487c97",
+    "url": "https://static.crates.io/crates/roxmltree/roxmltree-0.20.0.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/roxmltree-0.20-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "pest_derive",
+    "version": "2.8.0",
+    "sha256": "d725d9cfd79e87dccc9341a2ef39d1b6f6353d68c4b33c177febbe1a402c97c5",
+    "url": "https://static.crates.io/crates/pest_derive/pest_derive-2.8.0.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/pest_derive-2-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "cfg-if",
+    "version": "1.0.0",
+    "sha256": "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd",
+    "url": "https://static.crates.io/crates/cfg-if/cfg-if-1.0.0.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/cfg-if-1-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "indexmap",
+    "version": "2.2.6",
+    "sha256": "168fb715dda47215e360912c096649d23d58bf392ac62f73919e831745e40f26",
+    "url": "https://static.crates.io/crates/indexmap/indexmap-2.2.6.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/indexmap-2-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "unicode-ident",
+    "version": "1.0.12",
+    "sha256": "3354b9ac3fae1ff6755cb6db53683adb661634f67557942dea4facebec0fee4b",
+    "url": "https://static.crates.io/crates/unicode-ident/unicode-ident-1.0.12.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/unicode-ident-1-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "remain",
+    "version": "0.2.12",
+    "sha256": "1ad5e011230cad274d0532460c5ab69828ea47ae75681b42a841663efffaf794",
+    "url": "https://static.crates.io/crates/remain/remain-0.2.12.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/remain-0.2-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "equivalent",
+    "version": "1.0.1",
+    "sha256": "5443807d6dff69373d433ab9ef5378ad8df50ca6298caf15de6e52e24aaf54d5",
+    "url": "https://static.crates.io/crates/equivalent/equivalent-1.0.1.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/equivalent-1-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "windows-sys",
+    "version": "0.61.1",
+    "sha256": "6f109e41dd4a3c848907eb83d5a42ea98b3769495597450cf6d153507b166f0f",
+    "url": "https://static.crates.io/crates/windows-sys/windows-sys-0.61.1.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/windows-sys-0.6-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "pest_meta",
+    "version": "2.8.0",
+    "sha256": "7f9f832470494906d1fca5329f8ab5791cc60beb230c74815dff541cbd2b5ca0",
+    "url": "https://static.crates.io/crates/pest_meta/pest_meta-2.8.0.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/pest_meta-2-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "proc-macro2",
+    "version": "1.0.86",
+    "sha256": "5e719e8df665df0d1c8fbfd238015744736151d4445ec0836b8e628aae103b77",
+    "url": "https://static.crates.io/crates/proc-macro2/proc-macro2-1.0.86.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/proc-macro2-1-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "bitflags",
+    "version": "2.9.1",
+    "sha256": "1b8e56985ec62d17e9c1001dc89c88ecd7dc08e47eba5ec7c29c7b5eeecde967",
+    "url": "https://static.crates.io/crates/bitflags/bitflags-2.9.1.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/bitflags-2-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "log",
+    "version": "0.4.27",
+    "sha256": "13dc2df351e3202783a1fe0d44375f7295ffb4049267b0f3018346dc122a1d94",
+    "url": "https://static.crates.io/crates/log/log-0.4.27.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/log-0.4-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "zerocopy",
+    "version": "0.8.13",
+    "sha256": "67914ab451f3bfd2e69e5e9d2ef3858484e7074d63f204fd166ec391b54de21d",
+    "url": "https://static.crates.io/crates/zerocopy/zerocopy-0.8.13.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/zerocopy-0.8-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "once_cell",
+    "version": "1.8.0",
+    "sha256": "692fcb63b64b1758029e0a96ee63e049ce8c5948587f2f7208df04625e5f6b56",
+    "url": "https://static.crates.io/crates/once_cell/once_cell-1.8.0.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/once_cell-1-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "quote",
+    "version": "1.0.35",
+    "sha256": "291ec9ab5efd934aaf503a6466c5d5251535d108ee747472c3977cc5acc868ef",
+    "url": "https://static.crates.io/crates/quote/quote-1.0.35.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/quote-1-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "thiserror",
+    "version": "2.0.11",
+    "sha256": "d452f284b73e6d76dd36758a0c8684b1d5be31f92b89d07fd5822175732206fc",
+    "url": "https://static.crates.io/crates/thiserror/thiserror-2.0.11.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/thiserror-2-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "zerocopy-derive",
+    "version": "0.8.13",
+    "sha256": "7988d73a4303ca289df03316bc490e934accf371af6bc745393cf3c2c5c4f25d",
+    "url": "https://static.crates.io/crates/zerocopy-derive/zerocopy-derive-0.8.13.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/zerocopy-derive-0.8-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "rustix",
+    "version": "1.1.2",
+    "sha256": "cd15f8a2c5551a84d56efdc1cd049089e409ac19a3072d5037a17fd70719ff3e",
+    "url": "https://static.crates.io/crates/rustix/rustix-1.1.2.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/rustix-1-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "thiserror-impl",
+    "version": "2.0.11",
+    "sha256": "26afc1baea8a989337eeb52b6e72a039780ce45c3edfcc9c5b9d112feeb173c2",
+    "url": "https://static.crates.io/crates/thiserror-impl/thiserror-impl-2.0.11.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/thiserror-impl-2-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "syn",
+    "version": "2.0.87",
+    "sha256": "25aa4ce346d03a6dcd68dd8b4010bcb74e54e62c90c573f394c46eae99aba32d",
+    "url": "https://static.crates.io/crates/syn/syn-2.0.87.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/syn-2-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  },
+  {
+    "name": "hashbrown",
+    "version": "0.14.1",
+    "sha256": "7dfda62a12f55daeae5015f81b0baea145391cb4520f86c248fc615d72640d12",
+    "url": "https://static.crates.io/crates/hashbrown/hashbrown-0.14.1.crate",
+    "evidence": [
+      "review-extract/mesa-26.1.6/subprojects/hashbrown-0.14-rs.wrap"
+    ],
+    "reason": "Conservative source superset of every Rust Meson wrap in fixed Mesa source; APKBUILD explicitly replaces six wraps with its separately checksum-verified source inputs."
+  }
+]

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-only
-import 'dart:ui' show ImageFilter;
+import 'dart:async';
 
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +10,8 @@ import 'package:perant_core/perant_core.dart';
 import '../application/workspace_controller.dart';
 import '../data/workspace_state.dart';
 import 'document_editor.dart';
-import 'container_actions.dart';
+import 'companion_avatar.dart';
+import 'computer_workspace_page.dart';
 import 'container_screen.dart';
 import 'desktop_screen.dart';
 import 'computer_browser_screen.dart';
@@ -26,18 +27,33 @@ class WorkspaceShell extends StatefulWidget {
   State<WorkspaceShell> createState() => _WorkspaceShellState();
 }
 
-class _WorkspaceShellState extends State<WorkspaceShell> {
+class _WorkspaceShellState extends State<WorkspaceShell>
+    with WidgetsBindingObserver {
   int _section = 0;
   bool _containerEnabled = false;
+  String? _containerIntentText;
   final _scaffold = GlobalKey<ScaffoldState>();
   final _composer = TextEditingController();
   final _search = TextEditingController();
-  static const _names = ['聊天', '资源库', '任务', '设置'];
+  final _composerFocus = FocusNode();
+  bool _doing = false;
+  bool _resting = false;
+  bool _quickOpen = false;
+  bool _foreground = true;
+  bool _authorizing = false;
+  int _starterSet = 0;
+  int _filesTab = 0;
+  int _pokeToken = 0;
+  String? _pokeText;
+  ProviderProfile? _chatGrantProfile;
+  String? _chatGrantConversation;
+  String? _pendingCommand;
+  Completer<bool>? _commandDecision;
+  static const _names = ['对话', '电脑', '文件'];
   static const _icons = [
     Icons.chat_bubble_outline_rounded,
+    Icons.computer_outlined,
     Icons.folder_outlined,
-    Icons.checklist_rounded,
-    Icons.tune_rounded,
   ];
   WorkspaceController get controller => widget.controller;
   bool get _mutationBusy =>
@@ -47,12 +63,33 @@ class _WorkspaceShellState extends State<WorkspaceShell> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _composer.addListener(_composerChanged);
+    _composerFocus.addListener(_composerChanged);
   }
 
-  void _composerChanged() => setState(() {});
+  void _composerChanged() {
+    if (mounted)
+      setState(() {
+        if (_composer.text == '/') _quickOpen = true;
+        if (_composer.text.trim() != _containerIntentText)
+          _containerEnabled = false;
+      });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (mounted)
+      setState(() => _foreground = state == AppLifecycleState.resumed);
+  }
+
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _composerFocus.removeListener(_composerChanged);
+    _composerFocus.dispose();
+    final pending = _commandDecision;
+    if (pending != null && !pending.isCompleted) pending.complete(false);
     _composer.removeListener(_composerChanged);
     _composer.dispose();
     _search.dispose();
@@ -150,63 +187,139 @@ class _WorkspaceShellState extends State<WorkspaceShell> {
 
   Future<void> _send() async {
     final text = _composer.text.trim();
-    if (text.isEmpty || _mutationBusy) return;
+    if (text.isEmpty || _mutationBusy || controller.isTesting || _authorizing)
+      return;
     if (!controller.canChat) {
+      _composerFocus.unfocus();
       setState(() => _section = 3);
-      _toast('先配置模型，或在资料中直接编辑文档。');
+      _toast('先连接你的模型，输入的文字会保留。');
       return;
     }
-    var useContainer = _containerEnabled;
-    final approved = await showDialog<bool>(
-      context: context,
-      builder: (c) => StatefulBuilder(
-        builder: (c, updateDialog) => AlertDialog(
-          title: const Text('允许本次任务使用云端模型？'),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
+    final selected = controller.profile!;
+    var useContainer = _containerEnabled && _containerIntentText == text;
+    var remember = false;
+    if (!_hasChatGrant || useContainer) {
+      _composerFocus.unfocus();
+      _authorizing = true;
+      bool? approved;
+      try {
+        approved = await _sheet<bool>(
+          title: '允许本次任务使用云端模型？',
+          child: StatefulBuilder(
+            builder: (c, update) => Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  '${controller.profile!.displayName} · ${controller.profile!.modelId}',
+                  '${selected.displayName} · ${selected.modelId}',
                   style: Theme.of(c).textTheme.titleMedium,
                 ),
-                const SizedBox(height: 8),
-                SelectableText(controller.profile!.baseUrl.host),
+                Text(
+                  selected.baseUrl.host,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: PerantColors.muted,
+                  ),
+                ),
                 const SizedBox(height: 16),
+                const Text(
+                  '将要发送',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 8),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: PerantColors.soft,
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: Text(
+                    text,
+                    maxLines: 6,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const SizedBox(height: 14),
                 Text(
                   useContainer
                       ? '本次允许模型操作 Linux 应用与浏览器的键鼠和文字输入，并浏览和修改共享 /workspace 文件。桌面及网页截图、文件内容、工具输出和容器协作历史会发送到以上服务。通过命令工具发起的 Shell 和关闭桌面会单独请求确认。登录、上传或提交等操作仍需你的明确指示。请选择支持图像和工具调用的模型；API 调用由你的服务账户计费。'
-                      : '将发送本次文字及当前页面会话中保留的普通聊天上下文。不包含容器协作历史、资料库文件或长期记忆。API 调用由你的服务账户计费。',
+                      : '将发送这段文字及本次对话保留的普通聊天上下文，不包含电脑协作历史、资料库文件或长期记忆。API 调用由你的服务账户计费。',
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: PerantColors.muted,
+                  ),
                 ),
-                const SizedBox(height: 12),
                 CheckboxListTile(
                   contentPadding: EdgeInsets.zero,
                   title: const Text('允许模型操作容器电脑'),
-                  subtitle: const Text('桌面与浏览器操作、截图及共享文件'),
+                  subtitle: const Text(
+                    '桌面与浏览器操作、截图及共享文件',
+                    style: TextStyle(fontSize: 12),
+                  ),
                   value: useContainer,
-                  onChanged: (value) =>
-                      updateDialog(() => useContainer = value == true),
+                  onChanged: (v) => update(() {
+                    useContainer = v == true;
+                    if (useContainer) remember = false;
+                  }),
                 ),
+                if (!useContainer)
+                  CheckboxListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text(
+                      '这次对话里的聊天，不用每次问我',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                    subtitle: const Text(
+                      '仅限本次运行、同一模型；电脑操作仍单独授权',
+                      style: TextStyle(fontSize: 11),
+                    ),
+                    value: remember,
+                    onChanged: (v) => update(() => remember = v == true),
+                  ),
               ],
             ),
           ),
           actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(c, false),
-              child: const Text('取消'),
+            OutlinedButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text('改一改再发'),
             ),
             FilledButton(
-              onPressed: () => Navigator.pop(c, true),
+              onPressed: () => Navigator.pop(context, true),
               child: const Text('授权并发送'),
             ),
           ],
-        ),
-      ),
-    );
-    if (approved != true || !mounted) return;
-    setState(() => _containerEnabled = useContainer);
+        );
+      } finally {
+        _authorizing = false;
+      }
+      if (approved != true || !mounted) {
+        if (mounted)
+          setState(() {
+            _containerEnabled = false;
+            _containerIntentText = null;
+          });
+        return;
+      }
+      if (!identical(selected, controller.profile) ||
+          !controller.canChat ||
+          _mutationBusy) {
+        _toast('模型或任务状态已变化，请重新确认后发送。');
+        return;
+      }
+    }
+    if (remember && !useContainer) {
+      _chatGrantProfile = selected;
+      _chatGrantConversation = controller.activeConversation.id;
+    }
+    setState(() {
+      _containerEnabled = false;
+      _containerIntentText = null;
+      _resting = false;
+      _quickOpen = false;
+    });
     _composer.clear();
+    _composerFocus.unfocus();
+    unawaited(_haptic());
     try {
       await controller.send(
         text,
@@ -215,72 +328,107 @@ class _WorkspaceShellState extends State<WorkspaceShell> {
         approveContainerCommand: _approveContainerCommand,
       );
     } catch (_) {
-      _toast('任务未能开始，请保留文字后重试。');
-      _composer.text = text;
+      if (mounted) {
+        _toast('任务未能开始，请保留文字后重试。');
+        _composer.text = text;
+      }
+    } finally {
+      final pending = _commandDecision;
+      if (pending != null && !pending.isCompleted) pending.complete(false);
+      if (mounted)
+        setState(() {
+          _pendingCommand = null;
+          _commandDecision = null;
+        });
     }
   }
 
   Future<bool> _approveContainerCommand(String command) async {
     if (!mounted) return false;
-    final stoppingDesktop = command.startsWith('关闭 Linux 图形桌面');
-    final approved = await showDialog<bool>(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => ListenableBuilder(
+    final decision = Completer<bool>();
+    setState(() {
+      _pendingCommand = command;
+      _commandDecision = decision;
+    });
+    unawaited(_haptic());
+    try {
+      return await decision.future;
+    } finally {
+      if (mounted && identical(_commandDecision, decision)) {
+        setState(() {
+          _pendingCommand = null;
+          _commandDecision = null;
+        });
+      }
+    }
+  }
+
+  Future<void> _showCommandSheet() async {
+    final decision = _commandDecision;
+    final command = _pendingCommand;
+    if (decision == null || decision.isCompleted || command == null) return;
+    final stopping = command.startsWith('关闭 Linux 图形桌面');
+    final approved = await _sheet<bool>(
+      title: stopping ? '关闭 Linux 桌面？' : '运行这条 Linux 命令？',
+      child: ListenableBuilder(
         listenable: controller,
-        builder: (context, _) => AlertDialog(
-          title: Text(stoppingDesktop ? '关闭 Linux 桌面？' : '运行这条 Linux 命令？'),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  stoppingDesktop ? '模型请求结束当前图形桌面。请先确认 Linux 应用中需要保留的内容已经保存。' : '模型请求在本机容器中执行，起始目录为 /workspace。命令可以修改容器文件或访问网络；PRoot 不提供强隔离。',
-                ),
-                const SizedBox(height: 16),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(12),
-                  color: PerantColors.soft,
-                  child: SelectableText(
-                    command,
-                    style: const TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-                if (!controller.isContainerTaskRunning) ...[
-                  const SizedBox(height: 12),
-                  const Text('本次任务已结束，不会执行这条命令。'),
-                ],
-              ],
+        builder: (c, _) => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              stopping
+                  ? '请先确认 Linux 应用中需要保留的内容已经保存。'
+                  : '模型请求在本机 /workspace 中执行。这条命令可能修改文件或访问网络；PRoot 不提供强隔离。',
+              style: const TextStyle(fontSize: 13, color: PerantColors.muted),
             ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                controller.cancelActiveTask();
-                Navigator.pop(context, false);
-              },
-              child: const Text('停止任务'),
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: PerantColors.soft,
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: SelectableText(
+                command,
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
+              ),
             ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: const Text('拒绝'),
-            ),
-            FilledButton(
-              onPressed: controller.isContainerTaskRunning
-                  ? () => Navigator.pop(context, true)
-                  : null,
-              child: Text(stoppingDesktop ? '关闭桌面' : '运行命令'),
-            ),
+            if (!controller.isContainerTaskRunning)
+              const Padding(
+                padding: EdgeInsets.only(top: 12),
+                child: Text('本次任务已结束，不会执行这条命令。'),
+              ),
           ],
         ),
       ),
+      actions: [
+        OutlinedButton(
+          onPressed: () => Navigator.pop(context, false),
+          child: const Text('拒绝'),
+        ),
+        ListenableBuilder(
+          listenable: controller,
+          builder: (c, _) => FilledButton(
+            onPressed:
+                controller.isContainerTaskRunning && !decision.isCompleted
+                ? () => Navigator.pop(context, true)
+                : null,
+            child: Text(stopping ? '关闭桌面' : '运行命令'),
+          ),
+        ),
+      ],
     );
-    return approved == true;
+    if (approved != null &&
+        identical(_commandDecision, decision) &&
+        !decision.isCompleted) {
+      decision.complete(approved && controller.isContainerTaskRunning);
+    }
+  }
+
+  void _stopTask() {
+    controller.cancelActiveTask();
+    final decision = _commandDecision;
+    if (decision != null && !decision.isCompleted) decision.complete(false);
   }
 
   Future<void> _showContainer() => Navigator.of(context).push<void>(
@@ -319,6 +467,10 @@ class _WorkspaceShellState extends State<WorkspaceShell> {
       builder: (_) => LocalTextTaskDialog(initialText: _composer.text),
     );
     if (input == null || !mounted) return;
+    setState(() {
+      _resting = false;
+      _quickOpen = false;
+    });
     try {
       final running = controller.generateLocalMarkdown(
         title: input.title,
@@ -337,438 +489,724 @@ class _WorkspaceShellState extends State<WorkspaceShell> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) => ListenableBuilder(
-    listenable: controller,
-    builder: (context, _) {
-      final wide = MediaQuery.sizeOf(context).width >= 960;
-      final keyboardOpen = MediaQuery.viewInsetsOf(context).bottom > 0;
-      final content = switch (_section) {
-        0 => _conversation(wide, keyboardOpen: keyboardOpen),
-        1 => _documents(),
-        2 => _tasks(),
-        _ => ProviderSettings(
-          key: ValueKey(controller.profile?.presetId),
-          controller: controller,
-        ),
-      };
-      return Scaffold(
-        key: _scaffold,
-        drawer: wide
-            ? null
-            : Drawer(
-                backgroundColor: PerantColors.paper,
-                child: SafeArea(child: _threadPanel()),
-              ),
-        body: SafeArea(
-          bottom: false,
-          child: Row(
-            children: [
-              if (wide) _iconRail(),
-              if (wide && _section == 0)
-                SizedBox(width: 252, child: _threadPanel()),
-              Expanded(
-                child: Column(
-                  children: [
-                    _section == 0 ? _chatHeader(wide) : _pageHeader(),
-                    Expanded(child: content),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        bottomNavigationBar: wide || keyboardOpen
-            ? null
-            : _floatingNavigation(),
-      );
-    },
-  );
-
-  Widget _chatHeader(bool wide) => Padding(
-    padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
-    child: Stack(
-      alignment: Alignment.topCenter,
-      children: [
-        Align(
-          alignment: Alignment.topLeft,
-          child: wide
-              ? const SizedBox(width: 48, height: 48)
-              : _roundButton(
-                  icon: Icons.forum_outlined,
-                  label: '会话',
-                  onPressed: () => _scaffold.currentState?.openDrawer(),
-                ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 4),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Semantics(
-                button: true,
-                label: 'PerAnt 状态',
-                child: InkWell(
-                  onTap: _showDesktop,
-                  borderRadius: BorderRadius.circular(32),
-                  child: const Padding(
-                    padding: EdgeInsets.all(4),
-                    child: _Mark(size: 28),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 3),
-              const Text(
-                'PerAnt',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                controller.isConfiguring
-                    ? '正在保存模型配置'
-                    : controller.isSending
-                    ? controller.isContainerTaskRunning
-                          ? '正在操作容器电脑'
-                          : '正在写回复'
-                    : controller.canChat
-                    ? '等待你的消息'
-                    : '连接模型，开始聊天',
-                style: const TextStyle(fontSize: 12, color: PerantColors.muted),
-              ),
-            ],
-          ),
-        ),
-        Align(
-          alignment: Alignment.topRight,
-          child: PopupMenuButton<String>(
-            tooltip: '更多',
-            enabled: !controller.isConfiguring,
-            icon: const Icon(Icons.more_horiz),
-            itemBuilder: (_) => [
-              PopupMenuItem(
-                value: 'new',
-                enabled: !_mutationBusy,
-                child: const Text('新聊天'),
-              ),
-              const PopupMenuItem(value: 'settings', child: Text('模型设置')),
-              const PopupMenuItem(value: 'container', child: Text('容器电脑')),
-              const PopupMenuItem(value: 'desktop', child: Text('查看模型电脑')),
-              const PopupMenuItem(value: 'browser', child: Text('浏览器')),
-              PopupMenuItem(
-                value: 'terminal',
-                enabled: !_mutationBusy && !controller.isTesting,
-                child: const Text('本地终端'),
-              ),
-              PopupMenuItem(
-                value: 'local-text',
-                enabled: !_mutationBusy && !controller.isTesting,
-                child: const Text('本地整理为 Markdown'),
-              ),
-              PopupMenuItem(
-                value: 'document',
-                enabled: !_mutationBusy,
-                child: const Text('新建文档'),
-              ),
-            ],
-            onSelected: (value) async {
-              switch (value) {
-                case 'new':
-                  await _startConversation();
-                case 'settings':
-                  setState(() => _section = 3);
-                case 'terminal':
-                  await _showRuntime();
-                case 'container':
-                  await _showContainer();
-                case 'desktop':
-                  await _showDesktop();
-                case 'browser':
-                  if (mounted)
-                    await Navigator.of(context).push<void>(
-                      MaterialPageRoute(
-                        builder: (_) =>
-                            ComputerBrowserScreen(controller: controller),
-                      ),
-                    );
-                case 'local-text':
-                  await _runLocalTextTask();
-                case 'document':
-                  await _newDocument();
-              }
-            },
-          ),
-        ),
-      ],
-    ),
-  );
-
-  Widget _pageHeader() => Padding(
-    padding: const EdgeInsets.fromLTRB(24, 16, 16, 8),
-    child: Row(
-      children: [
-        Text(_names[_section], style: Theme.of(context).textTheme.titleLarge),
-        const Spacer(),
-        IconButton(
-          onPressed: () => setState(() => _section = 0),
-          tooltip: '回到聊天',
-          icon: const Icon(Icons.chat_bubble_outline_rounded),
-        ),
-      ],
-    ),
-  );
-
-  Widget _roundButton({
-    required IconData icon,
-    required String label,
-    required VoidCallback? onPressed,
-  }) => Container(
-    decoration: const BoxDecoration(
-      color: PerantColors.soft,
-      shape: BoxShape.circle,
-    ),
-    child: IconButton(
-      onPressed: onPressed,
-      tooltip: label,
-      icon: Icon(icon, size: 21),
-    ),
-  );
-
-  Future<void> _startConversation() async {
-    try {
-      await controller.newConversation();
-      _composer.clear();
-      if (mounted) {
-        setState(() => _section = 0);
-        if (_scaffold.currentState?.isDrawerOpen ?? false)
-          _scaffold.currentState?.closeDrawer();
-      }
-    } catch (_) {
-      _toast('请等待当前回复或配置保存完成，再开始新聊天。');
+  TaskRecord? get _conversationTask {
+    final ids = controller.messages.map((m) => m.id).toSet();
+    final actionTasks = controller.containerActions
+        .map((a) => a.taskId)
+        .toSet();
+    for (final task in controller.tasks) {
+      if (actionTasks.contains(task.id) ||
+          (task.cloudAuthorization?.currentSources.any(
+                (s) => ids.contains(s.sourceId),
+              ) ??
+              false) ||
+          controller.messages.any(
+            (m) =>
+                m.source == ChatEntrySource.localPython &&
+                m.createdAt == task.createdAt,
+          ))
+        return task;
     }
+    return null;
   }
 
-  Widget _threadPanel() => Material(
-    color: PerantColors.soft,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 28, 16, 20),
-          child: Row(
-            children: [
-              const Text(
-                '聊天',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-              ),
-              const Spacer(),
-              IconButton(
-                onPressed: _mutationBusy ? null : _startConversation,
-                tooltip: '新聊天',
-                icon: const Icon(Icons.edit_square, size: 22),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            children: [
-              for (final thread in controller.conversations)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 6),
-                  child: ListTile(
-                    selected: controller.activeConversation.id == thread.id,
-                    selectedTileColor: const Color(0xFFE4E4E9),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    leading: const Icon(
-                      Icons.chat_bubble_outline_rounded,
-                      size: 18,
-                    ),
-                    title: Text(
-                      thread.title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                    enabled: !_mutationBusy,
-                    onTap: () async {
-                      await controller.selectConversation(thread.id);
-                      _composer.clear();
-                      if (mounted && MediaQuery.sizeOf(context).width < 960)
-                        _scaffold.currentState?.closeDrawer();
-                    },
-                  ),
-                ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Text(
-            controller.persistence.description,
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-        ),
-      ],
-    ),
-  );
+  CompanionMood get _mood {
+    if (_pendingCommand != null) return CompanionMood.waiting;
+    if (controller.isSending &&
+        !controller.isLocalTaskRunning &&
+        !controller.isContainerTaskRunning)
+      return CompanionMood.thinking;
+    if (controller.isSending || controller.isConfiguring)
+      return CompanionMood.working;
+    if (_resting) return CompanionMood.paused;
+    final task = _conversationTask;
+    if (task?.status == TaskStatus.completed) return CompanionMood.happy;
+    if (task?.status == TaskStatus.manualControl) return CompanionMood.takeover;
+    return CompanionMood.idle;
+  }
 
-  Widget _iconRail() => Material(
-    color: PerantColors.paper,
-    child: Container(
-      width: 76,
-      decoration: const BoxDecoration(
-        border: Border(right: BorderSide(color: PerantColors.line)),
+  String get _status => switch (_mood) {
+    CompanionMood.thinking => '正在准备回复',
+    CompanionMood.working => controller.isConfiguring ? '正在保存设置' : '正在做事',
+    CompanionMood.waiting => '等你确认',
+    CompanionMood.paused => '坐一会儿',
+    CompanionMood.takeover => '由你接管',
+    CompanionMood.happy => '成果已放好',
+    _ => '',
+  };
+
+  bool get _hasChatGrant =>
+      _chatGrantProfile != null &&
+      identical(_chatGrantProfile, controller.profile) &&
+      _chatGrantConversation == controller.activeConversation.id;
+
+  Future<void> _haptic() async {
+    if (controller.state.hapticsEnabled) await HapticFeedback.selectionClick();
+  }
+
+  void _poke() {
+    unawaited(_haptic());
+    if (controller.isSending || controller.isConfiguring) return;
+    final token = ++_pokeToken;
+    setState(() => _pokeText = _resting ? '好，陪你坐一会儿。' : '我在呢。想聊聊，还是一起做点事？');
+    unawaited(
+      Future<void>.delayed(const Duration(seconds: 3), () {
+        if (mounted && token == _pokeToken) setState(() => _pokeText = null);
+      }),
+    );
+  }
+
+  Future<T?> _sheet<T>({
+    required String title,
+    required Widget child,
+    List<Widget> actions = const [],
+  }) => showModalBottomSheet<T>(
+    context: context,
+    isScrollControlled: true,
+    useSafeArea: true,
+    constraints: BoxConstraints(
+      maxWidth: 480,
+      maxHeight: MediaQuery.sizeOf(context).height * .88,
+    ),
+    builder: (sheetContext) => Padding(
+      padding: EdgeInsets.fromLTRB(
+        20,
+        0,
+        20,
+        20 + MediaQuery.viewInsetsOf(sheetContext).bottom,
       ),
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const _Mark(size: 34),
-          const SizedBox(height: 32),
-          for (var index = 0; index < 4; index++)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 14),
-              child: _navigationButton(index),
-            ),
-          const Spacer(),
-          IconButton(
-            onPressed: _showDesktop,
-            tooltip: '查看模型电脑',
-            icon: const Icon(Icons.computer_outlined, size: 22),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              ),
+              IconButton(
+                tooltip: '关闭弹层',
+                onPressed: () => Navigator.pop(sheetContext),
+                icon: const Icon(Icons.close, size: 20),
+              ),
+            ],
           ),
+          const SizedBox(height: 12),
+          Flexible(child: SingleChildScrollView(child: child)),
+          if (actions.isNotEmpty) ...[
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                for (var i = 0; i < actions.length; i++) ...[
+                  if (i > 0) const SizedBox(width: 10),
+                  Expanded(child: actions[i]),
+                ],
+              ],
+            ),
+          ],
         ],
       ),
     ),
   );
 
-  Widget _navigationButton(int index) => IconButton(
-    tooltip: _names[index],
-    onPressed: () => setState(() => _section = index),
-    style: IconButton.styleFrom(
-      backgroundColor: _section == index
-          ? PerantColors.ink
-          : Colors.transparent,
-      foregroundColor: _section == index ? Colors.white : PerantColors.muted,
-      minimumSize: const Size(48, 48),
+  Future<void> _openMenu() async {
+    final action = await _sheet<String>(
+      title: 'PerAnt',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text('陪你想，一起做。', style: TextStyle(color: PerantColors.muted)),
+          const SizedBox(height: 16),
+          _menuRow(Icons.add, '开始新对话', 'new', enabled: !_mutationBusy),
+          const Divider(height: 24),
+          const Text(
+            '最近对话',
+            style: TextStyle(fontSize: 12, color: PerantColors.muted),
+          ),
+          for (final thread in controller.conversations.take(5))
+            _menuRow(
+              Icons.chat_bubble_outline_rounded,
+              thread.title,
+              'thread:${thread.id}',
+              enabled: !_mutationBusy,
+            ),
+          const Divider(height: 24),
+          _menuRow(Icons.face_outlined, '认识小蚁', 'persona'),
+          _menuRow(Icons.tune_rounded, '模型与偏好设置', 'settings'),
+          _menuRow(Icons.checklist_rounded, '任务与操作记录', 'tasks'),
+          _menuRow(Icons.info_outline, '关于 PerAnt', 'about'),
+        ],
+      ),
+    );
+    if (action == null || !mounted) return;
+    if (action.startsWith('thread:')) {
+      await controller.selectConversation(action.substring(7));
+      if (!mounted) return;
+      _composer.clear();
+      setState(() {
+        _section = 0;
+        _resting = false;
+        _chatGrantProfile = null;
+      });
+      return;
+    }
+    switch (action) {
+      case 'new':
+        await _startConversation();
+      case 'persona':
+        await _showPersona();
+      case 'settings':
+        setState(() => _section = 3);
+      case 'tasks':
+        setState(() => _section = 4);
+      case 'about':
+        await _sheet<void>(
+          title: '关于 PerAnt',
+          child: const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('一个陪你想，也陪你做的个人智能体。'),
+              SizedBox(height: 12),
+              Text(
+                'PerAnt 来自 Personal Agent，也藏着一点 Parent 的亲近感。重要决定由你做主，任务进展和操作范围会清楚说明。',
+              ),
+              SizedBox(height: 12),
+              Text(
+                '当前为 Android 开发预览版。本地小模型、长期后台、语义检索和 iOS 运行时仍在开发。自研代码采用 GPL-3.0-only。',
+                style: TextStyle(color: PerantColors.muted),
+              ),
+            ],
+          ),
+        );
+    }
+  }
+
+  Widget _menuRow(
+    IconData icon,
+    String title,
+    String value, {
+    bool enabled = true,
+  }) => Builder(
+    builder: (sheetContext) => ListTile(
+      contentPadding: EdgeInsets.zero,
+      minTileHeight: 50,
+      leading: Icon(icon, color: PerantColors.accent, size: 20),
+      title: Text(
+        title,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: const TextStyle(fontSize: 14),
+      ),
+      trailing: const Icon(
+        Icons.chevron_right,
+        size: 18,
+        color: PerantColors.muted,
+      ),
+      enabled: enabled,
+      onTap: () => Navigator.pop(sheetContext, value),
     ),
-    icon: Icon(_icons[index], size: 22),
   );
 
-  Widget _floatingNavigation() => SafeArea(
-    top: false,
-    child: Padding(
-      padding: const EdgeInsets.fromLTRB(16, 4, 16, 12),
-      child: Align(
-        heightFactor: 1,
-        alignment: Alignment.bottomCenter,
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 420),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(34),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-              child: Container(
-                height: 58,
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: .9),
-                  borderRadius: BorderRadius.circular(34),
-                  border: Border.all(color: PerantColors.line),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    _navigationButton(0),
-                    _navigationButton(1),
-                    IconButton(
-                      tooltip: '模型的电脑',
-                      onPressed: _showDesktop,
-                      style: IconButton.styleFrom(
-                        foregroundColor: PerantColors.muted,
-                        minimumSize: const Size(48, 48),
+  Future<void> _showPersona() async {
+    final name = TextEditingController(text: controller.state.companionName);
+    var tone = controller.state.companionTone;
+    var haptics = controller.state.hapticsEnabled;
+    String? error;
+    var saving = false;
+    try {
+      await showModalBottomSheet<void>(
+        context: context,
+        isScrollControlled: true,
+        useSafeArea: true,
+        constraints: BoxConstraints(
+          maxWidth: 480,
+          maxHeight: MediaQuery.sizeOf(context).height * .88,
+        ),
+        builder: (sheetContext) => ListenableBuilder(
+          listenable: controller,
+          builder: (context, _) => StatefulBuilder(
+            builder: (c, update) => Padding(
+              padding: EdgeInsets.fromLTRB(
+                20,
+                0,
+                20,
+                20 + MediaQuery.viewInsetsOf(c).bottom,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          '认识小蚁',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
                       ),
-                      icon: const Icon(Icons.computer_outlined, size: 22),
+                      IconButton(
+                        tooltip: '关闭弹层',
+                        onPressed: saving ? null : () => Navigator.pop(c),
+                        icon: const Icon(Icons.close, size: 20),
+                      ),
+                    ],
+                  ),
+                  Flexible(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Center(
+                            child: CompanionAvatar(
+                              diameter: 104,
+                              mood: _mood,
+                              label: controller.state.companionName,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          const Text(
+                            '一个陪你想，也陪你做的个人智能体。',
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 8),
+                          const Text(
+                            'PerAnt 来自 Personal Agent，也藏着一点 Parent 的亲近感。能一起做事，也能聊聊日常。要紧的决定留给你。',
+                            style: TextStyle(color: PerantColors.muted),
+                          ),
+                          const SizedBox(height: 20),
+                          TextField(
+                            controller: name,
+                            maxLength: 12,
+                            enabled: !saving,
+                            decoration: const InputDecoration(
+                              labelText: '怎么称呼小蚁',
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          DropdownButtonFormField<String>(
+                            initialValue: tone,
+                            isExpanded: true,
+                            decoration: const InputDecoration(
+                              labelText: '界面语气',
+                            ),
+                            items: [
+                              for (final t in ['随和搭子', '利落助手', '脑洞伙伴'])
+                                DropdownMenuItem(value: t, child: Text(t)),
+                            ],
+                            onChanged: saving
+                                ? null
+                                : (v) => update(() => tone = v!),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 8),
+                            child: Text(
+                              '称呼和语气保存在本机，用于界面问候与轻互动；不会改写模型提示词。',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: PerantColors.muted,
+                              ),
+                            ),
+                          ),
+                          SwitchListTile(
+                            contentPadding: EdgeInsets.zero,
+                            title: const Text('震动反馈'),
+                            value: haptics,
+                            onChanged: saving
+                                ? null
+                                : (v) => update(() => haptics = v),
+                          ),
+                          if (error != null)
+                            Text(
+                              error!,
+                              style: const TextStyle(
+                                color: PerantColors.warning,
+                              ),
+                            ),
+                        ],
+                      ),
                     ),
-                    _navigationButton(2),
-                    _navigationButton(3),
+                  ),
+                  const SizedBox(height: 16),
+                  FilledButton(
+                    onPressed: saving || _mutationBusy
+                        ? null
+                        : () async {
+                            update(() {
+                              saving = true;
+                              error = null;
+                            });
+                            try {
+                              await controller.saveCompanionPreferences(
+                                name: name.text,
+                                tone: tone,
+                                hapticsEnabled: haptics,
+                              );
+                              if (c.mounted) Navigator.pop(c);
+                            } on ArgumentError {
+                              if (c.mounted)
+                                update(() => error = '请填写 1–12 字的称呼。');
+                            } catch (_) {
+                              if (c.mounted)
+                                update(() => error = '偏好未能保存，请结束当前任务或检查设备空间。');
+                            } finally {
+                              if (c.mounted) update(() => saving = false);
+                            }
+                          },
+                    child: Text(saving ? '正在保存…' : '就这样认识你'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    } finally {
+      // The route's closing animation may still reference its controller.
+      await Future<void>.delayed(const Duration(milliseconds: 300));
+      name.dispose();
+    }
+  }
+
+  Future<void> _startConversation() async {
+    try {
+      await controller.newConversation();
+      _composer.clear();
+      if (mounted)
+        setState(() {
+          _section = 0;
+          _resting = false;
+          _quickOpen = false;
+          _chatGrantProfile = null;
+          _chatGrantConversation = null;
+          _containerEnabled = false;
+          _containerIntentText = null;
+          _pokeText = null;
+        });
+    } catch (_) {
+      _toast('请等待当前回复或配置保存完成，再开始新对话。');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => ListenableBuilder(
+    listenable: Listenable.merge([
+      controller,
+      controller.desktop,
+      controller.browser,
+    ]),
+    builder: (context, _) {
+      final keyboardOpen = MediaQuery.viewInsetsOf(context).bottom > 0;
+      final availableHeight =
+          MediaQuery.sizeOf(context).height -
+          MediaQuery.viewInsetsOf(context).bottom -
+          MediaQuery.paddingOf(context).vertical;
+      final home =
+          _section == 0 && controller.messages.isEmpty && !keyboardOpen;
+      final disc = home
+          ? ((MediaQuery.sizeOf(context).height -
+                        MediaQuery.paddingOf(context).vertical -
+                        600) /
+                    1.3)
+                .clamp(84.0, 200.0)
+          : _section == 0 && !keyboardOpen
+          ? 76.0
+          : 52.0;
+      final content = switch (_section) {
+        0 => _conversation(keyboardOpen: keyboardOpen),
+        1 => ComputerWorkspacePage(
+          controller: controller,
+          onViewDesktop: _showDesktop,
+          onOpenBrowser: _showBrowser,
+          onOpenTerminal: _showRuntime,
+          onOpenFiles: _showContainer,
+        ),
+        2 => _documents(),
+        3 => Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 4),
+              child: ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(
+                  Icons.face_outlined,
+                  color: PerantColors.accent,
+                ),
+                title: const Text('称呼与界面偏好'),
+                subtitle: Text(
+                  '${controller.state.companionName} · ${controller.state.companionTone}',
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: _showPersona,
+              ),
+            ),
+            Expanded(
+              child: ProviderSettings(
+                key: ValueKey(controller.profile?.presetId),
+                controller: controller,
+              ),
+            ),
+          ],
+        ),
+        _ => _tasks(),
+      };
+      return PopScope(
+        canPop: _section == 0 && !_quickOpen,
+        onPopInvokedWithResult: (didPop, result) {
+          if (!didPop) {
+            if (_composerFocus.hasFocus) _composerFocus.unfocus();
+            setState(() {
+              _quickOpen = false;
+              _section = 0;
+            });
+          }
+        },
+        child: Scaffold(
+          key: _scaffold,
+          backgroundColor: PerantColors.paper,
+          body: SafeArea(
+            bottom: false,
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 480),
+                child: Column(
+                  children: [
+                    _assistantHeader(
+                      disc,
+                      compact: keyboardOpen && availableHeight < 260,
+                    ),
+                    Expanded(child: content),
+                    if (_section != 0 && !keyboardOpen && controller.isSending)
+                      _taskDock(),
                   ],
                 ),
               ),
             ),
           ),
+          bottomNavigationBar: keyboardOpen ? null : _navigation(),
         ),
+      );
+    },
+  );
+
+  Widget _assistantHeader(double disc, {bool compact = false}) {
+    if (compact)
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: SizedBox(
+          height: 48,
+          child: Row(
+            children: [
+              IconButton(
+                tooltip: '菜单',
+                onPressed: _openMenu,
+                icon: const Icon(Icons.menu_rounded, size: 20),
+              ),
+              Expanded(
+                child: Text(
+                  controller.state.companionName,
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              TextButton.icon(
+                onPressed: _mutationBusy ? null : _startConversation,
+                icon: const Icon(Icons.add, size: 18),
+                label: const Text('新对话'),
+              ),
+            ],
+          ),
+        ),
+      );
+    return SizedBox(
+      width: double.infinity,
+      height: disc * 1.314 + 40,
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          Positioned(
+            left: 12,
+            top: 10,
+            child: _topButton(
+              icon: Icons.menu_rounded,
+              label: '菜单',
+              onPressed: _openMenu,
+            ),
+          ),
+          Positioned(
+            right: 12,
+            top: 10,
+            child: OutlinedButton.icon(
+              onPressed: _mutationBusy ? null : _startConversation,
+              icon: const Icon(Icons.add, size: 18),
+              label: const Text('新对话', style: TextStyle(fontSize: 13)),
+              style: OutlinedButton.styleFrom(
+                backgroundColor: PerantColors.surface,
+                minimumSize: const Size(88, 44),
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                shape: const StadiumBorder(),
+              ),
+            ),
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CompanionAvatar(
+                diameter: disc,
+                mood: _mood,
+                animate: _foreground,
+                onTap: _poke,
+                label:
+                    '${controller.state.companionName}，${_status.isEmpty ? '等你开始' : _status}',
+              ),
+              Transform.translate(
+                offset: const Offset(0, -8),
+                child: SizedBox(
+                  height: 40,
+                  child: TextButton(
+                    onPressed: _showPersona,
+                    style: TextButton.styleFrom(
+                      backgroundColor: PerantColors.surface,
+                      foregroundColor: PerantColors.ink,
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      shape: const StadiumBorder(),
+                      elevation: 1,
+                      shadowColor: const Color(0x22455C3E),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: 7,
+                          height: 7,
+                          decoration: BoxDecoration(
+                            color: _mood == CompanionMood.waiting
+                                ? const Color(0xFFCE943B)
+                                : PerantColors.success,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Flexible(
+                          child: Text(
+                            '${controller.state.companionName}${_status.isEmpty ? '' : ' · $_status'}',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                        ),
+                        if (_status.isEmpty) ...[
+                          const SizedBox(width: 4),
+                          const Icon(Icons.keyboard_arrow_down, size: 14),
+                        ],
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
+    );
+  }
+
+  Widget _topButton({
+    required IconData icon,
+    required String label,
+    required VoidCallback onPressed,
+  }) => DecoratedBox(
+    decoration: BoxDecoration(
+      color: PerantColors.surface,
+      shape: BoxShape.circle,
+      border: Border.all(color: PerantColors.line),
+      boxShadow: const [
+        BoxShadow(
+          color: Color(0x12455C3E),
+          blurRadius: 16,
+          offset: Offset(0, 5),
+        ),
+      ],
+    ),
+    child: IconButton(
+      tooltip: label,
+      onPressed: onPressed,
+      icon: Icon(icon, size: 20),
     ),
   );
 
-  Widget _conversation(bool wide, {required bool keyboardOpen}) => Column(
-    children: [
-      Expanded(
-        child: controller.messages.isEmpty
-            ? _emptyConversation(showComputer: !keyboardOpen)
-            : _messageList(),
-      ),
-      if (controller.error != null)
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-          child: Text(
-            controller.error!,
-            style: const TextStyle(color: PerantColors.muted),
-          ),
-        ),
-      if (controller.containerActions.isNotEmpty &&
-          controller.isContainerTaskRunning)
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          child: ListTile(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-            leading: const Icon(Icons.computer_outlined),
-            title: Text(
-              controller.containerActions.first.summary,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 12),
-            ),
-            subtitle: Text(
-              containerActionStatusLabel(
-                controller.containerActions.first.status,
-              ),
-              style: const TextStyle(fontSize: 12),
-            ),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: _showDesktop,
-          ),
-        ),
-      _composerPanel(wide),
-    ],
-  );
-
-  Widget _emptyConversation({required bool showComputer}) => LayoutBuilder(
-    builder: (context, constraints) => SingleChildScrollView(
+  Widget _navigation() => SafeArea(
+    top: false,
+    child: Center(
+      heightFactor: 1,
       child: ConstrainedBox(
-        constraints: BoxConstraints(minHeight: constraints.maxHeight),
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
+        constraints: const BoxConstraints(maxWidth: 480),
+        child: SizedBox(
+          height: 64,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(
-                '有什么想聊的，\n或者想交给我做的？',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  height: 1.7,
-                  fontWeight: FontWeight.w500,
-                  color: PerantColors.ink.withValues(alpha: .65),
+              for (var i = 0; i < 3; i++)
+                Expanded(
+                  child: Semantics(
+                    selected: _section == i,
+                    child: InkWell(
+                      key: ValueKey('nav-$i'),
+                      onTap: () {
+                        unawaited(_haptic());
+                        setState(() {
+                          _section = i;
+                          _quickOpen = false;
+                        });
+                      },
+                      child: Tooltip(
+                        message: _names[i],
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 54,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                color: _section == i
+                                    ? PerantColors.tintStrong
+                                    : Colors.transparent,
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                              child: Icon(
+                                _icons[i],
+                                color: _section == i
+                                    ? PerantColors.accentDark
+                                    : PerantColors.muted,
+                                size: 21,
+                              ),
+                            ),
+                            const SizedBox(height: 3),
+                            Text(
+                              _names[i],
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: _section == i
+                                    ? PerantColors.accentDark
+                                    : PerantColors.muted,
+                                fontWeight: _section == i
+                                    ? FontWeight.w600
+                                    : FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              if (showComputer) ...[
-                const SizedBox(height: 24),
-                _computerCard(),
-              ],
             ],
           ),
         ),
@@ -776,195 +1214,210 @@ class _WorkspaceShellState extends State<WorkspaceShell> {
     ),
   );
 
-  // Status only: the chat never subscribes to, captures or decodes desktop
-  // frames. Opening DesktopScreen is the explicit foreground viewer action.
-  Widget _computerCard() => ListenableBuilder(
-    listenable: controller.desktop,
-    builder: (context, _) {
-      final desktop = controller.desktop;
-      return ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 340),
-        child: Material(
-          color: PerantColors.soft,
-          borderRadius: BorderRadius.circular(18),
-          clipBehavior: Clip.antiAlias,
-          child: InkWell(
-            onTap: _showDesktop,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  const Icon(Icons.computer_outlined, size: 28),
-                  const SizedBox(width: 14),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          '模型的电脑',
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          desktop.busy
-                              ? '正在准备 Linux 桌面'
-                              : desktop.running
-                              ? '桌面已启动 · 点击继续查看'
-                              : '打开 Linux，一起处理文件与任务',
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: PerantColors.muted,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Icon(Icons.chevron_right, size: 20),
-                ],
+  Widget _conversation({required bool keyboardOpen}) => Column(
+    children: [
+      Expanded(
+        child: LayoutBuilder(
+          builder: (context, box) => Stack(
+            children: [
+              Positioned.fill(
+                child: controller.messages.isEmpty
+                    ? _emptyConversation()
+                    : _messageList(),
               ),
-            ),
+              if (_quickOpen && box.maxHeight >= 96)
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: _quickCommands(),
+                ),
+            ],
           ),
         ),
-      );
-    },
+      ),
+      if (controller.error != null)
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
+          child: Text(
+            controller.error!,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(fontSize: 12, color: PerantColors.warning),
+          ),
+        ),
+      _composerPanel(keyboardOpen),
+    ],
   );
 
-  Widget _composerPanel(bool wide) => Padding(
-    padding: EdgeInsets.fromLTRB(16, 8, 16, wide ? 24 : 8),
-    child: Align(
-      alignment: Alignment.bottomCenter,
+  String get _homeSubtitle => switch (controller.state.companionTone) {
+    '利落助手' => '先理清目标，再一起完成。',
+    '脑洞伙伴' => '从一个小念头，试试新的可能。',
+    _ => '陪你想，一起做。',
+  };
+
+  Widget _emptyConversation() => LayoutBuilder(
+    builder: (context, box) => SingleChildScrollView(
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 4),
       child: ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: wide ? 740 : 420),
+        constraints: BoxConstraints(
+          minHeight: (box.maxHeight - 4).clamp(0, double.infinity),
+        ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
           children: [
-            if (!controller.canChat && !controller.state.onboardingDismissed)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      onPressed: () => setState(() => _section = 3),
-                      child: const Text('连接你的模型'),
-                    ),
-                    TextButton(
-                      onPressed: _mutationBusy
-                          ? null
-                          : controller.dismissOnboarding,
-                      child: const Text('稍后'),
-                    ),
-                  ],
-                ),
-              ),
-            Container(
-              padding: const EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                color: PerantColors.soft,
-                borderRadius: BorderRadius.circular(28),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  IconButton(
-                    onPressed: _mutationBusy ? null : _importDocument,
-                    tooltip: '添加文件',
-                    icon: const Icon(Icons.add, size: 23),
-                  ),
-                  Expanded(
-                    child: TextField(
-                      controller: _composer,
-                      minLines: 1,
-                      maxLines: 5,
-                      maxLength: 20000,
-                      buildCounter: (
-                        context, {
-                        required currentLength,
-                        required isFocused,
-                        maxLength,
-                      }) => null,
-                      enabled: !_mutationBusy,
-                      decoration: const InputDecoration(
-                        hintText: '给 PerAnt 发消息…',
-                        fillColor: Colors.transparent,
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        contentPadding: EdgeInsets.fromLTRB(4, 12, 4, 12),
-                      ),
-                    ),
-                  ),
-                  IconButton.filled(
-                    onPressed: controller.isSending
-                        ? controller.canCancelActiveTask
-                              ? controller.cancelActiveTask
-                              : null
-                        : controller.isConfiguring ||
-                              controller.isTesting ||
-                              _composer.text.trim().isEmpty
-                        ? null
-                        : _send,
-                    tooltip: controller.isSending ? '停止生成' : '发送消息',
-                    icon: Icon(
-                      controller.isSending
-                          ? Icons.stop_rounded
-                          : Icons.arrow_upward_rounded,
-                      size: 21,
-                    ),
-                  ),
-                ],
+            Text(
+              _resting ? '好，坐一会儿。' : '嗨，我是${controller.state.companionName}。',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 24,
+                height: 1.35,
+                fontWeight: FontWeight.w600,
               ),
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: TextButton(
-                      onPressed: _mutationBusy
-                          ? null
-                          : () => setState(() => _section = 3),
+            const SizedBox(height: 4),
+            Text(
+              _pokeText ?? (_resting ? '准备好了，随时一起继续。' : _homeSubtitle),
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 14, color: PerantColors.muted),
+            ),
+            SizedBox(height: box.maxHeight < 380 ? 16 : 20),
+            if (!_resting) ...[
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(3),
+                      decoration: BoxDecoration(
+                        color: PerantColors.soft,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                       child: Row(
-                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Flexible(
-                            child: Text(
-                              controller.profile?.modelId ?? '选择模型',
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: PerantColors.muted,
+                          for (var i = 0; i < 2; i++)
+                            Expanded(
+                              child: InkWell(
+                                onTap: () => setState(() => _doing = i == 1),
+                                borderRadius: BorderRadius.circular(13),
+                                child: Container(
+                                  height: 40,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: _doing == (i == 1)
+                                        ? PerantColors.surface
+                                        : Colors.transparent,
+                                    borderRadius: BorderRadius.circular(13),
+                                  ),
+                                  child: Text(
+                                    i == 0 ? '聊一会儿' : '一起做事',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: _doing == (i == 1)
+                                          ? FontWeight.w600
+                                          : FontWeight.w400,
+                                      color: _doing == (i == 1)
+                                          ? PerantColors.ink
+                                          : PerantColors.muted,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                          const Icon(
-                            Icons.keyboard_arrow_down,
-                            size: 16,
-                            color: PerantColors.muted,
-                          ),
                         ],
                       ),
                     ),
                   ),
+                  const SizedBox(width: 8),
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: PerantColors.soft,
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: IconButton(
+                      onPressed: () =>
+                          setState(() => _starterSet = 1 - _starterSet),
+                      tooltip: '换一组开场',
+                      icon: const Icon(Icons.refresh_rounded, size: 20),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              if (_doing) ...[
+                _starter(
+                  Icons.description_outlined,
+                  '整理一段文字',
+                  '保留原文，整理为 Markdown',
+                  _runLocalTextTask,
                 ),
-                TextButton.icon(
-                  onPressed: _mutationBusy
-                      ? null
-                      : () => setState(
-                          () => _containerEnabled = !_containerEnabled,
-                        ),
-                  icon: Icon(
-                    _containerEnabled
-                        ? Icons.check_circle_outline
-                        : Icons.computer_outlined,
-                    size: 16,
+                _starter(Icons.language, '保存一页网页', '浏览、阅读，把正文收好', _showBrowser),
+                _starter(
+                  Icons.terminal_rounded,
+                  '一起写个小脚本',
+                  '在电脑中创建并运行 Python',
+                  () => _startPrompt(
+                    '请在电脑的 /workspace 中创建 hello.py，输出一条问候，再运行并检查结果。',
+                    container: true,
                   ),
-                  label: Text(
-                    _containerEnabled ? '容器协作已开启' : '容器协作',
-                    style: const TextStyle(fontSize: 12),
-                  ),
+                ),
+              ] else if (_starterSet == 0) ...[
+                _starter(
+                  Icons.layers_outlined,
+                  '脑子有点乱',
+                  '陪我把想法捋一捋',
+                  () => _startPrompt('我脑子有点乱，陪我把眼前的想法和事情捋一捋。'),
+                ),
+                _starter(
+                  Icons.auto_awesome_outlined,
+                  '来一点小灵感',
+                  '给今天一个有趣的开场',
+                  () => _startPrompt('给我一个十分钟就能试试的小灵感。'),
+                ),
+                _starter(
+                  Icons.chat_bubble_outline,
+                  '先轻松一下',
+                  '来个不费脑的小互动',
+                  () => _startPrompt('我们来玩一个三词故事吧，请先给我三个词。'),
+                ),
+              ] else ...[
+                _starter(
+                  Icons.lightbulb_outline,
+                  '换个角度想想',
+                  '一起寻找另一种可能',
+                  () => _startPrompt('我想换个角度思考一件事，请先问我一个简单的问题。'),
+                ),
+                _starter(
+                  Icons.checklist_rounded,
+                  '安排一件小事',
+                  '把想做的事拆成几步',
+                  () => _startPrompt('陪我安排一件今天能完成的小事，请先问问我的目标。'),
+                ),
+                _starter(
+                  Icons.edit_outlined,
+                  '写一句今天',
+                  '给此刻留一小段文字',
+                  () => _startPrompt('陪我给今天写一句话，请用一个问题帮我开始。'),
                 ),
               ],
+            ],
+            const SizedBox(height: 5),
+            TextButton.icon(
+              onPressed: controller.isSending
+                  ? null
+                  : () {
+                      unawaited(_haptic());
+                      setState(() {
+                        _resting = !_resting;
+                        _pokeText = null;
+                      });
+                    },
+              icon: Icon(
+                _resting ? Icons.wb_sunny_outlined : Icons.coffee_outlined,
+                size: 16,
+              ),
+              label: Text(
+                _resting ? '准备开工' : '坐一会儿',
+                style: const TextStyle(fontSize: 12, color: PerantColors.muted),
+              ),
             ),
           ],
         ),
@@ -972,105 +1425,642 @@ class _WorkspaceShellState extends State<WorkspaceShell> {
     ),
   );
 
-  Widget _messageList() => ListView.builder(
-    key: ValueKey(controller.activeConversation.id),
-    reverse: true,
-    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-    itemCount: controller.messages.length,
-    itemBuilder: (context, index) {
-      final message =
-          controller.messages[controller.messages.length - 1 - index];
-      final isUser = message.role == ChatRole.user;
-      return Align(
-        alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 760),
-          child: Container(
-            margin: const EdgeInsets.only(bottom: 24),
-            padding: const EdgeInsets.all(18),
-            decoration: BoxDecoration(
-              color: isUser ? PerantColors.ink : PerantColors.soft,
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  isUser
-                      ? '你'
-                      : message.source == ChatEntrySource.localPython
-                      ? '本地工具 · Python'
-                      : message.source == ChatEntrySource.container
-                      ? '容器协作 · ${controller.profile?.displayName ?? '模型'}'
-                      : controller.profile?.displayName ?? '模型',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: isUser ? Colors.white70 : PerantColors.muted,
-                    fontWeight: FontWeight.w600,
-                  ),
+  Widget _starter(
+    IconData icon,
+    String title,
+    String subtitle,
+    VoidCallback onTap,
+  ) => Padding(
+    padding: const EdgeInsets.only(bottom: 8),
+    child: Material(
+      color: PerantColors.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18),
+        side: const BorderSide(color: PerantColors.line),
+      ),
+      child: InkWell(
+        onTap: _mutationBusy ? null : onTap,
+        borderRadius: BorderRadius.circular(18),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+          child: Row(
+            children: [
+              Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(
+                  color: PerantColors.soft,
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                const SizedBox(height: 10),
-                if (message.text.isEmpty)
-                  Text(
-                    controller.isSending ? '正在等待模型回复…' : '本次未收到文字。',
-                    style: const TextStyle(color: PerantColors.muted),
-                  )
-                else if (isUser)
-                  SelectableText(
-                    message.text,
-                    style: TextStyle(
-                      fontSize: 16,
-                      height: 1.7,
-                      color: Colors.white,
+                child: Icon(icon, color: PerantColors.accentDark, size: 20),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        height: 1.4,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  )
-                else
-                  MarkdownBody(
-                    data: message.text,
-                    selectable: true,
-                    imageBuilder: (uri, title, alt) => Text(alt ?? '图片预览暂不加载'),
-                  ),
-                if (message.documentId != null && !controller.isSending)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 12),
-                    child: TextButton.icon(
-                      onPressed: _mutationBusy
-                          ? null
-                          : () async {
-                              final matches = controller.documents.where(
-                                (document) => document.id == message.documentId,
-                              );
-                              if (matches.isEmpty) {
-                                _toast('文档已从资料库删除。');
-                                return;
-                              }
-                              await _openDocument(matches.first);
-                            },
-                      icon: const Icon(Icons.description_outlined, size: 18),
-                      label: const Text('打开文档'),
+                    Text(
+                      subtitle,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        height: 1.5,
+                        color: PerantColors.muted,
+                      ),
                     ),
-                  )
-                else if (!isUser &&
-                    message.source != ChatEntrySource.localPython &&
-                    message.text.isNotEmpty &&
-                    !controller.isSending)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 12),
-                    child: TextButton.icon(
-                      onPressed: _mutationBusy
-                          ? null
-                          : () => _newDocument(markdown: message.text),
-                      icon: const Icon(Icons.note_add_outlined, size: 18),
-                      label: const Text('保存为文档'),
-                    ),
-                  ),
-              ],
-            ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
-      );
-    },
+      ),
+    ),
   );
+
+  Future<void> _startPrompt(String prompt, {bool container = false}) async {
+    _composer.text = prompt;
+    setState(() {
+      _containerEnabled = container;
+      _containerIntentText = container ? prompt.trim() : null;
+      _resting = false;
+      _quickOpen = false;
+    });
+    await _send();
+  }
+
+  Future<void> _showBrowser() => Navigator.of(context).push<void>(
+    MaterialPageRoute(
+      builder: (_) => ComputerBrowserScreen(controller: controller),
+    ),
+  );
+
+  Future<void> _composerActions() async {
+    final action = await _sheet<String>(
+      title: '添加与工具',
+      child: Column(
+        children: [
+          _menuRow(
+            Icons.file_upload_outlined,
+            '导入 TXT / Markdown',
+            'import',
+            enabled: !_mutationBusy,
+          ),
+          _menuRow(
+            Icons.note_add_outlined,
+            '新建文档',
+            'document',
+            enabled: !_mutationBusy,
+          ),
+          _menuRow(
+            Icons.description_outlined,
+            '本地整理为 Markdown',
+            'local',
+            enabled: !_mutationBusy && !controller.isTesting,
+          ),
+          _menuRow(
+            Icons.terminal_rounded,
+            '本地终端',
+            'terminal',
+            enabled: !_mutationBusy && !controller.isTesting,
+          ),
+        ],
+      ),
+    );
+    if (action == null || !mounted) return;
+    switch (action) {
+      case 'import':
+        await _importDocument();
+      case 'document':
+        await _newDocument();
+      case 'local':
+        await _runLocalTextTask();
+      case 'terminal':
+        await _showRuntime();
+    }
+  }
+
+  Widget _quickCommands() => Container(
+    margin: const EdgeInsets.fromLTRB(12, 0, 12, 8),
+    padding: const EdgeInsets.all(8),
+    decoration: BoxDecoration(
+      color: PerantColors.surface,
+      borderRadius: BorderRadius.circular(18),
+      border: Border.all(color: PerantColors.line),
+    ),
+    child: Material(
+      color: PerantColors.surface,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              const Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(left: 8),
+                  child: Text(
+                    '快捷指令',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+              IconButton(
+                tooltip: '关闭快捷指令',
+                onPressed: () => setState(() => _quickOpen = false),
+                icon: const Icon(Icons.close, size: 18),
+              ),
+            ],
+          ),
+          Flexible(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxHeight: 150),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.lightbulb_outline),
+                      title: const Text('聊聊灵感'),
+                      onTap: () => _startPrompt('给我一个十分钟就能试试的小灵感。'),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.description_outlined),
+                      title: const Text('整理文字'),
+                      onTap: () {
+                        setState(() => _quickOpen = false);
+                        unawaited(_runLocalTextTask());
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.language),
+                      title: const Text('打开浏览器'),
+                      onTap: () {
+                        setState(() => _quickOpen = false);
+                        unawaited(_showBrowser());
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.computer_outlined),
+                      title: const Text('查看电脑'),
+                      onTap: () {
+                        setState(() => _quickOpen = false);
+                        unawaited(_showDesktop());
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+
+  Widget _composerPanel(bool keyboardOpen) => Padding(
+    padding: const EdgeInsets.fromLTRB(12, 6, 12, 0),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            color: PerantColors.surface,
+            borderRadius: BorderRadius.circular(28),
+            border: Border.all(color: PerantColors.line),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x0D24301B),
+                blurRadius: 18,
+                offset: Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              IconButton(
+                onPressed: _mutationBusy ? null : _composerActions,
+                tooltip: '添加文件与工具',
+                icon: const Icon(Icons.add, size: 21),
+                style: IconButton.styleFrom(minimumSize: const Size(40, 44)),
+              ),
+              Expanded(
+                child: TextField(
+                  key: const ValueKey('chat-composer'),
+                  controller: _composer,
+                  focusNode: _composerFocus,
+                  minLines: 1,
+                  maxLines: 4,
+                  maxLength: 20000,
+                  buildCounter: (
+                    context, {
+                    required currentLength,
+                    required isFocused,
+                    maxLength,
+                  }) => null,
+                  enabled: !_mutationBusy,
+                  decoration: const InputDecoration(
+                    hintText: '聊聊今天，或交给我一件事',
+                    hintMaxLines: 1,
+                    hintStyle: TextStyle(
+                      fontSize: 14,
+                      color: PerantColors.muted,
+                    ),
+                    fillColor: Colors.transparent,
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(vertical: 12),
+                  ),
+                ),
+              ),
+              IconButton(
+                onPressed: _mutationBusy
+                    ? null
+                    : () {
+                        _composerFocus.unfocus();
+                        setState(() => _quickOpen = !_quickOpen);
+                      },
+                tooltip: '快捷指令',
+                icon: const Text(
+                  '/',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: PerantColors.accentDark,
+                  ),
+                ),
+                style: IconButton.styleFrom(
+                  backgroundColor: PerantColors.soft,
+                  minimumSize: const Size(40, 40),
+                ),
+              ),
+              const SizedBox(width: 3),
+              IconButton.filled(
+                onPressed: controller.isSending
+                    ? controller.canCancelActiveTask
+                          ? _stopTask
+                          : null
+                    : _mutationBusy ||
+                          controller.isTesting ||
+                          _composer.text.trim().isEmpty
+                    ? null
+                    : _send,
+                tooltip: controller.isSending ? '停止生成' : '发送消息',
+                style: IconButton.styleFrom(minimumSize: const Size(40, 40)),
+                icon: Icon(
+                  controller.isSending
+                      ? Icons.stop_rounded
+                      : Icons.arrow_upward_rounded,
+                  size: 20,
+                ),
+              ),
+            ],
+          ),
+        ),
+        if (!keyboardOpen)
+          SizedBox(
+            height: 36,
+            child: Center(
+              child: _hasChatGrant
+                  ? TextButton(
+                      onPressed: () => setState(() {
+                        _chatGrantProfile = null;
+                        _chatGrantConversation = null;
+                      }),
+                      child: const Text(
+                        '本次对话的聊天已授权 · 撤销',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: PerantColors.muted,
+                        ),
+                      ),
+                    )
+                  : TextButton.icon(
+                      onPressed: () => setState(() => _section = 3),
+                      icon: Icon(
+                        controller.canChat
+                            ? Icons.verified_user_outlined
+                            : Icons.link,
+                        size: 13,
+                        color: PerantColors.muted,
+                      ),
+                      label: Text(
+                        controller.canChat ? '每次任务单独授权' : '连接你的模型 · 也可先使用本地工具',
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: PerantColors.muted,
+                        ),
+                      ),
+                    ),
+            ),
+          ),
+        if (keyboardOpen) const SizedBox(height: 6),
+      ],
+    ),
+  );
+
+  Widget _messageList() {
+    final task = _conversationTask;
+    final messages = controller.messages;
+    final offset = task == null ? 0 : 1;
+    return ListView.builder(
+      key: ValueKey(controller.activeConversation.id),
+      reverse: true,
+      padding: const EdgeInsets.fromLTRB(14, 6, 14, 12),
+      itemCount: messages.length + offset,
+      itemBuilder: (context, index) {
+        if (task != null && index == 0)
+          return Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: _taskCard(task),
+          );
+        return _messageBubble(messages[messages.length - 1 - (index - offset)]);
+      },
+    );
+  }
+
+  Widget _messageBubble(ChatEntry message) {
+    final user = message.role == ChatRole.user;
+    return Align(
+      alignment: user ? Alignment.centerRight : Alignment.centerLeft,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: user ? PerantColors.tintStrong : PerantColors.surface,
+          borderRadius: BorderRadius.circular(20),
+          border: user ? null : Border.all(color: PerantColors.line),
+        ),
+        child: GestureDetector(
+          onLongPress: user || message.text.isEmpty
+              ? null
+              : () => _messageMenu(message),
+          onSecondaryTap: user || message.text.isEmpty
+              ? null
+              : () => _messageMenu(message),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (message.text.isEmpty)
+                const Text(
+                  '正在准备回复…',
+                  style: TextStyle(color: PerantColors.muted),
+                )
+              else if (user)
+                SelectableText(
+                  message.text,
+                  style: const TextStyle(fontSize: 14.5, height: 1.65),
+                )
+              else
+                MarkdownBody(
+                  data: message.text,
+                  selectable: false,
+                  styleSheet: MarkdownStyleSheet(
+                    p: const TextStyle(
+                      fontSize: 14.5,
+                      height: 1.65,
+                      color: PerantColors.ink,
+                    ),
+                  ),
+                  imageBuilder: (uri, title, alt) => Text(alt ?? '图片预览暂不加载'),
+                ),
+              if (message.source == ChatEntrySource.localPython && !user)
+                const Padding(
+                  padding: EdgeInsets.only(top: 8),
+                  child: Text(
+                    '本地 Python 工具',
+                    style: TextStyle(fontSize: 11, color: PerantColors.muted),
+                  ),
+                ),
+              if (message.documentId != null && !controller.isSending)
+                TextButton.icon(
+                  onPressed: () => _openMessageDocument(message),
+                  icon: const Icon(Icons.description_outlined, size: 17),
+                  label: const Text('已收好，打开文档'),
+                )
+              else if (!user &&
+                  message.text.isNotEmpty &&
+                  !controller.isSending &&
+                  message == controller.messages.last)
+                TextButton.icon(
+                  onPressed: _mutationBusy
+                      ? null
+                      : () => _newDocument(markdown: message.text),
+                  icon: const Icon(Icons.description_outlined, size: 17),
+                  label: const Text('把这个灵感收好'),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _openMessageDocument(ChatEntry message) async {
+    final matches = controller.documents.where(
+      (d) => d.id == message.documentId,
+    );
+    if (matches.isEmpty) {
+      _toast('文档已从资料中删除。');
+      return;
+    }
+    await _openDocument(matches.first);
+  }
+
+  Future<void> _messageMenu(ChatEntry message) async {
+    final value = await _sheet<String>(
+      title: '这段回复',
+      child: Column(
+        children: [
+          _menuRow(Icons.copy_outlined, '复制文字', 'copy'),
+          _menuRow(
+            Icons.bookmark_border,
+            message.documentId == null ? '把这个灵感收好' : '打开已保存文档',
+            'save',
+            enabled: !_mutationBusy,
+          ),
+        ],
+      ),
+    );
+    if (value == 'copy') {
+      await Clipboard.setData(ClipboardData(text: message.text));
+      if (mounted) _toast('文字已复制');
+    }
+    if (value == 'save' && mounted) {
+      if (message.documentId != null)
+        await _openMessageDocument(message);
+      else
+        await _newDocument(markdown: message.text);
+    }
+  }
+
+  Widget _taskCard(TaskRecord task) {
+    final waiting =
+        _pendingCommand != null && controller.isContainerTaskRunning;
+    final done = task.status == TaskStatus.completed;
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: PerantColors.surface,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: PerantColors.line),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(
+                  color: waiting ? PerantColors.peach : PerantColors.soft,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  waiting
+                      ? Icons.terminal
+                      : done
+                      ? Icons.check_rounded
+                      : Icons.task_alt,
+                  size: 20,
+                  color: waiting ? PerantColors.warning : PerantColors.accent,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  task.title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontWeight: FontWeight.w600),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                waiting ? '等你确认' : task.status.label,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: waiting ? PerantColors.warning : PerantColors.accent,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          if (task.steps.length > 3)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(
+                '最近 3 步 · 共 ${task.steps.length} 步',
+                style: const TextStyle(fontSize: 11, color: PerantColors.muted),
+              ),
+            ),
+          for (final step in task.steps.skip(
+            task.steps.length > 3 ? task.steps.length - 3 : 0,
+          ))
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Row(
+                children: [
+                  Icon(
+                    step.status == TaskStepStatus.succeeded
+                        ? Icons.check_circle_outline
+                        : step.status == TaskStepStatus.running
+                        ? Icons.radio_button_checked
+                        : Icons.radio_button_unchecked,
+                    size: 17,
+                    color: step.status == TaskStepStatus.succeeded
+                        ? PerantColors.accent
+                        : PerantColors.muted,
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      step.title.replaceFirst(RegExp(r'\s*·\s*画面\s+.*$'), ''),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 13),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          if (task.statusDetail != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(
+                task.statusDetail!,
+                style: const TextStyle(fontSize: 12, color: PerantColors.muted),
+              ),
+            ),
+          if (waiting)
+            FilledButton.icon(
+              onPressed: _showCommandSheet,
+              icon: const Icon(Icons.terminal, size: 18),
+              label: const Text('查看并确认命令'),
+            ),
+          if (controller.isSending)
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton.icon(
+                onPressed: controller.canCancelActiveTask ? _stopTask : null,
+                icon: const Icon(Icons.stop_rounded, size: 16),
+                label: const Text('停止任务'),
+              ),
+            ),
+          if (controller.containerActions.isNotEmpty)
+            TextButton(
+              onPressed: _showContainer,
+              child: const Text('查看操作记录与工作文件'),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _taskDock() {
+    final task = _conversationTask;
+    return Container(
+      margin: const EdgeInsets.fromLTRB(12, 8, 12, 4),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: PerantColors.surface,
+        border: Border.all(color: PerantColors.line),
+        borderRadius: BorderRadius.circular(18),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            _pendingCommand != null ? Icons.terminal : Icons.pending_outlined,
+            color: PerantColors.accent,
+            size: 22,
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              task?.title ?? '任务正在进行',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontSize: 13),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              setState(() => _section = 0);
+            },
+            child: Text(_pendingCommand != null ? '查看命令' : '回到对话'),
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget _documents() {
     final query = _search.text.toLowerCase();
@@ -1078,63 +2068,126 @@ class _WorkspaceShellState extends State<WorkspaceShell> {
         .where((d) => '${d.title}\n${d.markdown}'.toLowerCase().contains(query))
         .toList();
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
-      child: Align(
-        alignment: Alignment.topLeft,
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 900),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+      padding: const EdgeInsets.fromLTRB(18, 4, 18, 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
             children: [
-              Text('全部文档', style: Theme.of(context).textTheme.titleMedium),
-              const SizedBox(height: 12),
-              const Text(
-                '当前支持 TXT 与 Markdown。语义检索、Word 与 PDF 导入将在后续开放。',
-                style: TextStyle(color: PerantColors.muted),
-              ),
-              const SizedBox(height: 24),
-              Wrap(
-                spacing: 12,
-                runSpacing: 12,
-                children: [
-                  FilledButton.icon(
-                    onPressed: _mutationBusy ? null : () => _newDocument(),
-                    icon: const Icon(Icons.add, size: 18),
-                    label: const Text('新建文档'),
-                  ),
-                  OutlinedButton.icon(
-                    onPressed: _mutationBusy ? null : _importDocument,
-                    icon: const Icon(Icons.file_upload_outlined, size: 18),
-                    label: const Text('导入 TXT / MD'),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              TextField(
-                controller: _search,
-                onChanged: (_) => setState(() {}),
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.search),
-                  hintText: '查找标题或正文',
+              const Expanded(
+                child: Text(
+                  '我的文件',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
                 ),
               ),
-              const SizedBox(height: 24),
-              Text(
-                '${documents.length} 份文档',
-                style: Theme.of(context).textTheme.bodySmall,
+              OutlinedButton.icon(
+                onPressed: _mutationBusy ? null : () => _newDocument(),
+                icon: const Icon(Icons.add, size: 17),
+                label: const Text('新建'),
               ),
-              const SizedBox(height: 8),
-              if (documents.isEmpty)
-                _EmptyState(
-                  icon: Icons.folder_open_outlined,
-                  title: query.isEmpty ? '还没有资料' : '没有找到匹配的文档',
-                  body: query.isEmpty ? '从一份空白文档开始，或导入已有的文本。' : '试试另一个关键词。',
-                )
-              else
-                ...documents.map(_documentTile),
             ],
           ),
-        ),
+          const SizedBox(height: 4),
+          const Text(
+            '每次协作的成果，都有迹可循。',
+            style: TextStyle(color: PerantColors.muted, fontSize: 13),
+          ),
+          const SizedBox(height: 18),
+          TextField(
+            controller: _search,
+            onChanged: (_) => setState(() {}),
+            decoration: const InputDecoration(
+              prefixIcon: Icon(Icons.search, size: 20),
+              hintText: '搜索文件名称或正文',
+              contentPadding: EdgeInsets.symmetric(vertical: 12),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              for (var i = 0; i < 2; i++)
+                Semantics(
+                  selected: _filesTab == i,
+                  button: true,
+                  child: InkWell(
+                    onTap: () => setState(() => _filesTab = i),
+                    child: Container(
+                      height: 44,
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: _filesTab == i
+                                ? PerantColors.accent
+                                : Colors.transparent,
+                            width: 1.5,
+                          ),
+                        ),
+                      ),
+                      child: Text(
+                        i == 0 ? '文档资料' : '电脑工作区',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: _filesTab == i
+                              ? PerantColors.accent
+                              : PerantColors.muted,
+                          fontWeight: _filesTab == i
+                              ? FontWeight.w600
+                              : FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          const Divider(height: 1),
+          const SizedBox(height: 14),
+          if (_filesTab == 1) ...[
+            const Text(
+              'Linux 的 /workspace 与文档资料分别存储。网页文字保存在电脑工作区，未自动导入这里。',
+              style: TextStyle(fontSize: 13, color: PerantColors.muted),
+            ),
+            const SizedBox(height: 16),
+            OutlinedButton.icon(
+              onPressed: _showContainer,
+              icon: const Icon(Icons.folder_open_outlined),
+              label: const Text('打开工作文件'),
+            ),
+            const SizedBox(height: 8),
+            TextButton(
+              onPressed: _showDesktop,
+              child: const Text('桌面运行中？在电脑的文件管理器查看'),
+            ),
+          ] else ...[
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    '${documents.length} 份本机 TXT / Markdown 文档',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: PerantColors.muted,
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: _mutationBusy ? null : _importDocument,
+                  child: const Text('导入'),
+                ),
+              ],
+            ),
+            if (documents.isEmpty)
+              _EmptyState(
+                icon: Icons.description_outlined,
+                title: query.isEmpty ? '还没有资料' : '没有找到匹配的文档',
+                body: query.isEmpty ? '新建一份文档，或把对话中的灵感收好。' : '试试另一个关键词。',
+              )
+            else
+              ...documents.map(_documentTile),
+          ],
+        ],
       ),
     );
   }
@@ -1267,24 +2320,6 @@ class _WorkspaceShellState extends State<WorkspaceShell> {
           ],
         ),
       ),
-    ),
-  );
-}
-
-class _Mark extends StatelessWidget {
-  const _Mark({required this.size});
-  final double size;
-  @override
-  Widget build(BuildContext context) => Semantics(
-    label: 'PerAnt',
-    child: Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: PerantColors.accent,
-        borderRadius: BorderRadius.circular(size * .28),
-      ),
-      child: Icon(Icons.grain_rounded, color: Colors.white, size: size * .7),
     ),
   );
 }

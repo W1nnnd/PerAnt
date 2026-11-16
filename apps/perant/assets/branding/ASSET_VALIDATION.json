@@ -1,0 +1,55 @@
+{
+  "companion": [
+    {
+      "file": "welcome.png",
+      "sourceBytesMatched": true,
+      "sha256": "271bf8b23356f6f8a96731c8d53d4ea959238bdae82a492a22256d8f9c819b8e"
+    },
+    {
+      "file": "working.png",
+      "sourceBytesMatched": true,
+      "sha256": "b26ddc66460f13f99e23d75594db47a34bcaf7cebf32ce2105b44d1991b1b2fd"
+    },
+    {
+      "file": "resting.png",
+      "sourceBytesMatched": true,
+      "sha256": "7004018a7d1c86a9ce0083ca84db3d83f361e5307d8eacd40bfea7c901e17be4"
+    },
+    {
+      "file": "celebrating.png",
+      "sourceBytesMatched": true,
+      "sha256": "127e065d6da1e82c6da93c469d9fa2b62be8824fce2bd6e31baa987d0fbca243"
+    },
+    {
+      "file": "working.webp",
+      "sourceBytesMatched": true,
+      "sha256": "257f923d6740c671ba2f2c4bd69dba431c3f20e271fe5d3a853a5eb3edbf7e00"
+    }
+  ],
+  "platformIcons": {
+    "exportedPngCount": 25,
+    "iosPngCount": 15,
+    "allDigestsAndSizesMatched": true,
+    "allIosRgbNoAlpha": true,
+    "androidXmlParsed": true,
+    "safeCircle": {
+      "canvasPixels": 432,
+      "canvasDp": 108,
+      "safeCircleDiameterDp": 66,
+      "meaningfulAlphaThreshold": 8,
+      "maximumMeaningfulAlphaRadiusPixels": 124.6134021684666,
+      "safeCircleRadiusPixels": 132
+    }
+  },
+  "notes": "Resource checks only; final application build and launcher/device rendering are verified separately.",
+  "animation": {
+    "frames": 15,
+    "durationMs": 2560,
+    "size": [
+      512,
+      512
+    ],
+    "bytes": 475188,
+    "transparencyRetained": true
+  }
+}

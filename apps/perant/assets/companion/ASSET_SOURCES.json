@@ -1,0 +1,104 @@
+{
+  "origin": "PerAnt Concept 06 existing original companion assets; copied without visual edits",
+  "assets": [
+    {
+      "asset": "apps/perant/assets/companion/welcome.png",
+      "source": "docs/uiux-demo/assets/perant-companion-v3/welcome.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaBounds": [
+        0,
+        0,
+        1248,
+        1254
+      ],
+      "alphaAbove8Bounds": [
+        200,
+        14,
+        961,
+        1236
+      ],
+      "transparentPixelFraction": 0.6145,
+      "sha256": "271bf8b23356f6f8a96731c8d53d4ea959238bdae82a492a22256d8f9c819b8e",
+      "copiedByteForByte": true
+    },
+    {
+      "asset": "apps/perant/assets/companion/working.png",
+      "source": "docs/uiux-demo/assets/perant-companion-v3/working.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaBounds": [
+        0,
+        24,
+        1240,
+        1254
+      ],
+      "alphaAbove8Bounds": [
+        244,
+        27,
+        953,
+        1216
+      ],
+      "transparentPixelFraction": 0.6131,
+      "sha256": "b26ddc66460f13f99e23d75594db47a34bcaf7cebf32ce2105b44d1991b1b2fd",
+      "copiedByteForByte": true
+    },
+    {
+      "asset": "apps/perant/assets/companion/resting.png",
+      "source": "docs/uiux-demo/assets/perant-companion-v3/resting.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaBounds": [
+        0,
+        15,
+        1244,
+        1239
+      ],
+      "alphaAbove8Bounds": [
+        271,
+        20,
+        945,
+        1236
+      ],
+      "transparentPixelFraction": 0.6032,
+      "sha256": "7004018a7d1c86a9ce0083ca84db3d83f361e5307d8eacd40bfea7c901e17be4",
+      "copiedByteForByte": true
+    },
+    {
+      "asset": "apps/perant/assets/companion/celebrating.png",
+      "source": "docs/uiux-demo/assets/perant-companion-v3/celebrating.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaBounds": [
+        0,
+        0,
+        1226,
+        1254
+      ],
+      "alphaAbove8Bounds": [
+        220,
+        11,
+        967,
+        1240
+      ],
+      "transparentPixelFraction": 0.6117,
+      "sha256": "127e065d6da1e82c6da93c469d9fa2b62be8824fce2bd6e31baa987d0fbca243",
+      "copiedByteForByte": true
+    },
+    {
+      "asset": "apps/perant/assets/companion/working.webp",
+      "source": "docs/uiux-demo/assets/perant-companion-v3/working-anim/working.webp",
+      "width": 512,
+      "height": 512,
+      "mode": "RGBA",
+      "frameCount": 15,
+      "bytes": 475188,
+      "sha256": "257f923d6740c671ba2f2c4bd69dba431c3f20e271fe5d3a853a5eb3edbf7e00",
+      "copiedByteForByte": true
+    }
+  ]
+}

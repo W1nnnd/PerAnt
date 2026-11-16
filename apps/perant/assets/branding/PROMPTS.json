@@ -1,0 +1,27 @@
+{
+  "project": "PerAnt",
+  "asset": "app launcher icon",
+  "mode": "Built-in image_gen with local character reference; no CLI fallback or external API Key used.",
+  "model": "Tool did not expose an exact model identifier.",
+  "reference": "docs/uiux-demo/assets/perant-companion-v3/welcome.png",
+  "existingCompanionAssets": "Four existing PNGs and working.webp were copied byte-for-byte; no redraw or visual edits.",
+  "selected": {
+    "file": "perant-launcher-head-source-v2.png",
+    "prompt": "Use case: identity-preserve. Asset type: PerAnt app-launcher portrait foreground, square transparent PNG. Reference image 1 is PerAnt's exact little sage-green felt ant identity. Make ONLY its large friendly head with both thick rounded antennae fully visible, and at most a very thin cream scarf collar at the very bottom. NO shoulders, NO torso, NO full scarf drape, NO hands, NO pocket, NO scene. Keep the same sage felt hood, cream face, two dark brown oval eyes with small highlights, stitched smile and subtle rosy cheeks. Front-facing, balanced centered head. The overall head-plus-antennae silhouette should be almost square rather than a tall bust, occupying about 86% of the square canvas with clear transparent breathing room on every side. This must be instantly readable as an app launcher icon at 48px. Handmade soft felt 3D texture, refined and clean, no glossy plastic. Do not change the character to an insect illustration, robot, bee or alien. Genuine alpha transparency outside the character; no colored backdrop, disc, border, tile, letters, text, badge, watermark or shadow scene.",
+    "transparentBackground": true,
+    "purpose": "Large head and antennae portrait readable at launcher size.",
+    "generatedOriginalFileName": "exec-6b98d584-ef65-4483-a130-a3749f07465f.png"
+  },
+  "earlierDraft": {
+    "prompt": "Use case: identity-preserve. Asset type: original PerAnt Android/iOS app-launcher mascot foreground. Input image: welcome.png is the exact character identity reference, not an edit target. Create one square high-resolution transparent-background portrait asset of the SAME friendly little ant companion. Preserve its sage-green felt hood/body, cream-white face, two thick rounded sage antennae, dark-brown oval eyes with small cream highlights, tiny stitched smiling mouth, subtle warm cheeks, and the cream knitted scarf. Crop composition as a LARGE clean head-and-short-shoulders portrait, front-facing, calm friendly expression; no full body, no hands, no pocket, no computer, no cup. The head and both antennae must be completely visible with breathing room; centered single subject, wide simple silhouette readable at launcher-icon size. Soft handmade felt 3D texture consistent with the reference, refined and clean edges; avoid excessive fur, tiny decoration, dramatic shadows or a glossy toy look. Outside the head/shoulders is genuinely transparent. No colored square, no disc, no border, no badge, no letters, no text, no watermark. Preserve the recognizable identity of the supplied PerAnt mascot rather than inventing another creature. This will be deterministically scaled/padded into Android adaptive safe areas and flattened over a warm cream background for legacy/iOS icons.",
+    "transparentBackground": true,
+    "generatedOriginalFileName": "exec-3ec0ad07-c34e-46e8-9119-b3eb53d69706.png",
+    "status": "Superseded: tall bust made the face too small at launcher size. Original remains in image_gen's output directory."
+  },
+  "export": "export_icons.py only trims transparent margins, uniformly scales and pads, adds a flat warm cream platform background, creates a monochrome alpha rendition and standard platform sizes. Character pixels are not repainted.",
+  "palette": {
+    "background": "#F8F8F3",
+    "character": "Existing sage felt / cream face / brown eyes identity"
+  },
+  "verification": "See ICON_EXPORTS.json for all byte hashes, sizes, iOS opacity and Android adaptive safe-circle check."
+}

@@ -167,29 +167,32 @@ void main() {
       await tester.tap(find.byTooltip('发送消息'));
       await tester.pumpAndSettle();
       expect(find.text('允许本次任务使用云端模型？'), findsOneWidget);
+      final computerPermission = find.ancestor(
+        of: find.text('允许模型操作容器电脑'),
+        matching: find.byType(CheckboxListTile),
+      );
+      expect(computerPermission, findsOneWidget);
       expect(
-        tester.widget<CheckboxListTile>(find.byType(CheckboxListTile)).value,
+        tester.widget<CheckboxListTile>(computerPermission).value,
         isFalse,
       );
       expect(requests, isEmpty);
 
       await tester.tap(find.text('允许模型操作容器电脑'));
       await tester.pump();
-      expect(
-        tester.widget<CheckboxListTile>(find.byType(CheckboxListTile)).value,
-        isTrue,
-      );
+      expect(tester.widget<CheckboxListTile>(computerPermission).value, isTrue);
       expect(find.textContaining('Linux 应用与浏览器'), findsOneWidget);
       expect(find.textContaining('桌面及网页截图、文件内容、工具输出'), findsOneWidget);
       await tester.tap(find.text('授权并发送'));
       await _pumpUntil(
         tester,
-        () => find.text('运行这条 Linux 命令？').evaluate().isNotEmpty,
+        () => find.text('查看并确认命令').evaluate().isNotEmpty,
         diagnostic: () =>
             'requests=${requests.length}, active=${controller.isSending}, error=${controller.error}, task=${controller.tasks.map((task) => task.statusDetail).toList()}, widgets=${tester.takeException()}',
       );
       await tester.pump(const Duration(milliseconds: 250));
-      expect(find.widgetWithText(SelectableText, _command), findsOneWidget);
+      // A proposal stays pending until the user explicitly opens its sheet.
+      expect(find.text('运行这条 Linux 命令？'), findsNothing);
       expect(controller.activeContainerCommand, _command);
       expect(
         controller.containerActions.single.status,
@@ -198,6 +201,15 @@ void main() {
       expect(nativeStarts, 0);
       expect(requests, hasLength(1));
       expect(requests.single['tools'], isA<List>());
+
+      await tester.ensureVisible(find.text('查看并确认命令'));
+      await tester.tap(find.text('查看并确认命令'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 350));
+      expect(find.text('运行这条 Linux 命令？'), findsOneWidget);
+      expect(find.widgetWithText(SelectableText, _command), findsOneWidget);
+      expect(nativeStarts, 0);
+      expect(requests, hasLength(1));
 
       await tester.tap(find.text('拒绝'));
       await _pumpUntil(tester, () => !controller.isSending);

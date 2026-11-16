@@ -165,16 +165,25 @@ final class ChatEntry {
 }
 
 final class WorkspaceState {
+  static const defaultCompanionName = '小蚁';
+  static const defaultCompanionTone = '随和搭子';
+  static const companionTones = ['随和搭子', '利落助手', '脑洞伙伴'];
+
   WorkspaceState({
     this.profile,
     this.onboardingDismissed = false,
+    String companionName = defaultCompanionName,
+    String companionTone = defaultCompanionTone,
+    this.hapticsEnabled = true,
     List<MarkdownDocument> documents = const [],
     List<ChatEntry> messages = const [],
     List<TaskRecord> tasks = const [],
     List<ContainerAction> containerActions = const [],
     List<ConversationThread> conversations = const [],
     this.activeConversationId = 'main',
-  }) : documents = List.of(documents),
+  }) : companionName = normalizeCompanionName(companionName),
+       companionTone = validateCompanionTone(companionTone),
+       documents = List.of(documents),
        messages = List.of(messages),
        tasks = List.of(tasks),
        containerActions = List.of(containerActions),
@@ -183,12 +192,40 @@ final class WorkspaceState {
   }
   ProviderProfile? profile;
   bool onboardingDismissed;
+  String companionName;
+  String companionTone;
+  bool hapticsEnabled;
   final List<MarkdownDocument> documents;
   final List<ChatEntry> messages;
   final List<TaskRecord> tasks;
   final List<ContainerAction> containerActions;
   final List<ConversationThread> conversations;
   String activeConversationId;
+
+  static String normalizeCompanionName(String value) {
+    final name = value.trim();
+    final characters = name.runes.toList();
+    if (characters.isEmpty ||
+        characters.length > 12 ||
+        characters.any(
+          (character) =>
+              character < 0x20 ||
+              (character >= 0x7f && character <= 0x9f) ||
+              character == 0x2028 ||
+              character == 0x2029 ||
+              (character >= 0xd800 && character <= 0xdfff),
+        )) {
+      throw ArgumentError.value(value, 'name', '昵称需为 1–12 个字符，且不能包含换行或控制字符。');
+    }
+    return name;
+  }
+
+  static String validateCompanionTone(String value) {
+    if (!companionTones.contains(value)) {
+      throw ArgumentError.value(value, 'tone', '请选择随和搭子、利落助手或脑洞伙伴。');
+    }
+    return value;
+  }
 
   /// Additive v1 migration: old messages belong to the main conversation.
   /// Recover missing thread records instead of hiding their existing messages.
@@ -241,6 +278,9 @@ final class WorkspaceState {
     'schemaVersion': 1,
     'profile': profile?.toJson(),
     'onboardingDismissed': onboardingDismissed,
+    'companionName': companionName,
+    'companionTone': companionTone,
+    'hapticsEnabled': hapticsEnabled,
     'conversations': conversations.map((thread) => thread.toJson()).toList(),
     'activeConversationId': activeConversationId,
     'documents': documents
@@ -289,6 +329,26 @@ final class WorkspaceState {
   factory WorkspaceState.fromJson(Map<String, Object?> json) {
     if (json['schemaVersion'] != 1)
       throw const FormatException('不支持的数据版本；原数据未被覆盖。');
+    final companionName = json.containsKey('companionName')
+        ? json['companionName']
+        : defaultCompanionName;
+    final companionTone = json.containsKey('companionTone')
+        ? json['companionTone']
+        : defaultCompanionTone;
+    final hapticsEnabled = json.containsKey('hapticsEnabled')
+        ? json['hapticsEnabled']
+        : true;
+    if (companionName is! String ||
+        companionTone is! String ||
+        hapticsEnabled is! bool) {
+      throw const FormatException('伴侣偏好数据无效；原数据未被覆盖。');
+    }
+    try {
+      normalizeCompanionName(companionName);
+      validateCompanionTone(companionTone);
+    } on ArgumentError {
+      throw const FormatException('伴侣偏好数据无效；原数据未被覆盖。');
+    }
     List<Map<String, Object?>> rows(String key) =>
         (json[key] as List<Object?>? ?? [])
             .map((v) => Map<String, Object?>.from(v! as Map))
@@ -300,6 +360,9 @@ final class WorkspaceState {
               Map<String, Object?>.from(json['profile']! as Map),
             ),
       onboardingDismissed: json['onboardingDismissed'] as bool? ?? false,
+      companionName: companionName,
+      companionTone: companionTone,
+      hapticsEnabled: hapticsEnabled,
       conversations: rows('conversations')
           .map(ConversationThread.fromJson)
           .toList(),

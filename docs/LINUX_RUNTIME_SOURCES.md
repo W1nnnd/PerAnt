@@ -126,10 +126,12 @@ APK 查看器连接同一实际桌面；离页或后台关闭显示连接并清�
 
 桌面包的[许可来源清单](../third_party/linux/licenses/Desktop-package-license-sources.json)保留固定 SPDX 数据版本的 **45 份参考许可文本**、匹配官方文档／运行 APK 提取的 **81 份上游版权/许可文件**、字体原始 OpenType 数据中的 **23 份版权/许可说明**，以及 15 个经固定 SHA512 核验的 Xfce 原始源档和 GdkPixbuf 源档中的 **33 份 COPYING/COPYING.LIB/AUTHORS**；记录原始归档摘要、成员路径与提取来源。兼容库为 **LGPL-2.1-or-later**，原始 COPYING 保留在 `Desktop-source-gdk-pixbuf-2.44.7-COPYING.txt`，自研构建配方与启动脚本为 GPL-3.0-only，不替代该库的 LGPL。参考许可文本不替代各软件自己的版权声明。[desktop-source-recipes.json](../third_party/linux/desktop-source-recipes.json) 固定 **290 个对应 Alpine aports 构建配方**的 commit、路径和 SHA256，来源集合与当前桌面闭包一致，覆盖上游源码 URL、补丁及来源校验值。移除旧桌面归属和 28 个过期下载输入，不继续打包旧组件 APK 或声明。包清单、配方清单、NOTICE、`native-codec.json` 与许可文本均复制到 APK 的 `perant-linux/licenses/`；准备会清理过期副本，离线校验要求文件集合与字节均和仓库原件一致。
 
-公开分发 APK 前仍需在同一分发渠道提供完整对应源码。PRoot、talloc、loader 的源包和精确构建步骤已固定；Alpine 仍需整理 source bundle：按 `alpine-packages.json` 和 `desktop-packages.json` 的 `sourceOrigin` 与 `aportsCommit` 获取对应 aports 目录，保留 APKBUILD、补丁、config/install 脚本，下载各 `source=` 并验证校验值，并纳入静态链接依赖（例如 BusyBox 相关 utmps/skalibs）。现有固定来源清单与许可副本尚不构成完整对应源码包，也不能仅给当前上游首页替代固定源码分发。此仓库当前未发布该 bundle；本轮资源用于本地开发与安装验证。
+公开分发 APK 时，在同一 GitHub Release 附上完整对应源码分卷、校验清单和匹配的 PerAnt 源码版本。0.9.0 已补齐并校验固定 Alpine 配方目录、源归档、静态依赖和 Rust 依赖；清单见 [release-sources.lock.json](../third_party/linux/release-sources.lock.json)，打包与重组方法见[公开安装包与对应源码](PUBLIC_BINARY_RELEASE.md)。发布附件是否已上线，以 Release 实际文件为准；本地生成完成不等于已公开。
 
 LibreOffice 保留自己的 MPL-2.0／第三方许可及品牌，PerAnt 不主张其作者身份；实际安装的 `LICENSE`、`LICENSE.html`、`NOTICE` 另复制进许可来源清单。原生浏览器使用系统提供的 Android 引擎，其二进制不作为 Linux APK 或独立浏览器包重新分发。
 
-上述 **290 份配方仅覆盖桌面库存**。`alpine-packages.json` 的 base 16 包与 Python 14 包共 30 条记录，涉及 21 个直接来源，其中仅 2 个与桌面重合；两份包库存合并为 **385 条包记录、309 个独立的 `sourceOrigin` + `aportsCommit` 组合**。另有 **19 个 base/Python 来源**尚未纳入桌面配方清单，仍需整理其固定配方和完整源归档。309 只是直接包来源的数量；完整二进制对应源码还须包含各固定 aports 的整个目录、所有 `source=` 归档、补丁、配置及安装脚本，以及静态链接或内置依赖。现有来源锁和 290 份配方不构成完整 source bundle，`--fetch-only` 也不会生成该 bundle。本次仅发布开发源码，不公开本地 APK；完整二进制对应源码包仍是单独的发布关卡。
+历史 0.8 源码预览只有 290 份桌面配方，因此未公开 APK。0.9.0 的发布源码清单覆盖合并库存的 **385 条包记录、309 个独立直接来源**，另保留 BusyBox 精确静态依赖 utmps 0.1.3.2／skalibs 2.14.5.0，共 **311 份完整 aports 目录、799 个 SHA512 校验输入**。官方 aarch64 BusyBox 构建日志记录了这两个静态版本及实际链接参数，随源码包保留。原始 Cargo.lock、Alpine 的 nix 版本补丁和 Mesa Meson wrap 合并为 **573 个 SHA256 校验 Rust 源包**；PRoot、talloc、Termux loader 源码、完整固定 Termux 构建框架及 GdkPixbuf 源码与构建脚本另行提供。
+
+清单核对和依赖闭包审阅见[技术审阅记录](LINUX_SOURCE_CLOSURE_REVIEW.md)。它验证实际收集的源码和构建声明，未宣称独立重建过每个上游二进制，也不承诺跨工具链逐字节重现。`tool/prepare-linux-runtime --fetch-only` 仍仅准备运行资源；发布源码使用独立的 `tool/package-linux-sources --fetch`，不会修改运行资源、应用代码或用户数据。
 
 PRoot 路径映射不是安全沙箱。本轮受控探测只在应用 supportDir 创建无敏感标记，guest 经 `/proc/<宿主PID>/root<标记路径>` 尝试读取，结果为不可读；标记随后删除。单路径结果不证明宿主数据无法通过其他方式访问，不据此启用模型任意 Shell 自动执行。实体手机、其他 ROM、低配资源、后台/锁屏续跑与更完整的访问边界仍待验证。

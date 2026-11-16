@@ -129,6 +129,60 @@ void main() {
     );
   });
 
+  test('legacy workspace uses companion defaults without dropping history', () {
+    final restored = WorkspaceState.fromJson({
+      'schemaVersion': 1,
+      'messages': [
+        {
+          'id': 'retained-message',
+          'role': 'user',
+          'text': '保留我的旧对话。',
+          'createdAt': now.toIso8601String(),
+        },
+      ],
+    });
+
+    expect(restored.companionName, '小蚁');
+    expect(restored.companionTone, '随和搭子');
+    expect(restored.hapticsEnabled, isTrue);
+    expect(restored.messages.single.text, '保留我的旧对话。');
+    expect(restored.toJson()['schemaVersion'], 1);
+  });
+
+  test('companion preferences round-trip and count Unicode characters', () {
+    final name = List.filled(12, '🐜').join();
+    final state = WorkspaceState(
+      companionName: '  $name  ',
+      companionTone: '脑洞伙伴',
+      hapticsEnabled: false,
+    );
+    final restored = WorkspaceState.fromJson(
+      jsonDecode(jsonEncode(state.toJson())) as Map<String, Object?>,
+    );
+
+    expect(restored.companionName, name);
+    expect(restored.companionTone, '脑洞伙伴');
+    expect(restored.hapticsEnabled, isFalse);
+  });
+
+  test('malformed stored preferences fail without resetting the workspace', () {
+    for (final values in <Map<String, Object?>>[
+      {'companionName': '  '},
+      {'companionName': '十三个汉字的昵称超过十二字了'},
+      {'companionName': '小\n蚁'},
+      {'companionName': null},
+      {'companionTone': '任意新语气'},
+      {'companionTone': 1},
+      {'hapticsEnabled': 'true'},
+    ]) {
+      expect(
+        () => WorkspaceState.fromJson({'schemaVersion': 1, ...values}),
+        throwsFormatException,
+        reason: values.toString(),
+      );
+    }
+  });
+
   test(
     'saving and reloading a draft keeps edits and invalidated confirmation',
     () async {

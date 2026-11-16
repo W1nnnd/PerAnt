@@ -458,7 +458,7 @@ void main() {
       final controller = await launch(native);
       await tester.pumpWidget(PerantApp(controller: controller));
       await tester.pumpAndSettle();
-      await tester.tap(find.byTooltip('更多'));
+      await tester.tap(find.byTooltip('添加文件与工具'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('本地整理为 Markdown'));
       await tester.pumpAndSettle();
@@ -491,9 +491,9 @@ void main() {
       );
       expect(controller.documents, hasLength(1), reason: detail);
       await tester.pumpAndSettle();
-      expect(find.text('本地工具 · Python'), findsOneWidget);
-      expect(find.text('打开文档'), findsOneWidget);
-      await tester.tap(find.text('打开文档'));
+      expect(find.text('本地 Python 工具'), findsOneWidget);
+      expect(find.text('已收好，打开文档'), findsOneWidget);
+      await tester.tap(find.text('已收好，打开文档'));
       await tester.pumpAndSettle();
       expect(find.text('本地测试'), findsOneWidget);
       expect(find.text('保存并确认'), findsOneWidget);

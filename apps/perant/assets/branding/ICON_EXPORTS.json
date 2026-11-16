@@ -1,0 +1,288 @@
+{
+  "source": {
+    "path": "assets/branding/perant-launcher-head-source-v2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bytes": 1671889,
+    "sha256": "f424c281ad54a8f4719ec64d6bb81d6eb5cfbcb4085e17e9aa65737b3e95f0f4"
+  },
+  "sourceLayoutBoundsAlphaAbove8": [
+    94,
+    120,
+    1159,
+    1154
+  ],
+  "backgroundRgba": [
+    248,
+    248,
+    243,
+    255
+  ],
+  "creativeGeneration": "Built-in image_gen; see PROMPTS.json",
+  "exportOperations": "trim transparent margins, scale uniformly, pad, flatten on one solid color; no character redraw",
+  "androidAdaptive": {
+    "canvasPixels": 432,
+    "canvasDp": 108,
+    "safeCircleDiameterDp": 66,
+    "meaningfulAlphaThreshold": 8,
+    "maximumMeaningfulAlphaRadiusPixels": 124.6134021684666,
+    "safeCircleRadiusPixels": 132
+  },
+  "iosPngOpaqueRgb": true,
+  "iosUniquePngFiles": 15,
+  "outputs": [
+    {
+      "path": "android/app/src/main/res/drawable-nodpi/perant_launcher_foreground.png",
+      "size": [
+        432,
+        432
+      ],
+      "mode": "RGBA",
+      "bytes": 61781,
+      "sha256": "05dbae96002c8c73619f52b77e890d8346c13cb194511ccdda3c456d2d8f903c"
+    },
+    {
+      "path": "android/app/src/main/res/drawable-nodpi/perant_launcher_monochrome.png",
+      "size": [
+        432,
+        432
+      ],
+      "mode": "RGBA",
+      "bytes": 12574,
+      "sha256": "b667136e6684a346bad5fb8143e9fbc87c55b1a8f552974ac3babbba1a41f9cb"
+    },
+    {
+      "path": "assets/branding/perant-launcher-icon-1024.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "bytes": 662545,
+      "sha256": "de76f9028d5b9fcf97146bca4087b7e55e1d2fc55d357ecea0250325b95f4144"
+    },
+    {
+      "path": "assets/branding/perant-launcher-preview-64.png",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "RGB",
+      "bytes": 4347,
+      "sha256": "150f1da076dba1b010081b976e9dbadc604c9551dfc4b017a3ed8f061312d0c1"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-mdpi/ic_launcher.png",
+      "size": [
+        48,
+        48
+      ],
+      "mode": "RGB",
+      "bytes": 2825,
+      "sha256": "287bdc3675d3f5d67dc8d6e8fbe3fa1d6f617c08f0e93809d9f9318b6eb7182f"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-hdpi/ic_launcher.png",
+      "size": [
+        72,
+        72
+      ],
+      "mode": "RGB",
+      "bytes": 5180,
+      "sha256": "c68f35d3f39fe7739c80c169ff5882917a2fbd4372ba532024cf7ce069e8e176"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-xhdpi/ic_launcher.png",
+      "size": [
+        96,
+        96
+      ],
+      "mode": "RGB",
+      "bytes": 8181,
+      "sha256": "0e4f46c84010a31924de77c15ea4dcf2fe8944bc01695025ea93f45f5c04be12"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png",
+      "size": [
+        144,
+        144
+      ],
+      "mode": "RGB",
+      "bytes": 16299,
+      "sha256": "3e7233d12d8039a23cc7d67542f0ea8b15d201c148e63d3fe6856140e2eafe8d"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png",
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGB",
+      "bytes": 27220,
+      "sha256": "54ae486b3bd9ecfc3f08ac0cd3e83b994acb0b05574c26259bbecca5ffc66b49"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png",
+      "size": [
+        40,
+        40
+      ],
+      "mode": "RGB",
+      "bytes": 2150,
+      "sha256": "226df6685761bb89962a3f4123651ce38f09ffbff51be8896bf0ff1ef2040937"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png",
+      "size": [
+        60,
+        60
+      ],
+      "mode": "RGB",
+      "bytes": 3893,
+      "sha256": "c2392c32b70104ad6c4ff4bda675a27c20c8490723f9ad5f35a3dee70ad97f74"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png",
+      "size": [
+        29,
+        29
+      ],
+      "mode": "RGB",
+      "bytes": 1396,
+      "sha256": "1849e32f0f70dc50a88c7f73aee342fb625e767026f433ca5b9e4d8764d0e839"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png",
+      "size": [
+        58,
+        58
+      ],
+      "mode": "RGB",
+      "bytes": 3724,
+      "sha256": "bfd973310969c735840cd03805fe959fb0e5757b3d81c773a1df90204e1cd739"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png",
+      "size": [
+        87,
+        87
+      ],
+      "mode": "RGB",
+      "bytes": 6949,
+      "sha256": "79a3afebdc927f048bb061c1601589886bffc59770f74beb8c7a9d3b4c0f2824"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png",
+      "size": [
+        80,
+        80
+      ],
+      "mode": "RGB",
+      "bytes": 6048,
+      "sha256": "7b8a0a509e2b2bd2a0f91e19a0ae77d8de64cb85e545aa089afa99a7b3a00198"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png",
+      "size": [
+        120,
+        120
+      ],
+      "mode": "RGB",
+      "bytes": 11914,
+      "sha256": "931c291f7d82bd8ba503858d0661c4431dcf2e8b53a878d4102db4267aa8227b"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png",
+      "size": [
+        120,
+        120
+      ],
+      "mode": "RGB",
+      "bytes": 11914,
+      "sha256": "931c291f7d82bd8ba503858d0661c4431dcf2e8b53a878d4102db4267aa8227b"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png",
+      "size": [
+        180,
+        180
+      ],
+      "mode": "RGB",
+      "bytes": 24225,
+      "sha256": "d58841210da253ba3889a6486496b104254cf75b7bb9a9bc5c84ced177b28e5d"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png",
+      "size": [
+        20,
+        20
+      ],
+      "mode": "RGB",
+      "bytes": 864,
+      "sha256": "313d0eb437bbfadf8e1cbd1e9dc15b1c4527f87232601f39c5d1c3a3fc02b018"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png",
+      "size": [
+        40,
+        40
+      ],
+      "mode": "RGB",
+      "bytes": 2150,
+      "sha256": "226df6685761bb89962a3f4123651ce38f09ffbff51be8896bf0ff1ef2040937"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png",
+      "size": [
+        76,
+        76
+      ],
+      "mode": "RGB",
+      "bytes": 5577,
+      "sha256": "41cc6f085ca00d5715bf4d57aace43b62cf31cb9e04b97cc5a05ac2ac71a278d"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png",
+      "size": [
+        152,
+        152
+      ],
+      "mode": "RGB",
+      "bytes": 17877,
+      "sha256": "f5e43ded2af7faf582579057afe3d6405c4c3fa414b69a424cb2c485c519e7d6"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png",
+      "size": [
+        167,
+        167
+      ],
+      "mode": "RGB",
+      "bytes": 21057,
+      "sha256": "896b1ff41fa13d7c77d738843a50b69f847a1fc802f152a3297d25f1f9759be5"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "bytes": 662545,
+      "sha256": "de76f9028d5b9fcf97146bca4087b7e55e1d2fc55d357ecea0250325b95f4144"
+    },
+    {
+      "path": "assets/branding/perant-launcher-adaptive-circle-preview.png",
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGBA",
+      "bytes": 27056,
+      "sha256": "bc5429d5c1540afaabea7e1b672913b27260d8a89c9415f8d380bd3e10c35574"
+    }
+  ]
+}

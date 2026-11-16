@@ -1,0 +1,214 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: GPL-3.0-only
+"""Fetch, verify and package the fixed Linux corresponding-source inputs.
+
+This tool verifies inventory bytes; it does not infer that an unreviewed new
+runtime has a complete source closure. Update and review the source lock when
+changing any runtime package, recipe, patch, static or bundled dependency.
+"""
+import argparse
+import io
+import hashlib
+import json
+import pathlib
+import re
+import shutil
+import subprocess
+import tarfile
+import tempfile
+import urllib.request
+import zipfile
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+LOCK_FILE = ROOT / 'third_party/linux/release-sources.lock.json'
+
+
+def digest(path, algorithm='sha256'):
+    value = hashlib.new(algorithm)
+    with path.open('rb') as source:
+        for block in iter(lambda: source.read(1024 * 1024), b''):
+            value.update(block)
+    return value.hexdigest()
+
+
+def inputs(lock, cache):
+    for recipe in lock['recipes']:
+        name = recipe['origin'] + '-' + recipe['commit'] + '.tar.gz'
+        yield cache / 'recipe-archives' / name, 'recipe-archives/' + name, 'sha256', recipe['archiveSha256'], [recipe['recipeArchiveUrl']]
+    for source in lock['sources']:
+        relative = 'distfiles/' + source['sha512'] + '/' + source['name']
+        yield cache / relative, relative, 'sha512', source['sha512'], source['urls']
+    for crate in lock['crates']:
+        relative = 'cargo-crates/' + crate['name'] + '-' + crate['version'] + '.crate'
+        yield cache / relative, relative, 'sha256', crate['sha256'], [crate['url']]
+    for source in lock['nativeSources']:
+        relative = 'native/' + source['file']
+        yield cache / relative, relative, 'sha256', source['sha256'], [source['url']]
+    for source in lock['evidence']:
+        yield cache / source['file'], 'evidence/' + source['file'], 'sha256', source['sha256'], [source['url']]
+
+
+def fetch(path, algorithm, expected, urls):
+    if path.is_file() and digest(path, algorithm) == expected:
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    failures = []
+    for url in urls:
+        temporary = path.with_name(path.name + '.download')
+        try:
+            request = urllib.request.Request(url, headers={'User-Agent': 'PerAnt-source-bundle/0.9'})
+            with urllib.request.urlopen(request, timeout=120) as response, temporary.open('wb') as output:
+                shutil.copyfileobj(response, output, 1024 * 1024)
+            if digest(temporary, algorithm) != expected:
+                raise ValueError('source checksum differs')
+            temporary.replace(path)
+            return
+        except Exception as error:
+            failures.append(url + ': ' + str(error))
+        finally:
+            if temporary.exists():
+                temporary.unlink()
+    raise RuntimeError('\n'.join(failures))
+
+
+def verify_recipe_archives(lock, cache):
+    for recipe in lock['recipes']:
+        name = recipe['origin'] + '-' + recipe['commit'] + '.tar.gz'
+        with tarfile.open(cache / 'recipe-archives' / name) as archive:
+            builds = [entry for entry in archive if entry.isfile() and entry.name.endswith('/' + recipe['repository'] + '/' + recipe['origin'] + '/APKBUILD')]
+            if len(builds) != 1:
+                raise ValueError('unexpected recipe tree: ' + name)
+            data = archive.extractfile(builds[0]).read()
+            if hashlib.sha256(data).hexdigest() != recipe['recipeSha256']:
+                raise ValueError('recipe source differs: ' + name)
+
+
+def snapshot_files():
+    selected = [
+        'LICENSE', 'tool/prepare-linux-runtime', 'tool/build-linux-codec',
+        'tool/package-linux-sources', 'docs/LINUX_RUNTIME_SOURCES.md',
+        'docs/PUBLIC_BINARY_RELEASE.md', 'docs/LINUX_SOURCE_CLOSURE_REVIEW.md',
+        'packages/perant_platform/android/src/main/python/text_to_markdown.py',
+        'packages/perant_platform/android/src/main/desktop/start_desktop.sh',
+    ]
+    for relative in selected:
+        path = ROOT / relative
+        if not path.is_file():
+            raise ValueError('missing build instruction/source: ' + relative)
+        yield path, 'perant-build/' + relative
+    for path in sorted((ROOT / 'third_party/linux').rglob('*')):
+        if path.is_file():
+            yield path, 'perant-build/' + path.relative_to(ROOT).as_posix()
+
+
+def verify_revision_snapshot(revision):
+    # Read-only Git archive verifies every included build/source file against the
+    # claimed published revision. It neither stages nor changes this worktree.
+    pairs = list(snapshot_files())
+    names = [path.relative_to(ROOT).as_posix() for path, _ in pairs]
+    result = subprocess.run(
+        ['git', 'archive', '--format=tar', revision, '--'] + names,
+        cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True,
+    )
+    with tarfile.open(fileobj=io.BytesIO(result.stdout), mode='r:') as archive:
+        for path, _ in pairs:
+            name = path.relative_to(ROOT).as_posix()
+            if archive.extractfile(name).read() != path.read_bytes():
+                raise ValueError('build/source snapshot differs from revision: ' + name)
+    result = subprocess.run(
+        ['git', 'diff', '--quiet', revision, '--', 'apps/perant/lib',
+         'apps/perant/pubspec.yaml', 'packages'], cwd=ROOT, check=False,
+    )
+    if result.returncode != 0:
+        raise ValueError('application/package source differs from the claimed revision')
+
+
+def make_archive(lock, cache, output, apk, revision):
+    if not re.fullmatch(r'[a-f0-9]{40}', revision):
+        raise ValueError('--revision must be the full corresponding PerAnt Git commit')
+    verify_revision_snapshot(revision)
+    if digest(apk) != lock['apkSha256']:
+        raise ValueError('APK differs from the reviewed source lock; do not reuse this bundle')
+    with zipfile.ZipFile(apk) as package:
+        packaged = package.read('assets/perant-linux/runtime-manifest.json')
+    local_manifest = ROOT / 'packages/perant_platform/android/src/main/assets/perant-linux/runtime-manifest.json'
+    if packaged != local_manifest.read_bytes():
+        raise ValueError('APK Linux manifest differs from prepared runtime')
+    output.mkdir(parents=True, exist_ok=True)
+    prefix = 'PerAnt-' + lock['version'] + '-linux-sources'
+    archive_path = output / (prefix + '.tar')
+    record = {
+        'schemaVersion': 1, 'version': lock['version'], 'perantRevision': revision,
+        'perantSourceUrl': 'https://github.com/W1nnnd/PerAnt/archive/' + revision + '.tar.gz',
+        'apk': {'file': apk.name, 'sha256': lock['apkSha256'], 'sizeBytes': apk.stat().st_size},
+        'runtimeVersion': lock['runtimeVersion'],
+        'runtimeManifestSha256': hashlib.sha256(packaged).hexdigest(),
+        'sourceLockSha256': digest(LOCK_FILE), 'recipeTrees': len(lock['recipes']),
+        'checksumDeclaredInputs': len(lock['sources']), 'rustCrates': len(lock['crates']),
+        'nativeSourceInputs': len(lock['nativeSources']),
+    }
+    readme = '''# PerAnt 0.9.0 Linux corresponding-source bundle\n\nThis archive accompanies the exact APK and PerAnt application source revision\nidentified in SOURCE_MANIFEST.json. Obtain that application's GitHub source\narchive from the same Release. Each upstream component retains its own license.\n\nContents: 311 fixed Alpine recipe trees, all 799 checksum-declared source inputs,\n573 Rust registry/wrap sources (including fixed Alpine patch changes), original\nPRoot/talloc/Termux/GdkPixbuf sources and build scripts, and PerAnt build recipes.\n\n1. Verify SHA256SUMS for every volume; concatenate .part01, .part02, .part03 in\n   numeric order, then extract the resulting .tar.\n2. Read perant-build/docs/PUBLIC_BINARY_RELEASE.md and\n   perant-build/docs/LINUX_RUNTIME_SOURCES.md for scope and build instructions.\n3. recipe-archives/ retains the complete original aports source directories,\n   including patches, configuration and installation scripts. Each archive's\n   APKBUILD must match release-sources.lock.json.\n4. Source archives are in distfiles/<sha512>/<original filename>. Before running\n   an aports recipe, put its checksum-listed inputs into that recipe's SRCDEST.\n   Do not substitute another origin's file with the same basename. Use matching\n   Alpine aarch64/abuild and read the fixed recipe for build dependencies/options.\n5. cargo-crates/ supplies checksum-pinned upstream and patched-lock/wrap inputs.\n   Preserve each recipe's patches before resolving its Cargo or Meson inputs.\n6. native/ and perant-build/ retain PRoot, loader, talloc, PNG/XPM codec and build\n   scripts. Full fixed Termux build-framework sources accompany the loader.\n\nThe bundle supplies matching source and configuration; it does not promise a\nbit-for-bit rebuild across toolchains, or replace device functionality testing.\n'''
+    with tempfile.TemporaryDirectory(prefix='perant-sources-') as temporary:
+        temporary = pathlib.Path(temporary)
+        (temporary / 'SOURCE_MANIFEST.json').write_text(json.dumps(record, indent=2) + '\n')
+        (temporary / 'README.md').write_text(readme)
+        with tarfile.open(archive_path, 'w', format=tarfile.PAX_FORMAT) as archive:
+            for name in ['README.md', 'SOURCE_MANIFEST.json']:
+                archive.add(temporary / name, arcname=prefix + '/' + name)
+            for path, relative, _, _, _ in inputs(lock, cache):
+                archive.add(path, arcname=prefix + '/' + relative, recursive=False)
+            for path, relative in snapshot_files():
+                archive.add(path, arcname=prefix + '/' + relative, recursive=False)
+    record['archiveSha256'] = digest(archive_path)
+    record['archiveSizeBytes'] = archive_path.stat().st_size
+    parts = []
+    with archive_path.open('rb') as source:
+        index = 1
+        while True:
+            first = source.read(1024 * 1024)
+            if not first:
+                break
+            part = output / (prefix + '.tar.part' + str(index).zfill(2))
+            with part.open('wb') as destination:
+                destination.write(first)
+                remaining = 1_000_000_000 - len(first)
+                while remaining:
+                    block = source.read(min(1024 * 1024, remaining))
+                    if not block:
+                        break
+                    destination.write(block)
+                    remaining -= len(block)
+            parts.append({'file': part.name, 'sha256': digest(part), 'sizeBytes': part.stat().st_size})
+            index += 1
+    record['parts'] = parts
+    (output / (prefix + '-manifest.json')).write_text(json.dumps(record, indent=2) + '\n')
+    (output / 'SHA256SUMS').write_text(''.join(item['sha256'] + '  ' + item['file'] + '\n' for item in [record['apk']] + parts))
+    print(json.dumps(record, indent=2))
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--cache', type=pathlib.Path, default=ROOT / '.tooling/linux-sources-v09')
+    parser.add_argument('--fetch', action='store_true', help='download missing hash-pinned source inputs')
+    parser.add_argument('--apk', type=pathlib.Path, help='package after verifying this exact reviewed APK')
+    parser.add_argument('--revision', help='full PerAnt source revision corresponding to APK')
+    parser.add_argument('--output', type=pathlib.Path, default=ROOT / 'artifacts/release-v09')
+    arguments = parser.parse_args()
+    lock = json.loads(LOCK_FILE.read_text())
+    count = 0
+    for path, _, algorithm, expected, urls in inputs(lock, arguments.cache):
+        if arguments.fetch:
+            fetch(path, algorithm, expected, urls)
+        if not path.is_file() or digest(path, algorithm) != expected:
+            raise ValueError('source missing or mismatched: ' + str(path))
+        count += 1
+    verify_recipe_archives(lock, arguments.cache)
+    print('Verified ' + str(count) + ' source/recipe/evidence files against fixed hashes.', flush=True)
+    if arguments.apk:
+        if not arguments.revision:
+            parser.error('--apk requires --revision')
+        make_archive(lock, arguments.cache, arguments.output, arguments.apk, arguments.revision)
+
+
+if __name__ == '__main__':
+    main()

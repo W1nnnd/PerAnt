@@ -1,0 +1,589 @@
+{
+  "tool": "built-in image_gen, model undisclosed",
+  "model": "built-in image_gen (model undisclosed)",
+  "created": "2026-11-15",
+  "reference_image": "docs/uiux-demo/assets/perant-companion-v3/working.png",
+  "identity_reference": "docs/uiux-demo/assets/perant-companion-v3/welcome.png",
+  "original_prompts": "docs/uiux-demo/assets/perant-companion-v3/PROMPTS.json",
+  "transparency_route": "Native RGBA alpha supplied by built-in image_gen for all four generated frames. No opaque background, chroma regeneration, or chroma key removal was needed. Derived frames retain soft alpha. Sparse pre-existing colored alpha fringe speckles are cleaned and despilled during assembly.",
+  "frames": [
+    {
+      "name": "type-left",
+      "file": "frames-raw/type-left.png",
+      "prompt": "Use case: identity-preserve.\nAsset type: type-left keyframe for PerAnt 小蚁 calm mobile working loop.\nUse the attached working.png as the primary EDIT TARGET. This is a minute local edit of that exact image for a seamless animation, NOT a fresh rendering. LOCK camera, square canvas, framing, subject scale and position, lighting, head and face shape, face expression, antennae, scarf, body, feet, pocket and especially laptop geometry, color and location. Keep all pixels outside the two mitten hands and their immediately adjacent wrists unchanged. The tiny warm-cream laptop with sage accents must remain exactly in place with NO text, letters or logos. Face clearly visible above laptop. Do not resize or recenter the subject. Retain exactly the source padding. Transparent alpha background, no room, no floor, no cast ground shadow, no text or watermark.\nKeep this exact same character identity, face proportions, antennae, cream face, sage felt material, oatmeal knitted neckerchief and pocket. It is our family-like work companion. A very cute small anthropomorphic ant-inspired creature in premium tactile 3D soft plush / wool-felt illustration. A big rounded creamy face surrounded by a soft moss-sage green fuzzy head, exactly two short curved antennae with rounded tips, tiny dark glossy oval eyes with subtle highlights, a gentle small smile, a hint of warm peach blush. A small pear-shaped plush body, soft mitten hands and stubby feet. Not realistic insect anatomy, no mandibles, no extra insect legs. Short cozy oatmeal knitted neckerchief/scarf. Preserve the pocket's embroidered dots exactly as supplied, without altering the pocket at all. Original, distinctive character identity. Preserve the premium soft tactile 3D felt render style and delicate fibers, soft diffused daylight from upper left, matte tactile surface, no plastic shine, no harsh outlines, no glossy toy look.\nONLY CHANGE: character's anatomical LEFT mitten (viewer-right, the cream hand over the right side of the keyboard) presses down on the keyboard by a few pixels, while the anatomical RIGHT mitten (viewer-left, behind the left side of the laptop) is slightly raised 8-12 source pixels. Subtle calm alternating typing, wrists stay natural; exactly two hands. Do not change the face or antennae. Return one square PNG with genuine transparent alpha.",
+      "reference_image": "docs/uiux-demo/assets/perant-companion-v3/working.png",
+      "reference_role": "primary edit target",
+      "transparent_background": true,
+      "transparency_route": "native generated RGBA alpha; no chroma background",
+      "source_output": "generated_images/exec-09014932-0e95-4da0-ac10-a7cd543c758c.png",
+      "regenerated": false,
+      "raw_bytes": 1307518,
+      "raw_sha256": "7e5e152febae8d89100cb4a0ce831d6d284f6fef5e87a860833acf77cb172d1b",
+      "alpha_cleanup": {
+        "isolated_or_alpha_le_8_pixels_removed": 15756,
+        "edge_pixels_despilled": 3,
+        "native_alpha_preserved": true
+      },
+      "alignment_translation_xy_px_at_512": [
+        -0.18748362907471794,
+        -0.4545777527658679
+      ],
+      "registered_file": "frames-registered/type-left.png"
+    },
+    {
+      "name": "type-right",
+      "file": "frames-raw/type-right.png",
+      "prompt": "Use case: identity-preserve.\nAsset type: type-right keyframe for PerAnt 小蚁 calm mobile working loop.\nUse the attached working.png as the primary EDIT TARGET. This is a minute local edit of that exact image for a seamless animation, NOT a fresh rendering. LOCK camera, square canvas, framing, subject scale and position, lighting, head and face shape, face expression, antennae, scarf, body, feet, pocket and especially laptop geometry, color and location. Keep all pixels outside the two mitten hands and their immediately adjacent wrists unchanged. The tiny warm-cream laptop with sage accents must remain exactly in place with NO text, letters or logos. Face clearly visible above laptop. Do not resize or recenter the subject. Retain exactly the source padding. Transparent alpha background, no room, no floor, no cast ground shadow, no text or watermark.\nKeep this exact same character identity, face proportions, antennae, cream face, sage felt material, oatmeal knitted neckerchief and pocket. It is our family-like work companion. A very cute small anthropomorphic ant-inspired creature in premium tactile 3D soft plush / wool-felt illustration. A big rounded creamy face surrounded by a soft moss-sage green fuzzy head, exactly two short curved antennae with rounded tips, tiny dark glossy oval eyes with subtle highlights, a gentle small smile, a hint of warm peach blush. A small pear-shaped plush body, soft mitten hands and stubby feet. Not realistic insect anatomy, no mandibles, no extra insect legs. Short cozy oatmeal knitted neckerchief/scarf. Preserve the pocket's embroidered dots exactly as supplied, without altering the pocket at all. Original, distinctive character identity. Preserve the premium soft tactile 3D felt render style and delicate fibers, soft diffused daylight from upper left, matte tactile surface, no plastic shine, no harsh outlines, no glossy toy look.\nONLY CHANGE: character's anatomical RIGHT mitten (viewer-left, behind the left side of the laptop) presses down on the keyboard by a few pixels, while the anatomical LEFT mitten (viewer-right, the cream hand over the right side of the keyboard) is slightly raised 8-12 source pixels. Subtle calm alternating typing, wrists stay natural; exactly two hands. Do not change the face or antennae. Return one square PNG with genuine transparent alpha.",
+      "reference_image": "docs/uiux-demo/assets/perant-companion-v3/working.png",
+      "reference_role": "primary edit target",
+      "transparent_background": true,
+      "transparency_route": "native generated RGBA alpha; no chroma background",
+      "source_output": "generated_images/exec-d713c920-10f3-41c5-8c88-00f1a9eb89a0.png",
+      "regenerated": false,
+      "raw_bytes": 1333717,
+      "raw_sha256": "fb5e25d8bfaeeff7a7d0defe5d5325c82c37ae00fa23218314e7427624f8b30e",
+      "alpha_cleanup": {
+        "isolated_or_alpha_le_8_pixels_removed": 18087,
+        "edge_pixels_despilled": 0,
+        "native_alpha_preserved": true
+      },
+      "alignment_translation_xy_px_at_512": [
+        -0.2383088211403009,
+        -0.39013304562003925
+      ],
+      "registered_file": "frames-registered/type-right.png"
+    },
+    {
+      "name": "blink",
+      "file": "frames-raw/blink.png",
+      "prompt": "Use case: identity-preserve.\nAsset type: blink keyframe for PerAnt 小蚁 calm mobile working loop.\nUse the attached working.png as the primary EDIT TARGET. This is a minute local edit of that exact image for a seamless animation, NOT a fresh rendering. LOCK camera, square canvas, framing, subject scale and position, lighting, head and face shape, antennae, scarf, body, feet, pocket, hands and laptop. Keep all pixels outside the two EYES unchanged. The tiny warm-cream laptop with sage accents must remain exactly in place with NO text, letters or logos. Face clearly visible above laptop. Do not resize or recenter the subject. Retain exactly the source padding.\nKeep this exact same character identity, face proportions, antennae, cream face, sage felt material, oatmeal knitted neckerchief and pocket. It is our family-like work companion. A very cute small anthropomorphic ant-inspired creature in premium tactile 3D soft plush / wool-felt illustration. A big rounded creamy face surrounded by a soft moss-sage green fuzzy head, exactly two short curved antennae with rounded tips, tiny dark glossy oval eyes with subtle highlights, a gentle small smile, a hint of warm peach blush. A small pear-shaped plush body, soft mitten hands and stubby feet. Not realistic insect anatomy, no mandibles, no extra insect legs. Short cozy oatmeal knitted neckerchief/scarf. Preserve the pocket's embroidered dots exactly as supplied, without altering the pocket at all. Original, distinctive character identity. Preserve the premium soft tactile 3D felt render style and delicate fibers, soft diffused daylight from upper left, matte tactile surface, no plastic shine, no harsh outlines, no glossy toy look.\nONLY CHANGE: both tiny oval eyes are gently closed into short softly curved dark-brown embroidered lines for one calm blink, in exactly their original eye positions. Keep the same gentle small smile and blush. Antennae absolutely unchanged. Hands remain in the original neutral typing pose. Transparent alpha background, no room, no floor, no cast ground shadow, no text or watermark. Return one square PNG with genuine transparent alpha.",
+      "reference_image": "docs/uiux-demo/assets/perant-companion-v3/working.png",
+      "reference_role": "primary edit target",
+      "transparent_background": true,
+      "transparency_route": "native generated RGBA alpha; no chroma background",
+      "source_output": "generated_images/exec-8ae76df8-81c0-431a-8cf5-5654738293cb.png",
+      "regenerated": false,
+      "raw_bytes": 1316424,
+      "raw_sha256": "d6c41438e8e79c77bf20d86cdd926a07f46a261c2d923bd75a6d1b8787fdfecc",
+      "alpha_cleanup": {
+        "isolated_or_alpha_le_8_pixels_removed": 18183,
+        "edge_pixels_despilled": 1,
+        "native_alpha_preserved": true
+      },
+      "alignment_translation_xy_px_at_512": [
+        -0.11682327691042743,
+        -0.3028218436684842
+      ],
+      "registered_file": "frames-registered/blink.png"
+    },
+    {
+      "name": "glance",
+      "file": "frames-raw/glance.png",
+      "prompt": "Use case: identity-preserve.\nAsset type: glance keyframe for PerAnt 小蚁 calm mobile working loop.\nUse the attached working.png as the primary EDIT TARGET. This is a minute local edit of that exact image for a seamless animation, NOT a fresh rendering. LOCK camera, square canvas, framing, subject scale and position, lighting, scarf, body, feet, pocket, hands and especially laptop geometry, color and location. Keep all pixels outside the head unchanged. The tiny warm-cream laptop with sage accents must remain exactly in place with NO text, letters or logos. Face clearly visible above laptop. Do not resize or recenter the subject. Retain exactly the source padding.\nKeep this exact same character identity, face proportions, antennae, cream face, sage felt material, oatmeal knitted neckerchief and pocket. It is our family-like work companion. A very cute small anthropomorphic ant-inspired creature in premium tactile 3D soft plush / wool-felt illustration. A big rounded creamy face surrounded by a soft moss-sage green fuzzy head, exactly two short curved antennae with rounded tips, tiny dark glossy oval eyes with subtle highlights, a gentle small smile, a hint of warm peach blush. A small pear-shaped plush body, soft mitten hands and stubby feet. Not realistic insect anatomy, no mandibles, no extra insect legs. Short cozy oatmeal knitted neckerchief/scarf. Preserve the pocket's embroidered dots exactly as supplied, without altering the pocket at all. Original, distinctive character identity. Preserve the premium soft tactile 3D felt render style and delicate fibers, soft diffused daylight from upper left, matte tactile surface, no plastic shine, no harsh outlines, no glossy toy look.\nONLY CHANGE: an extremely subtle thoughtful glance. Rotate the entire head only 2 degrees clockwise about the neck, keeping exactly the same head and face proportions, surface details and exactly two antennae. Eyes look slightly up and toward viewer-right as if thinking quietly; tiny dark glossy oval eyes with a subtle high-right highlight/iris orientation, do not add white sclera, do not enlarge the eyes. Keep the same small soft smile and blush. Both mitten hands rest on the keyboard in exactly the original pose. Antennae move with the head only, no separate bend, no extra antennae. Minimal movement, calm and focused like a caring companion working beside the user. Transparent alpha background, no room, no floor, no cast ground shadow, no text or watermark. Return one square PNG with genuine transparent alpha.",
+      "reference_image": "docs/uiux-demo/assets/perant-companion-v3/working.png",
+      "reference_role": "primary edit target",
+      "transparent_background": true,
+      "transparency_route": "native generated RGBA alpha; no chroma background",
+      "source_output": "generated_images/exec-505af9a3-955d-4b88-87a4-8ce0c81d9747.png",
+      "regenerated": false,
+      "raw_bytes": 1282006,
+      "raw_sha256": "193b6eb95873fe6ff44292e387f3d58f4d5a9296059d6656eabe3ffd660c2109",
+      "alpha_cleanup": {
+        "isolated_or_alpha_le_8_pixels_removed": 16141,
+        "edge_pixels_despilled": 0,
+        "native_alpha_preserved": true
+      },
+      "alignment_translation_xy_px_at_512": [
+        -0.19265876864140571,
+        -0.33931099084616534
+      ],
+      "registered_file": "frames-registered/glance.png"
+    },
+    {
+      "name": "neutral",
+      "file": "frames-raw/neutral.png",
+      "prompt": "Use case: identity-preserve. Edit the supplied PerAnt plush ant mascot into a WORKING pose. Keep this exact same character identity, face proportions, antennae, cream face, sage felt material, oatmeal knitted neckerchief and pocket. It is our family-like work companion. Full body centered, seated comfortably behind a tiny warm-cream laptop with sage accents, looking at the screen with a calm focused small smile, both mitten hands naturally typing. The face remains clearly visible above the laptop. The laptop has NO text, letters or logos. Preserve the premium soft tactile 3D felt render style and delicate fibers, soft upper-left daylight. Keep the pocket's tiny embroidered dot motif. Transparent alpha background, no room, no floor, no cast ground shadow, no text or watermark. Match the base character scale and eye-level front 3/4 camera, full antennae and feet entirely within frame. Ample padding.",
+      "reference_image": "docs/uiux-demo/assets/perant-companion-v3/welcome.png",
+      "source_image": "docs/uiux-demo/assets/perant-companion-v3/working.png",
+      "reference_role": "original neutral working pose copied unchanged",
+      "transparency_route": "native source RGBA alpha",
+      "generated_in_this_task": false,
+      "raw_bytes": 1431324,
+      "raw_sha256": "b26ddc66460f13f99e23d75594db47a34bcaf7cebf32ce2105b44d1991b1b2fd",
+      "alpha_cleanup": {
+        "isolated_or_alpha_le_8_pixels_removed": 18751,
+        "edge_pixels_despilled": 1,
+        "native_alpha_preserved": true
+      },
+      "alignment_translation_xy_px_at_512": [
+        0.0,
+        0.0
+      ],
+      "registered_file": "frames-registered/neutral.png"
+    }
+  ],
+  "regenerations": [],
+  "optional_antenna_bob": "Not generated. The four required keyframes plus the supplied neutral pose provide the calm loop.",
+  "source_discrepancies": [
+    "Both supplied reference PNGs visibly contain six cream embroidered pocket dots arranged 1 + 2 + 3, despite the original written prompt specifying seven. The supplied pocket was preserved consistently rather than redesigned. Thus the seven-dot written target is not met; the exact source pocket identity is retained."
+  ],
+  "visual_review": {
+    "character": "same cream face, sage fuzzy head and pear-shaped body",
+    "antennae": "exactly two in each frame",
+    "limbs": "two mitten hands and two stubby feet; no extra limbs or mandibles",
+    "laptop": "blank warm cream with sage accents, no text, letters or logos",
+    "scarf_and_pocket": "same oatmeal knitted scarf and source pocket design",
+    "glance": "tiny head adjustment and eyes directed toward viewer upper-right",
+    "approved_generated_frames": 4
+  },
+  "timeline": [
+    {
+      "frame": "type-left",
+      "duration_ms": 140
+    },
+    {
+      "frame": "type-right",
+      "duration_ms": 140
+    },
+    {
+      "frame": "type-left",
+      "duration_ms": 140
+    },
+    {
+      "frame": "type-right",
+      "duration_ms": 140
+    },
+    {
+      "frame": "type-left",
+      "duration_ms": 140
+    },
+    {
+      "frame": "type-right",
+      "duration_ms": 140
+    },
+    {
+      "frame": "neutral",
+      "duration_ms": 180
+    },
+    {
+      "frame": "blink",
+      "duration_ms": 120
+    },
+    {
+      "frame": "neutral",
+      "duration_ms": 180
+    },
+    {
+      "frame": "glance",
+      "duration_ms": 500
+    },
+    {
+      "frame": "neutral",
+      "duration_ms": 180
+    },
+    {
+      "frame": "type-left",
+      "duration_ms": 140
+    },
+    {
+      "frame": "type-right",
+      "duration_ms": 140
+    },
+    {
+      "frame": "type-left",
+      "duration_ms": 140
+    },
+    {
+      "frame": "type-right",
+      "duration_ms": 140
+    }
+  ],
+  "total_loop_duration_ms": 2560,
+  "timeline_note": "Three typing pairs, neutral/blink/neutral, a 500ms thinking glance, neutral, two typing pairs. Last type-right leads naturally into first type-left without a reset hold.",
+  "processing": {
+    "canvas": [
+      1254,
+      1254
+    ],
+    "shared_crop": [
+      0,
+      0,
+      1254,
+      1254
+    ],
+    "delivery_canvas": [
+      512,
+      512
+    ],
+    "resampler": "Pillow LANCZOS in premultiplied alpha",
+    "registration": "Subpixel bounded translation search against source lower-half alpha boundary, excluding moving hands. No scaling or cropping changes between frames.",
+    "edge_cleanup": "Native alpha retained. Remove alpha <=8/255 and isolated fringe components; replace saturated yellow/red/magenta semi-transparent edge RGB with nearest reliable felt color. Not chroma-key extraction.",
+    "webp": {
+      "quality": 80,
+      "method": 6,
+      "alpha": true,
+      "loop": 0
+    },
+    "gif": {
+      "matte": "#F8F8F3",
+      "palette": "shared 256 colors",
+      "loop": 0,
+      "exact_background_palette": "Exact #F8F8F3 palette entry, forced for all alpha-zero source pixels before GIF encoding"
+    }
+  },
+  "registration_verification": {
+    "units": "pixels at 512x512",
+    "target_max_euclidean_translation": 2,
+    "max_pairwise_residual_translation": 0.42817210708326453,
+    "method": "Re-estimate translation for all 10 distinct-frame pairs independently in two stationary regions: body/feet alpha and laptop luminance gradients. Maximum across all 20 comparisons. Shape/identity also visually reviewed.",
+    "comparisons": [
+      {
+        "region": "body_alpha",
+        "pair": [
+          "type-left",
+          "type-right"
+        ],
+        "residual_translation_xy_px_at_512": [
+          -0.05738306988714911,
+          -0.015719818693953565
+        ],
+        "residual_euclidean_px_at_512": 0.05949730590072303,
+        "mean_squared_error": 0.0012843739572469138
+      },
+      {
+        "region": "body_alpha",
+        "pair": [
+          "type-left",
+          "neutral"
+        ],
+        "residual_translation_xy_px_at_512": [
+          -0.1370262652058277,
+          0.099365849477112
+        ],
+        "residual_euclidean_px_at_512": 0.16926242760449203,
+        "mean_squared_error": 0.004865289606150713
+      },
+      {
+        "region": "body_alpha",
+        "pair": [
+          "type-left",
+          "blink"
+        ],
+        "residual_translation_xy_px_at_512": [
+          -0.037843153278197414,
+          -0.04582017313817696
+        ],
+        "residual_euclidean_px_at_512": 0.059427203505210115,
+        "mean_squared_error": 0.0019653125568312507
+      },
+      {
+        "region": "body_alpha",
+        "pair": [
+          "type-left",
+          "glance"
+        ],
+        "residual_translation_xy_px_at_512": [
+          -0.09752388566663668,
+          0.01953884295029809
+        ],
+        "residual_euclidean_px_at_512": 0.09946192567689224,
+        "mean_squared_error": 0.0031220909675976076
+      },
+      {
+        "region": "body_alpha",
+        "pair": [
+          "type-right",
+          "neutral"
+        ],
+        "residual_translation_xy_px_at_512": [
+          -0.09148026880651428,
+          0.10882432764139884
+        ],
+        "residual_euclidean_px_at_512": 0.1421667115309158,
+        "mean_squared_error": 0.0048593589413602
+      },
+      {
+        "region": "body_alpha",
+        "pair": [
+          "type-right",
+          "blink"
+        ],
+        "residual_translation_xy_px_at_512": [
+          0.03378903260152296,
+          -0.03387232096050487
+        ],
+        "residual_euclidean_px_at_512": 0.04784383817586376,
+        "mean_squared_error": 0.0019304861457517123
+      },
+      {
+        "region": "body_alpha",
+        "pair": [
+          "type-right",
+          "glance"
+        ],
+        "residual_translation_xy_px_at_512": [
+          -0.04559058028425951,
+          0.033310602123763244
+        ],
+        "residual_euclidean_px_at_512": 0.05646323781455658,
+        "mean_squared_error": 0.002987949721130049
+      },
+      {
+        "region": "body_alpha",
+        "pair": [
+          "neutral",
+          "blink"
+        ],
+        "residual_translation_xy_px_at_512": [
+          0.09336789502397314,
+          -0.1341252365675915
+        ],
+        "residual_euclidean_px_at_512": 0.16342320185799827,
+        "mean_squared_error": 0.0031076007906584656
+      },
+      {
+        "region": "body_alpha",
+        "pair": [
+          "neutral",
+          "glance"
+        ],
+        "residual_translation_xy_px_at_512": [
+          0.07709120878089856,
+          -0.10210452250461696
+        ],
+        "residual_euclidean_px_at_512": 0.1279390010403236,
+        "mean_squared_error": 0.006128896615329509
+      },
+      {
+        "region": "body_alpha",
+        "pair": [
+          "blink",
+          "glance"
+        ],
+        "residual_translation_xy_px_at_512": [
+          -0.06654090900244396,
+          0.047016870765279994
+        ],
+        "residual_euclidean_px_at_512": 0.08147563259914321,
+        "mean_squared_error": 0.003086445488615974
+      },
+      {
+        "region": "laptop_luminance_edges",
+        "pair": [
+          "type-left",
+          "type-right"
+        ],
+        "residual_translation_xy_px_at_512": [
+          0.06375334848947245,
+          -0.1291348735903614
+        ],
+        "residual_euclidean_px_at_512": 0.1440149472131929,
+        "mean_squared_error": 0.008143228279376321
+      },
+      {
+        "region": "laptop_luminance_edges",
+        "pair": [
+          "type-left",
+          "neutral"
+        ],
+        "residual_translation_xy_px_at_512": [
+          -0.22616446929985815,
+          -0.3635670311104076
+        ],
+        "residual_euclidean_px_at_512": 0.42817210708326453,
+        "mean_squared_error": 0.010224502468696495
+      },
+      {
+        "region": "laptop_luminance_edges",
+        "pair": [
+          "type-left",
+          "blink"
+        ],
+        "residual_translation_xy_px_at_512": [
+          0.019133578351635223,
+          -0.14984495116378185
+        ],
+        "residual_euclidean_px_at_512": 0.1510615874728395,
+        "mean_squared_error": 0.007461300321217127
+      },
+      {
+        "region": "laptop_luminance_edges",
+        "pair": [
+          "type-left",
+          "glance"
+        ],
+        "residual_translation_xy_px_at_512": [
+          0.02271171887594874,
+          -0.10174062176439908
+        ],
+        "residual_euclidean_px_at_512": 0.10424479023580335,
+        "mean_squared_error": 0.008136458334722891
+      },
+      {
+        "region": "laptop_luminance_edges",
+        "pair": [
+          "type-right",
+          "neutral"
+        ],
+        "residual_translation_xy_px_at_512": [
+          -0.3113725011765314,
+          -0.21257071004158531
+        ],
+        "residual_euclidean_px_at_512": 0.3770134497024116,
+        "mean_squared_error": 0.005177609907899345
+      },
+      {
+        "region": "laptop_luminance_edges",
+        "pair": [
+          "type-right",
+          "blink"
+        ],
+        "residual_translation_xy_px_at_512": [
+          -0.0735113537811408,
+          -0.038491746892025315
+        ],
+        "residual_euclidean_px_at_512": 0.08297911612891394,
+        "mean_squared_error": 0.003340209559087066
+      },
+      {
+        "region": "laptop_luminance_edges",
+        "pair": [
+          "type-right",
+          "glance"
+        ],
+        "residual_translation_xy_px_at_512": [
+          -0.04806304411671716,
+          0.03153286461754182
+        ],
+        "residual_euclidean_px_at_512": 0.05748371735329685,
+        "mean_squared_error": 0.003390770479696261
+      },
+      {
+        "region": "laptop_luminance_edges",
+        "pair": [
+          "neutral",
+          "blink"
+        ],
+        "residual_translation_xy_px_at_512": [
+          0.27483770311907063,
+          0.19846849641300124
+        ],
+        "residual_euclidean_px_at_512": 0.33900664761063887,
+        "mean_squared_error": 0.002470388162876258
+      },
+      {
+        "region": "laptop_luminance_edges",
+        "pair": [
+          "neutral",
+          "glance"
+        ],
+        "residual_translation_xy_px_at_512": [
+          0.27389742306903764,
+          0.2314239202710541
+        ],
+        "residual_euclidean_px_at_512": 0.35857611359024266,
+        "mean_squared_error": 0.0027641428272175777
+      },
+      {
+        "region": "laptop_luminance_edges",
+        "pair": [
+          "blink",
+          "glance"
+        ],
+        "residual_translation_xy_px_at_512": [
+          -3.514403615872936e-07,
+          0.022892832713683996
+        ],
+        "residual_euclidean_px_at_512": 0.022892832716381574,
+        "mean_squared_error": 0.0013284996039765412
+      }
+    ]
+  },
+  "verification": {
+    "webp": {
+      "format": "WEBP",
+      "canvas": [
+        512,
+        512
+      ],
+      "animated": true,
+      "frames": 15,
+      "loop": 0,
+      "alpha": true,
+      "durations_ms": [
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        180,
+        120,
+        180,
+        500,
+        180,
+        140,
+        140,
+        140,
+        140
+      ],
+      "total_duration_ms": 2560
+    },
+    "gif": {
+      "format": "GIF",
+      "canvas": [
+        512,
+        512
+      ],
+      "animated": true,
+      "frames": 15,
+      "loop": 0,
+      "alpha": false,
+      "durations_ms": [
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        180,
+        120,
+        180,
+        500,
+        180,
+        140,
+        140,
+        140,
+        140
+      ],
+      "total_duration_ms": 2560,
+      "matte_exact_corner_each_frame": true
+    },
+    "poster": {
+      "canvas": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    "size_targets_met": true
+  },
+  "outputs": {
+    "working.webp": {
+      "bytes": 475188,
+      "kB_decimal": 475.19
+    },
+    "working.gif": {
+      "bytes": 1353365,
+      "kB_decimal": 1353.37
+    },
+    "working-poster.png": {
+      "bytes": 240029,
+      "kB_decimal": 240.03
+    },
+    "working-contact-sheet.png": {
+      "bytes": 994603,
+      "kB_decimal": 994.6
+    }
+  }
+}
