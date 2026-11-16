@@ -18,7 +18,18 @@ GPL-3.0-only 的 Dart HTTP/SSE 传输包。支持 OpenAI 格式的 Chat Completi
 
 API Key 通过 `stream`/`testConnection` 参数注入，不写入 `GatewayConfiguration`。请求头中的其他敏感认证方式不属于此版接口；配置头只接受非敏感扩展字段。异常不会包含服务原始响应、地址或 Key。
 
-连接测试会向用户选定服务发送固定的 “Reply with the single word OK.”，没有文件、工具或私人材料；正常 token 费用仍可能产生。代码测试仅使用本地 MockClient，未使用真实 API Key、未验证各家付费模型。
+连接测试会向用户选定服务发送固定的 “Reply with the single word OK.”，没有文件、工具或私人材料；正常 token 费用仍可能产生。`dart test` 只使用本地 MockClient，不需要也不读取任何 API Key。
+
+## 真实服务检查
+
+`tool/live_check.dart` 用本包向真实服务发送固定的非私人提示，依次检查连接测试、两轮对话（第二轮回放保存的 assistant 消息）、工具提案和工具结果往返。它会产生少量真实 token 费用，Key 只从环境变量读取，不打印、不落盘：
+
+```sh
+cd packages/perant_gateway
+PERANT_LIVE_API_KEY=… PERANT_LIVE_MODEL=deepseek-chat ../../tool/dartw run tool/live_check.dart
+```
+
+可选 `PERANT_LIVE_BASE_URL`（默认 DeepSeek）、`PERANT_LIVE_PROTOCOL=responses`、`PERANT_LIVE_VERBOSE=1`。请求被拒绝时会输出状态码和服务返回的错误文字，便于定位配置问题。2026-11-16 已用 DeepSeek `deepseek-chat` 的 Chat Completions 跑通全部 5 项；其他供应商和 Responses 协议尚未用真实 Key 验证。
 
 这个包不包含任务编排、云端授权 UI、凭据持久化、供应商自动回退、工具执行循环或文件处理。
 

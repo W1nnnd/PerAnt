@@ -72,6 +72,39 @@ void main() {
     }
   });
 
+  test('browser state carries an optional scroll position and page height', () {
+    Map<Object?, Object?> native([Map<Object?, Object?> extra = const {}]) => {
+          'id': 'reader-1',
+          'url': 'https://example.com/article',
+          'title': '文章',
+          'loading': false,
+          'canGoBack': false,
+          'canGoForward': false,
+          'width': 1000,
+          'height': 1200,
+          'visible': false,
+          'attached': false,
+          'provider': 'Fixture WebView',
+          'revision': 3,
+          ...extra,
+        };
+    final positioned = ComputerBrowserState.fromMap(
+      native({'scrollY': 2400, 'pageHeight': 9000}),
+    );
+    expect(positioned.scrollY, 2400);
+    expect(positioned.pageHeight, 9000);
+    // An older native side that does not report them stays readable.
+    final legacy = ComputerBrowserState.fromMap(native());
+    expect(legacy.scrollY, 0);
+    expect(legacy.pageHeight, 0);
+    for (final bad in <Object?>[-1, 16000001, '12', 1.5]) {
+      expect(
+        () => ComputerBrowserState.fromMap(native({'scrollY': bad})),
+        throwsFormatException,
+      );
+    }
+  });
+
   test('invalid input does not enter native code and native errors keep codes',
       () async {
     var calls = 0;

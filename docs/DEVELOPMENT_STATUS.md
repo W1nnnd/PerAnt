@@ -1,6 +1,8 @@
 # 开发状态
 
-更新日期：2026-11-15。当前开发源码版本为 **0.9.0+2009，Concept 06 移动端界面与图标迁移**。三导航、圆框小蚁、真实授权与本机偏好已接入。本地 Dart 280 / Python 14、格式/静态分析通过；4 GB / 宿主 GPU 的 API 36 ARM64 原生 smoke 3/3 通过。最终 APK 的三尺寸布局、键盘返回和系统图标已核对，3 GB 软件渲染冷安装超时保留为失败。范围见 [迁移与验收说明](UI_CONCEPT06_IMPLEMENTATION.md)。
+更新日期：2026-11-16。当前开发源码版本为 **0.0.1+2010**。版本号自本版起从 0.0.1 重新计算，构建号继续递增；下文的 0.6～0.9 均为旧编号。本版第一次用真实 DeepSeek API 在 4 GB 模拟器上实测，修复了普通聊天假装执行、电脑入口不可达、截图坐标偏差、滚动后截图空白、网页首次保存失败等问题。普通聊天、模型写文件、模型操作桌面终端、模型打开网页点击链接并保存（最终构建连续 5 次）、手动浏览保存、本地整理和终端通过。Python 14、Dart 292、Android JVM 72 通过。逐项记录与未验证范围见 [0.0.1 说明](releases/0.0.1.md)。
+
+**以下为旧编号 0.9 的记录。** 0.9.0+2009 为 Concept 06 移动端界面与图标迁移。三导航、圆框小蚁、真实授权与本机偏好已接入。本地 Dart 280 / Python 14、格式/静态分析通过；4 GB / 宿主 GPU 的 API 36 ARM64 原生 smoke 3/3 通过。最终 APK 的三尺寸布局、键盘返回和系统图标已核对，3 GB 软件渲染冷安装超时保留为失败。范围见 [迁移与验收说明](UI_CONCEPT06_IMPLEMENTATION.md)。
 
 **以下为 0.8 的历史基线，独立计数，不作为 0.9 新增通过项。** 0.8.0+2008 实现网页正文保存到共享工作区。其 `tool/check`、Android JVM 72/72、共享 C 发布核心 probe 6/6、Android 集成 19/19 及 0.8 APK 静态/安装一致性均已通过；人工保存→桌面打开流程未完成。历史 0.7 的 28 项设备结果不累加为 0.8 通过数。M0 双端与完整 M1-D 关卡仍未完成。
 
@@ -16,7 +18,7 @@
 | Linux 桌面与办公 | Xvnc/Xfce、Thunar、终端、Mousepad、设置；LibreOffice Writer/Calc/Impress、zh_CN、GTK3、私有办公配置 | 历史 0.7 v6 桌面 3/3、Writer ODT/DOCX 2/2；本轮未重跑，Calc/Impress 和复杂格式未验 |
 | 原生浏览器 | 同一电脑工作区内的 Android WebView；地址、历史导航、网页交互与接管；电脑应用面板/聊天更多入口 | 用户明确选择原生浏览器路线；Linux Firefox 原型失败并已移除；历史 0.7 原生设备 5/5；本轮 0.8 浏览器回归 5/5 |
 | 按需显示 | 桌面前台连续 RFB、隐藏释放帧和图像；浏览器按需捕获 PNG、临时挂载与 Bitmap 释放 | 保留 X server/窗口和 WebView 会话仍占内存；隐藏不保证 JS timers 或网络停止 |
-| 模型协作 | 文件、Shell、desktop 工具及 browser_open/capture/action/save_page；最新观察/revision、控制权与取消检查 | 模型协议 17 项通过，使用 fixture PNG / MockClient；未连接真实视觉供应商 |
+| 模型协作 | 文件、Shell、desktop 工具及 browser_open/capture/action/save_page；最新观察/revision、控制权与取消检查；截图副本叠加像素标尺，输入回执附带新截图 | 协议测试使用 fixture PNG / MockClient；0.0.1 用 DeepSeek `deepseek-chat` 在模拟器上实测了桌面终端与一个网页任务，其他供应商未测 |
 | 网页正文资料 | 用户“保存网页文字”、模型 `browser_save_page`；固定 DOM 提取、来源/时间、明确截断、256 KiB Markdown、根目录新建 | 本轮 Android 保存 4/4、最终 APK/安装一致性通过；最终人工保存→桌面打开流程未完成，不等于下载附件或上传 |
 | 文件与产物预览 | `/workspace` UTF-8 编辑、SHA256 冲突、Markdown、独立静态 HTML WebView | 通用文件 API 与活跃 guest/桌面互斥；专用正文导入允许已就绪桌面；静态预览继续禁脚本、禁网络 |
 | 数据与恢复 | SQLite 文档/任务/会话/操作，凭据存储；取消及重开不重放；PNG 不入库 | 不含向量索引、长期记忆、完整备份或跨进程恢复 |

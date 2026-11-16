@@ -100,6 +100,23 @@ final class TaskRecord {
   bool get hasUncertainSteps =>
       steps.any((step) => step.status == TaskStepStatus.uncertain);
 
+  /// True when a step is unfinished, uncertain, or failed without having been
+  /// repeated successfully. A failed step counts as recovered only when a
+  /// later step with the same title succeeded, for example a file write
+  /// retried after the blocking condition was removed.
+  bool get hasUnrecoveredSteps {
+    for (var index = 0; index < steps.length; index++) {
+      final step = steps[index];
+      if (step.status == TaskStepStatus.succeeded) continue;
+      final repeated = step.status == TaskStepStatus.failed &&
+          steps.skip(index + 1).any((later) =>
+              later.title == step.title &&
+              later.status == TaskStepStatus.succeeded);
+      if (!repeated) return true;
+    }
+    return false;
+  }
+
   RecoveryDisposition get recoveryDisposition {
     if (status != TaskStatus.interrupted) {
       return RecoveryDisposition.notApplicable;
@@ -205,8 +222,7 @@ abstract final class TaskStateMachine {
     if (to == TaskStatus.running && task.hasUncertainSteps) {
       throw UnsafeTaskRecovery(task.id);
     }
-    if (to == TaskStatus.completed &&
-        task.steps.any((step) => step.status != TaskStepStatus.succeeded)) {
+    if (to == TaskStatus.completed && task.hasUnrecoveredSteps) {
       throw StateError('A task cannot complete before all its steps succeed.');
     }
     if (to == TaskStatus.manualControl &&

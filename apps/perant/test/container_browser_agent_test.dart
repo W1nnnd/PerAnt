@@ -50,6 +50,9 @@ final class _Browser implements ContainerBrowserAgent {
     releases++;
   }
 
+  int scrollTop = 0;
+  int pageHeight = 0;
+
   @override
   Future<void> open({required String url}) async {
     if (!modelHasControl) throw StateError('No browser grant');
@@ -79,6 +82,8 @@ final class _Browser implements ContainerBrowserAgent {
       capturedAt: DateTime.now(),
       loading: pageLoading,
       error: pageError,
+      scrollTop: scrollTop,
+      pageHeight: pageHeight,
     );
   }
 
@@ -319,7 +324,10 @@ void main() {
         expect(requests, 5);
         expect(browser.urls, ['https://example.invalid/page']);
         expect(browser.inputs, 1);
-        expect(browser.captures, 2);
+        // The input receipt carries its own follow-up observation, so the
+        // scripted second capture is the third one taken.
+        expect(browser.captures, 3);
+        expect(jsonEncode(payloads[3]), contains('随附约一秒后的新画面'));
         expect(browser.running, isTrue);
         expect(browser.modelHasControl, isFalse);
         expect(browser.grants, 1);
@@ -367,7 +375,7 @@ void main() {
                 (p) => p['type'] == imageType,
               ),
         );
-        expect(jsonEncode(imageMessage), contains('browser-fixture-2'));
+        expect(jsonEncode(imageMessage), contains('browser-fixture-3'));
         expect(jsonEncode(imageMessage), isNot(contains('browser-fixture-1')));
         final receiptKey = protocol == ApiProtocol.responses
             ? 'call_id'
@@ -959,5 +967,55 @@ void main() {
       throwsA(isA<ContainerTaskFailure>()),
     );
     expect(browser.running, isTrue);
+  });
+  test('browser screenshots report where they sit in the page', () async {
+    for (final known in [true, false]) {
+      final browser = _Browser()
+        ..running = true
+        ..scrollTop = known ? 7800 : 0
+        ..pageHeight = known ? 7801 : 0;
+      final payloads = <Map<String, Object?>>[];
+      var requests = 0;
+      final controller = await launch(
+        browser,
+        MockClient((request) async {
+          payloads.add(jsonDecode(request.body) as Map<String, Object?>);
+          return _response(switch (requests++) {
+            0 => _turn(
+              ApiProtocol.chatCompletions,
+              id: 'capture',
+              tool: 'browser_capture',
+            ),
+            _ => _turn(ApiProtocol.chatCompletions),
+          });
+        }),
+      );
+      await controller.send(
+        '看一下页面',
+        cloudApproved: true,
+        containerEnabled: true,
+      );
+      final receipt = (payloads.last['messages']! as List)
+          .whereType<Map>()
+          .lastWhere((message) => message['role'] == 'tool');
+      final data = jsonDecode(receipt['content'] as String) as Map;
+      if (known) {
+        expect(data['scroll_top'], 7800);
+        expect(data['page_height'], 7801);
+        expect(data['at_top'], isFalse);
+        // The one-pixel fixture frame ends at the last page pixel.
+        expect(data['at_bottom'], isTrue);
+      } else {
+        // Unknown geometry is omitted, never reported as "at the top".
+        for (final key in [
+          'scroll_top',
+          'page_height',
+          'at_top',
+          'at_bottom',
+        ]) {
+          expect(data.containsKey(key), isFalse);
+        }
+      }
+    }
   });
 }

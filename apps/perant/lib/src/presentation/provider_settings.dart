@@ -92,6 +92,17 @@ class _ProviderSettingsState extends State<ProviderSettings> {
     }
   }
 
+  /// The result line sits below the fold on a phone, so it is also announced.
+  Future<void> _test() async {
+    await widget.controller.testConnection();
+    if (!mounted) return;
+    final message = widget.controller.connectionMessage;
+    if (message == null) return;
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text(message)));
+  }
+
   @override
   Widget build(BuildContext context) {
     final controller = widget.controller;
@@ -265,22 +276,20 @@ class _ProviderSettingsState extends State<ProviderSettings> {
                 ),
                 const SizedBox(height: 12),
                 OutlinedButton.icon(
-                  onPressed: busy || !controller.canChat
-                      ? null
-                      : controller.testConnection,
+                  onPressed: busy || !controller.canChat ? null : _test,
                   icon: const Icon(Icons.wifi_tethering, size: 18),
                   label: Text(controller.isTesting ? '正在测试…' : '测试已保存的连接'),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  '测试会向已保存的服务发送固定短文本，可能产生少量 API 费用。',
-                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 if (controller.connectionMessage != null)
                   Padding(
                     padding: const EdgeInsets.only(top: 12),
                     child: SelectableText(controller.connectionMessage!),
                   ),
+                const SizedBox(height: 8),
+                Text(
+                  '测试会向已保存的服务发送固定短文本，可能产生少量 API 费用。',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
                 const SizedBox(height: 28),
                 const Divider(),
                 const SizedBox(height: 16),

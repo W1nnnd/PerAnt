@@ -23,6 +23,8 @@ final class ComputerBrowserState {
     this.provider = 'Android System WebView',
     this.revision = 0,
     this.error = '',
+    this.scrollY = 0,
+    this.pageHeight = 0,
   });
 
   final String id;
@@ -39,6 +41,11 @@ final class ComputerBrowserState {
   final int revision;
   final String error;
 
+  /// Vertical scroll offset and full page height in viewport pixels.
+  /// [pageHeight] is 0 when the native side did not report it.
+  final int scrollY;
+  final int pageHeight;
+
   factory ComputerBrowserState.fromMap(Map<Object?, Object?> map) {
     T field<T>(String key) {
       final value = map[key];
@@ -50,6 +57,14 @@ final class ComputerBrowserState {
     if (reportedError is! String) {
       throw const FormatException('Invalid browser error.');
     }
+    int optional(String key) {
+      final value = map[key] ?? 0;
+      if (value is! int || value < 0 || value > 16000000) {
+        throw FormatException('Invalid browser field: $key');
+      }
+      return value;
+    }
+
     final state = ComputerBrowserState(
       id: field<String>('id'),
       url: field<String>('url'),
@@ -64,6 +79,8 @@ final class ComputerBrowserState {
       provider: field<String>('provider'),
       revision: field<int>('revision'),
       error: reportedError,
+      scrollY: optional('scrollY'),
+      pageHeight: optional('pageHeight'),
     );
     try {
       _id(state.id);

@@ -136,6 +136,7 @@ final class _Native {
   bool autoExit = true;
   bool cancelFails = false;
   bool loseWriteResponseOnce = false;
+  bool busyWriteOnce = false;
   Completer<void>? fileBarrierGate;
   String? fileBarrierErrorCode;
   final fileBarrierEntered = Completer<void>();
@@ -204,6 +205,13 @@ final class _Native {
             'truncated': false,
           };
         case 'writeLinuxFile':
+          if (busyWriteOnce) {
+            busyWriteOnce = false;
+            throw PlatformException(
+              code: 'busy',
+              message: 'Fixture desktop owns the shared workspace.',
+            );
+          }
           writes++;
           files[args['path']! as String] = args['content']! as String;
           if (loseWriteResponseOnce) {
@@ -1048,4 +1056,55 @@ void main() {
       },
     );
   }
+  test(
+    'a failed step repeated successfully is recovered; a different step is not',
+    () async {
+      for (final retryPath in ['/workspace/todo.md', '/workspace/other.md']) {
+        final native = _Native()..busyWriteOnce = true;
+        var requests = 0;
+        final controller = await launch(
+          native,
+          MockClient(
+            (_) async => _response(switch (requests++) {
+              0 => _tools(ApiProtocol.chatCompletions, [
+                _call('first', 'container_write_file', {
+                  'path': '/workspace/todo.md',
+                  'content': 'milk',
+                  'create_only': true,
+                }),
+              ]),
+              1 => _tools(ApiProtocol.chatCompletions, [
+                _call('second', 'container_write_file', {
+                  'path': retryPath,
+                  'content': 'milk',
+                  'create_only': true,
+                }),
+              ]),
+              _ => _text(ApiProtocol.chatCompletions),
+            }),
+          ),
+        );
+        await controller.send(
+          '写一个待办',
+          cloudApproved: true,
+          containerEnabled: true,
+        );
+        expect(native.writes, 1);
+        // Newest first.
+        expect(controller.containerActions.map((action) => action.status), [
+          ContainerActionStatus.succeeded,
+          ContainerActionStatus.failed,
+        ]);
+        final task = controller.tasks.single;
+        if (retryPath == '/workspace/todo.md') {
+          expect(task.status, TaskStatus.completed);
+          expect(task.statusDetail, contains('已由之后的相同操作完成'));
+          expect(controller.error, isNull);
+        } else {
+          expect(task.status, TaskStatus.failed);
+          expect(controller.error, contains('部分容器操作未执行或失败'));
+        }
+      }
+    },
+  );
 }

@@ -122,6 +122,58 @@ void main() {
       );
     });
 
+    test('a failed step completes only when the same step later succeeded', () {
+      TaskRecord withSteps(List<TaskStep> steps) =>
+          task(status: TaskStatus.running, steps: steps);
+      const failed = TaskStep(
+        id: 'first',
+        title: '写入文件：/workspace/todo.md',
+        status: TaskStepStatus.failed,
+      );
+      TaskStep later(String title, TaskStepStatus status) =>
+          TaskStep(id: 'second', title: title, status: status);
+
+      final recovered = withSteps([
+        failed,
+        later(failed.title, TaskStepStatus.succeeded),
+      ]);
+      expect(recovered.hasUnrecoveredSteps, isFalse);
+      expect(
+        TaskStateMachine.transition(recovered, TaskStatus.completed, at: now)
+            .status,
+        TaskStatus.completed,
+      );
+
+      for (final steps in [
+        // Nothing repeated it.
+        [failed],
+        // A different operation succeeded.
+        [failed, later('写入文件：/workspace/other.md', TaskStepStatus.succeeded)],
+        // The success came first, the failure is the latest word.
+        [later(failed.title, TaskStepStatus.succeeded), failed],
+        // An uncertain outcome is never recovered by a repeat.
+        [
+          const TaskStep(
+            id: 'first',
+            title: '写入文件：/workspace/todo.md',
+            status: TaskStepStatus.uncertain,
+          ),
+          later(failed.title, TaskStepStatus.succeeded),
+        ],
+      ]) {
+        final record = withSteps(steps);
+        expect(record.hasUnrecoveredSteps, isTrue);
+        expect(
+          () => TaskStateMachine.transition(
+            record,
+            TaskStatus.completed,
+            at: now,
+          ),
+          throwsStateError,
+        );
+      }
+    });
+
     test('manual takeover requires active tools to stop', () {
       expect(
         () => TaskStateMachine.transition(

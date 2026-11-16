@@ -127,6 +127,14 @@ final class _ControlledCredentialStore implements CredentialStore {
   Future<void> delete(String reference) async => values.remove(reference);
 }
 
+/// Ordinary chat requests start with the fixed, non-stored instruction; the
+/// conversation itself is everything after it.
+List<Object?> _turns(Object? input) {
+  final items = input! as List;
+  expect(items.first, {'role': 'system', 'content': plainChatInstructions});
+  return items.sublist(1);
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -546,7 +554,7 @@ void main() {
       expect(await credentials.read(original.storageKeyRef!), _testKey);
       expect((await persistence.load()).profile!.modelId, original.modelId);
       await controller.send('继续之前的讨论', cloudApproved: true);
-      expect(payloads.last['messages']! as List, hasLength(3));
+      expect(_turns(payloads.last['messages']), hasLength(3));
       expect(jsonEncode(payloads.last), contains('之前的材料'));
       expect(payloads.last['model'], original.modelId);
     },
@@ -879,7 +887,7 @@ void main() {
     await controller.send('继续整理', cloudApproved: true);
 
     expect(payloads, hasLength(2));
-    final history = payloads.last['messages']! as List;
+    final history = _turns(payloads.last['messages']);
     expect(history, hasLength(3));
     expect((history[1] as Map)['reasoning_content'], '服务要求保留的上下文');
   });
@@ -911,14 +919,14 @@ void main() {
         expect(controller.messages.last.text, '回复 2');
 
         final key = protocol == ApiProtocol.responses ? 'input' : 'messages';
-        expect(payloads[1][key]! as List, hasLength(1));
+        expect(_turns(payloads[1][key]), hasLength(1));
         expect(jsonEncode(payloads[1]), isNot(contains('第一会话的私有材料')));
         await controller.selectConversation(firstConversationId);
         expect(controller.messages.first.text, '第一会话的私有材料');
         expect(controller.messages.last.text, '回复 1');
         await controller.send('继续第一会话', cloudApproved: true);
 
-        expect(payloads.last[key]! as List, hasLength(3));
+        expect(_turns(payloads.last[key]), hasLength(3));
         expect(jsonEncode(payloads.last), contains('第一会话的私有材料'));
         expect(jsonEncode(payloads.last), isNot(contains('第二会话的独立材料')));
         expect(jsonEncode(payloads.last), isNot(contains('回复 2')));
@@ -972,7 +980,7 @@ void main() {
       expect(restored.state.messages, hasLength(4));
       expect(afterRestartPayloads, isEmpty);
       await restored.send('重启后的新授权消息', cloudApproved: true);
-      expect(afterRestartPayloads.single['messages']! as List, hasLength(1));
+      expect(_turns(afterRestartPayloads.single['messages']), hasLength(1));
       expect(jsonEncode(afterRestartPayloads.single), isNot(contains('旧会话消息')));
     },
   );
@@ -1002,10 +1010,10 @@ void main() {
       expect(controller.activeConversation.title, '新对话');
       expect(controller.state.messages, hasLength(2));
       await controller.send('清除后的新材料', cloudApproved: true);
-      expect(payloads.last['messages']! as List, hasLength(1));
+      expect(_turns(payloads.last['messages']), hasLength(1));
       await controller.selectConversation(firstId);
       await controller.send('继续保留的会话', cloudApproved: true);
-      expect(payloads.last['messages']! as List, hasLength(3));
+      expect(_turns(payloads.last['messages']), hasLength(3));
       expect(jsonEncode(payloads.last), contains('保留的会话材料'));
       expect(jsonEncode(payloads.last), isNot(contains('准备清除的会话材料')));
     },
@@ -1033,10 +1041,10 @@ void main() {
       await controller.configure(_profile(), '');
       await controller.selectConversation(firstId);
       await controller.send('新配置下第一条', cloudApproved: true);
-      expect(payloads.last['messages']! as List, hasLength(1));
+      expect(_turns(payloads.last['messages']), hasLength(1));
       await controller.selectConversation(second.id);
       await controller.send('新配置下另一会话', cloudApproved: true);
-      expect(payloads.last['messages']! as List, hasLength(1));
+      expect(_turns(payloads.last['messages']), hasLength(1));
       expect(controller.state.messages, hasLength(8));
     },
   );

@@ -285,6 +285,11 @@ internal class ComputerBrowserRuntime(context: Context) : MethodChannel.MethodCa
         var closed = false
         fun viewport(): Pair<Int, Int> = if (visible && view.parent === viewer && view.isAttachedToWindow && view.width > 0 && view.height > 0)
             view.width to view.height else width to height
+        @Suppress("DEPRECATION")
+        private fun pageHeight(viewportHeight: Int): Int {
+            val content = Math.floor(view.contentHeight.toDouble() * view.scale).toLong()
+            return content.coerceIn(viewportHeight.toLong(), 16_000_000L).toInt()
+        }
         fun state(): Map<String, Any> {
             val (viewportWidth, viewportHeight) = viewport()
             ComputerBrowserContract.viewport(viewportWidth, viewportHeight)
@@ -295,6 +300,10 @@ internal class ComputerBrowserRuntime(context: Context) : MethodChannel.MethodCa
             "width" to viewportWidth, "height" to viewportHeight, "visible" to visible,
             "attached" to (view.parent === viewer && view.isAttachedToWindow),
             "revision" to revision,
+            // Where the viewport sits in the page, in the same pixels as width/height,
+            // so an observer can tell the top and the end of a long page apart.
+            "scrollY" to view.scrollY.coerceAtLeast(0),
+            "pageHeight" to pageHeight(viewportHeight),
             "provider" to (WebView.getCurrentWebViewPackage()?.let { "${it.packageName} / ${it.versionName}" }
                 ?: "Android System WebView")
             )
@@ -525,6 +534,9 @@ internal class ComputerBrowserRuntime(context: Context) : MethodChannel.MethodCa
         if (current.pending != null) throw ComputerBrowserFailure("busy", "浏览器操作尚未完成。")
         ensureAttached(current)
         current.url = url; current.error = ""; current.errorUrl = null; current.loading = true; changed(current)
+        // Loading the address that is already open is a reload, and a reload
+        // restores the previous scroll offset. Start every navigation at the top.
+        current.view.scrollTo(0, 0)
         current.view.loadUrl(url); idleDetach(current)
     }
     private fun ensureAttached(current: Session) {
@@ -643,6 +655,10 @@ internal class ComputerBrowserRuntime(context: Context) : MethodChannel.MethodCa
                     val canvas = Canvas(bitmap)
                     canvas.drawColor(Color.WHITE)
                     canvas.scale(width.toFloat() / sourceWidth, height.toFloat() / sourceHeight)
+                    // draw() paints in content coordinates. Without the parent's usual
+                    // scroll translation a scrolled page lands outside the bitmap and
+                    // the capture is blank.
+                    canvas.translate(-current.view.scrollX.toFloat(), -current.view.scrollY.toFloat())
                     current.view.draw(canvas)
                     repeat(6) {
                         if (png != null) return@repeat

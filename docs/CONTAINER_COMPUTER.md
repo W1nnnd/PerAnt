@@ -53,12 +53,12 @@ Writer、Calc、Impress 启动器仅对官方 `NORMAL_RESTART=81` 最多重试�
 | 工具 | 行为 |
 | --- | --- |
 | `browser_open` | 请求打开或导航共享原生浏览器；仅无内嵌凭据的 HTTP(S) 或 `about:blank`；回执不保证页面已加载 |
-| `browser_capture` | 按需取得实际 PNG、URL、标题、revision、loading、error、page_loaded 和 observation ID |
+| `browser_capture` | 按需取得实际 PNG、URL、标题、revision、loading、error、page_loaded 和 observation ID；并报告截图在页面中的位置：`scroll_top`、`page_height`、`at_top`、`at_bottom`（截图像素） |
 | `browser_save_page` | 消费最新观察，把固定提取的当前正文发布为新的 Markdown；返回实际路径、发布字节摘要、大小、来源、时间和截断标志；保留桌面窗口 |
-| `browser_action` | 最新观察上的 tap、long_press、scroll、text 或 key；动作消费观察，之后须重新截图 |
+| `browser_action` | 最新观察上的 tap、long_press、scroll、text 或 key；动作消费观察，回执附带约一秒后的新截图和新的 observation ID。滚动量以截图像素计，正值向下 |
 | `desktop_start` | 启动或重连真实 Linux 桌面 |
 | `desktop_capture` | 同一桌面的实际 PNG 和 observation ID |
-| `desktop_action` | 最新观察上的点击、双击、移动、拖动、滚动、文字和按键 |
+| `desktop_action` | 最新观察上的点击、双击、移动、拖动、滚动、文字和按键；回执附带约一秒后的新截图和新的 observation ID |
 | `desktop_stop` | 用户确认后关闭桌面与全部 Linux 图形应用 |
 | `container_list_files` / `container_read_file` | 真实目录或文本、整文件 SHA256、大小和截断标志 |
 | `container_write_file` / `container_make_directory` | 受版本条件约束的文件写入或目录创建，原生成功后才报告完成 |
@@ -90,6 +90,9 @@ v6 当前固定 **355 个官方签名桌面/办公 APK、375 项运行资源**�
 
 ## 限额与恢复
 
+- 发给模型的截图是高清晰度副本，叠加了每 100 或 200 像素一条、带数字的红色标尺，坐标一律指截图左上角起算的像素。标尺只画在这份副本上，查看器和操作记录里是真实画面。
+- 桌面运行期间文件工具和结构化命令不可用。模型应直接调用 `desktop_stop`，由应用请用户确认；确认后继续文件操作。失败的步骤若被之后相同的操作成功重做，任务按完成记录。
+- 普通聊天会附带一条固定说明，告诉模型本轮没有任何工具，不得声称已经或将要执行操作。它不随会话保存，也不受界面语气设置影响。
 - 每任务最多 12 轮模型请求 / 24 次工具，顺序执行；累计文本工具结果 512 KiB、文本上下文 1 MiB，图片另受上述预算限制。
 - 结构化 Shell 最多 16 KiB、超时 1～60 秒，输出有界；GUI 终端输入属于单独明确的桌面控制授权。
 - 工具意图先入库，随后记录等待确认、运行、成功、失败、拒绝、取消或中断，绑定会话与任务。

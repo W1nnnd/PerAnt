@@ -120,4 +120,34 @@ void main() {
       await tester.pump();
     });
   }
+  testWidgets('entering the address bar selects the current address', (
+    tester,
+  ) async {
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+    final controller = WorkspaceController(
+      persistence: MemoryWorkspacePersistence(),
+      credentials: MemoryCredentialStore(),
+    );
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: perantTheme(),
+        home: ComputerBrowserScreen(controller: controller),
+      ),
+    );
+    await tester.pumpAndSettle();
+    final field = find.byKey(const ValueKey('computer-browser-address'));
+    final address = tester.widget<TextField>(field).controller!;
+    expect(address.text, isNotEmpty);
+    await tester.tap(field);
+    await tester.pumpAndSettle();
+    expect(address.selection.start, 0);
+    expect(address.selection.end, address.text.length);
+    // A second tap while editing places the caret instead of reselecting.
+    await tester.tapAt(tester.getTopLeft(field) + const Offset(14, 14));
+    await tester.pumpAndSettle();
+    expect(address.selection.isCollapsed, isTrue);
+    await tester.pumpWidget(const SizedBox());
+    controller.dispose();
+    await tester.pump();
+  });
 }

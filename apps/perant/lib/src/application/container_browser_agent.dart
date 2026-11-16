@@ -37,6 +37,8 @@ final class ContainerBrowserObservation {
     required this.capturedAt,
     this.loading = false,
     this.error = '',
+    this.scrollTop = 0,
+    this.pageHeight = 0,
   });
   final String id;
   final String browserId;
@@ -49,6 +51,11 @@ final class ContainerBrowserObservation {
   final DateTime capturedAt;
   final bool loading;
   final String error;
+
+  /// Position of this screenshot in the page and the page's full height, in
+  /// screenshot pixels. [pageHeight] is 0 when unknown.
+  final int scrollTop;
+  final int pageHeight;
 }
 
 final class SharedContainerBrowserAgent implements ContainerBrowserAgent {
@@ -74,6 +81,10 @@ final class SharedContainerBrowserAgent implements ContainerBrowserAgent {
   Future<ContainerBrowserObservation> observe() async {
     final observation = await service.observe();
     final frame = observation.frame;
+    // Native offsets are in viewport pixels; the frame may have been scaled.
+    final scale = frame.state.height > 0
+        ? frame.height / frame.state.height
+        : 1.0;
     return ContainerBrowserObservation(
       id: observation.id,
       browserId: frame.state.id,
@@ -86,6 +97,8 @@ final class SharedContainerBrowserAgent implements ContainerBrowserAgent {
       capturedAt: observation.capturedAt,
       loading: frame.state.loading,
       error: frame.state.error,
+      scrollTop: (frame.state.scrollY * scale).round(),
+      pageHeight: (frame.state.pageHeight * scale).round(),
     );
   }
 

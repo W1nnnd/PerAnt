@@ -4,25 +4,27 @@
 
 PerAnt 是一个以对话为入口的手机个人智能体工作台。目标是让用户与模型在同一台本地“电脑”中协作：查看资料、运行 Linux 工具、编辑文件，再把结果带回对话。
 
-当前版本为 **0.9.0+2009 · 小蚁界面预览版**，主要实现和验证集中在 **Android ARM64**。Flutter 共享界面与业务逻辑，原生组件连接 Linux、桌面和浏览器；复杂任务可使用用户自行配置的 OpenAI 格式兼容 API。**本地小模型、iOS 运行时、长期后台、检索与记忆尚未接入，当前不是完整的双端个人智能体产品。**
+当前源码版本为 **0.0.1+2010**。版本号自 2026-11-16 起从 0.0.1 重新计算，此前的 0.6～0.9 是旧编号下的开发预览，记录保留为历史。本版第一次用真实模型服务（DeepSeek）实测并修复了对话、电脑协作和浏览器中的多处不可用问题，见 [0.0.1 说明](docs/releases/0.0.1.md)。主要实现和验证集中在 **Android ARM64**。Flutter 共享界面与业务逻辑，原生组件连接 Linux、桌面和浏览器；复杂任务可使用用户自行配置的 OpenAI 格式兼容 API。**本地小模型、iOS 运行时、长期后台、检索与记忆尚未接入，当前不是完整的双端个人智能体产品。**
 
-[项目首页](https://w1nnnd.github.io/PerAnt/) · [发布记录](https://github.com/W1nnnd/PerAnt/releases) · [0.9 更新说明](docs/releases/0.9.0-preview.md) · [开发计划](#接下来开发什么)
+[项目首页](https://w1nnnd.github.io/PerAnt/) · [发布记录](https://github.com/W1nnnd/PerAnt/releases) · [0.0.1 说明](docs/releases/0.0.1.md) · [旧编号 0.9 说明](docs/releases/0.9.0-preview.md) · [开发计划](#接下来开发什么)
 
 ## 下载与安装
 
-**[下载 Android APK · 0.9.0 预览版](https://github.com/W1nnnd/PerAnt/releases/download/v0.9.0-preview/PerAnt-0.9.0-debug-arm64.apk)** · [SHA256 校验清单](https://github.com/W1nnnd/PerAnt/releases/download/v0.9.0-preview/SHA256SUMS) · [同版本对应源码与发布说明](https://github.com/W1nnnd/PerAnt/releases/tag/v0.9.0-preview)
+> **公开安装包仍是旧编号的 0.9.0，不包含 0.0.1 的修复。** 0.9.0 发布前没有连接过真实模型服务，实测中自己输入的任务不会真正执行，模型操作桌面和网页也基本不可用。需要可用版本请先[从源码构建](#从源码构建-android-apk)；新的公开安装包要连同对应的 Linux 源码材料重新制作，尚未发布。
+
+**[下载 Android APK · 旧编号 0.9.0 预览版](https://github.com/W1nnnd/PerAnt/releases/download/v0.9.0-preview/PerAnt-0.9.0-debug-arm64.apk)** · [SHA256 校验清单](https://github.com/W1nnnd/PerAnt/releases/download/v0.9.0-preview/SHA256SUMS) · [同版本对应源码与发布说明](https://github.com/W1nnnd/PerAnt/releases/tag/v0.9.0-preview)
 
 将 APK 下载到手机后打开，按 Android 提示允许安装。已有本机开发版可尝试覆盖安装；如系统提示签名不一致，先保留重要文件，勿直接卸载清除数据。GitHub Release 同时提供三卷 Linux 对应源码与匹配的 PerAnt 源码，普通安装只需 APK；源码重组和校验见[发行材料说明](docs/PUBLIC_BINARY_RELEASE.md)。本机构建见[构建说明](#从源码构建-android-apk)。
 
 安装包要求 **Android 10 / API 29 及以上、64 位 ARM（arm64-v8a）**。当前是包含 Linux 和办公组件的调试包，体积约 **518 MiB**；不支持 32 位 ARM 或 x86，尚无 iPhone 安装包。首次启动还需解包 Linux 资源，请预留额外存储空间；解包后的完整空间预算尚待实测。
 
-APK SHA256：`df28a19867704134053f4d79dd78e10d8d05f18fd25227d2952489b33e06a167`。
+0.9.0 APK SHA256：`df28a19867704134053f4d79dd78e10d8d05f18fd25227d2952489b33e06a167`。
 
 ## 界面预览
 
-0.9 将暖白与鼠尾草绿、圆框小蚁头像和「对话 / 电脑 / 文件」三项导航接入正式 Flutter 应用。昵称、界面语气和震动偏好保存在本机；授权、任务和文件操作继续连接真实控制器。迁移范围见 [Concept 06 实现说明](docs/UI_CONCEPT06_IMPLEMENTATION.md)，图标源图与提示词见 [图标说明](apps/perant/assets/branding/README.md)。
+旧编号 0.9 将暖白与鼠尾草绿、圆框小蚁头像和「对话 / 电脑 / 文件」三项导航接入正式 Flutter 应用。昵称、界面语气和震动偏好保存在本机；授权、任务和文件操作继续连接真实控制器。迁移范围见 [Concept 06 实现说明](docs/UI_CONCEPT06_IMPLEMENTATION.md)，图标源图与提示词见 [图标说明](apps/perant/assets/branding/README.md)。
 
-以下为 **0.9.0 Android APK** 在模拟器中的真实截图，使用原始图片，未重绘界面。点击可查看原图，版本与来源见[截图说明](docs/images/README.md)。
+以下为 **旧编号 0.9.0 Android APK** 在模拟器中的真实截图，使用原始图片，未重绘界面；0.0.1 只在输入框旁多了一个电脑按钮。点击可查看原图，版本与来源见[截图说明](docs/images/README.md)。
 
 <table>
   <tr>
@@ -45,13 +47,15 @@ APK SHA256：`df28a19867704134053f4d79dd78e10d8d05f18fd25227d2952489b33e06a167`�
 - **浏览网页并保存文字资料。** Android 原生 WebView 提供地址栏、历史导航和交互；“保存网页文字”及模型工具 `browser_save_page` 可新建带来源、时间和截断说明的 Markdown，不覆盖原文件，也不停止已就绪桌面。正文文件总预算为 256 KiB，不包含附件、表单或内嵌页面。
 - **管理本地成果。** 文件浏览、UTF-8 编辑、SHA256 冲突检测、Markdown 预览、文档版本确认和 SQLite 持久化。固定 Python 文字整理会保留原文并规范排版，尚不生成语义摘要。
 
-模型工具只在本次容器协作授权下执行，普通聊天不自动获得文件、截图或键鼠权限。截图不写入 SQLite；API Key 使用平台凭据存储。结构化 Shell 命令逐条确认，GUI 终端输入属于明确授予的桌面控制范围。
+模型工具只在本次容器协作授权下执行，普通聊天不自动获得文件、截图或键鼠权限。在输入框里写好任务后，点输入框旁的电脑按钮（“用电脑做这件事”）并确认授权，模型才会动用电脑；直接发送则是普通聊天，模型会说明自己没有电脑权限。截图不写入 SQLite；API Key 使用平台凭据存储。结构化 Shell 命令逐条确认，GUI 终端输入属于明确授予的桌面控制范围。
 
 使用方式与边界见[容器电脑](docs/CONTAINER_COMPUTER.md)、[基础应用](docs/DESKTOP_APPLICATIONS.md)和[网页文字保存](docs/BROWSER_PAGE_SAVE.md)。
 
 ## 预览版状态与限制
 
-以下为 **0.9.0 在 2026-11-15 的本地验证记录**，不同类型分别计数：
+**0.0.1（2026-11-16）** 用真实 DeepSeek API 在 4 GB 模拟器上按用户流程实测：普通聊天、连接测试、模型写文件、模型在桌面里打开终端并执行命令、模型打开网页并点击链接后保存（最终构建连续 5 次）、手动浏览与保存网页、本地文字整理和手动终端均通过。自动检查为 Python 14、Dart 292、Android JVM 72。逐项结果、所用构建和未验证范围见 [0.0.1 说明](docs/releases/0.0.1.md)。
+
+以下为 **旧编号 0.9.0 在 2026-11-15 的本地验证记录**，不同类型分别计数：
 
 | 检查 | 结果与范围 |
 | --- | --- |
@@ -67,7 +71,7 @@ APK SHA256：`df28a19867704134053f4d79dd78e10d8d05f18fd25227d2952489b33e06a167`�
 
 还需注意以下边界：
 
-- 尚未使用真实模型服务完成端到端工具协作；协议测试使用模拟 API，不能代表所有兼容供应商均可用。
+- 真实模型服务只验证了 DeepSeek `deepseek-chat` 的 Chat Completions；其他预设供应商和 Responses 协议仍只有模拟 API 测试。模型操作桌面和网页受 12 轮上限与点击精度限制，多步图形任务可能做不完。
 - 4 GB 实体手机、约 5 秒基础响应、系统中文输入法、长期后台和锁屏续跑均未通过验收。隐藏查看器不会让 Linux 窗口或 WebView 的内存归零，也不保证页面脚本与网络停止。
 - Writer 的 ODT / DOCX 曾有 GUI 保存及重开测试；本轮没有重跑旧 Office、Linux 和桌面套件。Calc / Impress、复杂排版和完整多步共控仍需单独验证。
 - 浏览器不提供附件下载、文件上传、PDF 查看或模型任意 JavaScript 执行。网页内容不能授予新权限；登录、提交、发送、付款等外部动作需要具体授权。
@@ -83,7 +87,7 @@ APK SHA256：`df28a19867704134053f4d79dd78e10d8d05f18fd25227d2952489b33e06a167`�
 随后完善以下工作流：
 
 1. **完成 Android 网页到 Linux 的人工闭环。** 定位输入不稳定，验证实际网址输入、保存回执、文件路径和在桌面编辑的全过程，补齐中文输入与异常恢复。
-2. **跑通真实模型协作。** 使用实际兼容 API 验证工具往返、截图、取消和用户接管，完成“模型生成文件 → 用户修改 → 模型重新观察继续”的共享工作流。
+2. **把真实模型协作做稳。** 0.0.1 已用 DeepSeek 跑通工具往返、截图和桌面／网页操作，但只覆盖了少数几个任务。下一步测表单输入、登录页和多步办公操作，验证取消、用户接管和“模型生成文件 → 用户修改 → 模型重新观察继续”的共享工作流，并补测其他供应商。
 3. **接入并测量本地小模型。** 引入原生 llama.cpp，对比小参数模型、量化和上下文配置，在 4 GB 实体手机上测量中文指令、基础工具能力、冷热启动、总内存和能耗；约 5 秒响应是验证目标。
 4. **完善后台与恢复。** 验证 Android 前台服务、锁屏、断网和进程回收后的步骤恢复，保留已生成文件，避免重复执行副作用。
 5. **建立资料检索与记忆。** 接入关键词和语义混合检索、来源追溯、可查看修改删除的长期记忆、备份迁移，以约 1,000 份文档验证规模。
@@ -110,15 +114,15 @@ tool/build-apk
 脚本生成 Android 10 / API 29 及以上、仅 ARM64 的调试包与校验文件：
 
 ```text
-artifacts/apk/PerAnt-0.9.0-debug-arm64.apk
-artifacts/apk/PerAnt-0.9.0-debug-arm64.apk.sha256
+artifacts/apk/PerAnt-0.0.1-debug-arm64.apk
+artifacts/apk/PerAnt-0.0.1-debug-arm64.apk.sha256
 ```
 
 用已授权 USB 调试的 Android 设备安装：
 
 ```sh
 adb devices
-adb install -r artifacts/apk/PerAnt-0.9.0-debug-arm64.apk
+adb install -r artifacts/apk/PerAnt-0.0.1-debug-arm64.apk
 ```
 
 开发调试先执行 `tool/flutterw devices`，再在 `apps/perant` 中运行 `../../tool/flutterw run -d <设备ID>`。移动端以原生 APK 和设备/模拟器验证，不以网页预览替代。

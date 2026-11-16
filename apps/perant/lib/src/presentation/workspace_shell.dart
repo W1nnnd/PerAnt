@@ -1682,6 +1682,21 @@ class _WorkspaceShellState extends State<WorkspaceShell>
                 ),
               ),
               IconButton(
+                key: const ValueKey('composer-use-computer'),
+                onPressed:
+                    _mutationBusy ||
+                        controller.isSending ||
+                        controller.isTesting ||
+                        _composer.text.trim().isEmpty
+                    ? null
+                    : () => unawaited(
+                        _startPrompt(_composer.text.trim(), container: true),
+                      ),
+                tooltip: '用电脑做这件事',
+                icon: const Icon(Icons.computer_outlined, size: 20),
+                style: IconButton.styleFrom(minimumSize: const Size(40, 40)),
+              ),
+              IconButton(
                 onPressed: _mutationBusy
                     ? null
                     : () {

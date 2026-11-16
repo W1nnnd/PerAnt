@@ -110,6 +110,12 @@ final class ComputerBrowserService extends ChangeNotifier {
     }
   }
 
+  /// Page size while no viewer is attached. Height matters more than width:
+  /// at phone pixel density the former 1024×640 landscape frame showed only a
+  /// few lines of a page per screenshot.
+  static const hiddenWidth = 1000;
+  static const hiddenHeight = 1200;
+
   Future<void> open({String url = 'about:blank', bool fromModel = false}) {
     final generation = _generation;
     return _serial(() async {
@@ -119,7 +125,12 @@ final class ComputerBrowserService extends ChangeNotifier {
         final current = state;
         if (current == null) {
           final id = 'browser-${DateTime.now().microsecondsSinceEpoch}';
-          final opened = await bridge.open(id: id, url: url);
+          final opened = await bridge.open(
+            id: id,
+            url: url,
+            width: hiddenWidth,
+            height: hiddenHeight,
+          );
           if (_disposed) {
             await bridge.close(id);
             throw StateError('浏览器工作区已关闭。');

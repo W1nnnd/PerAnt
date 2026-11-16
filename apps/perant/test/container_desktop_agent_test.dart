@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:perant/src/application/container_desktop_agent.dart';
+import 'package:perant/src/application/screenshot_grid.dart';
 import 'package:perant/src/application/workspace_controller.dart';
 import 'package:perant/src/data/credential_store.dart';
 import 'package:perant/src/data/workspace_state.dart';
@@ -208,6 +209,7 @@ void main() {
     _Desktop desktop,
     http.Client client, {
     ApiProtocol protocol = ApiProtocol.chatCompletions,
+    ScreenshotAnnotator annotator = plainScreenshot,
   }) async {
     final methods = MethodChannel(
       'dev.perant/desktop-agent-test-${sequence++}',
@@ -258,6 +260,7 @@ void main() {
       gateway: OpenAiGateway(client: client),
       bridge: PerantPlatformBridge(methodChannel: methods),
       containerDesktop: desktop,
+      screenshotAnnotator: annotator,
     );
     await controller.initialize();
     await controller.configure(
@@ -312,7 +315,10 @@ void main() {
         );
         expect(payloads, hasLength(5));
         expect(desktop.starts, 1);
-        expect(desktop.captures, 2);
+        // The input receipt carries its own follow-up observation, so the
+        // scripted second capture is the third one taken.
+        expect(desktop.captures, 3);
+        expect(jsonEncode(payloads[3]), contains('随附约一秒后的新画面'));
         expect(desktop.inputSent, 1);
         expect(desktop.actions, ['click']);
         expect(desktop.running, isTrue);
@@ -358,7 +364,7 @@ void main() {
                 (part) => part['type'] == expectedType,
               ),
         );
-        expect(jsonEncode(imageMessage), contains('fixture-observation-2'));
+        expect(jsonEncode(imageMessage), contains('fixture-observation-3'));
         expect(
           jsonEncode(imageMessage),
           isNot(contains('fixture-observation-1')),
@@ -648,4 +654,118 @@ void main() {
       );
     });
   }
+  for (final protocol in ApiProtocol.values) {
+    test(
+      '$protocol sends the ruled copy at high detail and states the pixel contract',
+      () async {
+        final ruled = Uint8List.fromList([..._fixturePng, 0, 1, 2, 3]);
+        for (final spacing in <int?>[100, null]) {
+          final desktop = _Desktop();
+          final payloads = <Map<String, Object?>>[];
+          var requests = 0;
+          final seen = <Uint8List>[];
+          final controller = await launch(
+            desktop,
+            MockClient((request) async {
+              payloads.add(jsonDecode(request.body) as Map<String, Object?>);
+              return _response(switch (requests++) {
+                0 => _tool(protocol, 'start-1', 'desktop_start', {}),
+                1 => _tool(protocol, 'capture-1', 'desktop_capture', {}),
+                _ => _text(protocol),
+              });
+            }),
+            protocol: protocol,
+            annotator: (png) async {
+              seen.add(png);
+              return spacing == null
+                  ? AnnotatedScreenshot(png)
+                  : AnnotatedScreenshot(ruled, gridSpacing: spacing);
+            },
+          );
+          await controller.send(
+            '请看一下桌面',
+            cloudApproved: true,
+            containerEnabled: true,
+          );
+          expect(payloads, hasLength(3));
+          expect(seen.single, _fixturePng);
+          final encoded = jsonEncode(payloads[2]);
+          expect(
+            encoded,
+            contains(
+              'data:image/png;base64,${base64Encode(spacing == null ? _fixturePng : ruled)}',
+            ),
+          );
+          expect(encoded, contains('"detail":"high"'));
+          expect(encoded, isNot(contains('"detail":"low"')));
+          expect(
+            encoded,
+            contains('integer pixels measured from its top-left'),
+          );
+          expect(
+            encoded.contains('a ruler PerAnt drew every 100 pixels'),
+            spacing != null,
+          );
+          // The real screen, not the ruled copy, stays the owned observation.
+          expect(controller.tasks.single.status, TaskStatus.completed);
+        }
+      },
+    );
+  }
+  test(
+    'the observation returned with an input receipt authorizes the next input',
+    () async {
+      final desktop = _Desktop();
+      final payloads = <Map<String, Object?>>[];
+      var requests = 0;
+      final controller = await launch(
+        desktop,
+        MockClient((request) async {
+          payloads.add(jsonDecode(request.body) as Map<String, Object?>);
+          return _response(switch (requests++) {
+            0 => _tool(ApiProtocol.chatCompletions, 's', 'desktop_start', {}),
+            1 => _tool(ApiProtocol.chatCompletions, 'c', 'desktop_capture', {}),
+            2 => _tool(ApiProtocol.chatCompletions, 'a1', 'desktop_action', {
+              'observation_id': 'fixture-observation-1',
+              'action': 'click',
+              'x': 25,
+              'y': 42,
+            }),
+            // No capture in between: the receipt already carried frame 2.
+            3 => _tool(ApiProtocol.chatCompletions, 'a2', 'desktop_action', {
+              'observation_id': 'fixture-observation-2',
+              'action': 'click',
+              'x': 30,
+              'y': 44,
+            }),
+            _ => _text(ApiProtocol.chatCompletions),
+          });
+        }),
+      );
+      await controller.send(
+        '连续点两下',
+        cloudApproved: true,
+        containerEnabled: true,
+      );
+      expect(payloads, hasLength(5));
+      expect(desktop.inputSent, 2);
+      expect(desktop.captures, 3);
+      expect(controller.tasks.single.status, TaskStatus.completed);
+      final afterFirst = jsonEncode(payloads[3]);
+      expect(afterFirst, contains('observation_id=fixture-observation-2'));
+      expect(
+        afterFirst,
+        isNot(contains('observation_id=fixture-observation-1')),
+      );
+      // The receipt names the frame it carries; the stale id it consumed is
+      // not presented as current.
+      final receipt = (payloads[3]['messages']! as List)
+          .whereType<Map>()
+          .lastWhere((message) => message['role'] == 'tool');
+      final data = jsonDecode(receipt['content'] as String) as Map;
+      expect(data['observation_id'], 'fixture-observation-2');
+      expect(data['image_follows'], isTrue);
+      expect(data['action'], 'click');
+    },
+  );
 }

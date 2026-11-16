@@ -28,6 +28,12 @@ class _ComputerBrowserScreenState extends State<ComputerBrowserScreen>
   bool _saving = false;
   BrowserSavedPage? _savedPage;
   String? _error;
+
+  // Rows shown above the page are frozen while a save is running. Adding or
+  // removing one resizes the web view, and the native reader treats a resize
+  // as a changed page and rejects the save that is in progress.
+  String? _heldError;
+  bool _heldSavedRow = false;
   ComputerBrowserService get browser => widget.controller.browser;
   bool get _manual =>
       !browser.modelHasControl &&
@@ -35,11 +41,30 @@ class _ComputerBrowserScreenState extends State<ComputerBrowserScreen>
       !browser.busy &&
       !_saving;
 
+  bool _addressFocused = false;
+
+  /// Entering the address bar selects the current address, so typing a new
+  /// one replaces it instead of being inserted into the old text.
+  void _addressFocusChanged() {
+    final focused = _addressFocus.hasFocus;
+    if (focused && !_addressFocused) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted || !_addressFocus.hasFocus) return;
+        _address.selection = TextSelection(
+          baseOffset: 0,
+          extentOffset: _address.text.length,
+        );
+      });
+    }
+    _addressFocused = focused;
+  }
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     browser.addListener(_changed);
+    _addressFocus.addListener(_addressFocusChanged);
     _foreground =
         WidgetsBinding.instance.lifecycleState == null ||
         WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed;
@@ -146,6 +171,8 @@ class _ComputerBrowserScreenState extends State<ComputerBrowserScreen>
     if (!_manual || !_foreground) return;
     _addressFocus.unfocus();
     setState(() {
+      _heldError = _displayedError;
+      _heldSavedRow = _savedPage != null;
       _saving = true;
       _error = null;
     });
@@ -220,15 +247,19 @@ class _ComputerBrowserScreenState extends State<ComputerBrowserScreen>
     super.dispose();
   }
 
+  String? get _displayedError {
+    final state = browser.state;
+    return _error ??
+        browser.error ??
+        (state?.error.isNotEmpty == true ? state!.error : null);
+  }
+
   @override
   Widget build(BuildContext context) => ListenableBuilder(
     listenable: widget.controller,
     builder: (context, _) {
       final state = browser.state;
-      final error =
-          _error ??
-          browser.error ??
-          (state?.error.isNotEmpty == true ? state!.error : null);
+      final error = _saving ? _heldError : _displayedError;
       return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -315,18 +346,13 @@ class _ComputerBrowserScreenState extends State<ComputerBrowserScreen>
                 ],
               ),
             ),
-            if (state?.loading == true || _saving)
-              const LinearProgressIndicator(minHeight: 2),
-            if (_saving)
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                child: Text('正在保存网页文字到共享工作区…'),
-              ),
-            if (!_saving && _savedPage != null)
+            if (_saving ? _heldSavedRow : _savedPage != null)
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: TextButton.icon(
-                  onPressed: () => _showSavedPage(_savedPage!),
+                  onPressed: _saving || _savedPage == null
+                      ? null
+                      : () => _showSavedPage(_savedPage!),
                   icon: const Icon(Icons.description_outlined, size: 18),
                   label: const Text('已保存到工作区 · 查看文件路径'),
                 ),
@@ -340,27 +366,59 @@ class _ComputerBrowserScreenState extends State<ComputerBrowserScreen>
                 ),
               ),
             Expanded(
-              child: state == null
-                  ? Center(
-                      child: TextButton(
-                        onPressed: _start,
-                        child: Text(browser.busy ? '正在打开浏览器' : '打开浏览器'),
-                      ),
-                    )
-                  : defaultTargetPlatform == TargetPlatform.android && !kIsWeb
-                  ? Listener(
-                      onPointerDown: (_) => browser.noteUserInput(),
-                      child: AbsorbPointer(
-                        absorbing: !_manual,
-                        child: AndroidView(
-                          key: ValueKey('computer-browser-${state.id}'),
-                          viewType: 'dev.perant/computer-browser',
-                          creationParams: {'id': state.id},
-                          creationParamsCodec: const StandardMessageCodec(),
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: state == null
+                        ? Center(
+                            child: TextButton(
+                              onPressed: _start,
+                              child: Text(browser.busy ? '正在打开浏览器' : '打开浏览器'),
+                            ),
+                          )
+                        : defaultTargetPlatform == TargetPlatform.android &&
+                              !kIsWeb
+                        ? Listener(
+                            onPointerDown: (_) => browser.noteUserInput(),
+                            child: AbsorbPointer(
+                              absorbing: !_manual,
+                              child: AndroidView(
+                                key: ValueKey('computer-browser-${state.id}'),
+                                viewType: 'dev.perant/computer-browser',
+                                creationParams: {'id': state.id},
+                                creationParamsCodec:
+                                    const StandardMessageCodec(),
+                              ),
+                            ),
+                          )
+                        : const Center(child: Text('此构建尚未接入原生浏览器。')),
+                  ),
+                  // Progress is drawn over the page so it never resizes it.
+                  if (state?.loading == true || _saving)
+                    const Positioned(
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      child: LinearProgressIndicator(minHeight: 2),
+                    ),
+                  if (_saving)
+                    const Positioned(
+                      top: 2,
+                      left: 0,
+                      right: 0,
+                      child: Material(
+                        color: PerantColors.surface,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 6,
+                          ),
+                          child: Text('正在保存网页文字到共享工作区…'),
                         ),
                       ),
-                    )
-                  : const Center(child: Text('此构建尚未接入原生浏览器。')),
+                    ),
+                ],
+              ),
             ),
           ],
         ),

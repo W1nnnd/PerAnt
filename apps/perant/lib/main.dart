@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 import 'package:material_ui/material_ui.dart';
 
+import 'src/application/screenshot_grid.dart';
 import 'src/application/workspace_controller.dart';
 import 'src/data/credential_store.dart';
 import 'src/data/persistence.dart';
@@ -12,6 +13,7 @@ Future<void> main() async {
     final controller = WorkspaceController(
       persistence: await openWorkspacePersistence(),
       credentials: createCredentialStore(),
+      screenshotAnnotator: gridScreenshotAnnotator,
     );
     await controller.initialize();
     runApp(PerantApp(controller: controller));

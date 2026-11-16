@@ -471,4 +471,56 @@ void main() {
       expect(tester.takeException(), isNull);
     },
   );
+  testWidgets(
+    'the computer button requests the computer for typed text, even while chat is remembered',
+    (tester) async {
+      final fixture = await _launch(tester);
+      final button = find.byKey(const ValueKey('composer-use-computer'));
+      expect(tester.widget<IconButton>(button).onPressed, isNull);
+      await _rememberFirstChat(tester, fixture);
+      expect(fixture.requests, hasLength(1));
+      const text = '帮我在电脑里建一个文件';
+      await tester.enterText(_composer, text);
+      await tester.pump();
+      expect(tester.widget<IconButton>(button).onPressed, isNotNull);
+      await tester.tap(find.byTooltip('用电脑做这件事'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 350));
+      expect(find.text(_authorizationTitle), findsOneWidget);
+      final permission = find.ancestor(
+        of: find.text('允许模型操作容器电脑'),
+        matching: find.byType(CheckboxListTile),
+      );
+      expect(tester.widget<CheckboxListTile>(permission).value, isTrue);
+      expect(find.text(_rememberLabel), findsNothing);
+      expect(fixture.requests, hasLength(1));
+      expect(fixture.controller.containerActions, isEmpty);
+
+      // Declining keeps the text and leaves no computer grant behind.
+      await tester.tap(find.text('改一改再发'));
+      await tester.pumpAndSettle();
+      expect(_composerText(tester), text);
+      await tester.tap(find.byTooltip('发送消息'));
+      await _pumpUntil(
+        tester,
+        () => fixture.requests.length == 2 && !fixture.controller.isSending,
+      );
+      await tester.pumpAndSettle();
+      expect(fixture.requests.last.containsKey('tools'), isFalse);
+      expect(fixture.controller.containerActions, isEmpty);
+
+      // Accepting sends the same typed text as a computer task.
+      await tester.enterText(_composer, text);
+      await tester.pump();
+      await tester.tap(find.byTooltip('用电脑做这件事'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 350));
+      expect(tester.widget<CheckboxListTile>(permission).value, isTrue);
+      await _approve(tester, fixture);
+      expect(fixture.requests, hasLength(3));
+      expect(fixture.requests.last['tools'], isA<List>());
+      expect(fixture.controller.tasks.first.title, startsWith('容器协作：'));
+      expect(tester.takeException(), isNull);
+    },
+  );
 }
