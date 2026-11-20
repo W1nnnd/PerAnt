@@ -5,8 +5,8 @@
 .gitignore[FC6T]: F:界定工具缓存、签名、个人凭据、重建资源和宿主本地配置的 Git 边界。 | R:code:tool/prepare-linux-runtime | A:.env.example | S:环境示例与指定编辑器配置有放行规则；Codex MCP 路径绑定本机。
 AGENTS.md[SC7S]: F:约定 Agent 如何取得、验证和维护当前仓库的 AOCI 认知。 | R:- | A:aoci_rules，aoci_overview，aoci_maintain，aoci_update_entry | S:压缩后须按新事件完整重载；正式条目由模型基于绑定证据独立创作。
 LICENSE[SG7L]: F:提供 GNU GPL 第三版正文，规定复制、修改、传播和交付对应源码的条件。 | R:code:README.md | A:GNU GPL v3 | S:项目自研代码标为 GPL-3.0-only；随包第三方组件的许可另行记录。
-README.md[SG7S]: F:说明移动工作区配置多个模型服务、离线模型与资料办公的入口，并提供 Android 安装、源码和构建说明。 | R:code:TASK_PLAN.md,code:docs/releases/0.0.1.md | A:Android 安装与构建 | S:当前源码为 0.0.9，公开下载与对应摘要仍绑定 0.0.1。
-TASK_PLAN.md[SW8L]: F:记录 Android 与 iOS 的开发路线、模型配置与资料工作区的实现进度和验收门槛。 | R:code:docs/DEVELOPMENT_STATUS.md,code:apps/perant/integration_test/provider_profiles_test.dart | A:M0 至 M5，M1-D | S:回环服务验证协议实现，各真实供应商的能力仍需逐一实测，实体硬件另行验收。
+README.md[SG7S]: F:说明移动工作区的模型服务、离线办公、资源安装及 Android 构建下载入口。 | R:code:TASK_PLAN.md,code:docs/releases/0.0.1.md | A:Android 安装与构建 | S:开发源码为 0.0.10，公开安装包及摘要仍对应 0.0.1。
+TASK_PLAN.md[SW8L]: F:跟踪双端工作台的实现和验收，记录资源预算、存储压力及中断恢复的设备覆盖。 | R:code:docs/DEVELOPMENT_STATUS.md,code:apps/perant/integration_test/storage_pressure_test.dart | A:M0 至 M5，M1-D | S:应用进程被终止和独立 SQLite 库满额各自验证，实体设备策略仍待验收。
 analysis_options.yaml[FQ5T]: F:集中定义 Dart 分析排除项、缺失返回值等错误级别与异步资源管理 lint。 | R:code:tool/check | A:analyzer，linter | S:-
 pubspec.lock[FV6L]: F:固定工作区解析的依赖版本与发行摘要，包括端侧 llama.cpp 适配器及配套 Flutter 原生插件。 | R:code:pubspec.yaml,code:apps/perant/pubspec.yaml | A:工作区依赖锁 | S:-
 pubspec.yaml[FV6T]: F:声明共享 Dart 工作区，并在根级构建钩子中选择 llama.cpp 运行时与 CPU 后端。 | R:code:apps/perant/pubspec.yaml,code:pubspec.lock | A:perant_workspace，hooks.user_defines.llamadart | S:Android 与 Linux 在 platforms 字典内选择 CPU，工作区根的设置决定原生资源构建。
@@ -16,7 +16,7 @@ pubspec.yaml[FV6T]: F:声明共享 Dart 工作区，并在根级构建钩子中�
 .metadata[FV4T]: F:记录 Flutter 创建应用及各平台模板的版本，用于后续迁移。 | R:- | A:migration.platforms，unmanaged_files | S:入口 Dart 文件和 Xcode 工程被列为不托管迁移。
 README.md[SG2T]: F:把应用目录的开发者引向工作区级的设置、验证记录和运行时说明。 | R:code:README.md | A:工作区 README 导航 | S:-
 analysis_options.yaml[FQ4T]: F:继承仓库分析配置，在应用内排除平台工程和生成目录。 | R:code:analysis_options.yaml | A:analyzer.exclude | S:-
-pubspec.yaml[FV6T]: F:声明 0.0.9 移动工作区版本、共享包、端侧推理适配、离线办公依赖和字体素材。 | R:code:pubspec.yaml,code:pubspec.lock | A:perant，0.0.9+2018 | S:本地权重另行下载或导入并通过校验。
+pubspec.yaml[FV6T]: F:声明移动工作区的 0.0.10 版本、离线推理和办公依赖、共享包及字体。 | R:code:pubspec.yaml,code:pubspec.lock | A:perant，0.0.10+2019 | S:设备模型权重按需单独安装。
 
 ===/<repository>/apps/perant/android/===
 .gitignore[FV4T]: F:在 Android 子工程排除本地 SDK 定位、Gradle 包装器生成件和签名材料。 | R:code:apps/perant/android/gradle/wrapper/gradle-wrapper.properties | A:local.properties，key.properties | S:-
@@ -94,6 +94,7 @@ local_materials_test.dart[TA7S]: F:以真实端侧模型形成多资料分段纪
 local_model_test.dart[TA7S]: F:在 Android 中加载固定中文模型，比较两种上下文的分类、参数及中文回答并记录延迟。 | R:code:apps/perant/lib/src/application/device_inference.dart,code:apps/perant/lib/src/data/gguf_models.dart | A:设备本地模型指令矩阵 | S:分类计入澄清，性能单独记录加载、首条和已加载延迟。
 lazy_library_test.dart[TD7S]: F:在千份 SQLite 资料中核对冷启动、按需选取修订、旧版记忆提取、完整备份及过期实例拒绝。 | R:code:apps/perant/lib/src/data/persistence_native.dart,code:apps/perant/lib/src/application/historical_excerpt.dart | A:PERANT_CATALOG_REGRESSION | S:以完整正文载入数区分目录和实际加载，扩展模式另运行办公、检索与引用回归。
 provider_profiles_test.dart[TI7S]: F:在设备上通过回环服务核验模型目录、凭据隔离、SQLite 重开及双协议工具往返和采样配置。 | R:code:apps/perant/lib/src/application/workspace_controller.dart,code:apps/perant/lib/src/data/portable_documents.dart | A:模型配置设备集成测试 | S:错误参数只发第一轮，未知配置不得借用旧密钥，备份不包含凭据引用。
+storage_pressure_test.dart[TR7M]: F:在 Android 实际触发数据库容量错误，检验修订与索引回滚，跨进程重开核实文档和任务状态。 | R:code:apps/perant/lib/src/data/persistence_native.dart,code:tool/android-recovery-stress.ps1 | A:PERANT_PROCESS_PROBE | S:仅对独立测试库设页限；待回环请求开始再让外部终止，冷启时必须没有自动网络请求。
 
 ===/<repository>/apps/perant/ios/===
 .gitignore[FV3T]: F:排除 iOS 工程中的个人 Xcode 状态、Flutter 生成文件及本地构建材料。 | R:- | A:iOS Git 忽略规则 | S:-
@@ -167,14 +168,14 @@ local_document_work.dart[AW7S]: F:将选区润色与多资料纪要组织为可�
 ===/<repository>/apps/perant/lib/src/data/===
 credential_store.dart[PI7T]: F:用平台安全存储实现凭据读写删除，并提供内存实现供测试。 | R:code:packages/perant_core/lib/src/providers.dart | A:PlatformCredentialStore，createCredentialStore | S:工作区持久化使用引用，密钥由此独立存储。
 persistence.dart[PD4T]: F:提供工作区持久化的统一异步打开入口并委托原生实现。 | R:code:apps/perant/lib/src/data/persistence_native.dart | A:openWorkspacePersistence | S:-
-persistence_native.dart[PD8M]: F:以 SQLite 管理工作区快照、修订分块和索引，提供全量加载、目录延迟读取和局部证据查询。 | R:code:apps/perant/lib/src/data/library_search.dart,code:apps/perant/lib/src/data/semantic_index.dart,code:packages/perant_core/lib/src/documents.dart | A:openPersistence，loadCatalog，readWindow | S:目录校验分块连续性；延迟读取及稀疏保存绑定工作区代数与修订身份，拒绝过期引用复活数据。
+persistence_native.dart[PD8M]: F:以 SQLite 管理工作区快照、文档块和索引，支持按需读取修订并在打开指定数据库时配置连接。 | R:code:apps/perant/lib/src/data/library_search.dart,code:apps/perant/lib/src/data/semantic_index.dart | A:openPersistence，loadCatalog，readWindow | S:局部读取与保存绑定工作区代数及修订身份，编辑失败须整体回滚。
 workspace_state.dart[DD8L]: F:序列化资料、会话、任务、记忆与模型配置集合，保留活动配置和设备内的延迟修订身份。 | R:code:packages/perant_core/lib/src/providers.dart,code:packages/perant_core/lib/src/documents.dart | A:WorkspaceState，savedProfiles，WorkspaceCatalog | S:旧单配置库无需补写其余配置；禁止重复配置标识和重复安全凭据引用。
 portable_documents.dart[PD7S]: F:将工作区修订、偏好与记忆解析成可移植备份，校验导入并按有限字段导出诊断。 | R:code:apps/perant/lib/src/data/workspace_state.dart,code:packages/perant_core/lib/src/documents.dart | A:portableSnapshot，encodeWorkspaceBackup，readWorkspaceBackup | S:导出遍历完整历史且未访问正文不入界面缓存；凭据与设备扫描进度排除在外。
 library_search.dart[PD7M]: F:维护中文片段关键词与修订，按重叠片段拼回指定 UTF-16 范围供引用核验。 | R:code:apps/perant/lib/src/data/persistence_native.dart | A:LibrarySearch，PassageSearch，PassageEvidence | S:读取修订必须匹配，窗口最多 804 个 UTF-16 单元；片段更新与来源删除联动。
 local_memories.dart[DD7S]: F:从限定来源抽取明确的短偏好，维护逐来源的扫描版本、修改、删除抑制与来源消失状态。 | R:code:apps/perant/lib/src/data/workspace_state.dart,code:packages/perant_core/lib/src/knowledge.dart | A:LocalMemoryBook，factLines，needsScan | S:只有完整短句能成为偏好；同源原句删除后跨修订抑制，人工改写项可保留。
 bge_encoder.dart[IA8M]: F:下载或导入固定中文 BGE 模型及词表，进行 WordPiece 编码并在本机 ONNX 会话提取归一化向量。 | R:code:apps/perant/lib/src/data/semantic_index.dart | A:EmbeddingFiles，ChineseWordPiece，BgeEncoder | S:文件按大小和 SHA-256 验证后发布；查询含检索指令，取首个 token 的 512 维输出，释放原生张量。
 semantic_index.dart[KA8M]: F:分批对原文生成本地向量，共用重复内容的嵌入，并以余弦检索和关键词排名融合选出片段。 | R:code:apps/perant/lib/src/data/bge_encoder.dart,code:apps/perant/lib/src/data/library_search.dart | A:SemanticIndex，SemanticControl，VectorProgress | S:推理结束写入前核对片段及修订；删除最后一个引用时清理共享向量；只分批读向量并按需取正文。
-gguf_models.dart[ID8S]: F:按固定模型清单下载或导入量化权重，支持断点续传及私有目录中的校验发布。 | R:code:apps/perant/lib/src/application/device_inference.dart | A:DeviceModel，downloadVerifiedModel | S:服务忽略 Range 时从头写暂存；仅长度和 SHA-256 均相符才替换正式文件。
+gguf_models.dart[ID8S]: F:管理固定本机模型的导入和可续传下载，检查所需空间并校验权重后发布到私有目录。 | R:code:apps/perant/lib/src/application/device_inference.dart | A:DeviceModel，downloadVerifiedModel | S:续传按剩余字节检查空间，服务忽略 Range 时重写暂存；只有大小和摘要匹配才发布。
 
 ===/<repository>/apps/perant/lib/src/===
 perant_app.dart[EU5T]: F:组合中文 Material 应用、项目主题与工作区首页并注入控制器。 | R:code:apps/perant/lib/src/presentation/theme.dart,code:apps/perant/lib/src/presentation/workspace_shell.dart | A:PerantApp | S:-
@@ -185,18 +186,19 @@ computer_browser_screen.dart[EU7L]: F:展示原生浏览器，处理地址栏、
 computer_workspace_page.dart[EU5M]: F:显示共享电脑与控制权状态，提供桌面、浏览器、终端和文件入口。 | R:code:apps/perant/lib/src/application/workspace_controller.dart | A:ComputerWorkspacePage | S:进入概览只读状态，不自动启动或观察运行时。
 container_actions.dart[EU4T]: F:将模型执行的容器动作渲染为可展开的状态、参数与输出记录。 | R:code:apps/perant/lib/src/data/workspace_state.dart | A:ContainerActions | S:-
 container_file_editor.dart[EU6M]: F:编辑共享工作文件或带初始正文的新页面，处理摘要冲突并提供离线 HTML 或 Markdown 预览。 | R:code:packages/perant_platform/lib/src/workspace_files.dart,code:apps/perant/lib/src/presentation/document_editor.dart | A:ContainerFileEditor | S:未落盘的初始网页按新建处理，已有文件按上次摘要保存，冲突保留草稿。
-container_screen.dart[EU6L]: F:按原生工作区能力浏览、新建及打开共享文件，展示 Linux 安装入口、终端和操作记录。 | R:code:apps/perant/lib/src/presentation/container_file_editor.dart,code:apps/perant/lib/src/application/workspace_controller.dart | A:ContainerScreen | S:文件可用与 Linux 安装状态分开判断；操作需取得手动租约，活动桌面须通过桌面文件管理器访问。
-desktop_screen.dart[EU7L]: F:将共享桌面帧绘制为可缩放的交互视图，接入键鼠、分辨率和浏览器切换。 | R:code:apps/perant/lib/src/application/shared_desktop_service.dart | A:DesktopScreen | S:退后台或查看浏览器时停止取帧并释放 UI 图像，重新显示时重连。
+container_screen.dart[EU6L]: F:按原生能力展示工作区文件、编辑和 Linux 初始化入口，初始化前显示安装及可用空间。 | R:code:apps/perant/lib/src/presentation/container_file_editor.dart,code:apps/perant/lib/src/presentation/install_storage.dart | A:ContainerScreen | S:文件访问与 Linux 安装状态独立，手动租约及活动桌面的访问规则仍适用。
+desktop_screen.dart[EU7L]: F:显示可缩放桌面、键鼠输入与分辨率设置，在桌面启动入口展示首次安装空间。 | R:code:apps/perant/lib/src/application/shared_desktop_service.dart,code:apps/perant/lib/src/presentation/install_storage.dart | A:DesktopScreen | S:切后台或切浏览器须停止取帧并释放 UI 图像，重新显示时重连。
 document_editor.dart[EU7L]: F:编辑与预览资料，按需加载选中的旧修订以比较恢复，并审核模型润色和确认后的导出。 | R:code:packages/perant_core/lib/src/documents.dart,code:apps/perant/lib/src/application/local_document_work.dart,code:apps/perant/lib/src/application/office_document.dart | A:DocumentEditor | S:旧版本读取失败保持草稿；接受修改后另行保存并复核修订。
 local_text_task_dialog.dart[EU4S]: F:收集固定本地整理所需的标题与原文并校验输入范围。 | R:code:apps/perant/lib/src/application/local_text_task_runner.dart | A:LocalTextTaskInput，LocalTextTaskDialog | S:原文同时受两万字符和 128 KiB 限制。
 provider_settings.dart[EU7L]: F:管理模型服务的预设、草稿目录选择、多配置切换和独立的文本及工具验证。 | R:code:apps/perant/lib/src/application/workspace_controller.dart,code:apps/perant/lib/src/presentation/local_model_screen.dart | A:ProviderSettings | S:读取目录可先于保存，切换编辑目标后只有保存才激活配置；请求采样参数设置范围校验。
-terminal_screen.dart[EU7L]: F:管理交互 PTY 的安装、打开、输入、调整尺寸、重启与退出清理。 | R:code:apps/perant/lib/src/application/workspace_controller.dart,code:packages/perant_platform/lib/src/platform_bridge.dart | A:TerminalScreen | S:确认旧会话关闭后才释放租约或重启，忽略其他会话输出。
+terminal_screen.dart[EU7L]: F:展示终端初始化所需空间，处理 PTY 的打开、输入、尺寸调整、重启和退出。 | R:code:packages/perant_platform/lib/src/platform_bridge.dart,code:apps/perant/lib/src/presentation/install_storage.dart | A:TerminalScreen | S:旧会话确认关闭后才可释放租约或重启，忽略其他会话输出。
 theme.dart[FU5S]: F:集中定义工作区暖白、鼠尾草色与状态色，构造 Material 控件主题。 | R:code:apps/perant/lib/src/perant_app.dart | A:PerantColors，perantTheme | S:-
-workspace_shell.dart[EU8L]: F:组织会话、电脑、文档和引用问答，按需取得编辑与制作需要的正文并导出完整工作区。 | R:code:apps/perant/lib/src/data/portable_documents.dart,code:apps/perant/lib/src/presentation/document_editor.dart,code:apps/perant/lib/src/application/local_document_work.dart | A:WorkspaceShell | S:列表保留目录；仅对选中的会议资料加载全文，生成结束再检查修订，复制同样需确保正文可读。
+workspace_shell.dart[EU8L]: F:组织会话、电脑和资料入口，按任务加载正文，并向语义设置提供索引与空间查询桥。 | R:code:apps/perant/lib/src/presentation/semantic_settings.dart,code:apps/perant/lib/src/data/portable_documents.dart,code:apps/perant/lib/src/application/local_document_work.dart | A:WorkspaceShell | S:只读取选中资料的完整内容，生成后重新确认来源修订。
 memory_screen.dart[EU6S]: F:呈现记忆内容与来源修订，按用户请求读取原文，支持修改、遗忘和提取开关。 | R:code:apps/perant/lib/src/data/local_memories.dart,code:apps/perant/lib/src/application/workspace_controller.dart | A:MemoryScreen | S:查看旧文档绑定历史修订，正文读取失败与来源已删除分别展示。
 historical_question.dart[EU7S]: F:显示本地检索结果并按需读取可授权的原文窗口，允许逐条预览、选择资料和记忆后提问。 | R:code:apps/perant/lib/src/application/historical_excerpt.dart,code:apps/perant/lib/src/data/semantic_index.dart | A:HistoricalQuestionPage | S:选择至多五段，选择与预览本身不会发出模型请求。
-semantic_settings.dart[EU6S]: F:显示向量建库覆盖和下载进度，允许选取本机模型、暂停或继续更新索引。 | R:code:apps/perant/lib/src/data/bge_encoder.dart,code:apps/perant/lib/src/data/semantic_index.dart | A:SemanticSettings | S:页面退出设置取消标志，已提交的片段供下次继续；本机导入同样需要校验。
-local_model_screen.dart[EU7L]: F:提供模型安装、加载、提问和确认指令的设备界面，从本地检索结果按需打开资料正文。 | R:code:apps/perant/lib/src/application/device_inference.dart,code:apps/perant/lib/src/data/gguf_models.dart,code:apps/perant/lib/src/application/local_document_work.dart | A:LocalModelScreen | S:打开命中的资料前释放推理引擎，原文读取失败提示重新检索；创建笔记须先确认。
+semantic_settings.dart[EU6S]: F:展示嵌入模型、词表与数据库的空间需求，管理本地模型导入和分批建库进度。 | R:code:apps/perant/lib/src/data/bge_encoder.dart,code:apps/perant/lib/src/data/semantic_index.dart,code:apps/perant/lib/src/presentation/install_storage.dart | A:SemanticSettings | S:退出界面停止后续批次，已提交片段供下次继续。
+local_model_screen.dart[EU7L]: F:提供设备模型安装、加载、提问和指令确认界面，向导入与续传传递实际空间查询。 | R:code:apps/perant/lib/src/data/gguf_models.dart,code:apps/perant/lib/src/application/device_inference.dart | A:LocalModelScreen | S:模型须校验后才能加载，建笔记先确认，打开资料时先释放引擎。
+install_storage.dart[EU5T]: F:将组件安装估算和应用目录所在分区的可用容量显示在资源安装入口。 | R:code:packages/perant_platform/lib/src/platform_bridge.dart | A:InstallStorage，linuxInstallEstimate | S:桥接未取得可用字节时仅展示估算。
 
 ===/<repository>/apps/perant/test/===
 browser_page_save_screen_test.dart[TU5S]: F:验证窄屏网页保存回执、截断提示和地址栏聚焦选取行为。 | R:code:apps/perant/lib/src/presentation/computer_browser_screen.dart | A:浏览器保存界面测试 | S:-
@@ -223,7 +225,7 @@ office_document_test.dart[TD6T]: F:用中文长段、跨页表格与混合格式
 courseware_test.dart[TD6T]: F:以入门课程检验大纲确认、源修订、可编辑幻灯片文本和离线网页输出。 | R:code:apps/perant/lib/src/application/courseware.dart | A:课件与网页回归测试 | S:修改后的内容应出现在原生文字元素中；外部图片和脚本不得变成活动资源。
 local_memories_test.dart[TD6T]: F:验证本地偏好提取的来源选择、人工覆盖、删除抑制、暂停及新旧备份兼容。 | R:code:apps/perant/lib/src/data/local_memories.dart,code:apps/perant/lib/src/data/portable_documents.dart | A:记忆生命周期测试 | S:相同来源再次确认后不能复活已删除记录，脱离来源的人工记忆仍可恢复。
 local_document_work_test.dart[TA6T]: F:用受控推理验证满额资料的码点覆盖、分层归纳、生成中止和原样引文的分类建议。 | R:code:apps/perant/lib/src/application/local_document_work.dart,code:apps/perant/lib/src/application/device_inference.dart | A:本机资料工作流宿主回归 | S:分类只交回建议，截止或取消不能产生可采用的稿件。
-model_download_test.dart[TR6T]: F:用回环 HTTP 服务器验证设备模型中断、精确范围续收、完整响应重写与摘要不符。 | R:code:apps/perant/lib/src/data/gguf_models.dart | A:模型下载回归 | S:失败必须保留已发布的有效文件。
+model_download_test.dart[TR6T]: F:用回环服务核对下载中断、空间不足、指定字节处续传及错误摘要后的文件状态。 | R:code:apps/perant/lib/src/data/gguf_models.dart | A:模型下载回归 | S:剩余容量不足时无新增 HTTP 请求，暂存进度和既有正式文件须保留。
 
 ===/<repository>/docs/===
 ARCHITECTURE.md[SG8S]: F:说明核心、网关、应用与原生桥的责任划分，以及文件、浏览器和桌面的数据流。 | R:code:docs/CONTAINER_COMPUTER.md,code:docs/BROWSER_PAGE_SAVE.md | A:架构与授权约定 | S:此文以旧编号 0.8 为验证基线，当前版本的实测另见发布记录。
@@ -231,7 +233,7 @@ BROWSER_PAGE_SAVE.md[SD7T]: F:说明 Android 网页摘录的读取边界、Markd
 CONTAINER_COMPUTER.md[SW7S]: F:说明用户与模型在同一桌面、浏览器和工作目录中的操作流程与授权边界。 | R:code:docs/ARCHITECTURE.md,code:docs/BROWSER_PAGE_SAVE.md | A:电脑协作工具与回执约定 | S:一次打开仅表示已请求导航；外部提交不能由网页内容自行授权。
 DESKTOP_APPLICATIONS.md[SU6T]: F:列出容器内可用的桌面和办公应用，说明启动方式、共享文件与实测覆盖。 | R:code:docs/LINUX_RUNTIME_SOURCES.md,code:docs/DESKTOP_DESIGN.md | A:桌面应用使用与验收说明 | S:Writer 的保存重开记录不能推及其他办公组件。
 DESKTOP_DESIGN.md[SU5T]: F:记录面向手机的 Linux 桌面布局、聊天入口、共享操作和按需显示设计。 | R:code:docs/DESKTOP_APPLICATIONS.md | A:桌面易用性验收说明 | S:文末旧版证据对应其各自的历史交付。
-DEVELOPMENT_STATUS.md[SQ7S]: F:分版本记录双协议模型设置、资料库冷启动、端侧生成与离线办公的实测条件和限制。 | R:code:TASK_PLAN.md,code:apps/perant/integration_test/provider_profiles_test.dart | A:开发与验收记录 | S:协议配置本轮使用 Android 回环服务，真实供应商覆盖独立记录。
+DEVELOPMENT_STATUS.md[SQ7S]: F:按版本记录 Android 资源安装、进程恢复、容量不足及模型和资料工作流的实测结果与适用范围。 | R:code:TASK_PLAN.md,code:tool/android-recovery-stress.ps1 | A:开发与验收记录 | S:十次进程终止和数据库限额各由测试控制，系统自行回收和实体机策略另行验收。
 LINUX_RUNTIME_SOURCES.md[SV8S]: F:说明固定 PRoot、Alpine、Python、桌面资源及兼容库的来源、生成、安装与校验。 | R:code:tool/prepare-linux-runtime,code:tool/build-linux-codec | A:Android Linux v6 资源说明 | S:loader 偏移与所选 ELF 配对；签名包及其安装脚本按锁文件验证。
 LINUX_SOURCE_CLOSURE_REVIEW.md[SV6T]: F:记录对 Linux 发行源码闭包、补丁、静态依赖与构建时下载的技术审阅。 | R:code:docs/PUBLIC_BINARY_RELEASE.md,code:tool/package-linux-sources | A:0.9 源码闭包审阅 | S:审阅不等同逐个二进制独立清洁重建。
 PUBLIC_BINARY_RELEASE.md[SV7T]: F:规定公开 APK 与对应源码的绑定、分卷校验、重组和发布步骤。 | R:code:tool/package-linux-sources,code:docs/LINUX_SOURCE_CLOSURE_REVIEW.md | A:SHA256SUMS，源码分卷与 manifest | S:即使运行资源不变，每个新 APK 也须与自己的摘要及主仓提交绑定。
@@ -317,7 +319,7 @@ LinuxTextTasks.kt[PD7T]: F:在每个文本任务的专属目录准备输入，�
 LinuxWorkspaceFiles.kt[PD8M]: F:实现共享工作区目录列表、文本读写和建目录，校验路径、字节数及更新前摘要。 | R:code:packages/perant_platform/lib/src/workspace_files.dart,code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/AndroidLinuxRuntime.kt | A:LinuxWorkspaceFiles，WorkspaceFileContract | S:拒绝链接、保留路径及冲突覆盖；只创建操作要求原子发布。
 LinuxWorkspaceImport.kt[PD7T]: F:将验证过的 UTF-8 文本以生成的唯一 Markdown 文件名发布到工作区根并返回摘要回执。 | R:code:packages/perant_platform/android/src/main/cpp/workspace_import.h | A:LinuxWorkspaceImport.importText | S:暂存目录须在工作区之外；回执绑定已发布字节，桌面随后可修改文件。
 NativePty.kt[IR7T]: F:加载原生 PTY 库，声明 Kotlin 可调用的终端、信号、文件描述符和发布接口。 | R:code:packages/perant_platform/android/src/main/cpp/perant_pty.c | A:NativePty | S:库加载失败通过 available 暴露；两种发布操作以 errno 表示失败。
-PerantPlatformPlugin.kt[EE8M]: F:注册 Android 原生通道和平台视图，分派 Linux、工作区、WebView、PDF 提取并转发事件。 | R:code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/AndroidLinuxRuntime.kt,code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/PdfMaterials.kt | A:PerantPlatformPlugin | S:PDF 使用独立后台通道；Linux 生命周期操作串行处理，引擎解绑与 Activity 重建分别处理。
+PerantPlatformPlugin.kt[EE8M]: F:注册 Android 平台和 PDF 通道，分派 Linux、WebView 与工作区操作，并查询应用数据分区可用空间。 | R:code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/AndroidLinuxRuntime.kt,code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/PdfMaterials.kt | A:PerantPlatformPlugin，getAvailableStorageBytes | S:空间以应用私有目录所在分区为准，PDF 使用独立后台通道，Linux 生命周期操作串行处理。
 StaticHtmlPreview.kt[IU6T]: F:将有界 HTML 内容送入一次性 Android 平台视图以离线静态预览。 | R:code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/PerantPlatformPlugin.kt | A:StaticHtmlPreviewFactory | S:关闭 JavaScript、本地资源和网络，拦截导航及子请求。
 PdfMaterials.kt[ID7T]: F:以 PDFBox 在 Android 本地逐页提取文字，返回原页号对应的字符串列表。 | R:code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/PerantPlatformPlugin.kt | A:PdfMaterials，readPages | S:拒绝加密和禁止提取的文件，限制文件大小、页数和总字数；无内容页仍占据原序号。
 
@@ -348,7 +350,7 @@ perant_platform.dart[LE6T]: F:为 Flutter 调用者统一导出平台模型、�
 browser_bridge.dart[IU8L]: F:把共享网页的状态、截图和文本响应转成类型化对象，验证并发送导航与输入调用。 | R:code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/ComputerBrowser.kt | A:ComputerBrowserBridge，ComputerBrowserPage，ComputerBrowserFrame | S:响应须匹配请求会话与页面修订，超时独立映射为桥接错误。
 desktop_rfb.dart[IN8L]: F:在私有 Unix 套接字上协商 RFB，解码桌面像素、按需截帧并发送键鼠输入。 | R:code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxDesktop.kt | A:DesktopRfbClient，DesktopFrame | S:仅接受约定的私有传输与安全类型，初始画面须由实际收到的像素构成。
 models.dart[LR7L]: F:校验原生能力、Linux 状态、进程、桌面和事件数据，提供类型化 Dart 模型。 | R:code:packages/perant_platform/lib/src/platform_bridge.dart | A:PlatformCapabilities，LinuxStatus，RuntimeEvent | S:旧宿主缺少 workspaceAvailable 时沿用 installed；新宿主可独立声明文件能力，Linux 进程及桌面状态仍须与安装状态一致。
-platform_bridge.dart[IE8L]: F:在 Dart 端分派 Linux 状态、文件、终端、桌面及文本任务请求，协调事件订阅并验证原生回执。 | R:code:packages/perant_platform/lib/src/models.dart,code:packages/perant_platform/lib/src/workspace_files.dart,code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/PerantPlatformPlugin.kt | A:PerantPlatformBridge | S:未接入插件时返回明确状态或错误；进程句柄必须与请求的标识一致。
+platform_bridge.dart[IE8L]: F:将 Linux、文件和终端请求转交原生通道，校验事件回执并提供可选的分区可用字节数。 | R:code:packages/perant_platform/lib/src/models.dart,code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/PerantPlatformPlugin.kt | A:PerantPlatformBridge.availableStorageBytes | S:空间查询缺失、失败或返回负值时表示未知；进程句柄须匹配请求身份。
 workspace_files.dart[LD7M]: F:定义工作区目录项、文本文件、导入回执和严格路径及文本校验。 | R:code:packages/perant_platform/lib/src/platform_bridge.dart | A:LinuxDirectoryListing，LinuxTextFile，LinuxFileImport | S:导入回执描述原子发布时的字节，运行中的桌面可随后修改或删除文件。
 
 ===/<repository>/packages/perant_platform/test/===
@@ -369,6 +371,7 @@ dartw[XV5T]: F:按环境配置、本地 SDK 和 PATH 的顺序选择 Dart，并�
 flutterw[XV6T]: F:配置 Flutter、Android 与 Gradle 的本地工具环境并转交 Flutter 参数。 | R:code:tool/build-apk,code:tool/check | A:tool/flutterw，PERANT_FLUTTER_SDK | S:保留用户已有的相关缓存配置，关闭 Flutter 分析数据上报。
 package-linux-sources[OV8M]: F:核验锁定的构建源码、配方和证据，将对应源码与指定 APK、运行时清单及 Git 版本绑定并分卷。 | R:code:docs/PUBLIC_BINARY_RELEASE.md | A:tool/package-linux-sources，SHA256SUMS | S:发现 APK 摘要不符须拒绝复用源码包；闭包是否完整仍需审阅。
 prepare-linux-runtime[OV9L]: F:按锁定输入构建 Android ARM64 PRoot 与 loader，准备 Alpine、Python 和桌面资源并生成及检验运行时清单。 | R:code:tool/build-linux-codec,code:docs/LINUX_RUNTIME_SOURCES.md,code:tool/build-apk | A:tool/prepare-linux-runtime，--verify-existing，--fetch-only | S:loader 偏移绑定本次 ELF，资源须通过大小、摘要及声明一致性检查。
+android-recovery-stress.ps1[TQ6T]: F:驱动专用 Android 模拟器切后台、交替熄屏并终止测试应用，在冷启动后检查连续恢复结果。 | R:code:apps/perant/integration_test/storage_pressure_test.dart | A:Target，AdbExe，AdbPort，LogPath | S:仅在当前 PID 同时报出数据库压力和待中断信号后终止，必须观察到最终恢复与测试通过。
 
 ===/<repository>/tool/native_tests/===
 README.md[SQ5T]: F:说明如何交叉编译、经 adb 执行并解释 Android 原生文件导入探针。 | R:code:tool/native_tests/workspace_import_probe.c | A:原生导入检查说明 | S:六项结果单独计数，不并入 Flutter 或 JVM 验收。
