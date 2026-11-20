@@ -44,6 +44,46 @@ http.StreamedResponse response(String body, {bool splitBytes = false}) {
 }
 
 void main() {
+  test(
+      'directory preserves version prefix, bounds response and refuses redirects',
+      () async {
+    var status = 200;
+    var data = '{"data":[{"id":"z"},{"id":"a"},{"id":"a"},{"id":" "},{},{}]}';
+    final client = MockClient((r) async {
+      expect(r.method, 'GET');
+      expect(r.url.path, '/office/v2/models');
+      expect(r.followRedirects, isFalse);
+      expect(r.headers['Authorization'], 'Bearer $testKey');
+      return http.Response(data, status,
+          headers: {'location': 'https://different.invalid/'});
+    });
+    final gateway = OpenAiGateway(client: client);
+    addTearDown(client.close);
+    addTearDown(gateway.close);
+    final c = GatewayConfiguration(
+        baseUrl:
+            Uri.parse('https://example.invalid/office/v2/chat/completions'),
+        model: 'office');
+    Future<List<String>> load() =>
+        gateway.listModels(configuration: c, apiKey: testKey);
+    expect(await load(), ['a', 'z']);
+    status = 307;
+    await expectLater(
+        load(),
+        throwsA(
+            isA<GatewayException>().having((e) => e.statusCode, 'HTTP', 307)));
+    status = 200;
+    data = '{"unexpected":"test-secret-do-not-log"}';
+    await expectLater(
+        load(),
+        throwsA(isA<GatewayException>()
+            .having((e) => e.code, 'code', 'invalid_models')));
+    data = ' ' * 1048577;
+    await expectLater(
+        load(),
+        throwsA(isA<GatewayException>()
+            .having((e) => e.code, 'code', 'invalid_models')));
+  });
   test('Chat SSE reassembles UTF-8, tools and provider reasoning context',
       () async {
     final body = ': keepalive\r\n\r\n'

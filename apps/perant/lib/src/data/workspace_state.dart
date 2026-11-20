@@ -173,6 +173,7 @@ final class WorkspaceState {
 
   WorkspaceState({
     this.profile,
+    List<ProviderProfile> otherProfiles = const [],
     this.onboardingDismissed = false,
     String companionName = defaultCompanionName,
     String companionTone = defaultCompanionTone,
@@ -184,7 +185,8 @@ final class WorkspaceState {
     List<ContainerAction> containerActions = const [],
     List<ConversationThread> conversations = const [],
     this.activeConversationId = 'main',
-  }) : memories = memories ?? LocalMemoryBook(),
+  }) : otherProfiles = List.of(otherProfiles),
+       memories = memories ?? LocalMemoryBook(),
        companionName = normalizeCompanionName(companionName),
        companionTone = validateCompanionTone(companionTone),
        documents = List.of(documents),
@@ -193,8 +195,22 @@ final class WorkspaceState {
        containerActions = List.of(containerActions),
        conversations = List.of(conversations) {
     _ensureConversations();
+    final ids = <String>{};
+    final refs = <String>{};
+    for (final item in savedProfiles) {
+      if (!ids.add(item.id) ||
+          (item.storageKeyRef != null && !refs.add(item.storageKeyRef!))) {
+        throw const FormatException('模型配置标识重复。');
+      }
+    }
   }
   ProviderProfile? profile;
+  final List<ProviderProfile> otherProfiles;
+  Iterable<ProviderProfile> get savedProfiles sync* {
+    if (profile != null) yield profile!;
+    yield* otherProfiles;
+  }
+
   bool onboardingDismissed;
   String companionName;
   String companionTone;
@@ -320,6 +336,8 @@ final class WorkspaceState {
     'schemaVersion': 1,
     if (forStorage) 'localMemoryScans': memories.scanned,
     'profile': profile?.toJson(),
+    if (otherProfiles.isNotEmpty)
+      'otherProfiles': otherProfiles.map((p) => p.toJson()).toList(),
     'onboardingDismissed': onboardingDismissed,
     'companionName': companionName,
     'companionTone': companionTone,
@@ -426,6 +444,10 @@ final class WorkspaceState {
     }
 
     return WorkspaceState(
+      otherProfiles: [
+        for (final p in json['otherProfiles'] as List? ?? const [])
+          ProviderProfile.fromJson(Map<String, Object?>.from(p as Map)),
+      ],
       profile: json['profile'] == null
           ? null
           : ProviderProfile.fromJson(

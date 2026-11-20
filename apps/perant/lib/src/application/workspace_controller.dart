@@ -217,14 +217,34 @@ final class WorkspaceController extends ChangeNotifier {
     if (isSending || isTesting || isConfiguring || manualTerminalActive) {
       throw StateError('请先结束当前请求或配置保存，再修改模型配置。');
     }
+    final known = state.savedProfiles
+        .where((p) => p.id == value.id)
+        .firstOrNull;
+    _configuration(value);
+    value.generationParameters;
     if (apiKey.trim().isEmpty &&
-        state.profile != null &&
-        (state.profile!.baseUrl != value.baseUrl ||
-            state.profile!.presetId != value.presetId)) {
+        (known == null ||
+            known.baseUrl != value.baseUrl ||
+            known.storageKeyRef != value.storageKeyRef ||
+            known.presetId != value.presetId)) {
       throw ArgumentError('更换服务地址时需要重新填写 API Key。');
     }
     final reference = value.storageKeyRef;
+    final sameConfiguration =
+        known != null &&
+        apiKey.trim().isEmpty &&
+        known.modelId == value.modelId &&
+        known.protocol == value.protocol &&
+        mapEquals(known.options, value.options) &&
+        mapEquals(known.headers, value.headers);
+    value = value.withVerification(
+      sameConfiguration ? known.verification : ProviderVerification.documented,
+    );
     if (reference == null) throw ArgumentError('配置缺少安全凭据引用。');
+    final others = state.savedProfiles.where((p) => p.id != value.id).toList();
+    if (others.any((p) => p.storageKeyRef == reference)) {
+      throw ArgumentError('不同配置需要独立的凭据引用。');
+    }
     final previousSnapshot = state.toJson(forStorage: true);
     final previousHasKey = hasKey;
     String? previousCredential;
@@ -243,6 +263,7 @@ final class WorkspaceController extends ChangeNotifier {
       final candidateSnapshot = {
         ...previousSnapshot,
         'profile': value.toJson(),
+        'otherProfiles': others.map((p) => p.toJson()).toList(),
         'onboardingDismissed': true,
       };
       metadataWriteAttempted = true;
@@ -250,6 +271,9 @@ final class WorkspaceController extends ChangeNotifier {
 
       // Commit the in-memory profile and history only after durable metadata.
       state.profile = value;
+      state.otherProfiles
+        ..clear()
+        ..addAll(others);
       state.onboardingDismissed = true;
       hasKey = true;
       _protocolHistories.clear();
@@ -298,6 +322,9 @@ final class WorkspaceController extends ChangeNotifier {
       hasKey = false;
       _protocolHistories.clear();
       _historySourcesByConversation.clear();
+      connectionMessage = null;
+      if (profile != null)
+        await _recordVerification(profile!, ProviderVerification.documented);
     } finally {
       isConfiguring = false;
       _notify();
@@ -314,7 +341,37 @@ final class WorkspaceController extends ChangeNotifier {
             : GatewayProtocol.chatCompletions,
       );
 
-  Future<void> testConnection() async {
+  Future<List<String>> availableModels(
+    ProviderProfile draft,
+    String enteredKey,
+  ) async {
+    if (isConfiguring || isSending || isTesting || manualTerminalActive)
+      throw StateError('请等待当前请求结束。');
+    final config = _configuration(draft);
+    isTesting = true;
+    _notify();
+    try {
+      var key = enteredKey.trim();
+      if (key.isEmpty) {
+        final saved = state.savedProfiles
+            .where(
+              (p) =>
+                  p.id == draft.id &&
+                  p.baseUrl == draft.baseUrl &&
+                  p.presetId == draft.presetId,
+            )
+            .firstOrNull;
+        if (saved?.storageKeyRef != null)
+          key = await credentials.read(saved!.storageKeyRef!) ?? '';
+      }
+      return await gateway.listModels(configuration: config, apiKey: key);
+    } finally {
+      isTesting = false;
+      _notify();
+    }
+  }
+
+  Future<void> testConnection({bool verifyTool = false}) async {
     final selected = profile;
     if (selected == null || !canChat || isTesting || isSending) return;
     isTesting = true;
@@ -323,10 +380,24 @@ final class WorkspaceController extends ChangeNotifier {
     try {
       final key = await credentials.read(selected.storageKeyRef!);
       if (key == null) throw StateError('API Key 已不存在，请重新配置。');
+      if (verifyTool) {
+        await _testEcho(selected, key);
+        await _recordVerification(selected, ProviderVerification.toolsVerified);
+        connectionMessage = '工具往返已验证，模型返回了 PONG。';
+        return;
+      }
       final result = await gateway.testConnection(
         configuration: _configuration(selected),
         apiKey: key,
+        parameters: selected.generationParameters,
       );
+      if (result.success &&
+          selected.verification == ProviderVerification.documented) {
+        await _recordVerification(
+          selected,
+          ProviderVerification.connectionVerified,
+        );
+      }
       connectionMessage = result.success
           ? '连接正常，已收到模型回复（${result.elapsed.inMilliseconds} ms）'
           : '未收到完整文本，请检查模型和协议。';
@@ -337,6 +408,92 @@ final class WorkspaceController extends ChangeNotifier {
     } finally {
       isTesting = false;
       _notify();
+    }
+  }
+
+  Future<void> _recordVerification(
+    ProviderProfile selected,
+    ProviderVerification status,
+  ) async {
+    if (selected.verification == status || _disposed) return;
+    final updated = selected.withVerification(status);
+    await _saveSnapshot({
+      ...state.toJson(forStorage: true),
+      'profile': updated.toJson(),
+    });
+    state.profile = updated;
+  }
+
+  Future<void> _testEcho(ProviderProfile selected, String key) async {
+    final input = <Map<String, Object?>>[
+      {
+        'role': 'user',
+        'content': 'Call perant_echo with value ping, then reply with only the tool result.',
+      },
+    ];
+    final echo = GatewayToolDefinition(
+      name: 'perant_echo',
+      description: 'Fixed connection check',
+      parameters: {
+        'type': 'object',
+        'properties': {
+          'value': {
+            'type': 'string',
+            'enum': ['ping'],
+          },
+        },
+        'required': ['value'],
+        'additionalProperties': false,
+      },
+    );
+    for (var round = 0; round < 2; round++) {
+      final calls = <GatewayToolCall>[];
+      final reply = StringBuffer();
+      GatewayCompleted? completion;
+      await for (final event in gateway.stream(
+        configuration: _configuration(selected),
+        apiKey: key,
+        request: GatewayRequest(
+          input: input,
+          tools: round == 0 ? [echo] : [],
+          parameters: selected.generationParameters,
+        ),
+      )) {
+        if (event is GatewayToolCall) calls.add(event);
+        if (event is GatewayCompleted) completion = event;
+        if (event is GatewayTextDelta) reply.write(event.text);
+        if (calls.length > 1 || reply.length > 4096)
+          throw StateError('工具回合超出限制。');
+      }
+      if (completion == null) throw StateError('服务未完成工具回合。');
+      if (round == 1) {
+        if (calls.isNotEmpty || reply.toString().trim() != 'PONG')
+          throw StateError('服务未返回指定工具结果。');
+        return;
+      }
+      if (calls.length != 1 || calls.single.name != 'perant_echo')
+        throw StateError('服务未请求指定测试工具。');
+      final call = calls.single;
+      final args = call.decodeArguments();
+      if (args.length != 1 || args['value'] != 'ping')
+        throw StateError('测试参数不匹配。');
+      input.addAll(
+        _containerContinuation(
+          selected.protocol,
+          completion,
+          calls,
+          reply.toString(),
+        ),
+      );
+      input.add(
+        selected.protocol == ApiProtocol.responses
+            ? {
+                'type': 'function_call_output',
+                'call_id': call.id,
+                'output': 'PONG',
+              }
+            : {'role': 'tool', 'tool_call_id': call.id, 'content': 'PONG'},
+      );
     }
   }
 
@@ -413,7 +570,7 @@ final class WorkspaceController extends ChangeNotifier {
 
   Future<void> restoreWorkspace(WorkspaceState replacement) async {
     _ensureConfigurationIdle();
-    if (isSending || isTesting || replacement.profile != null)
+    if (isSending || isTesting || replacement.savedProfiles.isNotEmpty)
       throw StateError('当前无法恢复工作区。');
     isConfiguring = true;
     _notify();
@@ -675,6 +832,7 @@ final class WorkspaceController extends ChangeNotifier {
         configuration: _configuration(selected),
         apiKey: key,
         request: GatewayRequest(
+          parameters: selected.generationParameters,
           input: [
             {
               'role': 'system',
@@ -961,6 +1119,7 @@ final class WorkspaceController extends ChangeNotifier {
               ...input,
             ],
             tools: containerTools,
+            parameters: selected.generationParameters,
           ),
           cancellation: cancellation,
         )) {

@@ -20,6 +20,73 @@ final class OpenAiGateway {
   final _activeRuns = <void Function()>{};
   bool _closed = false;
 
+  Future<List<String>> listModels({
+    required GatewayConfiguration configuration,
+    required String apiKey,
+  }) async {
+    if (_closed) throw const GatewayException('closed', 'Gateway closed.');
+    if (apiKey.trim().isEmpty || apiKey.contains(RegExp(r'[\r\n]'))) {
+      throw const GatewayException(
+          'missing_credentials', 'Invalid credential.');
+    }
+    final abort = Completer<void>();
+    void cancel() {
+      if (!abort.isCompleted) abort.complete();
+    }
+
+    _activeRuns.add(cancel);
+    try {
+      final endpoint = configuration.endpoint;
+      final prefix = endpoint.path
+          .replaceFirst(RegExp(r'/(chat/completions|responses)$'), '');
+      final request = http.AbortableRequest(
+          'GET', endpoint.replace(path: '$prefix/models'),
+          abortTrigger: abort.future)
+        ..followRedirects = false
+        ..headers.addAll({
+          ...configuration.headers,
+          'Authorization': 'Bearer $apiKey',
+          'Accept': 'application/json'
+        });
+      final response =
+          await _client.send(request).timeout(configuration.connectionTimeout);
+      if (response.statusCode < 200 || response.statusCode >= 300) {
+        await response.stream.listen((_) {}).cancel();
+        throw GatewayException(
+            'http_error', _statusMessage(response.statusCode),
+            statusCode: response.statusCode);
+      }
+      final bytes = <int>[];
+      await response.stream.forEach((chunk) {
+        if (bytes.length + chunk.length > 1048576) {
+          throw const GatewayException(
+              'invalid_models', 'Model directory exceeds its size limit.');
+        }
+        bytes.addAll(chunk);
+      }).timeout(configuration.idleTimeout);
+      final body = jsonDecode(utf8.decode(bytes));
+      if (body is! Map || body['data'] is! List) {
+        throw const GatewayException(
+            'invalid_models', 'Invalid model directory.');
+      }
+      final ids = <String>{};
+      for (final row in body['data'] as List) {
+        final id = row is Map ? row['id'] : null;
+        if (id is String &&
+            id.isNotEmpty &&
+            id.length <= 256 &&
+            id.trim() == id &&
+            !id.contains(RegExp(r'[\x00-\x1f\x7f]'))) ids.add(id);
+      }
+      return ids.toList()..sort();
+    } catch (error) {
+      throw _safeException(error);
+    } finally {
+      _activeRuns.remove(cancel);
+      cancel();
+    }
+  }
+
   Stream<GatewayEvent> stream({
     required GatewayConfiguration configuration,
     required String apiKey,
@@ -155,6 +222,7 @@ final class OpenAiGateway {
   Future<GatewayConnectionResult> testConnection({
     required GatewayConfiguration configuration,
     required String apiKey,
+    Map<String, Object?> parameters = const {},
     GatewayCancellation? cancellation,
   }) async {
     final stopwatch = Stopwatch()..start();
@@ -165,6 +233,7 @@ final class OpenAiGateway {
       apiKey: apiKey,
       cancellation: cancellation,
       request: GatewayRequest(
+        parameters: parameters,
         input: const [
           {'role': 'user', 'content': 'Reply with the single word OK.'}
         ],

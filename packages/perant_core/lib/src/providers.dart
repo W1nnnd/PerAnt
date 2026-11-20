@@ -93,6 +93,44 @@ final class ProviderProfile {
   final Map<String, String> headers;
   final Map<String, Object?> options;
 
+  ProviderProfile withVerification(ProviderVerification status) =>
+      status == verification
+          ? this
+          : ProviderProfile(
+              id: id,
+              displayName: displayName,
+              baseUrl: baseUrl,
+              protocol: protocol,
+              modelId: modelId,
+              storageKeyRef: storageKeyRef,
+              presetId: presetId,
+              verification: status,
+              capabilities: capabilities,
+              headers: headers,
+              options: options);
+
+  Map<String, Object?> get generationParameters {
+    final result = <String, Object?>{};
+    final temperature = options['temperature'];
+    if (temperature != null) {
+      if (temperature is! num ||
+          !temperature.isFinite ||
+          temperature < 0 ||
+          temperature > 2) {
+        throw ArgumentError('temperature must be between 0 and 2.');
+      }
+      result['temperature'] = temperature;
+    }
+    final topP = options['top_p'];
+    if (topP != null) {
+      if (topP is! num || !topP.isFinite || topP <= 0 || topP > 1) {
+        throw ArgumentError('top_p must be greater than 0 and at most 1.');
+      }
+      result['top_p'] = topP;
+    }
+    return result;
+  }
+
   /// Preserves a supplied API path, including provider-specific version paths.
   Uri get apiEndpoint {
     final path = baseUrl.path.endsWith('/') ? baseUrl.path : '${baseUrl.path}/';

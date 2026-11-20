@@ -21,6 +21,9 @@ class _ProviderSettingsState extends State<ProviderSettings> {
   late final TextEditingController _url;
   late final TextEditingController _model;
   final _key = TextEditingController();
+  final _temperature = TextEditingController();
+  final _topP = TextEditingController();
+  late String _profileId;
   bool _saving = false;
   bool _showKey = false;
   String? _error;
@@ -28,6 +31,9 @@ class _ProviderSettingsState extends State<ProviderSettings> {
   void initState() {
     super.initState();
     final profile = widget.controller.profile;
+    _profileId = profile?.id ?? 'primary';
+    _temperature.text = profile?.options['temperature']?.toString() ?? '';
+    _topP.text = profile?.options['top_p']?.toString() ?? '';
     _preset = profile == null
         ? 'openai'
         : ProviderCatalog.find(profile.presetId ?? '')?.id ?? 'custom';
@@ -45,6 +51,8 @@ class _ProviderSettingsState extends State<ProviderSettings> {
     _url.dispose();
     _model.dispose();
     _key.dispose();
+    _temperature.dispose();
+    _topP.dispose();
     super.dispose();
   }
 
@@ -60,6 +68,97 @@ class _ProviderSettingsState extends State<ProviderSettings> {
     });
   }
 
+  ProviderProfile? get _saved => widget.controller.state.savedProfiles
+      .where((p) => p.id == _profileId)
+      .firstOrNull;
+
+  void _edit(ProviderProfile? p) {
+    setState(() {
+      _profileId = p?.id ?? 'profile-${DateTime.now().microsecondsSinceEpoch}';
+      _preset = p == null
+          ? 'openai'
+          : ProviderCatalog.find(p.presetId ?? '')?.id ?? 'custom';
+      _protocol = p?.protocol ?? ApiProtocol.responses;
+      _url.text = (p?.baseUrl ?? ProviderCatalog.presets.first.baseUrl)
+          .toString();
+      _model.text = p?.modelId ?? '';
+      _temperature.text = p?.options['temperature']?.toString() ?? '';
+      _topP.text = p?.options['top_p']?.toString() ?? '';
+      _key.clear();
+      _showKey = false;
+      _error = null;
+    });
+  }
+
+  ProviderProfile _draft({bool forDirectory = false}) {
+    final preset = ProviderCatalog.find(_preset);
+    final saved = _saved;
+    final url = Uri.parse(_url.text.trim());
+    final options = {...?saved?.options}
+      ..remove('temperature')
+      ..remove('top_p');
+    if (!forDirectory) {
+      if (_temperature.text.trim().isNotEmpty)
+        options['temperature'] = double.parse(_temperature.text.trim());
+      if (_topP.text.trim().isNotEmpty)
+        options['top_p'] = double.parse(_topP.text.trim());
+    }
+    return ProviderProfile(
+      id: _profileId,
+      displayName: preset?.displayName ?? '自定义服务',
+      baseUrl: url,
+      protocol: _protocol,
+      modelId: forDirectory ? 'directory' : _model.text.trim(),
+      storageKeyRef: saved?.storageKeyRef ?? 'perant.profile.$_profileId',
+      presetId: preset?.id,
+      options: options,
+      headers: saved?.baseUrl == url && saved?.presetId == preset?.id
+          ? saved!.headers
+          : const {},
+    );
+  }
+
+  Future<void> _listModels() async {
+    setState(() {
+      _saving = true;
+      _error = null;
+    });
+    try {
+      final ids = await widget.controller.availableModels(
+        _draft(forDirectory: true),
+        _key.text,
+      );
+      if (!mounted) return;
+      if (ids.isEmpty) {
+        setState(() => _error = '服务没有列出可用模型，可手动填写模型 ID。');
+        return;
+      }
+      final id = await showDialog<String>(
+        context: context,
+        builder: (c) => AlertDialog(
+          title: const Text('选择可用模型'),
+          content: SizedBox(
+            width: 360,
+            height: 320,
+            child: ListView.builder(
+              itemCount: ids.length,
+              itemBuilder: (c, i) => ListTile(
+                title: Text(ids[i]),
+                onTap: () => Navigator.pop(c, ids[i]),
+              ),
+            ),
+          ),
+        ),
+      );
+      if (mounted && id != null) setState(() => _model.text = id);
+    } catch (_) {
+      if (mounted)
+        setState(() => _error = '无法取得模型列表。请核对当前服务地址与 Key，也可手动填写模型 ID。');
+    } finally {
+      if (mounted) setState(() => _saving = false);
+    }
+  }
+
   Future<void> _save() async {
     if (!_form.currentState!.validate()) return;
     setState(() {
@@ -67,16 +166,7 @@ class _ProviderSettingsState extends State<ProviderSettings> {
       _error = null;
     });
     try {
-      final preset = ProviderCatalog.find(_preset);
-      final profile = ProviderProfile(
-        id: 'primary',
-        displayName: preset?.displayName ?? '自定义服务',
-        baseUrl: Uri.parse(_url.text.trim()),
-        protocol: _protocol,
-        modelId: _model.text.trim(),
-        storageKeyRef: 'perant.api.${Uri.encodeComponent(_url.text.trim())}',
-        presetId: preset?.id,
-      );
+      final profile = _draft();
       await widget.controller.configure(profile, _key.text);
       if (!mounted) return;
       _key.clear();
@@ -94,8 +184,8 @@ class _ProviderSettingsState extends State<ProviderSettings> {
   }
 
   /// The result line sits below the fold on a phone, so it is also announced.
-  Future<void> _test() async {
-    await widget.controller.testConnection();
+  Future<void> _test({bool tool = false}) async {
+    await widget.controller.testConnection(verifyTool: tool);
     if (!mounted) return;
     final message = widget.controller.connectionMessage;
     if (message == null) return;
@@ -131,7 +221,34 @@ class _ProviderSettingsState extends State<ProviderSettings> {
                 const SizedBox(height: 8),
                 const Text('使用自己的 API。先选服务，再填写模型和 Key；已有预设可直接使用默认接口地址。'),
                 const SizedBox(height: 28),
+                if (controller.profile != null)
+                  PopupMenuButton<String>(
+                    enabled: !busy,
+                    onSelected: (id) {
+                      final selected = controller.state.savedProfiles
+                          .where((p) => p.id == id)
+                          .firstOrNull;
+                      _edit(selected);
+                    },
+                    itemBuilder: (_) => [
+                      for (final p in controller.state.savedProfiles)
+                        PopupMenuItem(
+                          value: p.id,
+                          child: Text('${p.displayName} · ${p.modelId}'),
+                        ),
+                      const PopupMenuItem(value: '', child: Text('新增配置')),
+                    ],
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(_saved == null ? '新增模型配置' : '选择已保存的配置'),
+                      subtitle: Text(
+                        '当前使用 ${controller.profile!.modelId} · ${controller.hasKey ? controller.profile!.verification.label : "缺少 Key"} · 保存后切换',
+                      ),
+                      trailing: const Icon(Icons.expand_more),
+                    ),
+                  ),
                 DropdownButtonFormField<String>(
+                  key: ValueKey('preset-$_profileId'),
                   initialValue: _preset,
                   isExpanded: true,
                   decoration: const InputDecoration(labelText: '模型服务'),
@@ -172,7 +289,10 @@ class _ProviderSettingsState extends State<ProviderSettings> {
                   autocorrect: false,
                   enableSuggestions: false,
                   decoration: InputDecoration(
-                    labelText: controller.hasKey
+                    labelText:
+                        _saved != null &&
+                            (_profileId != controller.profile?.id ||
+                                controller.hasKey)
                         ? 'API Key（已保存，留空保留）'
                         : 'API Key',
                     suffixIcon: IconButton(
@@ -186,12 +306,19 @@ class _ProviderSettingsState extends State<ProviderSettings> {
                     ),
                   ),
                   validator: (value) =>
-                      !controller.hasKey &&
+                      (_saved == null ||
+                              (_profileId == controller.profile?.id &&
+                                  !controller.hasKey)) &&
                           (value == null || value.trim().isEmpty)
                       ? '请填写 API Key'
                       : null,
                 ),
                 const SizedBox(height: 8),
+                TextButton.icon(
+                  onPressed: busy ? null : _listModels,
+                  icon: const Icon(Icons.list),
+                  label: const Text('从当前服务获取模型列表'),
+                ),
                 Text(
                   kIsWeb
                       ? '浏览器预览的 Key 仅保留在当前页面内存中，刷新后需重新填写。'
@@ -200,6 +327,7 @@ class _ProviderSettingsState extends State<ProviderSettings> {
                 ),
                 const SizedBox(height: 16),
                 ExpansionTile(
+                  key: ValueKey('advanced-$_profileId'),
                   tilePadding: EdgeInsets.zero,
                   childrenPadding: const EdgeInsets.only(bottom: 16),
                   title: const Text('接口地址与高级设置'),
@@ -250,6 +378,40 @@ class _ProviderSettingsState extends State<ProviderSettings> {
                                 setState(() => _protocol = value);
                             },
                     ),
+                    TextFormField(
+                      controller: _temperature,
+                      enabled: !busy,
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
+                      ),
+                      decoration: const InputDecoration(
+                        labelText: 'Temperature（可选，0–2）',
+                      ),
+                      validator: (s) {
+                        if (s == null || s.trim().isEmpty) return null;
+                        final n = double.tryParse(s.trim());
+                        return n != null && n.isFinite && n >= 0 && n <= 2
+                            ? null
+                            : '请输入 0 到 2 的数';
+                      },
+                    ),
+                    TextFormField(
+                      controller: _topP,
+                      enabled: !busy,
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
+                      ),
+                      decoration: const InputDecoration(
+                        labelText: 'Top P（可选，大于 0 且不超过 1）',
+                      ),
+                      validator: (s) {
+                        if (s == null || s.trim().isEmpty) return null;
+                        final n = double.tryParse(s.trim());
+                        return n != null && n.isFinite && n > 0 && n <= 1
+                            ? null
+                            : '请输入大于 0 且不超过 1 的数';
+                      },
+                    ),
                   ],
                 ),
                 if (preset != null)
@@ -277,9 +439,23 @@ class _ProviderSettingsState extends State<ProviderSettings> {
                 ),
                 const SizedBox(height: 12),
                 OutlinedButton.icon(
-                  onPressed: busy || !controller.canChat ? null : _test,
+                  onPressed:
+                      busy ||
+                          !controller.canChat ||
+                          controller.profile?.id != _profileId
+                      ? null
+                      : () => _test(),
                   icon: const Icon(Icons.wifi_tethering, size: 18),
                   label: Text(controller.isTesting ? '正在测试…' : '测试已保存的连接'),
+                ),
+                OutlinedButton(
+                  onPressed:
+                      busy ||
+                          !controller.canChat ||
+                          controller.profile?.id != _profileId
+                      ? null
+                      : () => _test(tool: true),
+                  child: const Text('测试已保存服务的工具往返'),
                 ),
                 if (controller.connectionMessage != null)
                   Padding(
@@ -288,7 +464,7 @@ class _ProviderSettingsState extends State<ProviderSettings> {
                   ),
                 const SizedBox(height: 8),
                 Text(
-                  '测试会向已保存的服务发送固定短文本，可能产生少量 API 费用。',
+                  '连接测试发送固定短文本。工具测试向已保存的服务发送两轮固定内容，可能产生少量 API 费用。',
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 const SizedBox(height: 28),
@@ -323,7 +499,10 @@ class _ProviderSettingsState extends State<ProviderSettings> {
                 const _Detail('代码许可', 'GPLv3 · GPL-3.0-only'),
                 const SizedBox(height: 16),
                 TextButton(
-                  onPressed: busy || !controller.hasKey
+                  onPressed:
+                      busy ||
+                          !controller.hasKey ||
+                          controller.profile?.id != _profileId
                       ? null
                       : () async {
                           final approved = await showDialog<bool>(
