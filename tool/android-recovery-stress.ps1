@@ -19,7 +19,7 @@ for ($turn = 0; $turn -lt 13; $turn++) {
     $stepDone = $false
     while ([DateTime]::UtcNow -lt $deadline) {
         Start-Sleep -Milliseconds 600
-        $appProcess = ([string](Invoke-TestAdb shell pidof $package)).Trim()
+        $appProcess = ((Invoke-TestAdb shell pidof $package) -join '').Trim()
         if (!$appProcess) { continue }
         $lines = @(Invoke-TestAdb logcat -d "--pid=$appProcess" -s flutter:I)
         $failure = $lines -match 'Some tests failed|\[E\]|EXCEPTION CAUGHT'
@@ -43,7 +43,7 @@ for ($turn = 0; $turn -lt 13; $turn++) {
             Invoke-TestAdb shell wm dismiss-keyguard | Out-Null
         }
         Invoke-TestAdb shell am force-stop $package | Out-Null
-        if (([string](Invoke-TestAdb shell pidof $package)).Trim()) { throw 'Process still running' }
+        if (((Invoke-TestAdb shell pidof $package) -join '').Trim()) { throw 'Process still running' }
         $stepDone = $true
         break
     }
