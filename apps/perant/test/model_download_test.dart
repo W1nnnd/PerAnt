@@ -33,6 +33,7 @@ void main() {
       round++;
       await request.response.close();
     });
+    var freeBytes = data.length;
     Future<void> download(String hash) => downloadVerifiedModel(
       url,
       file,
@@ -40,16 +41,23 @@ void main() {
       hash,
       stopped: () => false,
       progress: (_) {},
+      availableBytes: () async => freeBytes,
     );
     try {
       final digest = sha256.convert(data).toString();
       await expectLater(download(digest), throwsA(isA<HttpException>()));
       expect(await file.exists(), false);
       expect(await partial.length(), 4);
+      freeBytes = data.length - 5;
+      await expectLater(download(digest), throwsFormatException);
+      expect(ranges, [null]);
+      expect(await partial.length(), 4);
+      freeBytes++;
       await download(digest);
       expect(ranges, [null, 'bytes=4-']);
       expect(await file.readAsBytes(), data);
       await partial.writeAsBytes([0, 1]);
+      freeBytes = data.length;
       await expectLater(download('0' * 64), throwsFormatException);
       expect(ranges.last, 'bytes=2-');
       expect(await partial.exists(), false);

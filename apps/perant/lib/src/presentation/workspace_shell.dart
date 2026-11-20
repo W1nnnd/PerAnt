@@ -286,7 +286,10 @@ class _WorkspaceShellState extends State<WorkspaceShell>
         if (store is SemanticControl)
           await Navigator.of(context).push<void>(
             MaterialPageRoute(
-              builder: (_) => SemanticSettings(index: store as SemanticControl),
+              builder: (_) => SemanticSettings(
+                index: store as SemanticControl,
+                bridge: controller.bridge,
+              ),
             ),
           );
         if (mounted)

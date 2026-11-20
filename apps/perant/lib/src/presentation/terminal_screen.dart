@@ -8,6 +8,7 @@ import 'package:xterm/xterm.dart';
 
 import '../application/workspace_controller.dart';
 import 'theme.dart';
+import 'install_storage.dart';
 
 /// Owns one native interactive session and the controller's manual-write lease.
 class TerminalScreen extends StatefulWidget {
@@ -487,6 +488,7 @@ class _TerminalScreenState extends State<TerminalScreen>
               textAlign: TextAlign.center,
             ),
             if (_phase == _TerminalPhase.needsInstallation) ...[
+              InstallStorage(bridge: _bridge, estimate: linuxInstallEstimate),
               const SizedBox(height: 20),
               FilledButton(
                 onPressed: () => _opening = _initializeAndOpen(),

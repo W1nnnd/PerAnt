@@ -23,6 +23,7 @@ class PerantPlatformPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, Eve
     private var sink: EventChannel.EventSink? = null
     private val main = Handler(Looper.getMainLooper())
     private lateinit var linux: AndroidLinuxRuntime
+    private lateinit var dataDirectory: java.io.File
     // MethodChannel receives lifecycle requests in order. Keep that order even
     // when Dart times out waiting for start: its subsequent close must run
     // after that start, never acknowledge an empty runtime before a late fork.
@@ -36,6 +37,7 @@ class PerantPlatformPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, Eve
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         attached = true
+        dataDirectory = binding.applicationContext.filesDir
         pdfMethods = MethodChannel(binding.binaryMessenger, "dev.perant/pdf",
             io.flutter.plugin.common.StandardMethodCodec.INSTANCE, binding.binaryMessenger.makeBackgroundTaskQueue()).also {
             it.setMethodCallHandler(PdfMaterials(binding.applicationContext))
@@ -78,6 +80,7 @@ class PerantPlatformPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, Eve
             val arguments = call.arguments as? Map<*, *> ?: emptyMap<Any, Any>()
             when (call.method) {
                 "getCapabilities" -> result.success(capabilities())
+                "getAvailableStorageBytes" -> result.success(android.os.StatFs(dataDirectory.path).availableBytes)
                 "getLinuxStatus" -> result.success(runtime.status())
                 "initializeLinux" -> async(result, true) { runtime.initialize() }
                 "getLinuxDesktopSession" -> async(result) { runtime.desktopSession() }

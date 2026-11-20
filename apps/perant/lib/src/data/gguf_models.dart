@@ -38,6 +38,7 @@ enum DeviceModel {
   Future<void> download({
     required bool Function() stopped,
     required void Function(int) progress,
+    Future<int?> Function()? availableBytes,
   }) async {
     await downloadVerifiedModel(
       url,
@@ -46,6 +47,7 @@ enum DeviceModel {
       sha,
       stopped: stopped,
       progress: progress,
+      availableBytes: availableBytes,
     );
   }
 
@@ -53,7 +55,9 @@ enum DeviceModel {
     Stream<List<int>> input, {
     required bool Function() stopped,
     required void Function(int) progress,
+    Future<int?> Function()? availableBytes,
   }) async {
+    await _requireModelSpace(availableBytes, bytes);
     final target = await file();
     await target.parent.create(recursive: true);
     final stage = await target.parent.createTemp('verify-');
@@ -91,6 +95,17 @@ enum DeviceModel {
 
 final _activeDownloads = <String>{};
 
+Future<void> _requireModelSpace(
+  Future<int?> Function()? read,
+  int needed,
+) async {
+  final free = await read?.call();
+  if (free != null && free < needed) {
+    final missing = ((needed - free) / 1000000).ceil();
+    throw FormatException('存储空间不足，还需至少 $missing MB。释放空间后可重试。');
+  }
+}
+
 Future<void> downloadVerifiedModel(
   Uri uri,
   File target,
@@ -98,6 +113,7 @@ Future<void> downloadVerifiedModel(
   String checksum, {
   required bool Function() stopped,
   required void Function(int) progress,
+  Future<int?> Function()? availableBytes,
 }) async {
   if (!_activeDownloads.add(target.path)) throw StateError('该模型正在下载。');
   final partial = File('${target.path}.download');
@@ -111,6 +127,7 @@ Future<void> downloadVerifiedModel(
     }
     progress(count);
     if (stopped()) throw StateError('下载已暂停。');
+    await _requireModelSpace(availableBytes, size - count);
     if (count < size) {
       final request = await client.getUrl(uri);
       if (count > 0)

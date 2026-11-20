@@ -8,6 +8,7 @@ import '../application/workspace_controller.dart';
 import 'container_actions.dart';
 import 'container_file_editor.dart';
 import 'desktop_screen.dart';
+import 'install_storage.dart';
 import 'terminal_screen.dart';
 import 'theme.dart';
 
@@ -364,6 +365,11 @@ class _ContainerScreenState extends State<ContainerScreen> {
               ),
               const SizedBox(height: 20),
               if (_status?.supported == true)
+                InstallStorage(
+                  bridge: controller.bridge,
+                  estimate: linuxInstallEstimate,
+                ),
+              if (_status?.supported == true)
                 FilledButton.icon(
                   onPressed: _blocked ? null : _initialize,
                   icon: const Icon(Icons.play_arrow_rounded),
@@ -376,6 +382,14 @@ class _ContainerScreenState extends State<ContainerScreen> {
     final entries = _directory?.entries ?? const <LinuxFileEntry>[];
     return Column(
       children: [
+        if (_status?.supported == true && _status?.installed == false)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12, 6, 12, 0),
+            child: InstallStorage(
+              bridge: controller.bridge,
+              estimate: linuxInstallEstimate,
+            ),
+          ),
         if (_status?.supported == true && _status?.installed == false)
           TextButton.icon(
             onPressed: _blocked ? null : _initialize,

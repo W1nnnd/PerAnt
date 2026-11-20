@@ -73,6 +73,18 @@ final class PerantPlatformBridge {
 
   Future<LinuxStatus> getLinuxStatus() => _readLinuxStatus('getLinuxStatus');
 
+  /// Bytes currently available to this app on its private data volume.
+  Future<int?> availableStorageBytes() async {
+    try {
+      final value = await _invoke('getAvailableStorageBytes');
+      return value is int && value >= 0 ? value : null;
+    } on MissingPluginException {
+      return null;
+    } on RuntimeBridgeException {
+      return null;
+    }
+  }
+
   /// Reuses an existing, ready desktop after a page change or hot restart.
   Future<LinuxDesktopSession?> getLinuxDesktopSession() async {
     try {

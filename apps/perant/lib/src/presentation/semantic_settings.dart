@@ -8,9 +8,18 @@ import 'package:file_selector/file_selector.dart';
 import '../data/bge_encoder.dart';
 import '../data/semantic_index.dart';
 
+import 'package:perant_platform/perant_platform.dart';
+
+import 'install_storage.dart';
+
 class SemanticSettings extends StatefulWidget {
-  const SemanticSettings({super.key, required this.index});
+  const SemanticSettings({
+    super.key,
+    required this.index,
+    required this.bridge,
+  });
   final SemanticControl index;
+  final PerantPlatformBridge bridge;
   @override
   State<SemanticSettings> createState() => _SemanticSettingsState();
 }
@@ -127,6 +136,10 @@ class _SemanticSettingsState extends State<SemanticSettings> {
         const Text('BGE-small-zh-v1.5 · 中文检索模型'),
         const SizedBox(height: 8),
         const Text('首次需要下载约 24.1 MB 的模型与词表。资料和查询在本机计算，建立索引后可用意思相近的说法搜索。'),
+        InstallStorage(
+          bridge: widget.bridge,
+          estimate: '模型与词表约占 24.1 MB，建立索引还需要随不同片段数增长的数据库空间。',
+        ),
         const SizedBox(height: 24),
         if (!busy)
           TextButton(onPressed: _import, child: const Text('从本机导入模型与词表')),

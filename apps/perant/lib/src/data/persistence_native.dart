@@ -12,6 +12,7 @@ import 'semantic_index.dart';
 
 Future<WorkspacePersistence> openPersistence({
   String databaseName = 'perant.sqlite',
+  Future<void> Function(Database)? onConfigure,
 }) async {
   if (!RegExp(r'^[A-Za-z0-9][A-Za-z0-9_.-]*\.sqlite$').hasMatch(databaseName)) {
     throw ArgumentError.value(
@@ -24,6 +25,7 @@ Future<WorkspacePersistence> openPersistence({
   final db = await openDatabase(
     '${directory.path}/$databaseName',
     version: 5,
+    onConfigure: onConfigure,
     singleInstance: false,
     onUpgrade: (db, oldVersion, newVersion) async {
       if (oldVersion < 2) await _createDocumentChunks(db);

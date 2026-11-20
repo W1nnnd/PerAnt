@@ -9,6 +9,7 @@ import 'package:perant_platform/perant_platform.dart';
 
 import '../application/shared_desktop_service.dart';
 import '../application/workspace_controller.dart';
+import 'install_storage.dart';
 import 'theme.dart';
 import 'computer_browser_screen.dart';
 
@@ -699,6 +700,11 @@ class _DesktopScreenState extends State<DesktopScreen>
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(fontSize: 13, color: PerantColors.muted),
               ),
+              if (!desktop.running && !desktop.busy)
+                InstallStorage(
+                  bridge: controller.bridge,
+                  estimate: '首次使用：$linuxInstallEstimate',
+                ),
               const SizedBox(height: 20),
               if (desktop.busy)
                 const SizedBox(

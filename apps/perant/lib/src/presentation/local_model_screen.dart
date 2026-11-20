@@ -11,6 +11,7 @@ import '../application/workspace_controller.dart';
 import '../data/gguf_models.dart';
 import '../data/library_search.dart';
 import 'document_editor.dart';
+import 'install_storage.dart';
 
 class LocalModelScreen extends StatefulWidget {
   const LocalModelScreen({
@@ -128,11 +129,16 @@ class _LocalModelScreenState extends State<LocalModelScreen>
       if (file == null || !mounted) return;
       await spec.install(
         file.openRead(),
+        availableBytes: widget.controller.bridge.availableStorageBytes,
         stopped: () => stopped,
         progress: progress,
       );
     } else {
-      await spec.download(stopped: () => stopped, progress: progress);
+      await spec.download(
+        stopped: () => stopped,
+        progress: progress,
+        availableBytes: widget.controller.bridge.availableStorageBytes,
+      );
     }
     if (mounted)
       setState(() {
@@ -308,6 +314,12 @@ class _LocalModelScreenState extends State<LocalModelScreen>
         ),
         const SizedBox(height: 12),
         if (!installed) ...[
+          InstallStorage(
+            key: ValueKey(model),
+            bridge: widget.controller.bridge,
+            estimate:
+                '完整模型需 ${(model.bytes / 1e6).ceil()} MB 存储空间。下载可从断点继续；选择已有文件时仍需复制到应用目录。',
+          ),
           FilledButton(
             onPressed: busy ? null : () => _install(false),
             child: Text('下载 ${model.name}'),
