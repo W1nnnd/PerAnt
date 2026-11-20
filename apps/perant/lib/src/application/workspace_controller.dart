@@ -9,6 +9,7 @@ import 'package:perant_platform/perant_platform.dart';
 
 import '../data/workspace_state.dart';
 import '../data/local_memories.dart';
+import '../data/meeting_progress.dart';
 import 'local_text_task_runner.dart';
 import 'historical_excerpt.dart';
 import 'container_task_runner.dart';
@@ -497,23 +498,99 @@ final class WorkspaceController extends ChangeNotifier {
     }
   }
 
+  Future<MeetingProgress> beginMeeting(
+    List<MarkdownDocument> materials,
+    String model,
+    String sha,
+    int context,
+  ) async {
+    _ensureConfigurationIdle();
+    if (_disposed || isSending || isTesting) throw StateError('请等待当前请求结束。');
+    final next = MeetingProgress.start(
+      _id('meeting'),
+      materials,
+      model,
+      sha,
+      context,
+    );
+    if (!next.isCurrent(state.documents)) throw StateError('来源已变化，请重新选择。');
+    final prior = state.currentMeeting;
+    if (prior != null) {
+      if (prior.fingerprint != next.fingerprint)
+        throw const FormatException('已有另一份未完成的归纳。请选回原资料和模型，或先清除原进度。');
+      return prior;
+    }
+    await _setMeeting(null, next);
+    return next;
+  }
+
+  Future<MeetingProgress> saveMeetingStep(
+    MeetingProgress previous,
+    int index,
+    String output,
+  ) async {
+    if (index != previous.steps.length) throw StateError('纪要步骤顺序已改变。');
+    final next = previous.append(output);
+    await _setMeeting(previous, next);
+    return next;
+  }
+
+  Future<void> discardMeeting(MeetingProgress expected) =>
+      _setMeeting(expected, null);
+
+  Future<void> _setMeeting(
+    MeetingProgress? expected,
+    MeetingProgress? next,
+  ) async {
+    _ensureConfigurationIdle();
+    if (_disposed ||
+        isSending ||
+        isTesting ||
+        !identical(state.currentMeeting, expected) ||
+        (next != null && !next.isCurrent(state.documents)))
+      throw StateError('工作区已变化，请重新打开纪要。');
+    isConfiguring = true;
+    try {
+      final snapshot = state.toJson(forStorage: true)
+        ..remove('meetingProgress');
+      if (next != null) snapshot['meetingProgress'] = next.toJson();
+      await _saveSnapshot(snapshot);
+      state.meetingProgress = next;
+    } finally {
+      isConfiguring = false;
+      _notify();
+    }
+  }
+
   Future<MarkdownDocument> createDocument({
     String title = '未命名文档',
     String markdown = '',
+    String? completedMeetingId,
   }) async {
     _ensureConfigurationIdle();
+    final checkpoint = state.currentMeeting;
+    if (completedMeetingId != null && checkpoint?.id != completedMeetingId) {
+      throw StateError('纪要或来源已改变，请重新核对。');
+    }
     final doc = MarkdownDocument(
       id: _id('document'),
       title: title,
       markdown: markdown,
       updatedAt: DateTime.now(),
     );
+    if (completedMeetingId != null) {
+      isConfiguring = true;
+      state.meetingProgress = null;
+    }
     state.documents.insert(0, doc);
     try {
       await _save();
     } catch (_) {
       state.documents.remove(doc);
+      if (completedMeetingId != null) state.meetingProgress = checkpoint;
       rethrow;
+    } finally {
+      if (completedMeetingId != null) isConfiguring = false;
     }
     _notify();
     return doc;
@@ -1765,7 +1842,10 @@ final class WorkspaceController extends ChangeNotifier {
     final after = before.reconcile(current.memorySources);
     current.memories = after;
     return _saveSnapshot(current.toJson(forStorage: true))
-        .then((_) => current.releasePreparedFacts())
+        .then((_) {
+          current.releasePreparedFacts();
+          if (current.currentMeeting == null) current.meetingProgress = null;
+        })
         .catchError((Object e, StackTrace s) {
           if (identical(current.memories, after)) current.memories = before;
           Error.throwWithStackTrace(e, s);

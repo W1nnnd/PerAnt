@@ -11,6 +11,9 @@ class DeviceInference implements LocalInference {
   String? _request;
   bool _cancelled = false;
   int _context = 0;
+  DeviceModel? _loadedModel;
+  DeviceModel? get loadedModel => _loadedModel;
+  int get contextSize => _context;
   Completer<void>? _finished;
   Future<void> _lifecycle = Future.value();
   int _pending = 0;
@@ -67,6 +70,7 @@ class DeviceInference implements LocalInference {
       ),
     );
     _context = configuration.contextTokens;
+    _loadedModel = spec;
   });
 
   @override
@@ -84,6 +88,7 @@ class DeviceInference implements LocalInference {
     }
     final engine = _engine;
     _engine = null;
+    _loadedModel = null;
     await engine?.dispose();
   }
 

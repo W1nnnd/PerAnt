@@ -2,6 +2,8 @@
 import 'package:perant_core/perant_core.dart';
 
 import 'meeting_minutes.dart';
+import 'device_inference.dart';
+import 'workspace_controller.dart';
 
 typedef LocalDocumentWork = Future<String> Function(
   LocalInference model,
@@ -61,7 +63,41 @@ LocalDocumentWork reviseSelection(String original) {
   };
 }
 
-LocalDocumentWork synthesizeMeeting(List<MarkdownDocument> materials) {
+typedef MeetingJournal = ({
+  List<String> completed,
+  Future<void> Function(int, String) append,
+});
+
+LocalDocumentWork recoverableMeeting(
+  WorkspaceController controller,
+  List<MarkdownDocument> materials,
+  void Function(String) onReady,
+) => synthesizeMeeting(
+  materials,
+  openJournal: (engine) async {
+    if (engine is! DeviceInference || engine.loadedModel == null)
+      throw StateError('请先加载所选模型。');
+    final spec = engine.loadedModel!;
+    var progress = await controller.beginMeeting(
+      materials,
+      spec.id,
+      spec.sha,
+      engine.contextSize,
+    );
+    onReady(progress.id);
+    return (
+      completed: progress.steps,
+      append: (int index, String output) async {
+        progress = await controller.saveMeetingStep(progress, index, output);
+      },
+    );
+  },
+);
+
+LocalDocumentWork synthesizeMeeting(
+  List<MarkdownDocument> materials, {
+  Future<MeetingJournal> Function(LocalInference)? openJournal,
+}) {
   checkMeetingMaterials(materials);
   final pieces = <({String label, String text})>[];
   final sources = <String>[];
@@ -78,16 +114,30 @@ LocalDocumentWork synthesizeMeeting(List<MarkdownDocument> materials) {
     }
   }
   return (model, id, stopped, progress) async {
+    final journal = await openJournal?.call(model);
+    var step = 0;
+    Future<String> generateStep(String instruction, String source) async {
+      if (stopped()) throw StateError('已停止。');
+      final index = step++;
+      if (journal != null && index < journal.completed.length) {
+        progress(
+          '继续上次纪要 · 复用第 ${index + 1}/${journal.completed.length} 个已完成步骤',
+        );
+        return journal.completed[index];
+      }
+      final output = await _generate(model, id, instruction, source, stopped);
+      if (stopped()) throw StateError('已停止。');
+      await journal?.append(index, output);
+      return output;
+    }
+
     final notes = <String>[];
     for (var i = 0; i < pieces.length; i++) {
       final piece = pieces[i];
       progress('归纳第 ${i + 1}/${pieces.length} 段 · ${piece.label}');
-      final result = await _generate(
-        model,
-        id,
+      final result = await generateStep(
         '你在整理会议材料。用不超过80个汉字归纳这一段的议题、已作决定、待办、负责人和期限。只写原文有据的内容，讨论与决定要区分。',
         piece.text,
-        stopped,
       );
       notes.add(result);
     }
@@ -102,12 +152,9 @@ LocalDocumentWork synthesizeMeeting(List<MarkdownDocument> materials) {
         next.add(
           group.length == 1
               ? group.first
-              : await _generate(
-                  model,
-                  id,
+              : await generateStep(
                   '汇总这些会议摘记，不超过100个汉字。分别列出有依据的决策、待办和待确认事项，不补猜时间和负责人。',
                   group.join('\n\n'),
-                  stopped,
                 ),
         );
       }

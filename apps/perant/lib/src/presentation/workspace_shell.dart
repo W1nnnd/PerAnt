@@ -378,7 +378,20 @@ class _WorkspaceShellState extends State<WorkspaceShell>
 
   Future<void> _meeting() async {
     final docs = controller.documents;
-    final selected = <String>{};
+    var previous = controller.state.currentMeeting;
+    final selected =
+        previous?.sources.map((source) => source.id).toSet() ?? <String>{};
+    if (previous != null) {
+      try {
+        for (final d in docs.where((d) => selected.contains(d.id))) {
+          await d.currentVersion.loadText();
+        }
+      } catch (_) {
+        _toast('读取上次纪要的资料失败，请重新打开。');
+        return;
+      }
+      if (!mounted) return;
+    }
     final mode = await showDialog<String>(
       context: context,
       builder: (dialog) => StatefulBuilder(
@@ -394,6 +407,49 @@ class _WorkspaceShellState extends State<WorkspaceShell>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text('已选 ${selected.length}/5 份 · $size/20000 字'),
+                  if (previous != null)
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text('上次已保存 ${previous!.steps.length} 个归纳步骤'),
+                      subtitle: Text(
+                        '${previous!.modelId} · ${previous!.contextSize} tokens',
+                      ),
+                      trailing: TextButton(
+                        child: const Text('清除进度'),
+                        onPressed: () async {
+                          final saved = previous;
+                          if (saved == null) return;
+                          final agreed = await showDialog<bool>(
+                            context: context,
+                            builder: (c) => AlertDialog(
+                              title: const Text('清除未完成的纪要进度？'),
+                              content: const Text('已完成的归纳步骤将被删除，原资料仍会保留。'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(c, false),
+                                  child: const Text('保留'),
+                                ),
+                                TextButton(
+                                  onPressed: () => Navigator.pop(c, true),
+                                  child: const Text('清除'),
+                                ),
+                              ],
+                            ),
+                          );
+                          if (agreed != true || !context.mounted) return;
+                          try {
+                            await controller.discardMeeting(saved);
+                            if (context.mounted)
+                              update(() {
+                                previous = null;
+                                selected.clear();
+                              });
+                          } catch (_) {
+                            _toast('进度已变化，请重新打开。');
+                          }
+                        },
+                      ),
+                    ),
                   Flexible(
                     child: ListView(
                       shrinkWrap: true,
@@ -449,7 +505,7 @@ class _WorkspaceShellState extends State<WorkspaceShell>
                 onPressed: selected.isEmpty || size > materialCharacterLimit
                     ? null
                     : () => Navigator.pop(dialog, 'model'),
-                child: const Text('用本地模型归纳'),
+                child: Text(previous == null ? '用本地模型归纳' : '继续本地归纳'),
               ),
             ],
           );
@@ -460,14 +516,21 @@ class _WorkspaceShellState extends State<WorkspaceShell>
     try {
       final materials = docs.where((d) => selected.contains(d.id)).toList();
       final String? draft;
+      String? completedMeetingId;
       if (mode == 'model') {
-        final work = synthesizeMeeting(materials);
+        final work = recoverableMeeting(
+          controller,
+          materials,
+          (id) => completedMeetingId = id,
+        );
         draft = await Navigator.of(context).push<String>(
           MaterialPageRoute(
             builder: (_) => LocalModelScreen(
               controller: controller,
               title: '归纳会议纪要',
               work: work,
+              initialModelId: previous?.modelId,
+              initialContext: previous?.contextSize ?? 2048,
             ),
           ),
         );
@@ -488,6 +551,7 @@ class _WorkspaceShellState extends State<WorkspaceShell>
       final result = await controller.createDocument(
         title: '会议纪要',
         markdown: draft,
+        completedMeetingId: completedMeetingId,
       );
       if (mounted) await _openDocument(result);
     } on FormatException catch (e) {

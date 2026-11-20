@@ -127,6 +127,35 @@ void main() {
     await tester.pumpAndSettle();
   }
 
+  testWidgets('reopen and discard a saved meeting from the files page', (
+    tester,
+  ) async {
+    final c = await launch(tester, const Size(360, 680));
+    final doc = await c.createDocument(title: '预算底稿', markdown: '费用已复核。');
+    final progress = await c.beginMeeting([doc], 'Qwen3.5-0.8B', 'fixed', 2048);
+    await c.saveMeetingStep(progress, 0, '费用已复核');
+    await tester.tap(find.byTooltip('文件'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('整理纪要'));
+    await tester.pumpAndSettle();
+    expect(find.text('上次已保存 1 个归纳步骤'), findsOneWidget);
+    expect(find.text('继续本地归纳'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+    await tester.tap(find.text('清除进度'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('保留'));
+    await tester.pumpAndSettle();
+    expect(c.state.currentMeeting!.steps.length, 1);
+    await tester.tap(find.text('清除进度'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('清除'));
+    await tester.pumpAndSettle();
+    expect(c.state.currentMeeting, isNull);
+    expect(c.documents.single.markdown, '费用已复核。');
+    expect(find.text('用本地模型归纳'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
   for (final width in [320.0, 360.0, 390.0, 430.0, 1024.0, 1440.0]) {
     testWidgets('single-column three-navigation workbench fits width $width', (
       tester,

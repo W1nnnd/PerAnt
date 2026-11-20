@@ -2,6 +2,7 @@
 import 'package:perant_core/perant_core.dart';
 
 import 'local_memories.dart';
+import 'meeting_progress.dart';
 
 enum ChatRole { user, assistant }
 
@@ -173,6 +174,7 @@ final class WorkspaceState {
 
   WorkspaceState({
     this.profile,
+    this.meetingProgress,
     List<ProviderProfile> otherProfiles = const [],
     this.onboardingDismissed = false,
     String companionName = defaultCompanionName,
@@ -205,6 +207,12 @@ final class WorkspaceState {
     }
   }
   ProviderProfile? profile;
+  MeetingProgress? meetingProgress;
+  MeetingProgress? get currentMeeting {
+    final p = meetingProgress;
+    return p != null && p.isCurrent(documents) ? p : null;
+  }
+
   final List<ProviderProfile> otherProfiles;
   Iterable<ProviderProfile> get savedProfiles sync* {
     if (profile != null) yield profile!;
@@ -335,6 +343,8 @@ final class WorkspaceState {
   Map<String, Object?> toJson({bool forStorage = false}) => {
     'schemaVersion': 1,
     if (forStorage) 'localMemoryScans': memories.scanned,
+    if (forStorage && currentMeeting != null)
+      'meetingProgress': currentMeeting!.toJson(),
     'profile': profile?.toJson(),
     if (otherProfiles.isNotEmpty)
       'otherProfiles': otherProfiles.map((p) => p.toJson()).toList(),
@@ -444,6 +454,7 @@ final class WorkspaceState {
     }
 
     return WorkspaceState(
+      meetingProgress: MeetingProgress.read(json['meetingProgress']),
       otherProfiles: [
         for (final p in json['otherProfiles'] as List? ?? const [])
           ProviderProfile.fromJson(Map<String, Object?>.from(p as Map)),

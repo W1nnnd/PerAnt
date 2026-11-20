@@ -18,10 +18,14 @@ class LocalModelScreen extends StatefulWidget {
     super.key,
     required this.controller,
     this.work,
+    this.initialModelId,
+    this.initialContext = 2048,
     this.title = '本地中文模型',
   });
   final WorkspaceController controller;
   final LocalDocumentWork? work;
+  final String? initialModelId;
+  final int initialContext;
   final String title;
   @override
   State<LocalModelScreen> createState() => _LocalModelScreenState();
@@ -35,6 +39,8 @@ class _LocalModelScreenState extends State<LocalModelScreen>
   int contextSize = 2048, received = 0;
   bool busy = false, installed = false, loaded = false, stopped = false;
   String message = '', reply = '';
+  String? systemNotice;
+  bool releasingForSystem = false;
   String? requestId;
   bool runningPython = false;
   LocalProposal? proposal;
@@ -43,6 +49,12 @@ class _LocalModelScreenState extends State<LocalModelScreen>
   @override
   void initState() {
     super.initState();
+    model =
+        DeviceModel.values
+            .where((m) => m.id == widget.initialModelId)
+            .firstOrNull ??
+        DeviceModel.small;
+    contextSize = widget.initialContext;
     WidgetsBinding.instance.addObserver(this);
     unawaited(_refresh());
   }
@@ -59,16 +71,36 @@ class _LocalModelScreenState extends State<LocalModelScreen>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if ((state == AppLifecycleState.paused ||
-            state == AppLifecycleState.detached) &&
-        (loaded || requestId != null)) {
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.detached) {
+      unawaited(_releaseForSystem('已释放模型，回到前台可重新加载。'));
+    }
+  }
+
+  @override
+  void didHaveMemoryPressure() {
+    unawaited(_releaseForSystem('设备内存紧张，已释放模型。可重新加载并继续已保存的纪要。'));
+  }
+
+  Future<void> _releaseForSystem(String notice) async {
+    if (releasingForSystem ||
+        systemNotice != null ||
+        (!loaded && requestId == null))
+      return;
+    setState(() {
+      releasingForSystem = true;
       stopped = true;
-      setState(() {
-        loaded = false;
-        proposal = null;
-        message = '已释放模型，回到前台可重新加载。';
-      });
-      unawaited(runtime.unload());
+      loaded = false;
+      proposal = null;
+      systemNotice = '正在释放本地模型…';
+    });
+    try {
+      await runtime.unload();
+      if (mounted) setState(() => systemNotice = notice);
+    } catch (_) {
+      if (mounted) setState(() => systemNotice = '模型释放失败，请关闭此页后重试。');
+    } finally {
+      if (mounted) setState(() => releasingForSystem = false);
     }
   }
 
@@ -83,11 +115,12 @@ class _LocalModelScreenState extends State<LocalModelScreen>
   }
 
   Future<void> _run(Future<void> Function() operation) async {
-    if (busy) return;
+    if (busy || releasingForSystem) return;
     setState(() {
       busy = true;
       stopped = false;
       message = '';
+      systemNotice = null;
     });
     try {
       await operation();
@@ -332,7 +365,7 @@ class _LocalModelScreenState extends State<LocalModelScreen>
             LinearProgressIndicator(value: received / model.bytes),
         ] else if (!loaded)
           FilledButton(
-            onPressed: busy ? null : _load,
+            onPressed: busy || releasingForSystem ? null : _load,
             child: const Text('加载到内存'),
           )
         else if (widget.work != null)
@@ -405,10 +438,10 @@ class _LocalModelScreenState extends State<LocalModelScreen>
                   },
             child: const Text('停止'),
           ),
-        if (message.isNotEmpty)
+        if (systemNotice != null || message.isNotEmpty)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Text(message),
+            child: Text(systemNotice ?? message),
           ),
         if (reply.isNotEmpty) SelectableText(reply),
         if (proposal != null && proposal!.action != LocalAction.clarify) ...[
