@@ -118,6 +118,15 @@ class _DocumentEditorState extends State<DocumentEditor> {
       ),
     );
     if (version == null || !mounted) return;
+    try {
+      await version.loadText();
+    } catch (_) {
+      if (mounted)
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('读取该修订失败。')));
+      return;
+    }
+    if (!mounted) return;
     final draft = _text.text;
     final restore = await _reviewChanges(
       version.markdown,

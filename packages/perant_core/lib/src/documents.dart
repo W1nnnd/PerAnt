@@ -6,11 +6,35 @@ enum DocumentFormat { markdown, docx, pdf, pptx, html }
 
 final class DocumentVersion {
   DocumentVersion({
-    required this.documentId,
-    required this.revision,
-    required this.markdown,
-    required this.updatedAt,
-  }) {
+    required String documentId,
+    required int revision,
+    required String markdown,
+    required DateTime updatedAt,
+  }) : this._(
+            documentId: documentId,
+            revision: revision,
+            updatedAt: updatedAt,
+            text: markdown);
+
+  DocumentVersion.deferred({
+    required String documentId,
+    required int revision,
+    required DateTime updatedAt,
+    required Future<String> Function() read,
+  }) : this._(
+            documentId: documentId,
+            revision: revision,
+            updatedAt: updatedAt,
+            read: read);
+
+  DocumentVersion._(
+      {required this.documentId,
+      required this.revision,
+      required this.updatedAt,
+      String? text,
+      Future<String> Function()? read})
+      : _text = text,
+        _read = read {
     if (documentId.trim().isEmpty || revision < 1) {
       throw ArgumentError('A document needs an ID and a positive revision.');
     }
@@ -18,7 +42,25 @@ final class DocumentVersion {
 
   final String documentId;
   final int revision;
-  final String markdown;
+  String? _text;
+  final Future<String> Function()? _read;
+  Future<String>? _pending;
+  bool get storedReference => _read != null;
+  bool get isLoaded => _text != null;
+  String get markdown => _text ?? (throw StateError('请先加载这份文档修订。'));
+  Future<String> readOnce() => _text == null ? _read!() : Future.value(_text!);
+
+  Future<String> loadText() async {
+    final value = _text;
+    if (value != null) return value;
+    final reading = _pending ??= _read!();
+    try {
+      return _text = await reading;
+    } finally {
+      if (identical(_pending, reading)) _pending = null;
+    }
+  }
+
   final DateTime updatedAt;
 
   SourceVersion get sourceVersion => SourceVersion(
@@ -30,20 +72,32 @@ final class DocumentVersion {
 final class MarkdownDocument {
   MarkdownDocument({
     required String id,
-    required this.title,
+    required String title,
     required String markdown,
     required DateTime updatedAt,
     int revision = 1,
-    this.confirmedRevision,
-    this.confirmedAt,
+    int? confirmedRevision,
+    DateTime? confirmedAt,
     List<DocumentVersion> history = const [],
-  })  : history = List.unmodifiable(history),
-        currentVersion = DocumentVersion(
-          documentId: id,
-          revision: revision,
-          markdown: markdown,
-          updatedAt: updatedAt,
-        ) {
+  }) : this.versioned(
+            title: title,
+            history: history,
+            confirmedRevision: confirmedRevision,
+            confirmedAt: confirmedAt,
+            currentVersion: DocumentVersion(
+              documentId: id,
+              revision: revision,
+              markdown: markdown,
+              updatedAt: updatedAt,
+            ));
+
+  MarkdownDocument.versioned(
+      {required this.title,
+      required this.currentVersion,
+      this.confirmedRevision,
+      this.confirmedAt,
+      List<DocumentVersion> history = const []})
+      : history = List.unmodifiable(history) {
     var lastRevision = 0;
     for (final version in history) {
       if (version.documentId != id ||

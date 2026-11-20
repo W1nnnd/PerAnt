@@ -200,12 +200,16 @@ final class WorkspaceState {
   String companionTone;
   bool hapticsEnabled;
   LocalMemoryBook memories;
+  final _preparedFacts = <DocumentVersion, String>{};
+  void releasePreparedFacts() => _preparedFacts.clear();
   Iterable<MemoryEvidence> get memorySources sync* {
     for (final d in documents) {
       yield (
         id: 'doc:' + d.id,
         revision: d.revision,
-        text: d.markdown,
+        text: d.isConfirmed && memories.needsScan('doc:' + d.id, d.revision)
+            ? (_preparedFacts[d.currentVersion] ?? d.markdown)
+            : '',
         at: d.confirmedAt ?? d.updatedAt,
         confirmed: d.isConfirmed,
       );
@@ -300,8 +304,21 @@ final class WorkspaceState {
     }
   }
 
-  Map<String, Object?> toJson() => {
+  Future<void> loadMemorySources() async {
+    for (final d in List.of(documents)) {
+      if (d.isConfirmed &&
+          memories.needsScan('doc:' + d.id, d.revision) &&
+          !d.currentVersion.isLoaded) {
+        _preparedFacts[d.currentVersion] = LocalMemoryBook.factLines(
+          await d.currentVersion.readOnce(),
+        ).join('\n');
+      }
+    }
+  }
+
+  Map<String, Object?> toJson({bool forStorage = false}) => {
     'schemaVersion': 1,
+    if (forStorage) 'localMemoryScans': memories.scanned,
     'profile': profile?.toJson(),
     'onboardingDismissed': onboardingDismissed,
     'companionName': companionName,
@@ -315,7 +332,9 @@ final class WorkspaceState {
           (d) => {
             'id': d.id,
             'title': d.title,
-            'markdown': d.markdown,
+            'markdown': forStorage && d.currentVersion.storedReference
+                ? d.currentVersion
+                : d.markdown,
             'revision': d.revision,
             'updatedAt': d.updatedAt.toUtc().toIso8601String(),
             'confirmedRevision': d.confirmedRevision,
@@ -324,7 +343,9 @@ final class WorkspaceState {
               for (final version in d.history)
                 {
                   'revision': version.revision,
-                  'markdown': version.markdown,
+                  'markdown': forStorage && version.storedReference
+                      ? version
+                      : version.markdown,
                   'updatedAt': version.updatedAt.toUtc().toIso8601String(),
                 },
             ],
@@ -388,6 +409,22 @@ final class WorkspaceState {
         (json[key] as List<Object?>? ?? [])
             .map((v) => Map<String, Object?>.from(v! as Map))
             .toList();
+    DocumentVersion version(String id, Map row) {
+      final body = row['markdown'], rev = row['revision'] as int;
+      final at = DateTime.parse(row['updatedAt'] as String);
+      if (body is DocumentVersion &&
+          body.documentId == id &&
+          body.revision == rev &&
+          body.updatedAt == at)
+        return body;
+      return DocumentVersion(
+        documentId: id,
+        revision: rev,
+        updatedAt: at,
+        markdown: body as String,
+      );
+    }
+
     return WorkspaceState(
       profile: json['profile'] == null
           ? null
@@ -402,6 +439,9 @@ final class WorkspaceState {
           ? null
           : LocalMemoryBook.fromJson(
               Map<String, Object?>.from(json['memoryBook'] as Map),
+              scanned:
+                  (json['localMemoryScans'] as Map?)?.cast<String, int>() ??
+                  const {},
             ),
       conversations: rows('conversations')
           .map(ConversationThread.fromJson)
@@ -409,21 +449,13 @@ final class WorkspaceState {
       activeConversationId: json['activeConversationId'] as String? ?? 'main',
       documents: rows('documents')
           .map(
-            (d) => MarkdownDocument(
-              id: d['id']! as String,
+            (d) => MarkdownDocument.versioned(
               title: d['title']! as String,
-              markdown: d['markdown']! as String,
-              revision: d['revision']! as int,
+              currentVersion: version(d['id'] as String, d),
               history: [
                 for (final raw in (d['history'] as List? ?? const []))
-                  DocumentVersion(
-                    documentId: d['id']! as String,
-                    revision: (raw as Map)['revision'] as int,
-                    markdown: raw['markdown'] as String,
-                    updatedAt: DateTime.parse(raw['updatedAt'] as String),
-                  ),
+                  version(d['id'] as String, raw as Map),
               ],
-              updatedAt: DateTime.parse(d['updatedAt']! as String),
               confirmedRevision: d['confirmedRevision'] as int?,
               confirmedAt: d['confirmedAt'] == null
                   ? null
@@ -467,6 +499,10 @@ abstract interface class WorkspacePersistence {
   Future<WorkspaceState> load();
   Future<void> save(Map<String, Object?> snapshot);
   Future<void> close();
+}
+
+abstract interface class WorkspaceCatalog {
+  Future<WorkspaceState> loadCatalog();
 }
 
 final class MemoryWorkspacePersistence implements WorkspacePersistence {

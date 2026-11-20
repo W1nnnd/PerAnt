@@ -27,10 +27,23 @@ class LocalMemoryBook {
   final Map<String, MemoryRecord> records;
   final Set<String> suppressed;
   final Map<String, int> _scanned;
+  Map<String, int> get scanned => _scanned;
+  bool needsScan(String id, int revision) =>
+      enabled && _scanned[id] != revision;
   static final _fact = RegExp(
     r'^(?:[-*]\s*)?(?:我(?:更?喜欢|的偏好是|(?:更)?习惯|通常在|的工作时间是)|(?:个人偏好|工作习惯|长期约定|常用格式)[：:])\s*[^？?]+$',
   );
   static final _digest = RegExp(r'^[a-f0-9]{64}$');
+  static Iterable<String> factLines(String source) sync* {
+    for (final raw in const LineSplitter().convert(source)) {
+      final line = raw.trim();
+      if (line.isNotEmpty &&
+          line.length <= 320 &&
+          line.runes.length <= 160 &&
+          _fact.hasMatch(line))
+        yield line;
+    }
+  }
 
   LocalMemoryBook reconcile(Iterable<MemoryEvidence> sources) {
     final pending = {...records};
@@ -43,13 +56,7 @@ class LocalMemoryBook {
       if (_scanned[source.id] == source.revision) continue;
       final facts = <String>{};
       // Whole declarative lines only. Oversized prose is never truncated into a fact.
-      for (final raw in const LineSplitter().convert(source.text)) {
-        final line = raw.trim();
-        if (line.isEmpty ||
-            line.length > 320 ||
-            line.runes.length > 160 ||
-            !_fact.hasMatch(line))
-          continue;
+      for (final line in factLines(source.text)) {
         final id = sha256
             .convert(utf8.encode(jsonEncode([source.id, line])))
             .toString();
@@ -150,7 +157,10 @@ class LocalMemoryBook {
         },
     ],
   };
-  factory LocalMemoryBook.fromJson(Map<String, Object?> data) {
+  factory LocalMemoryBook.fromJson(
+    Map<String, Object?> data, {
+    Map<String, int> scanned = const {},
+  }) {
     final records = <String, MemoryRecord>{};
     final suppressed = (data['suppressed'] as List).cast<String>().toSet();
     if (suppressed.any((id) => !_digest.hasMatch(id)))
@@ -179,6 +189,7 @@ class LocalMemoryBook {
     }
     return LocalMemoryBook(
       enabled: data['enabled'] as bool,
+      scanned: scanned,
       records: records,
       suppressed: suppressed,
     );

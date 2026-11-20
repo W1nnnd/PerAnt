@@ -8,7 +8,7 @@ class MemoryScreen extends StatelessWidget {
   const MemoryScreen({super.key, required this.controller});
   final WorkspaceController controller;
 
-  (String, String)? _source(MemoryRecord record) {
+  (String, Future<String> Function())? _source(MemoryRecord record) {
     final source = record.sources.single;
     final id = source.sourceId.substring(4);
     if (source.sourceId.startsWith('msg:')) {
@@ -18,7 +18,7 @@ class MemoryScreen extends StatelessWidget {
       if (msg == null) return null;
       return (
         '用户消息 · ${msg.createdAt.toLocal().toString().split('.').first}',
-        msg.text,
+        () async => msg.text,
       );
     }
     final doc = controller.documents.where((d) => d.id == id).firstOrNull;
@@ -29,7 +29,7 @@ class MemoryScreen extends StatelessWidget {
     ].where((v) => v.revision.toString() == source.version).firstOrNull;
     return version == null
         ? null
-        : ('${doc.title} · 修订 ${version.revision}', version.markdown);
+        : ('${doc.title} · 修订 ${version.revision}', version.loadText);
   }
 
   Future<void> _mutate(
@@ -155,7 +155,14 @@ class MemoryScreen extends StatelessWidget {
                       builder: (c) => AlertDialog(
                         title: Text(source.$1),
                         content: SingleChildScrollView(
-                          child: SelectableText(source.$2),
+                          child: FutureBuilder<String>(
+                            future: source.$2(),
+                            builder: (_, snap) => snap.hasData
+                                ? SelectableText(snap.data!)
+                                : snap.hasError
+                                ? const Text('来源正文读取失败。')
+                                : const CircularProgressIndicator(),
+                          ),
                         ),
                         actions: [
                           TextButton(

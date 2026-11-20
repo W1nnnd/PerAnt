@@ -39,6 +39,47 @@ class HistoricalExcerpt {
     );
   }
 
+  static Future<HistoricalExcerpt?> readPassage(
+    MarkdownDocument doc,
+    LibraryHit hit,
+    WorkspacePersistence store,
+  ) async {
+    if (store is! PassageEvidence) {
+      if (!doc.currentVersion.isLoaded) await doc.currentVersion.loadText();
+      return passage(doc, hit);
+    }
+    if (doc.id != hit.documentId ||
+        doc.revision != hit.revision ||
+        hit.offset < 0)
+      return null;
+    var start = hit.offset < 32 ? 0 : hit.offset - 32;
+    final from = start > 0 ? start - 1 : 0;
+    final window = await (store as PassageEvidence).readWindow(
+      doc.id,
+      doc.revision,
+      from,
+      803,
+    );
+    if (window == null || hit.offset > from + window.length) return null;
+    if (start > 0 &&
+        start - from < window.length &&
+        window.codeUnitAt(start - from) & 0xfc00 == 0xdc00)
+      start--;
+    final snippet = String.fromCharCodes(
+      window.substring(start - from).runes.take(400),
+    );
+    if (snippet.trim().isEmpty) return null;
+    return HistoricalExcerpt._(
+      SourceVersion(
+        sourceId: 'doc:' + doc.id,
+        version: doc.revision.toString(),
+      ),
+      doc.title,
+      start,
+      snippet,
+    );
+  }
+
   static HistoricalExcerpt memory(MemoryRecord m) => HistoricalExcerpt._(
     SourceVersion(
       sourceId: 'memory:' + m.id,
@@ -74,13 +115,37 @@ class HistoricalExcerpt {
     return m != null && memory(m).source == source && m.text == text;
   }
 
-  static void verify(List<HistoricalExcerpt> excerpts, WorkspaceState state) {
+  static Future<void> verify(
+    List<HistoricalExcerpt> excerpts,
+    WorkspaceState state,
+    WorkspacePersistence store,
+  ) async {
     if (excerpts.length > 5 ||
         excerpts.map((e) => (e.source, e.offset)).toSet().length !=
             excerpts.length ||
-        excerpts.any((e) => !e.matches(state)) ||
         excerpts.fold<int>(0, (n, e) => n + e.text.runes.length) > 2000)
       throw StateError('引用资料已变化或超出范围，请重新选择。');
+    for (final e in excerpts) {
+      if (store is PassageEvidence && e.source.sourceId.startsWith('doc:')) {
+        final id = e.source.sourceId.substring(4);
+        final doc = state.documents.where((d) => d.id == id).firstOrNull;
+        if (doc != null &&
+            doc.title == e.title &&
+            doc.revision.toString() == e.source.version &&
+            await (store as PassageEvidence).readWindow(
+                  id,
+                  doc.revision,
+                  e.offset,
+                  e.text.length,
+                ) ==
+                e.text &&
+            state.documents.any((d) => identical(d, doc)))
+          continue;
+      } else if (e.matches(state)) {
+        continue;
+      }
+      throw StateError('引用资料已变化或超出范围，请重新选择。');
+    }
   }
 
   Map<String, Object?> toPayload(int n) => {

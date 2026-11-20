@@ -60,7 +60,8 @@ class _HistoricalQuestionPageState extends State<HistoricalQuestionPage> {
       for (final h in list) {
         final doc = docs[h.documentId];
         if (doc == null) continue;
-        final excerpt = HistoricalExcerpt.passage(doc, h);
+        final excerpt = await HistoricalExcerpt.readPassage(doc, h, store);
+        if (!mounted) return;
         if (excerpt != null) items.add(excerpt);
       }
       items.addAll(

@@ -433,6 +433,16 @@ class _LocalModelScreenState extends State<LocalModelScreen>
                 return;
               }
               await runtime.unload();
+              try {
+                await doc.currentVersion.loadText();
+              } catch (_) {
+                if (mounted)
+                  setState(() {
+                    loaded = false;
+                    message = '资料已变化，请重新检索。';
+                  });
+                return;
+              }
               if (!context.mounted) return;
               setState(() => loaded = false);
               await Navigator.of(context).push<void>(

@@ -124,7 +124,10 @@ final class WorkspaceController extends ChangeNotifier {
   );
 
   Future<void> initialize() async {
-    state = await persistence.load();
+    state = persistence is WorkspaceCatalog
+        ? await (persistence as WorkspaceCatalog).loadCatalog()
+        : await persistence.load();
+    await state.loadMemorySources();
     _protocolHistories.clear();
     _historySourcesByConversation.clear();
     _markInterrupted(state);
@@ -192,7 +195,7 @@ final class WorkspaceController extends ChangeNotifier {
     final normalizedName = WorkspaceState.normalizeCompanionName(name);
     final validatedTone = WorkspaceState.validateCompanionTone(tone);
     final candidateSnapshot = {
-      ...state.toJson(),
+      ...state.toJson(forStorage: true),
       'companionName': normalizedName,
       'companionTone': validatedTone,
       'hapticsEnabled': hapticsEnabled,
@@ -222,7 +225,7 @@ final class WorkspaceController extends ChangeNotifier {
     }
     final reference = value.storageKeyRef;
     if (reference == null) throw ArgumentError('配置缺少安全凭据引用。');
-    final previousSnapshot = state.toJson();
+    final previousSnapshot = state.toJson(forStorage: true);
     final previousHasKey = hasKey;
     String? previousCredential;
     var credentialWriteAttempted = false;
@@ -366,6 +369,13 @@ final class WorkspaceController extends ChangeNotifier {
     int? expectedRevision,
   }) async {
     _ensureConfigurationIdle();
+    final basis = state.documents.where((doc) => doc.id == id).firstOrNull;
+    if (basis != null && !basis.currentVersion.isLoaded) {
+      await basis.currentVersion.loadText();
+      _ensureConfigurationIdle();
+      if (!state.documents.any((doc) => identical(doc, basis)))
+        throw StateError('资料已变化，请重新核对。');
+    }
     final index = state.documents.indexWhere((d) => d.id == id);
     if (index < 0) throw StateError('文档已不存在。');
     final previous = state.documents[index];
@@ -412,7 +422,7 @@ final class WorkspaceController extends ChangeNotifier {
       replacement.memories = replacement.memories.reconcile(
         replacement.memorySources,
       );
-      await _saveSnapshot(replacement.toJson());
+      await _saveSnapshot(replacement.toJson(forStorage: true));
       state = replacement;
       _protocolHistories.clear();
       _historySourcesByConversation.clear();
@@ -435,6 +445,7 @@ final class WorkspaceController extends ChangeNotifier {
     _notify();
     try {
       state.memories = change(before);
+      await state.loadMemorySources();
       await _save();
     } catch (_) {
       state.memories = before;
@@ -513,7 +524,8 @@ final class WorkspaceController extends ChangeNotifier {
     Future<bool> Function(String command)? approveContainerCommand,
   }) async {
     final evidence = List<HistoricalExcerpt>.unmodifiable(historical);
-    HistoricalExcerpt.verify(evidence, state);
+    if (evidence.isNotEmpty)
+      await HistoricalExcerpt.verify(evidence, state, persistence);
     if (containerEnabled) {
       if (evidence.isNotEmpty) throw StateError('本轮资料授权仅供普通问答使用。');
       return _sendContainer(
@@ -622,7 +634,8 @@ final class WorkspaceController extends ChangeNotifier {
       await _save();
       final key = await credentials.read(selected.storageKeyRef!);
       if (key == null) throw StateError('请重新配置 API Key。');
-      HistoricalExcerpt.verify(evidence, state);
+      if (evidence.isNotEmpty)
+        await HistoricalExcerpt.verify(evidence, state, persistence);
       final sources = {
         if (evidence.isEmpty) ...historySources,
         source,
@@ -1458,7 +1471,7 @@ final class WorkspaceController extends ChangeNotifier {
       );
       // Publishing the document, completed task and linked receipt is one
       // SQLite snapshot. A failed save leaves all three unpublished in memory.
-      final candidate = WorkspaceState.fromJson(state.toJson());
+      final candidate = WorkspaceState.fromJson(state.toJson(forStorage: true));
       candidate.documents.insert(0, document);
       final taskIndex = candidate.tasks.indexWhere(
         (value) => value.id == taskId,
@@ -1480,7 +1493,7 @@ final class WorkspaceController extends ChangeNotifier {
       // Once this short atomic commit starts, cancellation cannot undo it.
       _localCommitStarted = true;
       _notify();
-      await _saveSnapshot(candidate.toJson());
+      await _saveSnapshot(candidate.toJson(forStorage: true));
       state = candidate;
       return document;
     } catch (failure) {
@@ -1592,10 +1605,12 @@ final class WorkspaceController extends ChangeNotifier {
     final before = current.memories;
     final after = before.reconcile(current.memorySources);
     current.memories = after;
-    return _saveSnapshot(current.toJson()).catchError((Object e, StackTrace s) {
-      if (identical(current.memories, after)) current.memories = before;
-      Error.throwWithStackTrace(e, s);
-    });
+    return _saveSnapshot(current.toJson(forStorage: true))
+        .then((_) => current.releasePreparedFacts())
+        .catchError((Object e, StackTrace s) {
+          if (identical(current.memories, after)) current.memories = before;
+          Error.throwWithStackTrace(e, s);
+        });
   }
 
   Future<void> _saveSnapshot(Map<String, Object?> snapshot) {

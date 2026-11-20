@@ -14,6 +14,10 @@ typedef LibraryHit = ({
   String excerpt,
 });
 
+abstract interface class PassageEvidence {
+  Future<String?> readWindow(String id, int revision, int start, int units);
+}
+
 /// SQLite's standard tokenizers do not identify arbitrary two-character Chinese
 /// terms. Add adjacent ideograph pairs plus single ideographs and Latin words.
 final _searchWords = RegExp(
@@ -61,6 +65,35 @@ Iterable<(int, String)> _passages(String body) sync* {
 }
 
 class LibrarySearch {
+  static Future<String?> readWindow(
+    DatabaseExecutor db,
+    String id,
+    int rev,
+    int start,
+    int units,
+  ) async {
+    if (start < 0 || units < 1 || units > 804) throw ArgumentError('无效的引用范围。');
+    // A 400-code-point passage spans at most 800 UTF-16 units.
+    final rows = await db.rawQuery(
+      'SELECT p.offset,p.body FROM library_passage p JOIN library_source s ON s.id=p.doc '
+      'WHERE p.doc=? AND s.revision=? AND p.offset BETWEEN ? AND ? ORDER BY p.offset',
+      [id, rev, (start - 800).clamp(0, start), start + units - 1],
+    );
+    var cursor = start;
+    final value = StringBuffer();
+    for (final row in rows) {
+      final offset = row['offset'] as int, body = row['body'] as String;
+      if (offset > cursor) return null;
+      final end = (offset + body.length).clamp(0, start + units);
+      if (end > cursor) {
+        value.write(body.substring(cursor - offset, end - offset));
+        cursor = end;
+      }
+      if (cursor == start + units) break;
+    }
+    return cursor == start ? null : value.toString();
+  }
+
   static Future<void> create(DatabaseExecutor db) async {
     // Android uses the system SQLite build, whose FTS modules vary by OS.
     final options = await db.rawQuery('PRAGMA compile_options');
@@ -87,7 +120,8 @@ class LibrarySearch {
   static Future<void> sync(
     Transaction txn,
     List<Map<String, Object?>> docs,
-    Map<(String, int), String> previous,
+    Set<(String, int)> changedBodies,
+    Future<String> Function((String, int)) readBody,
   ) async {
     final prior = {
       for (final row in await txn.query('library_source'))
@@ -100,7 +134,7 @@ class LibrarySearch {
       currentIds.add(id);
       if (prior[id]?['revision'] != rev ||
           prior[id]?['title'] != d['title'] ||
-          previous[(id, rev)] != d['markdown'])
+          changedBodies.contains((id, rev)))
         changed.add(d);
     }
     final removed = prior.keys.where((id) => !currentIds.contains(id));
@@ -142,7 +176,10 @@ class LibrarySearch {
       });
       pending++;
       final titleTerms = _terms(title);
-      final body = d['markdown'] as String;
+      final value = d['markdown'];
+      final body = value is String
+          ? value
+          : await readBody((id, d['revision'] as int));
       final parts = body.isEmpty ? [(0, '')] : _passages(body);
       for (final part in parts) {
         batch.insert('library_passage', {

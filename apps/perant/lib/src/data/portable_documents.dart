@@ -2,6 +2,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:perant_core/perant_core.dart';
+
 import 'workspace_state.dart';
 
 const backupByteLimit = 64 * 1024 * 1024;
@@ -20,8 +22,23 @@ const _portableFields = {
   'tasks',
 };
 
-Uint8List backupWorkspace(WorkspaceState state) {
-  final data = state.toJson()
+Uint8List backupWorkspace(WorkspaceState state) =>
+    encodeWorkspaceBackup(state.toJson());
+
+Future<Map<String, Object?>> portableSnapshot(WorkspaceState state) async {
+  final snapshot = state.toJson(forStorage: true);
+  snapshot.removeWhere((key, _) => !_portableFields.contains(key));
+  for (final doc in (snapshot['documents'] as List).cast<Map>()) {
+    for (final row in [doc, ...(doc['history'] as List).cast<Map>()]) {
+      final body = row['markdown'];
+      if (body is DocumentVersion) row['markdown'] = await body.readOnce();
+    }
+  }
+  return snapshot;
+}
+
+Uint8List encodeWorkspaceBackup(Map<String, Object?> snapshot) {
+  final data = Map<String, Object?>.of(snapshot)
     ..removeWhere((key, value) => !_portableFields.contains(key));
   final bytes = utf8.encode(
     jsonEncode({'format': _backupFormat, 'workspace': data}),

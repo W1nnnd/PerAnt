@@ -119,16 +119,25 @@ class _WorkspaceShellState extends State<WorkspaceShell>
     MarkdownDocument document, {
     int? matchOffset,
     String matchQuery = '',
-  }) => Navigator.of(context).push<void>(
-    MaterialPageRoute(
-      builder: (_) => DocumentEditor(
-        controller: controller,
-        document: document,
-        matchOffset: matchOffset,
-        matchQuery: matchQuery,
+  }) async {
+    try {
+      await document.currentVersion.loadText();
+    } catch (_) {
+      _toast('资料已有变化或正文无法读取，请重新打开。');
+      return;
+    }
+    if (!mounted) return;
+    await Navigator.of(context).push<void>(
+      MaterialPageRoute(
+        builder: (_) => DocumentEditor(
+          controller: controller,
+          document: document,
+          matchOffset: matchOffset,
+          matchQuery: matchQuery,
+        ),
       ),
-    ),
-  );
+    );
+  }
 
   Future<void> _newDocument({String markdown = ''}) async {
     var title = markdown.isEmpty ? '' : '对话整理';
@@ -345,7 +354,10 @@ class _WorkspaceShellState extends State<WorkspaceShell>
       }
       final backup = action == 'backup';
       final bytes = backup
-          ? await compute(backupWorkspace, controller.state)
+          ? await compute(
+              encodeWorkspaceBackup,
+              await portableSnapshot(controller.state),
+            )
           : localDiagnostics(controller.state, defaultTargetPlatform.name);
       if (!mounted) return;
       final result = await FilePicker.saveFile(
@@ -391,13 +403,27 @@ class _WorkspaceShellState extends State<WorkspaceShell>
                             onChanged:
                                 !selected.contains(d.id) && selected.length == 5
                                 ? null
-                                : (on) => update(() {
-                                    if (on == true) {
-                                      selected.add(d.id);
-                                    } else {
-                                      selected.remove(d.id);
+                                : (on) async {
+                                    if (on == true &&
+                                        !d.currentVersion.isLoaded) {
+                                      try {
+                                        await d.currentVersion.loadText();
+                                      } catch (_) {
+                                        _toast('资料正文读取失败。');
+                                        return;
+                                      }
+                                      if (!context.mounted ||
+                                          selected.length >= 5)
+                                        return;
                                     }
-                                  }),
+                                    update(() {
+                                      if (on == true) {
+                                        selected.add(d.id);
+                                      } else {
+                                        selected.remove(d.id);
+                                      }
+                                    });
+                                  },
                           ),
                       ],
                     ),
@@ -2583,7 +2609,14 @@ class _WorkspaceShellState extends State<WorkspaceShell>
       ],
       onSelected: (value) async {
         if (value == 'copy') {
-          await Clipboard.setData(ClipboardData(text: document.markdown));
+          try {
+            await Clipboard.setData(
+              ClipboardData(text: await document.currentVersion.loadText()),
+            );
+          } catch (_) {
+            _toast('资料正文读取失败。');
+            return;
+          }
           _toast('Markdown 已复制');
           return;
         }
