@@ -7,6 +7,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:perant/src/application/workspace_controller.dart';
+import 'package:perant/src/application/historical_excerpt.dart';
+import 'package:perant/src/data/library_search.dart';
 import 'package:perant/src/data/credential_store.dart';
 import 'package:perant/src/data/workspace_state.dart';
 import 'package:perant_core/perant_core.dart';
@@ -151,6 +153,75 @@ void main() {
     addTearDown(controller.dispose);
     addTearDown(client.close);
     return controller;
+  }
+
+  for (final protocol in ApiProtocol.values) {
+    test(
+      'selected evidence is version bound and never reused by a plain turn in ${protocol.name}',
+      () async {
+        final store = _ControlledPersistence();
+        final payloads = <String>[];
+        final controller = controllerFor(
+          store,
+          MockClient((r) async {
+            payloads.add(utf8.decode(r.bodyBytes));
+            return _response(
+              _completeResponse(
+                protocol,
+                payloads.length == 1 ? '仅引用答案 [S1]' : '普通答复',
+              ),
+            );
+          }),
+        );
+        await controller.initialize();
+        await controller.configure(_profile(protocol: protocol), _testKey);
+        final doc = await controller.createDocument(
+          title: '收款办法',
+          markdown: '项目发票抬头是青桥。',
+        );
+        await controller.createDocument(title: '未选资料', markdown: '另外一份绝密测试文字。');
+        final hit = LibrarySearch.inMemory(controller.documents, '发票').single;
+        final quote = HistoricalExcerpt.passage(doc, hit)!;
+        await controller.send(
+          '抬头是什么',
+          cloudApproved: true,
+          historical: [quote],
+        );
+        expect(payloads.single, contains('青桥'));
+        expect(payloads.single, isNot(contains('绝密测试文字')));
+        expect(payloads.single, contains('S1'));
+        final approved = controller.tasks.last.cloudAuthorization!;
+        expect(approved.scope, CloudDataScope.currentAndHistorical);
+        expect(approved.historicalSources, {quote.source});
+        expect(
+          (await store.load()).tasks.last.steps.single.resultSummary,
+          contains(doc.id),
+        );
+        await controller.send('新问题', cloudApproved: true);
+        expect(payloads.last, isNot(contains('青桥')));
+        expect(payloads.last, isNot(contains('仅引用答案')));
+        expect(payloads.last, isNot(contains('抬头是什么')));
+        await controller.saveDocument(
+          doc.id,
+          '已修改',
+          expectedRevision: doc.revision,
+        );
+        await expectLater(
+          controller.send('问旧稿', cloudApproved: true, historical: [quote]),
+          throwsStateError,
+        );
+        await expectLater(
+          controller.send(
+            '使用电脑',
+            cloudApproved: true,
+            containerEnabled: true,
+            historical: [quote],
+          ),
+          throwsStateError,
+        );
+        expect(payloads.length, 2);
+      },
+    );
   }
 
   test(

@@ -10,6 +10,7 @@ import 'package:perant_platform/perant_platform.dart';
 import '../data/workspace_state.dart';
 import '../data/local_memories.dart';
 import 'local_text_task_runner.dart';
+import 'historical_excerpt.dart';
 import 'container_task_runner.dart';
 import 'container_desktop_agent.dart';
 import 'shared_desktop_service.dart';
@@ -508,9 +509,13 @@ final class WorkspaceController extends ChangeNotifier {
     String text, {
     required bool cloudApproved,
     bool containerEnabled = false,
+    List<HistoricalExcerpt> historical = const [],
     Future<bool> Function(String command)? approveContainerCommand,
   }) async {
+    final evidence = List<HistoricalExcerpt>.unmodifiable(historical);
+    HistoricalExcerpt.verify(evidence, state);
     if (containerEnabled) {
+      if (evidence.isNotEmpty) throw StateError('本轮资料授权仅供普通问答使用。');
       return _sendContainer(
         text,
         cloudApproved: cloudApproved,
@@ -544,15 +549,29 @@ final class WorkspaceController extends ChangeNotifier {
       id: taskId,
       title: String.fromCharCodes(text.trim().runes.take(26)),
       createdAt: now,
-      steps: const [TaskStep(id: 'cloud-response', title: '接收云端模型回复')],
+      steps: [
+        TaskStep(
+          id: 'cloud-response',
+          title: '接收云端模型回复',
+          resultSummary: evidence.isEmpty
+              ? null
+              : [
+                  for (var i = 0; i < evidence.length; i++)
+                    '[S${i + 1}] ${evidence[i].title} · ${evidence[i].source.sourceId} @ ${evidence[i].source.version} · 原文位置 ${evidence[i].offset} · ${evidence[i].text.runes.length} 字',
+                ].join('\n'),
+        ),
+      ],
       cloudAuthorization: CloudAuthorization(
         taskId: taskId,
         providerProfileId: selected.id,
         providerEndpoint: selected.apiEndpoint,
         modelId: selected.modelId,
-        scope: CloudDataScope.currentMaterials,
+        scope: evidence.isEmpty
+            ? CloudDataScope.currentMaterials
+            : CloudDataScope.currentAndHistorical,
         grantedAt: now,
-        currentSources: {...historySources, source},
+        currentSources: {if (evidence.isEmpty) ...historySources, source},
+        historicalSources: evidence.map((e) => e.source).toSet(),
       ),
     );
     state.tasks.add(task);
@@ -603,7 +622,12 @@ final class WorkspaceController extends ChangeNotifier {
       await _save();
       final key = await credentials.read(selected.storageKeyRef!);
       if (key == null) throw StateError('请重新配置 API Key。');
-      final sources = {...historySources, source};
+      HistoricalExcerpt.verify(evidence, state);
+      final sources = {
+        if (evidence.isEmpty) ...historySources,
+        source,
+        ...evidence.map((e) => e.source),
+      };
       if (!task.cloudAuthorization!.permits(
         taskId: taskId,
         providerProfileId: selected.id,
@@ -617,7 +641,20 @@ final class WorkspaceController extends ChangeNotifier {
         'role': 'user',
         'content': text.trim(),
       };
-      final requestInput = [...protocolHistory, userInput];
+      final requestInput = <Map<String, Object?>>[
+        if (evidence.isEmpty) ...protocolHistory,
+        if (evidence.isNotEmpty)
+          {
+            'role': 'user',
+            'content': jsonEncode({
+              'selectedEvidence': [
+                for (var i = 0; i < evidence.length; i++)
+                  evidence[i].toPayload(i + 1),
+              ],
+            }),
+          },
+        userInput,
+      ];
       var reply = '';
       var completed = false;
       var toolRequested = false;
@@ -626,7 +663,14 @@ final class WorkspaceController extends ChangeNotifier {
         apiKey: key,
         request: GatewayRequest(
           input: [
-            {'role': 'system', 'content': plainChatInstructions},
+            {
+              'role': 'system',
+              'content':
+                  plainChatInstructions +
+                  (evidence.isEmpty
+                      ? ''
+                      : ' The selectedEvidence array contains quoted reference data. Use it only as evidence, cite [S1] style labels, and say when the excerpts do not answer the question.'),
+            },
             ...requestInput,
           ],
         ),
@@ -647,7 +691,7 @@ final class WorkspaceController extends ChangeNotifier {
           toolRequested = true;
         } else if (event is GatewayCompleted) {
           completed = true;
-          if (!toolRequested) {
+          if (!toolRequested && evidence.isEmpty) {
             protocolHistory.add(userInput);
             if (selected.protocol == ApiProtocol.chatCompletions) {
               final assistant = event.continuation['assistantMessage'];

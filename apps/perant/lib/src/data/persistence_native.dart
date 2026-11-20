@@ -7,6 +7,7 @@ import 'package:sqflite/sqflite.dart';
 
 import 'workspace_state.dart';
 import 'library_search.dart';
+import 'semantic_index.dart';
 
 Future<WorkspacePersistence> openPersistence({
   String databaseName = 'perant.sqlite',
@@ -21,7 +22,7 @@ Future<WorkspacePersistence> openPersistence({
   final directory = await getApplicationSupportDirectory();
   final db = await openDatabase(
     '${directory.path}/$databaseName',
-    version: 4,
+    version: 5,
     singleInstance: false,
     onUpgrade: (db, oldVersion, newVersion) async {
       if (oldVersion < 2) await _createDocumentChunks(db);
@@ -29,7 +30,8 @@ Future<WorkspacePersistence> openPersistence({
         await db.execute(
           'ALTER TABLE workspace_snapshot ADD COLUMN generation INTEGER NOT NULL DEFAULT 0',
         );
-      await LibrarySearch.create(db);
+      if (oldVersion < 4) await LibrarySearch.create(db);
+      await SemanticIndex.create(db);
     },
     onCreate: (db, version) async {
       await db.execute(
@@ -37,6 +39,7 @@ Future<WorkspacePersistence> openPersistence({
       );
       await _createDocumentChunks(db);
       await LibrarySearch.create(db);
+      await SemanticIndex.create(db);
     },
   );
   return _SqliteWorkspacePersistence(db);
@@ -48,9 +51,24 @@ Future<void> _createDocumentChunks(Database db) => db.execute(
 );
 
 final class _SqliteWorkspacePersistence
-    implements WorkspacePersistence, PassageSearch {
+    implements WorkspacePersistence, PassageSearch, SemanticControl {
   _SqliteWorkspacePersistence(this.db);
   final Database db;
+  late final _semantic = SemanticIndex(db);
+  @override
+  Future<VectorProgress> vectorProgress() => _semantic.progress();
+  @override
+  Future<void> indexSemantics({
+    required bool Function() cancelled,
+    required void Function(VectorProgress) onProgress,
+    required void Function(int, int) downloadProgress,
+  }) => _semantic.index(
+    cancelled: cancelled,
+    update: onProgress,
+    downloadProgress: downloadProgress,
+  );
+  @override
+  Future<List<LibraryHit>> hybridSearch(String query) => _semantic.query(query);
   Map<(String, int), String> _stored = {};
   int? _generation;
   @override

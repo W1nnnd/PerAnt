@@ -16,6 +16,9 @@ import '../application/workspace_controller.dart';
 import '../data/workspace_state.dart';
 import '../data/portable_documents.dart';
 import '../data/library_search.dart';
+import '../data/semantic_index.dart';
+import 'semantic_settings.dart';
+import 'historical_question.dart';
 import 'document_editor.dart';
 import 'memory_screen.dart';
 import 'companion_avatar.dart';
@@ -51,6 +54,7 @@ class _WorkspaceShellState extends State<WorkspaceShell>
   bool _authorizing = false;
   int _starterSet = 0;
   int _filesTab = 0;
+  bool _semanticSearch = true;
   int _pokeToken = 0;
   String? _pokeText;
   ProviderProfile? _chatGrantProfile;
@@ -222,8 +226,64 @@ class _WorkspaceShellState extends State<WorkspaceShell>
     }
   }
 
+  Future<void> _askWithSources() async {
+    final selectedProfile = controller.profile;
+    if (selectedProfile == null || !controller.canChat) {
+      setState(() => _section = 3);
+      _toast('请先配置模型，再发送选定的资料。');
+      return;
+    }
+    final conversation = controller.activeConversation.id;
+    final request = await Navigator.of(context).push<HistoricalQuestion>(
+      MaterialPageRoute(
+        builder: (_) => HistoricalQuestionPage(
+          controller: controller,
+          profile: selectedProfile,
+          initial: _composer.text,
+        ),
+      ),
+    );
+    if (!mounted || request == null) return;
+    if (!identical(selectedProfile, controller.profile) ||
+        conversation != controller.activeConversation.id ||
+        _mutationBusy) {
+      _toast('模型或对话已变化，请重新选择。');
+      return;
+    }
+    setState(() => _section = 0);
+    try {
+      await controller.send(
+        request.prompt,
+        cloudApproved: true,
+        historical: request.excerpts,
+      );
+    } on StateError catch (e) {
+      _toast(e.message.toString());
+    } on ArgumentError {
+      _toast('请检查问题长度后重试。');
+    }
+  }
+
   Future<void> _portableFiles(String action) async {
     try {
+      if (action == 'ask') {
+        await _askWithSources();
+        return;
+      }
+      if (action == 'semantic') {
+        final store = controller.persistence;
+        if (store is SemanticControl)
+          await Navigator.of(context).push<void>(
+            MaterialPageRoute(
+              builder: (_) => SemanticSettings(index: store as SemanticControl),
+            ),
+          );
+        if (mounted)
+          setState(() {
+            _search.clear();
+          });
+        return;
+      }
       if (action == 'memories') {
         await Navigator.of(context).push<void>(
           MaterialPageRoute(
@@ -1716,6 +1776,12 @@ class _WorkspaceShellState extends State<WorkspaceShell>
             enabled: !_mutationBusy,
           ),
           _menuRow(
+            Icons.library_books_outlined,
+            '引用本机资料提问',
+            'ask',
+            enabled: !_mutationBusy,
+          ),
+          _menuRow(
             Icons.description_outlined,
             '本地整理为 Markdown',
             'local',
@@ -1738,6 +1804,8 @@ class _WorkspaceShellState extends State<WorkspaceShell>
         await _newDocument();
       case 'local':
         await _runLocalTextTask();
+      case 'ask':
+        await _askWithSources();
       case 'terminal':
         await _showRuntime();
     }
@@ -2395,6 +2463,8 @@ class _WorkspaceShellState extends State<WorkspaceShell>
                   enabled: !_mutationBusy,
                   onSelected: _portableFiles,
                   itemBuilder: (_) => const [
+                    PopupMenuItem(value: 'ask', child: Text('引用本机资料提问')),
+                    PopupMenuItem(value: 'semantic', child: Text('离线语义检索')),
                     PopupMenuItem(value: 'memories', child: Text('长期记忆')),
                     PopupMenuItem(value: 'backup', child: Text('备份资料、对话与任务记录')),
                     PopupMenuItem(value: 'restore', child: Text('从备份恢复整个工作区')),
@@ -2406,9 +2476,23 @@ class _WorkspaceShellState extends State<WorkspaceShell>
                 ),
               ],
             ),
+            if (query.isNotEmpty && controller.persistence is SemanticControl)
+              Align(
+                alignment: Alignment.centerLeft,
+                child: FilterChip(
+                  label: const Text('包含语义匹配'),
+                  selected: _semanticSearch,
+                  onSelected: (v) => setState(() => _semanticSearch = v),
+                ),
+              ),
             if (query.isNotEmpty)
               _LibraryResults(
-                key: ValueKey((query, Object.hashAll(documents))),
+                key: ValueKey((
+                  query,
+                  _semanticSearch,
+                  Object.hashAll(documents),
+                )),
+                includeSemantic: _semanticSearch,
                 query: query,
                 controller: controller,
                 onOpen: (hit) {
@@ -2561,6 +2645,12 @@ class _WorkspaceShellState extends State<WorkspaceShell>
                       if (task.statusDetail != null) ...[
                         const SizedBox(height: 12),
                         Text(task.statusDetail!),
+                        for (final s in task.steps.where(
+                          (s) =>
+                              s.id == 'cloud-response' &&
+                              s.resultSummary != null,
+                        ))
+                          SelectableText(s.resultSummary!),
                       ],
                       const SizedBox(height: 10),
                       Text(
@@ -2583,10 +2673,12 @@ class _LibraryResults extends StatefulWidget {
     super.key,
     required this.controller,
     required this.query,
+    required this.includeSemantic,
     required this.onOpen,
   });
   final WorkspaceController controller;
   final String query;
+  final bool includeSemantic;
   final ValueChanged<LibraryHit> onOpen;
 
   @override
@@ -2600,6 +2692,15 @@ class _LibraryResultsState extends State<_LibraryResults> {
   void initState() {
     super.initState();
     final store = widget.controller.persistence;
+    if (widget.includeSemantic && store is SemanticControl) {
+      results = Future.delayed(
+        const Duration(milliseconds: 220),
+        () => mounted
+            ? (store as SemanticControl).hybridSearch(widget.query)
+            : <LibraryHit>[],
+      );
+      return;
+    }
     results = store is PassageSearch
         ? (store as PassageSearch).searchPassages(widget.query)
         : Future.value(

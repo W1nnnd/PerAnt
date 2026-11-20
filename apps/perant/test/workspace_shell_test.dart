@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/services.dart';
@@ -508,6 +509,63 @@ void main() {
           .controller!;
       expect(editor.selection.textInside(editor.text), '收款');
       expect(editor.selection.start, body.indexOf('收款'));
+    },
+  );
+
+  testWidgets(
+    'source picker previews the exact snippet and sends only on explicit approval',
+    (tester) async {
+      final requests = <String>[];
+      final controller = await launch(
+        tester,
+        const Size(430, 980),
+        gateway: OpenAiGateway(
+          client: MockClient((r) async {
+            requests.add(utf8.decode(r.bodyBytes));
+            return http.Response(
+              'data: {"choices":[{"delta":{"content":"已引用 [S1]"}}]}\n\ndata: [DONE]\n\n',
+              200,
+              headers: {'content-type': 'text/event-stream; charset=utf-8'},
+            );
+          }),
+        ),
+      );
+      await controller.configure(
+        ProviderProfile(
+          id: 'source-test',
+          displayName: '测试服务',
+          baseUrl: Uri.parse('https://example.invalid/v1'),
+          protocol: ApiProtocol.chatCompletions,
+          modelId: 'test-model',
+          storageKeyRef: 'source-test',
+        ),
+        'fixture-key',
+      );
+      await controller.createDocument(title: '入账指南', markdown: '个人报销请在周五提交。');
+      await tester.tap(find.byTooltip('文件'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byTooltip('资料备份与诊断'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('引用本机资料提问'));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byType(TextFormField), '什么时候报销？');
+      await tester.enterText(find.byType(TextField).last, '报销');
+      await tester.tap(find.byTooltip('查找引用'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('入账指南'));
+      await tester.pumpAndSettle();
+      expect(find.text('个人报销请在周五提交。'), findsNWidgets(2));
+      expect(requests, isEmpty);
+      final send = find.text('授权发送选中的片段');
+      await tester.ensureVisible(send);
+      await tester.tap(send);
+      for (var i = 0; i < 30 && requests.isEmpty; i++) {
+        await tester.pump(const Duration(milliseconds: 30));
+        await tester.runAsync(() => Future<void>.delayed(Duration.zero));
+      }
+      await tester.pumpAndSettle();
+      expect(requests.single, contains('个人报销请在周五提交。'));
+      expect(requests.single, isNot(contains('fixture-key')));
     },
   );
 
