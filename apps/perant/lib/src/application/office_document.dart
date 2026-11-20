@@ -15,7 +15,8 @@ String officeFileName(ConfirmedDocument document, DocumentFormat format) {
       .replaceAll(RegExp(r'[<>:"/\\|?*\x00-\x1f]'), '_')
       .trim();
   final base = String.fromCharCodes(title.runes.take(50));
-  return '${base.isEmpty ? 'PerAnt' : base}-v${document.revision}.${format.name}';
+  final extension = format == DocumentFormat.markdown ? 'md' : format.name;
+  return '${base.isEmpty ? 'PerAnt' : base}-v${document.revision}.$extension';
 }
 
 Future<Uint8List> renderOfficePdf((ConfirmedDocument, ByteData) input) =>

@@ -12,6 +12,8 @@ import 'package:perant_core/perant_core.dart';
 
 import '../application/material_import.dart';
 import '../application/meeting_minutes.dart';
+import '../application/local_document_work.dart';
+import 'local_model_screen.dart';
 import '../application/workspace_controller.dart';
 import '../data/workspace_state.dart';
 import '../data/portable_documents.dart';
@@ -362,7 +364,7 @@ class _WorkspaceShellState extends State<WorkspaceShell>
   Future<void> _meeting() async {
     final docs = controller.documents;
     final selected = <String>{};
-    final approved = await showDialog<bool>(
+    final mode = await showDialog<String>(
       context: context,
       builder: (dialog) => StatefulBuilder(
         builder: (context, update) {
@@ -411,27 +413,52 @@ class _WorkspaceShellState extends State<WorkspaceShell>
               FilledButton(
                 onPressed: selected.isEmpty || size > materialCharacterLimit
                     ? null
-                    : () => Navigator.pop(dialog, true),
+                    : () => Navigator.pop(dialog, 'extract'),
                 child: const Text('生成本机草稿'),
+              ),
+              TextButton(
+                onPressed: selected.isEmpty || size > materialCharacterLimit
+                    ? null
+                    : () => Navigator.pop(dialog, 'model'),
+                child: const Text('用本地模型归纳'),
               ),
             ],
           );
         },
       ),
     );
-    if (approved != true || !mounted) return;
+    if (mode == null || !mounted) return;
     try {
       final materials = docs.where((d) => selected.contains(d.id)).toList();
+      final String? draft;
+      if (mode == 'model') {
+        final work = synthesizeMeeting(materials);
+        draft = await Navigator.of(context).push<String>(
+          MaterialPageRoute(
+            builder: (_) => LocalModelScreen(
+              controller: controller,
+              title: '归纳会议纪要',
+              work: work,
+            ),
+          ),
+        );
+      } else {
+        draft = meetingOutline(materials);
+      }
+      if (draft == null || !mounted) return;
       for (final d in materials) {
         if (!controller.documents.any(
-          (current) => current.id == d.id && current.revision == d.revision,
+          (current) =>
+              current.id == d.id &&
+              current.revision == d.revision &&
+              current.markdown == d.markdown,
         )) {
           throw const FormatException('所选资料已有变化，请重新选择。');
         }
       }
       final result = await controller.createDocument(
         title: '会议纪要',
-        markdown: meetingOutline(materials),
+        markdown: draft,
       );
       if (mounted) await _openDocument(result);
     } on FormatException catch (e) {

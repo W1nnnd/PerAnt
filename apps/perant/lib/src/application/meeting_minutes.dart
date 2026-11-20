@@ -3,9 +3,7 @@ import 'package:perant_core/perant_core.dart';
 
 import 'material_import.dart';
 
-/// An extractive outline. Every nonempty source line appears once and can
-/// be checked against the retained revision, including uncategorized lines.
-String meetingOutline(List<MarkdownDocument> materials) {
+void checkMeetingMaterials(List<MarkdownDocument> materials) {
   if (materials.isEmpty ||
       materials.length > 5 ||
       materials.map((d) => d.id).toSet().length != materials.length) {
@@ -14,6 +12,15 @@ String meetingOutline(List<MarkdownDocument> materials) {
   final count = materials.fold(0, (n, d) => n + d.markdown.runes.length);
   if (count > materialCharacterLimit)
     throw const FormatException('所选资料合计超过 2 万字，请缩小范围。');
+  if (materials.every((doc) => doc.markdown.trim().isEmpty)) {
+    throw const FormatException('所选资料没有正文。');
+  }
+}
+
+/// An extractive outline. Every nonempty source line appears once and can
+/// be checked against the retained revision, including uncategorized lines.
+String meetingOutline(List<MarkdownDocument> materials) {
+  checkMeetingMaterials(materials);
   final buckets = {
     for (final name in ['议题', '决策候选', '待办候选', '其他原文']) name: <String>[],
   };
@@ -42,8 +49,6 @@ String meetingOutline(List<MarkdownDocument> materials) {
       buckets[bucket]!.add('- [$label · 第 ${j + 1} 行] $line');
     }
   }
-  if (buckets.values.every((b) => b.isEmpty))
-    throw const FormatException('所选资料没有正文。');
   return [
     '# 会议纪要（待核对）',
     '按原文标记整理。请核对决策、负责人和截止日期，再确认版本。',

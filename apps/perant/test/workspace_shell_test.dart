@@ -569,6 +569,40 @@ void main() {
     },
   );
 
+  testWidgets(
+    'model revision requires accepting the selected diff and saving separately',
+    (tester) async {
+      final controller = await launch(tester, const Size(390, 900));
+      final doc = await controller.createDocument(
+        title: '校对样本',
+        markdown: '开头原文结尾',
+      );
+      await tester.tap(find.byTooltip('文件'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(doc.title).first);
+      await tester.pumpAndSettle();
+      final editor = tester
+          .widget<TextField>(find.byType(TextField))
+          .controller!;
+      for (final accept in [false, true]) {
+        editor.selection = const TextSelection(baseOffset: 2, extentOffset: 4);
+        await tester.tap(find.byTooltip('用本地模型润色所选原文'));
+        await tester.pumpAndSettle();
+        Navigator.of(tester.element(find.text('润色所选原文'))).pop('新文');
+        await tester.pumpAndSettle();
+        expect(find.text('原文与模型建议'), findsOneWidget);
+        await tester.tap(find.text(accept ? '采用到编辑草稿' : '关闭'));
+        await tester.pumpAndSettle();
+        expect(editor.text, accept ? '开头新文结尾' : '开头原文结尾');
+        expect(controller.documents.single.markdown, '开头原文结尾');
+      }
+      await tester.tap(find.byTooltip('保存文档'));
+      await tester.pumpAndSettle();
+      expect(controller.documents.single.markdown, '开头新文结尾');
+      expect(controller.documents.single.history.last.markdown, '开头原文结尾');
+    },
+  );
+
   testWidgets('create, edit, confirm and preview an actual document', (
     tester,
   ) async {

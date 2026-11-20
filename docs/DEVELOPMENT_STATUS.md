@@ -1,5 +1,9 @@
 # 开发状态
 
+**0.0.7+2016** 把 Qwen3.5 文本推理接到设备 CPU。两款 Q4_K_M 文件可下载或从系统文件选择器导入，校验字节数和 SHA-256 后发布到应用私有目录。下载中断时保留断点，服务器忽略 Range 时重新接收并校验。模型文件单独安装。Android 应用选用 llamadart 0.20.2 的 llama.cpp 原生发行 v1.0.0-3，Apple 工程声明同版 SwiftPM 插件。两种模型分别占 532,517,120 和 1,280,835,840 字节。源模型为 Apache-2.0，量化文件分别固定在 [0.8B 修订](https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/tree/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0) 和 [2B 修订](https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/tree/f6d5376be1edb4d416d56da11e5397a961aca8ae)。[推理适配器](https://pub.dev/packages/llamadart/versions/0.20.2) · [原生构建来源](https://github.com/leehack/llamadart-native/releases/tag/v1.0.0-3)
+
+「本地中文模型」支持直接提问、查已有文档和创建新笔记。模型只决定建议的操作类别，查找词或笔记文字取自用户指定的「原文」，执行前会显示供确认。支持 Linux 的设备还可选择用既有固定 Python 程序整理笔记。编辑器可对选中的 1–320 字生成润色建议，显示逐字差异，接受后进入编辑草稿。已确认修订可以另存为 UTF-8 Markdown。会议纪要支持 1–5 份资料，合计最多 20,000 个 Unicode 码点，按最多 480 字一段归纳，再分层汇总，各段附资料版本和字位。取消、写入冲突和输出达到上限会中止发布。
+
 **0.0.6+2015** 提供可暂停、可继续的设备端语义索引。原文更新或删除会退役对应向量，重复片段共享向量。模型与词表按固定 SHA-256 校验，支持网络下载和本机文件导入。「引用本机资料提问」仅发送本轮问题、所选片段标题、引用编号与正文，本地任务记录保存来源修订和位置。后续普通消息不会复用这次引用问答的请求或回复。双协议的请求边界经测试端点验证。
 
 Android API 37 x86_64 上，BGE INT8 的 50 道同义改写题 Top-5 为 49/50，5 道无答案题均未返回资料。千份语料包含重复文档，共 500 万字符、18,575 个片段，去重后 92 个向量；建向量用时 19.202 秒，查询 P50/P90 为 376/388 毫秒。该结果不能外推到 18,575 份互异片段或低配真机。宿主 CPU 另用同一组 50 道改写题对比：原精度、INT8 的 Top-1 分别为 40、41，Top-5 均为 49。设备实验采用公开转换的固定版本与原配词表，ONNX Runtime 由 flutter_onnxruntime 1.9.0 提供。[原始模型](https://huggingface.co/BAAI/bge-small-zh-v1.5) · [固定 ONNX 版本](https://huggingface.co/Xenova/bge-small-zh-v1.5/tree/75c43b069aac4d136ba6bc1122f995fedcfd2781) · [移动端插件](https://pub.dev/packages/flutter_onnxruntime/versions/1.9.0)

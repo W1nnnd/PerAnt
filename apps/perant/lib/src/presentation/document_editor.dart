@@ -12,6 +12,8 @@ import 'package:perant_core/perant_core.dart';
 
 import '../application/office_document.dart';
 import '../application/courseware.dart';
+import '../application/local_document_work.dart';
+import 'local_model_screen.dart';
 import 'container_file_editor.dart';
 import '../application/workspace_controller.dart';
 import 'theme.dart';
@@ -117,12 +119,27 @@ class _DocumentEditorState extends State<DocumentEditor> {
     );
     if (version == null || !mounted) return;
     final draft = _text.text;
-    final changes = edits.diff(version.markdown, draft);
+    final restore = await _reviewChanges(
+      version.markdown,
+      draft,
+      '版本 ${version.revision} → 当前编辑内容',
+      _dirty ? '用此版本替换未保存草稿' : '将此版本载入草稿',
+    );
+    if (restore && mounted) _text.text = version.markdown;
+  }
+
+  Future<bool> _reviewChanges(
+    String before,
+    String after,
+    String title,
+    String accept,
+  ) async {
+    final changes = edits.diff(before, after);
     edits.cleanupSemantic(changes);
     final restore = await showDialog<bool>(
       context: context,
       builder: (dialog) => AlertDialog(
-        title: Text('版本 ${version.revision} → 当前编辑内容'),
+        title: Text(title),
         content: SingleChildScrollView(
           child: SelectableText.rich(
             TextSpan(
@@ -151,15 +168,63 @@ class _DocumentEditorState extends State<DocumentEditor> {
             onPressed: () => Navigator.pop(dialog),
             child: const Text('关闭'),
           ),
-          if (version.markdown != draft)
+          if (before != after)
             TextButton(
               onPressed: () => Navigator.pop(dialog, true),
-              child: Text(_dirty ? '用此版本替换未保存草稿' : '将此版本载入草稿'),
+              child: Text(accept),
             ),
         ],
       ),
     );
-    if (restore == true && mounted) _text.text = version.markdown;
+    return restore == true;
+  }
+
+  Future<void> _revise() async {
+    final draft = _text.text;
+    final selected = _text.selection;
+    final range = selected.isValid && !selected.isCollapsed
+        ? selected
+        : TextSelection(baseOffset: 0, extentOffset: draft.length);
+    final original = range.textInside(draft);
+    try {
+      final work = reviseSelection(original);
+      final result = await Navigator.of(context).push<String>(
+        MaterialPageRoute(
+          builder: (_) => LocalModelScreen(
+            controller: widget.controller,
+            title: '润色所选原文',
+            work: work,
+          ),
+        ),
+      );
+      if (result == null || !mounted || draft != _text.text) return;
+      final accepted = await _reviewChanges(
+        original,
+        result,
+        '原文与模型建议',
+        '采用到编辑草稿',
+      );
+      if (!accepted || !mounted || draft != _text.text) return;
+      final latest = widget.controller.documents
+          .where((d) => d.id == _saved.id)
+          .firstOrNull;
+      if (latest == null ||
+          latest.revision != _saved.revision ||
+          latest.markdown != _saved.markdown) {
+        throw const FormatException('资料已更新，请重新打开后核对。');
+      }
+      _text.value = TextEditingValue(
+        text: draft.replaceRange(range.start, range.end, result),
+        selection: TextSelection(
+          baseOffset: range.start,
+          extentOffset: range.start + result.length,
+        ),
+      );
+    } on FormatException catch (e) {
+      if (mounted)
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(e.message)));
+    }
   }
 
   ConfirmedDocument _confirmedForOutput() {
@@ -340,6 +405,11 @@ class _DocumentEditorState extends State<DocumentEditor> {
               tooltip: '版本历史与差异',
               icon: const Icon(Icons.history),
             ),
+            IconButton(
+              onPressed: _saving || _preview ? null : _revise,
+              tooltip: '用本地模型润色所选原文',
+              icon: const Icon(Icons.edit_note),
+            ),
           ],
         ),
         body: SafeArea(
@@ -458,12 +528,15 @@ class _DocumentEditorState extends State<DocumentEditor> {
                         for (final format in [
                           DocumentFormat.docx,
                           DocumentFormat.pdf,
+                          DocumentFormat.markdown,
                         ])
                           TextButton(
                             onPressed: confirmed && !_saving
                                 ? () => _export(format)
                                 : null,
-                            child: Text('导出 ${format.name.toUpperCase()}'),
+                            child: Text(
+                              '导出 ${format == DocumentFormat.markdown ? 'MD' : format.name.toUpperCase()}',
+                            ),
                           ),
                         PopupMenuButton<String>(
                           enabled: confirmed && !_saving,

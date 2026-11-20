@@ -4,6 +4,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:perant_core/perant_core.dart';
 
 import '../application/workspace_controller.dart';
+import 'local_model_screen.dart';
 import 'theme.dart';
 
 class ProviderSettings extends StatefulWidget {
@@ -296,11 +297,16 @@ class _ProviderSettingsState extends State<ProviderSettings> {
                 Text('此设备', style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 12),
                 _Detail('资料存储', controller.persistence.description),
-                _Detail(
-                  '本地模型',
-                  controller.capabilities?.localInference.available == true
-                      ? '已连接'
-                      : '尚未接入',
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text('本地中文模型'),
+                  subtitle: const Text('离线提问、查资料和创建笔记'),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => Navigator.of(context).push<void>(
+                    MaterialPageRoute(
+                      builder: (_) => LocalModelScreen(controller: controller),
+                    ),
+                  ),
                 ),
                 _Detail(
                   'Linux 环境',
