@@ -1,0 +1,2958 @@
+{
+  "version": 1,
+  "created_at": "2026-11-20T05:22:29Z",
+  "updated_at": "2026-11-20T07:30:35Z",
+  "files": {
+    ".gitattributes": {
+      "role": "index",
+      "sha256": "21fa16a2122e2b0360b47502c577428b645437e08e9e87ffba661f84853cb476",
+      "size": 291,
+      "normalized_sha256": "21fa16a2122e2b0360b47502c577428b645437e08e9e87ffba661f84853cb476"
+    },
+    ".gitignore": {
+      "role": "index",
+      "sha256": "f595b4d8193ccf020f7c24684ac60ecfb86a0d6c3d745486926c83e8dd503a32",
+      "size": 1022,
+      "normalized_sha256": "f595b4d8193ccf020f7c24684ac60ecfb86a0d6c3d745486926c83e8dd503a32"
+    },
+    "AGENTS.md": {
+      "role": "index",
+      "sha256": "8dfc9de92509cb22289cefa4ad652c5df2d079221b407b6a67572d5ef75007e8",
+      "size": 14078,
+      "normalized_sha256": "8dfc9de92509cb22289cefa4ad652c5df2d079221b407b6a67572d5ef75007e8"
+    },
+    "LICENSE": {
+      "role": "index",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "size": 35149,
+      "normalized_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    "README.md": {
+      "role": "index",
+      "sha256": "43bcd91f5eb6f9feb3f4b38b3744cc0379ef1d989f35441fd60799ab4acffde7",
+      "size": 14569,
+      "normalized_sha256": "43bcd91f5eb6f9feb3f4b38b3744cc0379ef1d989f35441fd60799ab4acffde7"
+    },
+    "TASK_PLAN.md": {
+      "role": "index",
+      "sha256": "0e9af73b3bb46d429f4f73d7037cba92ebff035b33ce779ff22ebad55abf16a3",
+      "size": 69665,
+      "normalized_sha256": "0e9af73b3bb46d429f4f73d7037cba92ebff035b33ce779ff22ebad55abf16a3"
+    },
+    "analysis_options.yaml": {
+      "role": "index",
+      "sha256": "4fd1a91a1c7710646b4f69051787a0bf9f45dd926046f6c922ce398a14dd79b2",
+      "size": 374,
+      "normalized_sha256": "4fd1a91a1c7710646b4f69051787a0bf9f45dd926046f6c922ce398a14dd79b2"
+    },
+    "aoci.code.txt": {
+      "role": "index",
+      "sha256": "539db01571cd9844c74983176f532f36f96f62fdfb3bffe711e6b14153259314",
+      "size": 65697,
+      "normalized_sha256": "539db01571cd9844c74983176f532f36f96f62fdfb3bffe711e6b14153259314"
+    },
+    "aoci.meta.txt": {
+      "role": "index",
+      "sha256": "5ccd06dd2198435423141174e4f3eaed7e7645644070e0b5cc2e20dbc889172a",
+      "size": 2187,
+      "normalized_sha256": "5ccd06dd2198435423141174e4f3eaed7e7645644070e0b5cc2e20dbc889172a"
+    },
+    "aoci.txt": {
+      "role": "index",
+      "sha256": "bf9dc74ea49ec65dfd8bb36219bed6e144629e8e9e51c2e9fcffe0d1c13f311e",
+      "size": 295,
+      "normalized_sha256": "bf9dc74ea49ec65dfd8bb36219bed6e144629e8e9e51c2e9fcffe0d1c13f311e"
+    },
+    "apps/perant/.gitignore": {
+      "role": "index",
+      "sha256": "441eaa1de5b3db9fae056e7503567e9f8dd94173e1389c60f76956abf729015a",
+      "size": 746,
+      "normalized_sha256": "441eaa1de5b3db9fae056e7503567e9f8dd94173e1389c60f76956abf729015a"
+    },
+    "apps/perant/.metadata": {
+      "role": "index",
+      "sha256": "e819c80c6287c0f2647d12f785136fd50888061cd95d58738cc4ffb0b794eaf3",
+      "size": 1260,
+      "normalized_sha256": "e819c80c6287c0f2647d12f785136fd50888061cd95d58738cc4ffb0b794eaf3"
+    },
+    "apps/perant/README.md": {
+      "role": "index",
+      "sha256": "3c89c5caec4edc26b0ca9fb4aadf2d1ac46ff5ced3c6b8719a934948161e11e2",
+      "size": 127,
+      "normalized_sha256": "3c89c5caec4edc26b0ca9fb4aadf2d1ac46ff5ced3c6b8719a934948161e11e2"
+    },
+    "apps/perant/analysis_options.yaml": {
+      "role": "index",
+      "sha256": "a012a0060beffd9cb27f4c324b0bf93c86b27047f0fc5ac78ea6cde127a307b1",
+      "size": 116,
+      "normalized_sha256": "a012a0060beffd9cb27f4c324b0bf93c86b27047f0fc5ac78ea6cde127a307b1"
+    },
+    "apps/perant/android/.gitignore": {
+      "role": "index",
+      "sha256": "b027c9de1011765c015e5819bf857c0d75bfcd0886fb01721c091159012e50f1",
+      "size": 253,
+      "normalized_sha256": "b027c9de1011765c015e5819bf857c0d75bfcd0886fb01721c091159012e50f1"
+    },
+    "apps/perant/android/app/build.gradle.kts": {
+      "role": "index",
+      "sha256": "fb256b020eeb0221ae17c4679c06a1d3f6e0908586d4114a404c267fe5ea35d7",
+      "size": 1874,
+      "normalized_sha256": "fb256b020eeb0221ae17c4679c06a1d3f6e0908586d4114a404c267fe5ea35d7"
+    },
+    "apps/perant/android/app/src/debug/AndroidManifest.xml": {
+      "role": "index",
+      "sha256": "30b0832ed8b92dfbd6ae2abfa939ccf26333d37600056b1572bd4a397a18a74b",
+      "size": 378,
+      "normalized_sha256": "30b0832ed8b92dfbd6ae2abfa939ccf26333d37600056b1572bd4a397a18a74b"
+    },
+    "apps/perant/android/app/src/main/AndroidManifest.xml": {
+      "role": "index",
+      "sha256": "0542de578a4ba29257ae0451682cac6a693396bde9de3fe014898f8cfe495885",
+      "size": 2407,
+      "normalized_sha256": "0542de578a4ba29257ae0451682cac6a693396bde9de3fe014898f8cfe495885"
+    },
+    "apps/perant/android/app/src/main/kotlin/dev/perant/perant/MainActivity.kt": {
+      "role": "index",
+      "sha256": "8695a5e436184896953523c8008a6bd338ea8c9114a78ae7b1e4324c5aa614d8",
+      "size": 119,
+      "normalized_sha256": "8695a5e436184896953523c8008a6bd338ea8c9114a78ae7b1e4324c5aa614d8"
+    },
+    "apps/perant/android/app/src/main/res/drawable-nodpi/perant_launcher_foreground.png": {
+      "role": "index",
+      "sha256": "05dbae96002c8c73619f52b77e890d8346c13cb194511ccdda3c456d2d8f903c",
+      "size": 61781
+    },
+    "apps/perant/android/app/src/main/res/drawable-nodpi/perant_launcher_monochrome.png": {
+      "role": "index",
+      "sha256": "b667136e6684a346bad5fb8143e9fbc87c55b1a8f552974ac3babbba1a41f9cb",
+      "size": 12574
+    },
+    "apps/perant/android/app/src/main/res/drawable-v21/launch_background.xml": {
+      "role": "index",
+      "sha256": "7ca6d5cec2169c5a98661a119db23a6f3399c8fef2256ff04f3a642831282478",
+      "size": 438,
+      "normalized_sha256": "7ca6d5cec2169c5a98661a119db23a6f3399c8fef2256ff04f3a642831282478"
+    },
+    "apps/perant/android/app/src/main/res/drawable/ic_launcher_foreground.xml": {
+      "role": "index",
+      "sha256": "1d23515114432f38f50347d5bdc0147ec2cf2160b50ad2eddd725944ed690345",
+      "size": 238,
+      "normalized_sha256": "1d23515114432f38f50347d5bdc0147ec2cf2160b50ad2eddd725944ed690345"
+    },
+    "apps/perant/android/app/src/main/res/drawable/ic_launcher_monochrome.xml": {
+      "role": "index",
+      "sha256": "80248201e291a37f12c463c05531d63c77d32521a9d5b9e1cac8355241522bfb",
+      "size": 238,
+      "normalized_sha256": "80248201e291a37f12c463c05531d63c77d32521a9d5b9e1cac8355241522bfb"
+    },
+    "apps/perant/android/app/src/main/res/drawable/launch_background.xml": {
+      "role": "index",
+      "sha256": "94433756fe10005ddd6fc55cc5c0b1e9f3c10b66a08ceac795ece6713d34e28a",
+      "size": 434,
+      "normalized_sha256": "94433756fe10005ddd6fc55cc5c0b1e9f3c10b66a08ceac795ece6713d34e28a"
+    },
+    "apps/perant/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml": {
+      "role": "index",
+      "sha256": "c57211784f862a10d05a24b73c7e5286646528b87f917f45f1e3533f73bb6dc6",
+      "size": 385,
+      "normalized_sha256": "c57211784f862a10d05a24b73c7e5286646528b87f917f45f1e3533f73bb6dc6"
+    },
+    "apps/perant/android/app/src/main/res/mipmap-hdpi/ic_launcher.png": {
+      "role": "index",
+      "sha256": "c68f35d3f39fe7739c80c169ff5882917a2fbd4372ba532024cf7ce069e8e176",
+      "size": 5180
+    },
+    "apps/perant/android/app/src/main/res/mipmap-mdpi/ic_launcher.png": {
+      "role": "index",
+      "sha256": "287bdc3675d3f5d67dc8d6e8fbe3fa1d6f617c08f0e93809d9f9318b6eb7182f",
+      "size": 2825
+    },
+    "apps/perant/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png": {
+      "role": "index",
+      "sha256": "0e4f46c84010a31924de77c15ea4dcf2fe8944bc01695025ea93f45f5c04be12",
+      "size": 8181
+    },
+    "apps/perant/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png": {
+      "role": "index",
+      "sha256": "3e7233d12d8039a23cc7d67542f0ea8b15d201c148e63d3fe6856140e2eafe8d",
+      "size": 16299
+    },
+    "apps/perant/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png": {
+      "role": "index",
+      "sha256": "54ae486b3bd9ecfc3f08ac0cd3e83b994acb0b05574c26259bbecca5ffc66b49",
+      "size": 27220
+    },
+    "apps/perant/android/app/src/main/res/values-night/styles.xml": {
+      "role": "index",
+      "sha256": "8c5bad5152f217e837519f9c15211d19f39bd45f5f67faf6dd81cb4b299e518f",
+      "size": 995,
+      "normalized_sha256": "8c5bad5152f217e837519f9c15211d19f39bd45f5f67faf6dd81cb4b299e518f"
+    },
+    "apps/perant/android/app/src/main/res/values/colors.xml": {
+      "role": "index",
+      "sha256": "21c4c8a39f75981e98e34a43f942c0c262090a08767043e6e026c83b03eb9c0a",
+      "size": 165,
+      "normalized_sha256": "21c4c8a39f75981e98e34a43f942c0c262090a08767043e6e026c83b03eb9c0a"
+    },
+    "apps/perant/android/app/src/main/res/values/styles.xml": {
+      "role": "index",
+      "sha256": "937d7c82f539c72eb94fd3a3773f29b3d3fef1997213c92cb632298cedf4bda9",
+      "size": 996,
+      "normalized_sha256": "937d7c82f539c72eb94fd3a3773f29b3d3fef1997213c92cb632298cedf4bda9"
+    },
+    "apps/perant/android/app/src/main/res/xml/network_security_config.xml": {
+      "role": "index",
+      "sha256": "a977d929eabe911b93d4bb8dea65cf646286bd193c59cc9f1db8d1adae449f74",
+      "size": 404,
+      "normalized_sha256": "a977d929eabe911b93d4bb8dea65cf646286bd193c59cc9f1db8d1adae449f74"
+    },
+    "apps/perant/android/app/src/profile/AndroidManifest.xml": {
+      "role": "index",
+      "sha256": "30b0832ed8b92dfbd6ae2abfa939ccf26333d37600056b1572bd4a397a18a74b",
+      "size": 378,
+      "normalized_sha256": "30b0832ed8b92dfbd6ae2abfa939ccf26333d37600056b1572bd4a397a18a74b"
+    },
+    "apps/perant/android/build.gradle.kts": {
+      "role": "index",
+      "sha256": "6a26dba2cb8dfba1e74f540b0d17a89d96c1301d3c3bfda14348bed257fddcba",
+      "size": 537,
+      "normalized_sha256": "6a26dba2cb8dfba1e74f540b0d17a89d96c1301d3c3bfda14348bed257fddcba"
+    },
+    "apps/perant/android/gradle.properties": {
+      "role": "index",
+      "sha256": "35e388b959c33ff1cb42157a8ea2b00834b9abe57338e2e0985fb722e0a8f53d",
+      "size": 489,
+      "normalized_sha256": "35e388b959c33ff1cb42157a8ea2b00834b9abe57338e2e0985fb722e0a8f53d"
+    },
+    "apps/perant/android/gradle/wrapper/gradle-wrapper.properties": {
+      "role": "index",
+      "sha256": "b6af85f4d33860b32baaa0b95368061157e4374b190b81cb658f8757b2db88df",
+      "size": 202,
+      "normalized_sha256": "b6af85f4d33860b32baaa0b95368061157e4374b190b81cb658f8757b2db88df"
+    },
+    "apps/perant/android/settings.gradle.kts": {
+      "role": "index",
+      "sha256": "fd28aa10f4f4f4d8adb544e83b8c7c80b27fb4425044f951f6a5434d01d0b8bb",
+      "size": 771,
+      "normalized_sha256": "fd28aa10f4f4f4d8adb544e83b8c7c80b27fb4425044f951f6a5434d01d0b8bb"
+    },
+    "apps/perant/assets/branding/ASSET_VALIDATION.json": {
+      "role": "index",
+      "sha256": "2e50b88fa94888bc8aa4b065cf6771baac73b44393395e3e3aa375a7dd914b48",
+      "size": 1521,
+      "normalized_sha256": "2e50b88fa94888bc8aa4b065cf6771baac73b44393395e3e3aa375a7dd914b48"
+    },
+    "apps/perant/assets/branding/ICON_EXPORTS.json": {
+      "role": "index",
+      "sha256": "9ffef8ab0c069d795bb16257708b579f81a0c6c699c27760b269bb2bca428468",
+      "size": 7602,
+      "normalized_sha256": "9ffef8ab0c069d795bb16257708b579f81a0c6c699c27760b269bb2bca428468"
+    },
+    "apps/perant/assets/branding/PROMPTS.json": {
+      "role": "index",
+      "sha256": "35e34665b81277aa1ae02527703ad90d533f8048eb7b96bce0c1c9269f4bc8b4",
+      "size": 3964,
+      "normalized_sha256": "35e34665b81277aa1ae02527703ad90d533f8048eb7b96bce0c1c9269f4bc8b4"
+    },
+    "apps/perant/assets/branding/README.md": {
+      "role": "index",
+      "sha256": "59a583a5a6c3dcac10e98f0d153af9ffd0e1c5c11106490c3c5b23ac27657005",
+      "size": 1843,
+      "normalized_sha256": "59a583a5a6c3dcac10e98f0d153af9ffd0e1c5c11106490c3c5b23ac27657005"
+    },
+    "apps/perant/assets/branding/export_icons.py": {
+      "role": "index",
+      "sha256": "3383da17a26ec44c8e90ab8180e422ee887d148b8a7044e524df714816f6be0b",
+      "size": 6332,
+      "normalized_sha256": "3383da17a26ec44c8e90ab8180e422ee887d148b8a7044e524df714816f6be0b"
+    },
+    "apps/perant/assets/branding/perant-launcher-adaptive-circle-preview.png": {
+      "role": "index",
+      "sha256": "bc5429d5c1540afaabea7e1b672913b27260d8a89c9415f8d380bd3e10c35574",
+      "size": 27056
+    },
+    "apps/perant/assets/branding/perant-launcher-head-source-v2.png": {
+      "role": "index",
+      "sha256": "f424c281ad54a8f4719ec64d6bb81d6eb5cfbcb4085e17e9aa65737b3e95f0f4",
+      "size": 1671889
+    },
+    "apps/perant/assets/branding/perant-launcher-icon-1024.png": {
+      "role": "index",
+      "sha256": "de76f9028d5b9fcf97146bca4087b7e55e1d2fc55d357ecea0250325b95f4144",
+      "size": 662545
+    },
+    "apps/perant/assets/branding/perant-launcher-preview-64.png": {
+      "role": "index",
+      "sha256": "150f1da076dba1b010081b976e9dbadc604c9551dfc4b017a3ed8f061312d0c1",
+      "size": 4347
+    },
+    "apps/perant/assets/companion/ANIMATION_SOURCE_PROMPTS.json": {
+      "role": "index",
+      "sha256": "7e90e716a6542f70843f4b4d167f1b37103c76e19b239558436b39a0fabfdcc5",
+      "size": 27724,
+      "normalized_sha256": "7e90e716a6542f70843f4b4d167f1b37103c76e19b239558436b39a0fabfdcc5"
+    },
+    "apps/perant/assets/companion/ANIMATION_SOURCE_REPORT.md": {
+      "role": "index",
+      "sha256": "983557ac264c8c160b6100fcd51786b5d79a90f88def08d6bfbc8371f5033c0b",
+      "size": 4036,
+      "normalized_sha256": "983557ac264c8c160b6100fcd51786b5d79a90f88def08d6bfbc8371f5033c0b"
+    },
+    "apps/perant/assets/companion/ASSET_SOURCES.json": {
+      "role": "index",
+      "sha256": "9d072ca1ad7f095b7c74db0414a2bb597920b5dc1c5d534df9cb937abd6012da",
+      "size": 2666,
+      "normalized_sha256": "9d072ca1ad7f095b7c74db0414a2bb597920b5dc1c5d534df9cb937abd6012da"
+    },
+    "apps/perant/assets/companion/README.md": {
+      "role": "index",
+      "sha256": "0224dc59e2c3183d6e3da2baed053fd65fd6c105cf4ac4ba792237f0c30dd976",
+      "size": 1279,
+      "normalized_sha256": "0224dc59e2c3183d6e3da2baed053fd65fd6c105cf4ac4ba792237f0c30dd976"
+    },
+    "apps/perant/assets/companion/SOURCE_PROMPTS.json": {
+      "role": "index",
+      "sha256": "e74cff80b3e3e12b66aee27e7a433537c0b60899cee4f71d2713cc2b73c537f4",
+      "size": 5599,
+      "normalized_sha256": "e74cff80b3e3e12b66aee27e7a433537c0b60899cee4f71d2713cc2b73c537f4"
+    },
+    "apps/perant/assets/companion/celebrating.png": {
+      "role": "index",
+      "sha256": "127e065d6da1e82c6da93c469d9fa2b62be8824fce2bd6e31baa987d0fbca243",
+      "size": 1420173
+    },
+    "apps/perant/assets/companion/resting.png": {
+      "role": "index",
+      "sha256": "7004018a7d1c86a9ce0083ca84db3d83f361e5307d8eacd40bfea7c901e17be4",
+      "size": 1445903
+    },
+    "apps/perant/assets/companion/welcome.png": {
+      "role": "index",
+      "sha256": "271bf8b23356f6f8a96731c8d53d4ea959238bdae82a492a22256d8f9c819b8e",
+      "size": 1445500
+    },
+    "apps/perant/assets/companion/working.png": {
+      "role": "index",
+      "sha256": "b26ddc66460f13f99e23d75594db47a34bcaf7cebf32ce2105b44d1991b1b2fd",
+      "size": 1431324
+    },
+    "apps/perant/assets/companion/working.webp": {
+      "role": "index",
+      "sha256": "257f923d6740c671ba2f2c4bd69dba431c3f20e271fe5d3a853a5eb3edbf7e00",
+      "size": 475188
+    },
+    "apps/perant/integration_test/browser_page_save_test.dart": {
+      "role": "index",
+      "sha256": "d893ef305fbe8e7c2c60c6f11b09f590a38e8f332bc70b7964d5a1e9c3c2b617",
+      "size": 29579,
+      "normalized_sha256": "d893ef305fbe8e7c2c60c6f11b09f590a38e8f332bc70b7964d5a1e9c3c2b617"
+    },
+    "apps/perant/integration_test/computer_browser_test.dart": {
+      "role": "index",
+      "sha256": "d099d4e2a6c0c62e8358836d17a1591b59b5cedcd58fc5e66082f57c7a9d3847",
+      "size": 40405,
+      "normalized_sha256": "d099d4e2a6c0c62e8358836d17a1591b59b5cedcd58fc5e66082f57c7a9d3847"
+    },
+    "apps/perant/integration_test/container_workspace_test.dart": {
+      "role": "index",
+      "sha256": "5a2bd0330069c379ebd6644a11a56017505f6add1a36f22a3a20cbccf0338f3f",
+      "size": 34392,
+      "normalized_sha256": "5a2bd0330069c379ebd6644a11a56017505f6add1a36f22a3a20cbccf0338f3f"
+    },
+    "apps/perant/integration_test/desktop_office_test.dart": {
+      "role": "index",
+      "sha256": "954cdeba0b5ebe0df29eda68c5123347351c920bae3c12dcfe6f9386f065a90e",
+      "size": 27602,
+      "normalized_sha256": "954cdeba0b5ebe0df29eda68c5123347351c920bae3c12dcfe6f9386f065a90e"
+    },
+    "apps/perant/integration_test/desktop_runtime_test.dart": {
+      "role": "index",
+      "sha256": "358affd4f9c46060e9b13f44011215b1e670e97e949d1778dce95fed1ea2c7aa",
+      "size": 30160,
+      "normalized_sha256": "358affd4f9c46060e9b13f44011215b1e670e97e949d1778dce95fed1ea2c7aa"
+    },
+    "apps/perant/integration_test/linux_runtime_test.dart": {
+      "role": "index",
+      "sha256": "48c99f094cd472715b419a6c3cc971b48df6b627cc8b13d24249111e9184e8c8",
+      "size": 25369,
+      "normalized_sha256": "48c99f094cd472715b419a6c3cc971b48df6b627cc8b13d24249111e9184e8c8"
+    },
+    "apps/perant/integration_test/native_smoke_test.dart": {
+      "role": "index",
+      "sha256": "61cf45fd1c557d20a6ee2d33f939be113508fcd5435da8a49d306215cdab8248",
+      "size": 18399,
+      "normalized_sha256": "61cf45fd1c557d20a6ee2d33f939be113508fcd5435da8a49d306215cdab8248"
+    },
+    "apps/perant/integration_test/office_direct_probe_test.dart": {
+      "role": "index",
+      "sha256": "5bb11fe1e6516b7beaa76eb94d24281afaf309d85104e1b887e0a185a01d3747",
+      "size": 3774,
+      "normalized_sha256": "5bb11fe1e6516b7beaa76eb94d24281afaf309d85104e1b887e0a185a01d3747"
+    },
+    "apps/perant/ios/.gitignore": {
+      "role": "index",
+      "sha256": "37380775aeb2499662b7aca80f4ac4c95ae827c3ba2bfa179aa3e9af4812c623",
+      "size": 569,
+      "normalized_sha256": "37380775aeb2499662b7aca80f4ac4c95ae827c3ba2bfa179aa3e9af4812c623"
+    },
+    "apps/perant/ios/Flutter/AppFrameworkInfo.plist": {
+      "role": "index",
+      "sha256": "da12038f9b2688a8a26160fea2609fa8fcb11421448c109f09c0f573efe7698d",
+      "size": 720,
+      "normalized_sha256": "da12038f9b2688a8a26160fea2609fa8fcb11421448c109f09c0f573efe7698d"
+    },
+    "apps/perant/ios/Flutter/Debug.xcconfig": {
+      "role": "index",
+      "sha256": "a82d7765b37116ee4821d2cd1d65942febf8032353757ffb0826eabde785b4a6",
+      "size": 30,
+      "normalized_sha256": "a82d7765b37116ee4821d2cd1d65942febf8032353757ffb0826eabde785b4a6"
+    },
+    "apps/perant/ios/Flutter/Release.xcconfig": {
+      "role": "index",
+      "sha256": "a82d7765b37116ee4821d2cd1d65942febf8032353757ffb0826eabde785b4a6",
+      "size": 30,
+      "normalized_sha256": "a82d7765b37116ee4821d2cd1d65942febf8032353757ffb0826eabde785b4a6"
+    },
+    "apps/perant/ios/Runner.xcodeproj/project.pbxproj": {
+      "role": "index",
+      "sha256": "9d029d746d07b9d75698443768ea6c201a78f5df37cbccee9b8195afd1c199c0",
+      "size": 25800,
+      "normalized_sha256": "9d029d746d07b9d75698443768ea6c201a78f5df37cbccee9b8195afd1c199c0"
+    },
+    "apps/perant/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata": {
+      "role": "index",
+      "sha256": "7f3b00b5c3fdb45242d7b87e1e5c4e25d1fa8129a16c94295ecc4e8ea2235c5f",
+      "size": 135,
+      "normalized_sha256": "7f3b00b5c3fdb45242d7b87e1e5c4e25d1fa8129a16c94295ecc4e8ea2235c5f"
+    },
+    "apps/perant/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist": {
+      "role": "index",
+      "sha256": "dfa0f9bb85b95ccba9c6811adadf8cb407fb5d52088e89db83ebc308ec448542",
+      "size": 238,
+      "normalized_sha256": "dfa0f9bb85b95ccba9c6811adadf8cb407fb5d52088e89db83ebc308ec448542"
+    },
+    "apps/perant/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings": {
+      "role": "index",
+      "sha256": "11b247bc6796892d67c9a821d18604db4dd6a880981b34f38460b9866e6b247f",
+      "size": 226,
+      "normalized_sha256": "11b247bc6796892d67c9a821d18604db4dd6a880981b34f38460b9866e6b247f"
+    },
+    "apps/perant/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme": {
+      "role": "index",
+      "sha256": "9fbce429f56243561dd437a527136c9f9ed77165e3b271b923faf236cfcd0484",
+      "size": 4717,
+      "normalized_sha256": "9fbce429f56243561dd437a527136c9f9ed77165e3b271b923faf236cfcd0484"
+    },
+    "apps/perant/ios/Runner.xcworkspace/contents.xcworkspacedata": {
+      "role": "index",
+      "sha256": "46c3c9702ff7c5584e11c954d943cfb6e07fb26e3fbd072ddbc0f388aa352de1",
+      "size": 152,
+      "normalized_sha256": "46c3c9702ff7c5584e11c954d943cfb6e07fb26e3fbd072ddbc0f388aa352de1"
+    },
+    "apps/perant/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist": {
+      "role": "index",
+      "sha256": "dfa0f9bb85b95ccba9c6811adadf8cb407fb5d52088e89db83ebc308ec448542",
+      "size": 238,
+      "normalized_sha256": "dfa0f9bb85b95ccba9c6811adadf8cb407fb5d52088e89db83ebc308ec448542"
+    },
+    "apps/perant/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings": {
+      "role": "index",
+      "sha256": "11b247bc6796892d67c9a821d18604db4dd6a880981b34f38460b9866e6b247f",
+      "size": 226,
+      "normalized_sha256": "11b247bc6796892d67c9a821d18604db4dd6a880981b34f38460b9866e6b247f"
+    },
+    "apps/perant/ios/Runner/AppDelegate.swift": {
+      "role": "index",
+      "sha256": "451c6d9ba0a2b3ff43092ea349c60fa79a91f1158b915eb29dbdd357cb95d7b8",
+      "size": 539,
+      "normalized_sha256": "451c6d9ba0a2b3ff43092ea349c60fa79a91f1158b915eb29dbdd357cb95d7b8"
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json": {
+      "role": "index",
+      "sha256": "3b1e214f466ffedff74baa5598ad5c4421130eea6bc8d57b8fe23435e8280ae4",
+      "size": 2519,
+      "normalized_sha256": "3b1e214f466ffedff74baa5598ad5c4421130eea6bc8d57b8fe23435e8280ae4"
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png": {
+      "role": "index",
+      "sha256": "de76f9028d5b9fcf97146bca4087b7e55e1d2fc55d357ecea0250325b95f4144",
+      "size": 662545
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png": {
+      "role": "index",
+      "sha256": "313d0eb437bbfadf8e1cbd1e9dc15b1c4527f87232601f39c5d1c3a3fc02b018",
+      "size": 864
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png": {
+      "role": "index",
+      "sha256": "226df6685761bb89962a3f4123651ce38f09ffbff51be8896bf0ff1ef2040937",
+      "size": 2150
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png": {
+      "role": "index",
+      "sha256": "c2392c32b70104ad6c4ff4bda675a27c20c8490723f9ad5f35a3dee70ad97f74",
+      "size": 3893
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png": {
+      "role": "index",
+      "sha256": "1849e32f0f70dc50a88c7f73aee342fb625e767026f433ca5b9e4d8764d0e839",
+      "size": 1396
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png": {
+      "role": "index",
+      "sha256": "bfd973310969c735840cd03805fe959fb0e5757b3d81c773a1df90204e1cd739",
+      "size": 3724
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png": {
+      "role": "index",
+      "sha256": "79a3afebdc927f048bb061c1601589886bffc59770f74beb8c7a9d3b4c0f2824",
+      "size": 6949
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png": {
+      "role": "index",
+      "sha256": "226df6685761bb89962a3f4123651ce38f09ffbff51be8896bf0ff1ef2040937",
+      "size": 2150
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png": {
+      "role": "index",
+      "sha256": "7b8a0a509e2b2bd2a0f91e19a0ae77d8de64cb85e545aa089afa99a7b3a00198",
+      "size": 6048
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png": {
+      "role": "index",
+      "sha256": "931c291f7d82bd8ba503858d0661c4431dcf2e8b53a878d4102db4267aa8227b",
+      "size": 11914
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png": {
+      "role": "index",
+      "sha256": "931c291f7d82bd8ba503858d0661c4431dcf2e8b53a878d4102db4267aa8227b",
+      "size": 11914
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png": {
+      "role": "index",
+      "sha256": "d58841210da253ba3889a6486496b104254cf75b7bb9a9bc5c84ced177b28e5d",
+      "size": 24225
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png": {
+      "role": "index",
+      "sha256": "41cc6f085ca00d5715bf4d57aace43b62cf31cb9e04b97cc5a05ac2ac71a278d",
+      "size": 5577
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png": {
+      "role": "index",
+      "sha256": "f5e43ded2af7faf582579057afe3d6405c4c3fa414b69a424cb2c485c519e7d6",
+      "size": 17877
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png": {
+      "role": "index",
+      "sha256": "896b1ff41fa13d7c77d738843a50b69f847a1fc802f152a3297d25f1f9759be5",
+      "size": 21057
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json": {
+      "role": "index",
+      "sha256": "ccc7950fd5f5b82067c85f667940a9d59189151460761ece8098ca78daa19469",
+      "size": 391,
+      "normalized_sha256": "ccc7950fd5f5b82067c85f667940a9d59189151460761ece8098ca78daa19469"
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png": {
+      "role": "index",
+      "sha256": "93ae7d494fad0fb30cbf3ae746a39c4bc7a0f8bbf87fbb587a3f3c01f3c5ce20",
+      "size": 68
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png": {
+      "role": "index",
+      "sha256": "93ae7d494fad0fb30cbf3ae746a39c4bc7a0f8bbf87fbb587a3f3c01f3c5ce20",
+      "size": 68
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png": {
+      "role": "index",
+      "sha256": "93ae7d494fad0fb30cbf3ae746a39c4bc7a0f8bbf87fbb587a3f3c01f3c5ce20",
+      "size": 68
+    },
+    "apps/perant/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md": {
+      "role": "index",
+      "sha256": "a985b626c4f7546a8ba392d135e9226c3547c8e2b46895f5f2bdf40d7b14ef9f",
+      "size": 336,
+      "normalized_sha256": "a985b626c4f7546a8ba392d135e9226c3547c8e2b46895f5f2bdf40d7b14ef9f"
+    },
+    "apps/perant/ios/Runner/Base.lproj/LaunchScreen.storyboard": {
+      "role": "index",
+      "sha256": "857e61203b3deafb05766d8fcda898b86a7cb6f3d5e385ecc9926c4d698215e9",
+      "size": 2377,
+      "normalized_sha256": "857e61203b3deafb05766d8fcda898b86a7cb6f3d5e385ecc9926c4d698215e9"
+    },
+    "apps/perant/ios/Runner/Base.lproj/Main.storyboard": {
+      "role": "index",
+      "sha256": "fd367b6c43006d61b730f674970dd48b9f662c8f2264e52ffc1558102a2c9f2d",
+      "size": 1605,
+      "normalized_sha256": "fd367b6c43006d61b730f674970dd48b9f662c8f2264e52ffc1558102a2c9f2d"
+    },
+    "apps/perant/ios/Runner/Info.plist": {
+      "role": "index",
+      "sha256": "5d536fd5fd25deff8c38b94e5214c27f0f228744247d8dfb23aa7b64bcfbdaad",
+      "size": 2210,
+      "normalized_sha256": "5d536fd5fd25deff8c38b94e5214c27f0f228744247d8dfb23aa7b64bcfbdaad"
+    },
+    "apps/perant/ios/Runner/Runner-Bridging-Header.h": {
+      "role": "index",
+      "sha256": "1a8d11d01d1cc92c650c9c9ed35299240052d4683a15a719a2315ef44185e074",
+      "size": 38,
+      "normalized_sha256": "1a8d11d01d1cc92c650c9c9ed35299240052d4683a15a719a2315ef44185e074"
+    },
+    "apps/perant/ios/Runner/SceneDelegate.swift": {
+      "role": "index",
+      "sha256": "add68b905971dedfcc0d0b5b7118030de5925ba8c081ad9815463699e3a444ad",
+      "size": 76,
+      "normalized_sha256": "add68b905971dedfcc0d0b5b7118030de5925ba8c081ad9815463699e3a444ad"
+    },
+    "apps/perant/ios/RunnerTests/RunnerTests.swift": {
+      "role": "index",
+      "sha256": "20ccd1344c37c289e1ab6ab48f271134f7ba0cd8df0ae1f53add895323d72384",
+      "size": 289,
+      "normalized_sha256": "20ccd1344c37c289e1ab6ab48f271134f7ba0cd8df0ae1f53add895323d72384"
+    },
+    "apps/perant/lib/main.dart": {
+      "role": "index",
+      "sha256": "6a02ec365dacec056f0ab20f5582cd764d781e4ddde4e5b4b530e9f44693bf32",
+      "size": 1554,
+      "normalized_sha256": "6a02ec365dacec056f0ab20f5582cd764d781e4ddde4e5b4b530e9f44693bf32"
+    },
+    "apps/perant/lib/src/application/browser_page_document.dart": {
+      "role": "index",
+      "sha256": "13f16e917a194d872dcca8c450fb195f77d0669aa0e99aff67839d69a4285f30",
+      "size": 2436,
+      "normalized_sha256": "13f16e917a194d872dcca8c450fb195f77d0669aa0e99aff67839d69a4285f30"
+    },
+    "apps/perant/lib/src/application/computer_browser_service.dart": {
+      "role": "index",
+      "sha256": "eb284d4ad6d70a57ca1230852ffc64b0bd808e3e4ad5556d95a5ea74a3b3f152",
+      "size": 11969,
+      "normalized_sha256": "eb284d4ad6d70a57ca1230852ffc64b0bd808e3e4ad5556d95a5ea74a3b3f152"
+    },
+    "apps/perant/lib/src/application/container_browser_agent.dart": {
+      "role": "index",
+      "sha256": "6ce748cbbfa8548eaaa62d6be65dd124e0972bad60e7470bbcc9b926ae25c0a5",
+      "size": 3574,
+      "normalized_sha256": "6ce748cbbfa8548eaaa62d6be65dd124e0972bad60e7470bbcc9b926ae25c0a5"
+    },
+    "apps/perant/lib/src/application/container_desktop_agent.dart": {
+      "role": "index",
+      "sha256": "3e5e643cf2106cfbf63be341e17943ee504436dcac4b81bea0f6d7987332ea3f",
+      "size": 2857,
+      "normalized_sha256": "3e5e643cf2106cfbf63be341e17943ee504436dcac4b81bea0f6d7987332ea3f"
+    },
+    "apps/perant/lib/src/application/container_task_runner.dart": {
+      "role": "index",
+      "sha256": "91cac1265f23a86b4b7c2d6a55a1c88f8046ef76f952fe11a5a017be33322075",
+      "size": 46199,
+      "normalized_sha256": "91cac1265f23a86b4b7c2d6a55a1c88f8046ef76f952fe11a5a017be33322075"
+    },
+    "apps/perant/lib/src/application/local_text_task_runner.dart": {
+      "role": "index",
+      "sha256": "d65b441ccfc5dae9ea9bba7ca1e26f2ecda84c07587b8681486e2f92499df45a",
+      "size": 7206,
+      "normalized_sha256": "d65b441ccfc5dae9ea9bba7ca1e26f2ecda84c07587b8681486e2f92499df45a"
+    },
+    "apps/perant/lib/src/application/screenshot_grid.dart": {
+      "role": "index",
+      "sha256": "ed3b12b63bd8254a641bfc820ed7ceda074b6d2ba6fb4f94747ca025232bdc00",
+      "size": 3979,
+      "normalized_sha256": "ed3b12b63bd8254a641bfc820ed7ceda074b6d2ba6fb4f94747ca025232bdc00"
+    },
+    "apps/perant/lib/src/application/shared_desktop_service.dart": {
+      "role": "index",
+      "sha256": "6b730195fc6fed048a6ac1990d55fd46d34eb66bdc8f46722d4300532c4e3909",
+      "size": 19477,
+      "normalized_sha256": "6b730195fc6fed048a6ac1990d55fd46d34eb66bdc8f46722d4300532c4e3909"
+    },
+    "apps/perant/lib/src/application/workspace_controller.dart": {
+      "role": "index",
+      "sha256": "d889e5f311bb85308d73020cc45622703246277019b0db4def272b33abe58030",
+      "size": 62243,
+      "normalized_sha256": "d889e5f311bb85308d73020cc45622703246277019b0db4def272b33abe58030"
+    },
+    "apps/perant/lib/src/data/credential_store.dart": {
+      "role": "index",
+      "sha256": "5be3ea8568f7b810aacdbd750ce87bf0c57f667d77c34398c8aad55aacf3fa91",
+      "size": 1166,
+      "normalized_sha256": "5be3ea8568f7b810aacdbd750ce87bf0c57f667d77c34398c8aad55aacf3fa91"
+    },
+    "apps/perant/lib/src/data/persistence.dart": {
+      "role": "index",
+      "sha256": "7261169dedfe624cc53adb644facfe78dfe5a26140db6ae04e0608145c579ef3",
+      "size": 210,
+      "normalized_sha256": "7261169dedfe624cc53adb644facfe78dfe5a26140db6ae04e0608145c579ef3"
+    },
+    "apps/perant/lib/src/data/persistence_native.dart": {
+      "role": "index",
+      "sha256": "0c89c820250938fb6800763fe079f72cc0c85ef264f45c22f98b3b232579957e",
+      "size": 2032,
+      "normalized_sha256": "0c89c820250938fb6800763fe079f72cc0c85ef264f45c22f98b3b232579957e"
+    },
+    "apps/perant/lib/src/data/workspace_state.dart": {
+      "role": "index",
+      "sha256": "e1207db02ddf5eaad1de6c384e1387817da6d19f3bd6e15f34fe66d5bde31cf4",
+      "size": 14495,
+      "normalized_sha256": "e1207db02ddf5eaad1de6c384e1387817da6d19f3bd6e15f34fe66d5bde31cf4"
+    },
+    "apps/perant/lib/src/perant_app.dart": {
+      "role": "index",
+      "sha256": "47cd4cfb5c8725d7a829a0a8dcbbf1614a791964efbc1d876aa064e4fb047200",
+      "size": 733,
+      "normalized_sha256": "47cd4cfb5c8725d7a829a0a8dcbbf1614a791964efbc1d876aa064e4fb047200"
+    },
+    "apps/perant/lib/src/presentation/companion_avatar.dart": {
+      "role": "index",
+      "sha256": "d7bb9a8aed03d15e001471a73059ebe05248e99715ddf54d3d7061d7e1d7cd6e",
+      "size": 4379,
+      "normalized_sha256": "d7bb9a8aed03d15e001471a73059ebe05248e99715ddf54d3d7061d7e1d7cd6e"
+    },
+    "apps/perant/lib/src/presentation/computer_browser_screen.dart": {
+      "role": "index",
+      "sha256": "f940e44d7e1b67c882771feb3a2dba8e01c1ddeeebf8db84171e2a9ee258b4b4",
+      "size": 14953,
+      "normalized_sha256": "f940e44d7e1b67c882771feb3a2dba8e01c1ddeeebf8db84171e2a9ee258b4b4"
+    },
+    "apps/perant/lib/src/presentation/computer_workspace_page.dart": {
+      "role": "index",
+      "sha256": "706da4a7f3c46d50af029e76e0e720c2f4fee9b3838a045d560c5c0f4a9af0bf",
+      "size": 13099,
+      "normalized_sha256": "706da4a7f3c46d50af029e76e0e720c2f4fee9b3838a045d560c5c0f4a9af0bf"
+    },
+    "apps/perant/lib/src/presentation/container_actions.dart": {
+      "role": "index",
+      "sha256": "873987fc2734b05c6e0bf478dcf1e5852d88b0ee1b75e2b432dcdfed0a584624",
+      "size": 3587,
+      "normalized_sha256": "873987fc2734b05c6e0bf478dcf1e5852d88b0ee1b75e2b432dcdfed0a584624"
+    },
+    "apps/perant/lib/src/presentation/container_file_editor.dart": {
+      "role": "index",
+      "sha256": "05a3243a30bf0dcbc359e616fce225f327b94144275372be2e0ef8f3852d35a4",
+      "size": 10703,
+      "normalized_sha256": "05a3243a30bf0dcbc359e616fce225f327b94144275372be2e0ef8f3852d35a4"
+    },
+    "apps/perant/lib/src/presentation/container_screen.dart": {
+      "role": "index",
+      "sha256": "d6432f8c033bce587fa788da7f37a1acfcdb2512f7d69a630925681ae1b1267b",
+      "size": 19559,
+      "normalized_sha256": "d6432f8c033bce587fa788da7f37a1acfcdb2512f7d69a630925681ae1b1267b"
+    },
+    "apps/perant/lib/src/presentation/desktop_screen.dart": {
+      "role": "index",
+      "sha256": "7aee57ad46c78c1ed4b32de1355a8d428e696f0c760b274e89915c9691096392",
+      "size": 34564,
+      "normalized_sha256": "7aee57ad46c78c1ed4b32de1355a8d428e696f0c760b274e89915c9691096392"
+    },
+    "apps/perant/lib/src/presentation/document_editor.dart": {
+      "role": "index",
+      "sha256": "2404835723a932119de98f4001070feefa717024c551ec190bfbb393baa9a09f",
+      "size": 8891,
+      "normalized_sha256": "2404835723a932119de98f4001070feefa717024c551ec190bfbb393baa9a09f"
+    },
+    "apps/perant/lib/src/presentation/local_text_task_dialog.dart": {
+      "role": "index",
+      "sha256": "ea8175a6dff7b8b6fd75b232a62e11bc057d732d031c0146ef9c547e53a8369d",
+      "size": 3576,
+      "normalized_sha256": "ea8175a6dff7b8b6fd75b232a62e11bc057d732d031c0146ef9c547e53a8369d"
+    },
+    "apps/perant/lib/src/presentation/provider_settings.dart": {
+      "role": "index",
+      "sha256": "85a0568f1b8805e7b9bbb98094412d22d4b2eccd5b2fb700943f5b6ba786b57a",
+      "size": 14607,
+      "normalized_sha256": "85a0568f1b8805e7b9bbb98094412d22d4b2eccd5b2fb700943f5b6ba786b57a"
+    },
+    "apps/perant/lib/src/presentation/terminal_screen.dart": {
+      "role": "index",
+      "sha256": "f86e1d172a29819b30b3ee43022c904288ba5d05129f205927251f45ace79136",
+      "size": 18559,
+      "normalized_sha256": "f86e1d172a29819b30b3ee43022c904288ba5d05129f205927251f45ace79136"
+    },
+    "apps/perant/lib/src/presentation/theme.dart": {
+      "role": "index",
+      "sha256": "fa59c098bf992c3ebb3fecbffdf4a48eb6dd3f21a26727a113c544782ca91d2e",
+      "size": 4921,
+      "normalized_sha256": "fa59c098bf992c3ebb3fecbffdf4a48eb6dd3f21a26727a113c544782ca91d2e"
+    },
+    "apps/perant/lib/src/presentation/workspace_shell.dart": {
+      "role": "index",
+      "sha256": "8417fc1253a18516d28d7ec162f8d6b3a6606b7d4ab6ea7c141e9b516bc75890",
+      "size": 84472,
+      "normalized_sha256": "8417fc1253a18516d28d7ec162f8d6b3a6606b7d4ab6ea7c141e9b516bc75890"
+    },
+    "apps/perant/pubspec.yaml": {
+      "role": "index",
+      "sha256": "ca2441f891b50bca8678f682a3fcbde725e705cbecc97bc765a182f9b0d7268a",
+      "size": 1004,
+      "normalized_sha256": "ca2441f891b50bca8678f682a3fcbde725e705cbecc97bc765a182f9b0d7268a"
+    },
+    "apps/perant/test/browser_page_save_screen_test.dart": {
+      "role": "index",
+      "sha256": "b637c9d08c2fb124ec32694d93f059cc9a07bcfa87163cce45d2364051d6413d",
+      "size": 5593,
+      "normalized_sha256": "b637c9d08c2fb124ec32694d93f059cc9a07bcfa87163cce45d2364051d6413d"
+    },
+    "apps/perant/test/browser_page_save_test.dart": {
+      "role": "index",
+      "sha256": "1f8e0102f14ba944f0518b432789872d99cf27aed9ced6ce000c1d8ea8fea806",
+      "size": 9812,
+      "normalized_sha256": "1f8e0102f14ba944f0518b432789872d99cf27aed9ced6ce000c1d8ea8fea806"
+    },
+    "apps/perant/test/computer_browser_service_test.dart": {
+      "role": "index",
+      "sha256": "4625dfd1f1748f4c94a180b9418a0cb5361ed9eefd17dfd57d7b1645071f68d4",
+      "size": 5978,
+      "normalized_sha256": "4625dfd1f1748f4c94a180b9418a0cb5361ed9eefd17dfd57d7b1645071f68d4"
+    },
+    "apps/perant/test/computer_workspace_page_test.dart": {
+      "role": "index",
+      "sha256": "1ee63858fe9ba77864cf7dd8898bc1e2269c5ed02a50c8766a60fe8bc3e6297f",
+      "size": 7945,
+      "normalized_sha256": "1ee63858fe9ba77864cf7dd8898bc1e2269c5ed02a50c8766a60fe8bc3e6297f"
+    },
+    "apps/perant/test/concept6_authorization_test.dart": {
+      "role": "index",
+      "sha256": "83bf7c0a5e19384d2c31ff955e34308f45665ac23af39bcce123ec7c7c3b2fd0",
+      "size": 21579,
+      "normalized_sha256": "83bf7c0a5e19384d2c31ff955e34308f45665ac23af39bcce123ec7c7c3b2fd0"
+    },
+    "apps/perant/test/container_agent_test.dart": {
+      "role": "index",
+      "sha256": "b30374c057170c6bb6e9c844d65a89459a17b6e40fcef3dd2e4eef31301fc10b",
+      "size": 36119,
+      "normalized_sha256": "b30374c057170c6bb6e9c844d65a89459a17b6e40fcef3dd2e4eef31301fc10b"
+    },
+    "apps/perant/test/container_agent_ui_test.dart": {
+      "role": "index",
+      "sha256": "81f7c22c1b9fc1179cd30456b60e04716047e7dd48d7104e06a45e5f7f986055",
+      "size": 9306,
+      "normalized_sha256": "81f7c22c1b9fc1179cd30456b60e04716047e7dd48d7104e06a45e5f7f986055"
+    },
+    "apps/perant/test/container_browser_agent_test.dart": {
+      "role": "index",
+      "sha256": "3dd9a6dc3d7790b525ffe1d80350fc5741895aeaed01473baaf7bc7210e30384",
+      "size": 34176,
+      "normalized_sha256": "3dd9a6dc3d7790b525ffe1d80350fc5741895aeaed01473baaf7bc7210e30384"
+    },
+    "apps/perant/test/container_desktop_agent_test.dart": {
+      "role": "index",
+      "sha256": "eb4f0c2ec2344e51e390783fd55b62228bfcec493d9901f2e5ed70563f4bc5ef",
+      "size": 26784,
+      "normalized_sha256": "eb4f0c2ec2344e51e390783fd55b62228bfcec493d9901f2e5ed70563f4bc5ef"
+    },
+    "apps/perant/test/container_screen_test.dart": {
+      "role": "index",
+      "sha256": "433bc51f59627a6aa4045902881cece7d03a8cbf0575eef18c3c98dff3fbcc7b",
+      "size": 7400,
+      "normalized_sha256": "433bc51f59627a6aa4045902881cece7d03a8cbf0575eef18c3c98dff3fbcc7b"
+    },
+    "apps/perant/test/local_text_task_test.dart": {
+      "role": "index",
+      "sha256": "c78e0e43767aa9d0cf68c43dc52f6ecaa4b942ea279a17d7a35de5edbc9b6301",
+      "size": 18440,
+      "normalized_sha256": "c78e0e43767aa9d0cf68c43dc52f6ecaa4b942ea279a17d7a35de5edbc9b6301"
+    },
+    "apps/perant/test/provider_settings_test.dart": {
+      "role": "index",
+      "sha256": "57d34256512610412abc33e039ff1df24207cd1743ae95cde4166a5d655d50b9",
+      "size": 3393,
+      "normalized_sha256": "57d34256512610412abc33e039ff1df24207cd1743ae95cde4166a5d655d50b9"
+    },
+    "apps/perant/test/screenshot_grid_test.dart": {
+      "role": "index",
+      "sha256": "4b03d381a1e60c8d0dc5ee067d2acffd433b966048a1fbfb0140b7e2c38a1e43",
+      "size": 2603,
+      "normalized_sha256": "4b03d381a1e60c8d0dc5ee067d2acffd433b966048a1fbfb0140b7e2c38a1e43"
+    },
+    "apps/perant/test/shared_desktop_service_test.dart": {
+      "role": "index",
+      "sha256": "16fa48121d799049ae05029b4f0a9dcf445faf593db38c5d744c3ba4632ce652",
+      "size": 34412,
+      "normalized_sha256": "16fa48121d799049ae05029b4f0a9dcf445faf593db38c5d744c3ba4632ce652"
+    },
+    "apps/perant/test/terminal_screen_test.dart": {
+      "role": "index",
+      "sha256": "8a61ba4e031c7d10755f72d74e8d0231bcffebd05959e55e60db6720bd57f2b3",
+      "size": 16201,
+      "normalized_sha256": "8a61ba4e031c7d10755f72d74e8d0231bcffebd05959e55e60db6720bd57f2b3"
+    },
+    "apps/perant/test/ui_capture_test.dart": {
+      "role": "index",
+      "sha256": "0e5d48c149bd07aaef9fb898bae69589eb90c344c2735caf5d573bd00ad422e6",
+      "size": 6204,
+      "normalized_sha256": "0e5d48c149bd07aaef9fb898bae69589eb90c344c2735caf5d573bd00ad422e6"
+    },
+    "apps/perant/test/workspace_controller_test.dart": {
+      "role": "index",
+      "sha256": "a92ce535a7ebf1e80c8b6b78872f1d2980991230e17905d46251870c767a3da5",
+      "size": 41557,
+      "normalized_sha256": "a92ce535a7ebf1e80c8b6b78872f1d2980991230e17905d46251870c767a3da5"
+    },
+    "apps/perant/test/workspace_shell_test.dart": {
+      "role": "index",
+      "sha256": "a580085157da60ebed118b2c2aeede915b19d34d4730085d18ac54098e149c91",
+      "size": 21638,
+      "normalized_sha256": "a580085157da60ebed118b2c2aeede915b19d34d4730085d18ac54098e149c91"
+    },
+    "apps/perant/test/workspace_state_test.dart": {
+      "role": "index",
+      "sha256": "6395389be14629d1a46591839a638c0a2447dc08c32bfc94cc8788b1f8d1ace4",
+      "size": 12273,
+      "normalized_sha256": "6395389be14629d1a46591839a638c0a2447dc08c32bfc94cc8788b1f8d1ace4"
+    },
+    "docs/ARCHITECTURE.md": {
+      "role": "index",
+      "sha256": "911b4df1991cb7913fc34120d983331be2283245904dbce3554640406dd541e2",
+      "size": 19772,
+      "normalized_sha256": "911b4df1991cb7913fc34120d983331be2283245904dbce3554640406dd541e2"
+    },
+    "docs/BROWSER_PAGE_SAVE.md": {
+      "role": "index",
+      "sha256": "f8c2e646c140c1a5ca08cc51c41a0ed9cf43bf6f847bfa502d05b8ef2cd0e432",
+      "size": 7907,
+      "normalized_sha256": "f8c2e646c140c1a5ca08cc51c41a0ed9cf43bf6f847bfa502d05b8ef2cd0e432"
+    },
+    "docs/CONTAINER_COMPUTER.md": {
+      "role": "index",
+      "sha256": "2e65cdcda375632b214e033ad649d126ac48c28c4c62176e55058bbe98d307cb",
+      "size": 20667,
+      "normalized_sha256": "2e65cdcda375632b214e033ad649d126ac48c28c4c62176e55058bbe98d307cb"
+    },
+    "docs/DESKTOP_APPLICATIONS.md": {
+      "role": "index",
+      "sha256": "7bafc6a466a9a2d1aeb0f9b235c5e470b981156e1aba0dbecabec250d7e3502e",
+      "size": 8008,
+      "normalized_sha256": "7bafc6a466a9a2d1aeb0f9b235c5e470b981156e1aba0dbecabec250d7e3502e"
+    },
+    "docs/DESKTOP_DESIGN.md": {
+      "role": "index",
+      "sha256": "dc951375fefdae73f5c1c33bcf8a829b79bb02e09d71ccf25238627a45146b58",
+      "size": 6931,
+      "normalized_sha256": "dc951375fefdae73f5c1c33bcf8a829b79bb02e09d71ccf25238627a45146b58"
+    },
+    "docs/DEVELOPMENT_STATUS.md": {
+      "role": "index",
+      "sha256": "37e0ff249d67e990c22f5abd01175bc586f9eb1f0515de843186b8dc5e653dd7",
+      "size": 22163,
+      "normalized_sha256": "37e0ff249d67e990c22f5abd01175bc586f9eb1f0515de843186b8dc5e653dd7"
+    },
+    "docs/LINUX_RUNTIME_SOURCES.md": {
+      "role": "index",
+      "sha256": "0990c1f0ac69b6b18df53a4f7d2b7790fb0a799e455532f7b0c271e0686f22be",
+      "size": 25490,
+      "normalized_sha256": "0990c1f0ac69b6b18df53a4f7d2b7790fb0a799e455532f7b0c271e0686f22be"
+    },
+    "docs/LINUX_SOURCE_CLOSURE_REVIEW.md": {
+      "role": "index",
+      "sha256": "7e442d5acfdb8f049a67be852a064ff9cc85c43297b05bf48746ff0cc0552540",
+      "size": 6735,
+      "normalized_sha256": "7e442d5acfdb8f049a67be852a064ff9cc85c43297b05bf48746ff0cc0552540"
+    },
+    "docs/PUBLIC_BINARY_RELEASE.md": {
+      "role": "index",
+      "sha256": "8a26c1e84767049f1c0fc49578ec23f0f83e18fe363a2a400f8a2b45ee95de19",
+      "size": 6094,
+      "normalized_sha256": "8a26c1e84767049f1c0fc49578ec23f0f83e18fe363a2a400f8a2b45ee95de19"
+    },
+    "docs/PYTHON_TEXT_TASK.md": {
+      "role": "index",
+      "sha256": "34f8ddb03651a6ae046df6b6e6b678fc95ebfa4f8563c7c3b2c941660172ee87",
+      "size": 5371,
+      "normalized_sha256": "34f8ddb03651a6ae046df6b6e6b678fc95ebfa4f8563c7c3b2c941660172ee87"
+    },
+    "docs/UI_CONCEPT06_IMPLEMENTATION.md": {
+      "role": "index",
+      "sha256": "50b7ab8bd770400e78d684f3dfee207cd042b810f1cf7196461e60cd3d4c7db8",
+      "size": 8844,
+      "normalized_sha256": "50b7ab8bd770400e78d684f3dfee207cd042b810f1cf7196461e60cd3d4c7db8"
+    },
+    "docs/UI_REFERENCE.md": {
+      "role": "index",
+      "sha256": "5f02a83806745744b591debf9e14faf897416c72c1c4524a2c4b516dfeb141bb",
+      "size": 3181,
+      "normalized_sha256": "5f02a83806745744b591debf9e14faf897416c72c1c4524a2c4b516dfeb141bb"
+    },
+    "docs/images/README.md": {
+      "role": "index",
+      "sha256": "578368f01432ced90b597ea37fa128c584e3f7ba646483470439cf73ed3911f3",
+      "size": 2242,
+      "normalized_sha256": "578368f01432ced90b597ea37fa128c584e3f7ba646483470439cf73ed3911f3"
+    },
+    "docs/images/browser-android-v07.png": {
+      "role": "index",
+      "sha256": "c58c10adbf9edd935fc922993e87523d9b786841d6c55e3c5dd844bb722100f3",
+      "size": 279593
+    },
+    "docs/images/chat-android-v06.png": {
+      "role": "index",
+      "sha256": "50a4fe6b17ef16a6b10a93ef4af83de0c5bdf4f1a0fb452bfcf164166ba812bf",
+      "size": 99628
+    },
+    "docs/images/computer-android-v09.png": {
+      "role": "index",
+      "sha256": "218718b37b016c81d17ce34f6b779e3a548c35612d8556f20913c44f1982ed7e",
+      "size": 259610
+    },
+    "docs/images/files-android-v09.png": {
+      "role": "index",
+      "sha256": "693a472790317d7b9e09ec64f0be89d851baf1691ffd47f8bf238eb67ea2a747",
+      "size": 207104
+    },
+    "docs/images/home-android-v09.png": {
+      "role": "index",
+      "sha256": "4515da9abd3aa8c2466c46b971bb69260644afb507f13555d11454d9622a4271",
+      "size": 512485
+    },
+    "docs/images/linux-writer-android-v07.png": {
+      "role": "index",
+      "sha256": "d7025ddfb92e5c1af03bf1dee07010b0aeaf40d82e838835417ff923b04ef478",
+      "size": 201496
+    },
+    "docs/releases/0.0.1.md": {
+      "role": "index",
+      "sha256": "e26494ee48939bfdc859902fff442311d573c80a77e87cb1ae7af34d3b930939",
+      "size": 9283,
+      "normalized_sha256": "e26494ee48939bfdc859902fff442311d573c80a77e87cb1ae7af34d3b930939"
+    },
+    "docs/releases/0.9.0-preview.md": {
+      "role": "index",
+      "sha256": "241934eab50e7e92059de0388881d036ebdf2e6c61e158645eef447a366c4ef7",
+      "size": 4473,
+      "normalized_sha256": "241934eab50e7e92059de0388881d036ebdf2e6c61e158645eef447a366c4ef7"
+    },
+    "packages/perant_core/analysis_options.yaml": {
+      "role": "index",
+      "sha256": "03b90aecd284e3e4a3d0c00a14ee280bbaedc6e07dac29e0ad77d7329cca9910",
+      "size": 326,
+      "normalized_sha256": "03b90aecd284e3e4a3d0c00a14ee280bbaedc6e07dac29e0ad77d7329cca9910"
+    },
+    "packages/perant_core/lib/perant_core.dart": {
+      "role": "index",
+      "sha256": "54b76833f47a19dc646438292dc0b58bba35c0d4988e80d08b20da53816c3e75",
+      "size": 322,
+      "normalized_sha256": "54b76833f47a19dc646438292dc0b58bba35c0d4988e80d08b20da53816c3e75"
+    },
+    "packages/perant_core/lib/src/authorization.dart": {
+      "role": "index",
+      "sha256": "9671e79d1bc73b8c0538441e7788c645c8948f4eb4614c234a3f6d722fbf7ef8",
+      "size": 5061,
+      "normalized_sha256": "9671e79d1bc73b8c0538441e7788c645c8948f4eb4614c234a3f6d722fbf7ef8"
+    },
+    "packages/perant_core/lib/src/documents.dart": {
+      "role": "index",
+      "sha256": "d9c48c841ae40d261aa0d9b7cd2e2dd930c660eb016efb4aa0ae4a2b2eb8d137",
+      "size": 3686,
+      "normalized_sha256": "d9c48c841ae40d261aa0d9b7cd2e2dd930c660eb016efb4aa0ae4a2b2eb8d137"
+    },
+    "packages/perant_core/lib/src/knowledge.dart": {
+      "role": "index",
+      "sha256": "b409fa3511d249e7061938499a75db836f9d23e02e9458d75272491a735a8fc4",
+      "size": 1935,
+      "normalized_sha256": "b409fa3511d249e7061938499a75db836f9d23e02e9458d75272491a735a8fc4"
+    },
+    "packages/perant_core/lib/src/models.dart": {
+      "role": "index",
+      "sha256": "d2bb6fbd2b6945126f0d873f7c7ddeadc1b7e1fc47a7a22406a3540b084dcf23",
+      "size": 3390,
+      "normalized_sha256": "d2bb6fbd2b6945126f0d873f7c7ddeadc1b7e1fc47a7a22406a3540b084dcf23"
+    },
+    "packages/perant_core/lib/src/providers.dart": {
+      "role": "index",
+      "sha256": "9f19f73d54ec4547c8acf510624cb5a1b8d335a7d7733bbbc916aff40f707dd0",
+      "size": 9160,
+      "normalized_sha256": "9f19f73d54ec4547c8acf510624cb5a1b8d335a7d7733bbbc916aff40f707dd0"
+    },
+    "packages/perant_core/lib/src/runtime.dart": {
+      "role": "index",
+      "sha256": "d953dfbedac18b24aafa13246d880bf92960a071debd44c92c0e2cc01ed4e224",
+      "size": 5670,
+      "normalized_sha256": "d953dfbedac18b24aafa13246d880bf92960a071debd44c92c0e2cc01ed4e224"
+    },
+    "packages/perant_core/lib/src/tasks.dart": {
+      "role": "index",
+      "sha256": "8c71c3633432cc2ee1667e91659845f87e36f7c0c7e72231d569fde16dd02e8e",
+      "size": 9249,
+      "normalized_sha256": "8c71c3633432cc2ee1667e91659845f87e36f7c0c7e72231d569fde16dd02e8e"
+    },
+    "packages/perant_core/pubspec.yaml": {
+      "role": "index",
+      "sha256": "8c798406a2823f7e8cbf0b296c0877158e79c364114e1888e4f8ebec3802e247",
+      "size": 219,
+      "normalized_sha256": "8c798406a2823f7e8cbf0b296c0877158e79c364114e1888e4f8ebec3802e247"
+    },
+    "packages/perant_core/test/authorization_test.dart": {
+      "role": "index",
+      "sha256": "6daaa40db4cc149c3d8bcb3cd1ca1b6992d92d23f3d40ec8d00e9d3f72466373",
+      "size": 4429,
+      "normalized_sha256": "6daaa40db4cc149c3d8bcb3cd1ca1b6992d92d23f3d40ec8d00e9d3f72466373"
+    },
+    "packages/perant_core/test/documents_test.dart": {
+      "role": "index",
+      "sha256": "854c1fe85553682016d028b00d1aaf3024007592b68a87dedc752925a940525a",
+      "size": 1496,
+      "normalized_sha256": "854c1fe85553682016d028b00d1aaf3024007592b68a87dedc752925a940525a"
+    },
+    "packages/perant_core/test/providers_test.dart": {
+      "role": "index",
+      "sha256": "3c9bc97de725c5bfbc3245bf6f7af17b1d09d6ea64e1a97bdeda025b51d07cc7",
+      "size": 2641,
+      "normalized_sha256": "3c9bc97de725c5bfbc3245bf6f7af17b1d09d6ea64e1a97bdeda025b51d07cc7"
+    },
+    "packages/perant_core/test/runtime_test.dart": {
+      "role": "index",
+      "sha256": "b285b0dd205ab29f173e7b7a51614c13827944d2b62b6fc114a09dba945e8a85",
+      "size": 1092,
+      "normalized_sha256": "b285b0dd205ab29f173e7b7a51614c13827944d2b62b6fc114a09dba945e8a85"
+    },
+    "packages/perant_core/test/tasks_test.dart": {
+      "role": "index",
+      "sha256": "60fb6e42e8cce7af316712130c42f450013076f785822e31421c2624729c45ed",
+      "size": 7224,
+      "normalized_sha256": "60fb6e42e8cce7af316712130c42f450013076f785822e31421c2624729c45ed"
+    },
+    "packages/perant_gateway/README.md": {
+      "role": "index",
+      "sha256": "c15da03a85e0375a364583ba199a285d26e144a9bb712bce424925d3b785777d",
+      "size": 3287,
+      "normalized_sha256": "c15da03a85e0375a364583ba199a285d26e144a9bb712bce424925d3b785777d"
+    },
+    "packages/perant_gateway/lib/perant_gateway.dart": {
+      "role": "index",
+      "sha256": "d0e8740ebb886c3a69827d5bf5b0fbe8271daba0354b6dd40910f3e186098578",
+      "size": 105,
+      "normalized_sha256": "d0e8740ebb886c3a69827d5bf5b0fbe8271daba0354b6dd40910f3e186098578"
+    },
+    "packages/perant_gateway/lib/src/gateway.dart": {
+      "role": "index",
+      "sha256": "807216feb83b3377b55e4f5376da021768d3585d67aa301685988fedfcf18cc3",
+      "size": 7044,
+      "normalized_sha256": "807216feb83b3377b55e4f5376da021768d3585d67aa301685988fedfcf18cc3"
+    },
+    "packages/perant_gateway/lib/src/models.dart": {
+      "role": "index",
+      "sha256": "3dd01a9400cee91c4e7f896329373454300821cbd765a983cea1f6ee2e88909e",
+      "size": 7725,
+      "normalized_sha256": "3dd01a9400cee91c4e7f896329373454300821cbd765a983cea1f6ee2e88909e"
+    },
+    "packages/perant_gateway/lib/src/normalizer.dart": {
+      "role": "index",
+      "sha256": "827041ce340fbcd3729fee964ecd2601d8c45ce1fd1257208b067323c74fcb71",
+      "size": 9411,
+      "normalized_sha256": "827041ce340fbcd3729fee964ecd2601d8c45ce1fd1257208b067323c74fcb71"
+    },
+    "packages/perant_gateway/lib/src/sse.dart": {
+      "role": "index",
+      "sha256": "ae864aa7dca83bec0e8d357212f664204165e5d641f0f0549324b45ab5f74e3d",
+      "size": 3060,
+      "normalized_sha256": "ae864aa7dca83bec0e8d357212f664204165e5d641f0f0549324b45ab5f74e3d"
+    },
+    "packages/perant_gateway/pubspec.yaml": {
+      "role": "index",
+      "sha256": "1617e752e63a1dcd67c3c459e8d903fe506ddced10f699926646fda509741ccb",
+      "size": 263,
+      "normalized_sha256": "1617e752e63a1dcd67c3c459e8d903fe506ddced10f699926646fda509741ccb"
+    },
+    "packages/perant_gateway/test/gateway_test.dart": {
+      "role": "index",
+      "sha256": "5c4103533d45adbb75dac6b5ed2d00a00b6fca0d16310c3105fcf7ae49bd575c",
+      "size": 14417,
+      "normalized_sha256": "5c4103533d45adbb75dac6b5ed2d00a00b6fca0d16310c3105fcf7ae49bd575c"
+    },
+    "packages/perant_gateway/tool/live_check.dart": {
+      "role": "index",
+      "sha256": "6eba6905a1e15ddf5bd0e09dd9fa95c49201a98c0dff81a568686d9b045087b2",
+      "size": 8823,
+      "normalized_sha256": "6eba6905a1e15ddf5bd0e09dd9fa95c49201a98c0dff81a568686d9b045087b2"
+    },
+    "packages/perant_platform/LICENSE": {
+      "role": "index",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "size": 35149,
+      "normalized_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    "packages/perant_platform/README.md": {
+      "role": "index",
+      "sha256": "40475d2e5e05055154f9b18f0f33b0d821cdfc8f18c7c2843bc8378c99a842bc",
+      "size": 4187,
+      "normalized_sha256": "40475d2e5e05055154f9b18f0f33b0d821cdfc8f18c7c2843bc8378c99a842bc"
+    },
+    "packages/perant_platform/android/build.gradle.kts": {
+      "role": "index",
+      "sha256": "824beca8c5a21b19df6c287538de9971acc16278f9d2e54b9ce71c892640dd99",
+      "size": 1173,
+      "normalized_sha256": "824beca8c5a21b19df6c287538de9971acc16278f9d2e54b9ce71c892640dd99"
+    },
+    "packages/perant_platform/android/src/main/AndroidManifest.xml": {
+      "role": "index",
+      "sha256": "f3e713d34ee719e552df45fa1ffb3cf5fa30d50006c5079ea40ef3f0ddc856bf",
+      "size": 119,
+      "normalized_sha256": "f3e713d34ee719e552df45fa1ffb3cf5fa30d50006c5079ea40ef3f0ddc856bf"
+    },
+    "packages/perant_platform/android/src/main/cpp/CMakeLists.txt": {
+      "role": "index",
+      "sha256": "b11183d10ede82a433cc5f3bccbdd0a5ae16749abc908d8bbc30e04b689a2a84",
+      "size": 364,
+      "normalized_sha256": "b11183d10ede82a433cc5f3bccbdd0a5ae16749abc908d8bbc30e04b689a2a84"
+    },
+    "packages/perant_platform/android/src/main/cpp/perant_pty.c": {
+      "role": "index",
+      "sha256": "f3bbe2c96398f4b5597057b8864536cd2a8bb4b074dba74b002b7255a446e4ce",
+      "size": 11112,
+      "normalized_sha256": "f3bbe2c96398f4b5597057b8864536cd2a8bb4b074dba74b002b7255a446e4ce"
+    },
+    "packages/perant_platform/android/src/main/cpp/workspace_import.h": {
+      "role": "index",
+      "sha256": "6770c7e058442c6cde108e358da28e2cfbe87c8c8d11033f92f1e8dd33527afd",
+      "size": 4236,
+      "normalized_sha256": "6770c7e058442c6cde108e358da28e2cfbe87c8c8d11033f92f1e8dd33527afd"
+    },
+    "packages/perant_platform/android/src/main/desktop/start_desktop.sh": {
+      "role": "index",
+      "sha256": "5a4e3867a63d8256ee380ae75ab71568d4c68fbf759d3e339a3d6241bb84e73d",
+      "size": 30319,
+      "normalized_sha256": "5a4e3867a63d8256ee380ae75ab71568d4c68fbf759d3e339a3d6241bb84e73d"
+    },
+    "packages/perant_platform/android/src/main/kotlin/dev/perant/platform/AndroidLinuxRuntime.kt": {
+      "role": "index",
+      "sha256": "73b15e64d4348b6cf420c9676fbce0092124d595df2412c942ec0b006b567017",
+      "size": 25398,
+      "normalized_sha256": "73b15e64d4348b6cf420c9676fbce0092124d595df2412c942ec0b006b567017"
+    },
+    "packages/perant_platform/android/src/main/kotlin/dev/perant/platform/ComputerBrowser.kt": {
+      "role": "index",
+      "sha256": "94c1bb0a85944ab87520ac44a8e8e0f981299e316408ac477a4b8af0ff598303",
+      "size": 53727,
+      "normalized_sha256": "94c1bb0a85944ab87520ac44a8e8e0f981299e316408ac477a4b8af0ff598303"
+    },
+    "packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxBootstrap.kt": {
+      "role": "index",
+      "sha256": "31a620d600eb510287db517cd395dc6b3e60be2217bb195543fb26df1fb17a6d",
+      "size": 3674,
+      "normalized_sha256": "31a620d600eb510287db517cd395dc6b3e60be2217bb195543fb26df1fb17a6d"
+    },
+    "packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxDesktop.kt": {
+      "role": "index",
+      "sha256": "a500cb3f493c17a63d860feb2b959d650ea814ab692a91c7e04c99175fa58bf4",
+      "size": 6715,
+      "normalized_sha256": "a500cb3f493c17a63d860feb2b959d650ea814ab692a91c7e04c99175fa58bf4"
+    },
+    "packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxEnvironment.kt": {
+      "role": "index",
+      "sha256": "32fd21f99bef602e2ecd473964b3d6fb68a5b75ef9c6ba2eeb54db73394d3157",
+      "size": 53027,
+      "normalized_sha256": "32fd21f99bef602e2ecd473964b3d6fb68a5b75ef9c6ba2eeb54db73394d3157"
+    },
+    "packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxTextTasks.kt": {
+      "role": "index",
+      "sha256": "361fc741adbd288023e9ffa608f02fa4ded423b2e1c612a638e37f6f115f6c2b",
+      "size": 5236,
+      "normalized_sha256": "361fc741adbd288023e9ffa608f02fa4ded423b2e1c612a638e37f6f115f6c2b"
+    },
+    "packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxWorkspaceFiles.kt": {
+      "role": "index",
+      "sha256": "3071cae5f5d6288541e4301f7fd48e286c459689ff621c11ed443ef1d89ea252",
+      "size": 11079,
+      "normalized_sha256": "3071cae5f5d6288541e4301f7fd48e286c459689ff621c11ed443ef1d89ea252"
+    },
+    "packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxWorkspaceImport.kt": {
+      "role": "index",
+      "sha256": "1befff975f724378d43653c65fc4e667f3afffcc64c2628ec6fc970a1120b40f",
+      "size": 2547,
+      "normalized_sha256": "1befff975f724378d43653c65fc4e667f3afffcc64c2628ec6fc970a1120b40f"
+    },
+    "packages/perant_platform/android/src/main/kotlin/dev/perant/platform/NativePty.kt": {
+      "role": "index",
+      "sha256": "3839862552e2ba24b0ead7937132b4d7e0f2d93372f71195c7f18ee1e629ce24",
+      "size": 1160,
+      "normalized_sha256": "3839862552e2ba24b0ead7937132b4d7e0f2d93372f71195c7f18ee1e629ce24"
+    },
+    "packages/perant_platform/android/src/main/kotlin/dev/perant/platform/PerantPlatformPlugin.kt": {
+      "role": "index",
+      "sha256": "51d3137afe1485d90808fd07c5641f1d9172ff5821da14d94b476be3a630bedc",
+      "size": 14944,
+      "normalized_sha256": "51d3137afe1485d90808fd07c5641f1d9172ff5821da14d94b476be3a630bedc"
+    },
+    "packages/perant_platform/android/src/main/kotlin/dev/perant/platform/StaticHtmlPreview.kt": {
+      "role": "index",
+      "sha256": "b7e13c105ac4e88d114bdce1f3dba547d2f93baca1fa473edc13f305899bd897",
+      "size": 2732,
+      "normalized_sha256": "b7e13c105ac4e88d114bdce1f3dba547d2f93baca1fa473edc13f305899bd897"
+    },
+    "packages/perant_platform/android/src/main/python/text_to_markdown.py": {
+      "role": "index",
+      "sha256": "d21ea7642d402ebe4b014fa5719c55f3f35eca0fe5ee3964bc473b1cbd87d1ff",
+      "size": 4151,
+      "normalized_sha256": "d21ea7642d402ebe4b014fa5719c55f3f35eca0fe5ee3964bc473b1cbd87d1ff"
+    },
+    "packages/perant_platform/android/src/test/kotlin/dev/perant/platform/ComputerBrowserTest.kt": {
+      "role": "index",
+      "sha256": "295372c4727d2351c81fdf6a3f8e9710c7575c8bc915650ba0a75723b5424468",
+      "size": 7590,
+      "normalized_sha256": "295372c4727d2351c81fdf6a3f8e9710c7575c8bc915650ba0a75723b5424468"
+    },
+    "packages/perant_platform/android/src/test/kotlin/dev/perant/platform/LinuxDesktopTest.kt": {
+      "role": "index",
+      "sha256": "7f12285eefbcddc4c5ccd4dc6d0d3ab313eb9e08d90056a27d8f9b56966159b4",
+      "size": 4782,
+      "normalized_sha256": "7f12285eefbcddc4c5ccd4dc6d0d3ab313eb9e08d90056a27d8f9b56966159b4"
+    },
+    "packages/perant_platform/android/src/test/kotlin/dev/perant/platform/LinuxEnvironmentTest.kt": {
+      "role": "index",
+      "sha256": "3b319e96ac0fd3656cca7e9153fb40c684f0275a74d3f00273adce82d5fe187a",
+      "size": 21605,
+      "normalized_sha256": "3b319e96ac0fd3656cca7e9153fb40c684f0275a74d3f00273adce82d5fe187a"
+    },
+    "packages/perant_platform/android/src/test/kotlin/dev/perant/platform/LinuxTextTasksTest.kt": {
+      "role": "index",
+      "sha256": "5d5af61d2761c04062f450c3c12bffd883eecfe8ef8b69a174b52626b98c14b1",
+      "size": 10889,
+      "normalized_sha256": "5d5af61d2761c04062f450c3c12bffd883eecfe8ef8b69a174b52626b98c14b1"
+    },
+    "packages/perant_platform/android/src/test/kotlin/dev/perant/platform/LinuxWorkspaceFilesTest.kt": {
+      "role": "index",
+      "sha256": "14e7594ad725f6621da4b5d3f8a35d15f1eebf0ff5a1656230a20b1041b94ab4",
+      "size": 10791,
+      "normalized_sha256": "14e7594ad725f6621da4b5d3f8a35d15f1eebf0ff5a1656230a20b1041b94ab4"
+    },
+    "packages/perant_platform/android/src/test/kotlin/dev/perant/platform/LinuxWorkspaceImportTest.kt": {
+      "role": "index",
+      "sha256": "daa60a6c14c3d8456c04040724a6b01db967b7e577d0d2d420c7f1c3b4827ed1",
+      "size": 4848,
+      "normalized_sha256": "daa60a6c14c3d8456c04040724a6b01db967b7e577d0d2d420c7f1c3b4827ed1"
+    },
+    "packages/perant_platform/ios/perant_platform.podspec": {
+      "role": "index",
+      "sha256": "32b233d08a3165d58e75b7791372e9792afe73fb74a168f1d802c4d3c4347be7",
+      "size": 751,
+      "normalized_sha256": "32b233d08a3165d58e75b7791372e9792afe73fb74a168f1d802c4d3c4347be7"
+    },
+    "packages/perant_platform/ios/perant_platform/Package.swift": {
+      "role": "index",
+      "sha256": "f2fcc78536e10303afc37dda97ca07c553617f14de445400d1f2963f52f358a6",
+      "size": 583,
+      "normalized_sha256": "f2fcc78536e10303afc37dda97ca07c553617f14de445400d1f2963f52f358a6"
+    },
+    "packages/perant_platform/ios/perant_platform/Sources/perant_platform/PerantPlatformPlugin.swift": {
+      "role": "index",
+      "sha256": "74eb92c98d27a72b0c4d2c99ad847003c02509a6a46fe3dd688d7f57fdf25660",
+      "size": 2910,
+      "normalized_sha256": "74eb92c98d27a72b0c4d2c99ad847003c02509a6a46fe3dd688d7f57fdf25660"
+    },
+    "packages/perant_platform/lib/perant_platform.dart": {
+      "role": "index",
+      "sha256": "387f88390a56bf21417348150a9ebc8365015e1e77cb9bae634650eefe58dec8",
+      "size": 213,
+      "normalized_sha256": "387f88390a56bf21417348150a9ebc8365015e1e77cb9bae634650eefe58dec8"
+    },
+    "packages/perant_platform/lib/src/browser_bridge.dart": {
+      "role": "index",
+      "sha256": "fe048d7f6ae7c93854e80a8e38ccc782d9c0052f71c9681f5d22b3193a2398e3",
+      "size": 14198,
+      "normalized_sha256": "fe048d7f6ae7c93854e80a8e38ccc782d9c0052f71c9681f5d22b3193a2398e3"
+    },
+    "packages/perant_platform/lib/src/desktop_rfb.dart": {
+      "role": "index",
+      "sha256": "39b044509d5e6bca598f53199b97a67a4a67f89bf133c6d7609885e9db682b8f",
+      "size": 24922,
+      "normalized_sha256": "39b044509d5e6bca598f53199b97a67a4a67f89bf133c6d7609885e9db682b8f"
+    },
+    "packages/perant_platform/lib/src/models.dart": {
+      "role": "index",
+      "sha256": "2498e7c9e1828f7e07c5592df075e781280ebc40ea5aea1cc907ce9f2a34b061",
+      "size": 14174,
+      "normalized_sha256": "2498e7c9e1828f7e07c5592df075e781280ebc40ea5aea1cc907ce9f2a34b061"
+    },
+    "packages/perant_platform/lib/src/platform_bridge.dart": {
+      "role": "index",
+      "sha256": "f2ecd6dbed163616b27f8f2a9381c5f62faf291ae439db0d50ed04749a96496f",
+      "size": 19663,
+      "normalized_sha256": "f2ecd6dbed163616b27f8f2a9381c5f62faf291ae439db0d50ed04749a96496f"
+    },
+    "packages/perant_platform/lib/src/workspace_files.dart": {
+      "role": "index",
+      "sha256": "1d43af7281920e05740063619d2c47d0b8558fd07e83b9c868d69fb5256d97da",
+      "size": 6538,
+      "normalized_sha256": "1d43af7281920e05740063619d2c47d0b8558fd07e83b9c868d69fb5256d97da"
+    },
+    "packages/perant_platform/pubspec.yaml": {
+      "role": "index",
+      "sha256": "7babdf3aa9e4b1120dcc51314bb2a249c9afda4e1b265617ef241c7fb29470dc",
+      "size": 538,
+      "normalized_sha256": "7babdf3aa9e4b1120dcc51314bb2a249c9afda4e1b265617ef241c7fb29470dc"
+    },
+    "packages/perant_platform/test/browser_page_bridge_test.dart": {
+      "role": "index",
+      "sha256": "ae7c9fb132add126961bdce14007b0efa231d8a75ee92051424c2c4503ded134",
+      "size": 4922,
+      "normalized_sha256": "ae7c9fb132add126961bdce14007b0efa231d8a75ee92051424c2c4503ded134"
+    },
+    "packages/perant_platform/test/desktop_rfb_test.dart": {
+      "role": "index",
+      "sha256": "9615e0526a9bca0c56622f90801cc7ad05400ec9c5c6a977cf9a39c5248fb512",
+      "size": 15211,
+      "normalized_sha256": "9615e0526a9bca0c56622f90801cc7ad05400ec9c5c6a977cf9a39c5248fb512"
+    },
+    "packages/perant_platform/test/linux_bridge_test.dart": {
+      "role": "index",
+      "sha256": "ac81ebf27cdb4c2d1b1c044c9faf1b8e419bf615345a525efee584ee5c2eb9e9",
+      "size": 11778,
+      "normalized_sha256": "ac81ebf27cdb4c2d1b1c044c9faf1b8e419bf615345a525efee584ee5c2eb9e9"
+    },
+    "packages/perant_platform/test/linux_desktop_bridge_test.dart": {
+      "role": "index",
+      "sha256": "c9a1f403caf4d55f9a7576daeac182e80db1a11297f80ad68a8b1a1782a0911e",
+      "size": 5814,
+      "normalized_sha256": "c9a1f403caf4d55f9a7576daeac182e80db1a11297f80ad68a8b1a1782a0911e"
+    },
+    "packages/perant_platform/test/linux_text_task_bridge_test.dart": {
+      "role": "index",
+      "sha256": "dd0e8512a061d00ba7036138db6df55c146551196a80b55d94cd13483e4b7298",
+      "size": 14790,
+      "normalized_sha256": "dd0e8512a061d00ba7036138db6df55c146551196a80b55d94cd13483e4b7298"
+    },
+    "packages/perant_platform/test/linux_workspace_files_test.dart": {
+      "role": "index",
+      "sha256": "082caf60e51e58512340bbf5835eacc6fe3d331d9db3075dc2ea90c276182216",
+      "size": 9316,
+      "normalized_sha256": "082caf60e51e58512340bbf5835eacc6fe3d331d9db3075dc2ea90c276182216"
+    },
+    "packages/perant_platform/test/linux_workspace_import_test.dart": {
+      "role": "index",
+      "sha256": "10ad43b2f8596b65417858fd09c187def46c9c415f15b56743920a56d84cae33",
+      "size": 3737,
+      "normalized_sha256": "10ad43b2f8596b65417858fd09c187def46c9c415f15b56743920a56d84cae33"
+    },
+    "packages/perant_platform/test/platform_bridge_test.dart": {
+      "role": "index",
+      "sha256": "214d38adc1a416d7cab8f34c506f5e60c3bb4356e7945b4557dbe853260693fd",
+      "size": 4433,
+      "normalized_sha256": "214d38adc1a416d7cab8f34c506f5e60c3bb4356e7945b4557dbe853260693fd"
+    },
+    "pubspec.lock": {
+      "role": "index",
+      "sha256": "07feecbea42e40908bb9be2f4629ef012a980db5cae88cc072d6fff22084f422",
+      "size": 27008,
+      "normalized_sha256": "07feecbea42e40908bb9be2f4629ef012a980db5cae88cc072d6fff22084f422"
+    },
+    "pubspec.yaml": {
+      "role": "index",
+      "sha256": "55d85278a76fc74fb150835ccce3d58baad5b332dd809f553b0ceba2e05e4d1d",
+      "size": 186,
+      "normalized_sha256": "55d85278a76fc74fb150835ccce3d58baad5b332dd809f553b0ceba2e05e4d1d"
+    },
+    "third_party/linux/NOTICE.md": {
+      "role": "observe",
+      "sha256": "97d93a15623f4102b22376aaf9c99572db077bf5388eb0a5f9c3a8d5713cf7c7",
+      "size": 11581,
+      "normalized_sha256": "97d93a15623f4102b22376aaf9c99572db077bf5388eb0a5f9c3a8d5713cf7c7"
+    },
+    "third_party/linux/alpine-packages.json": {
+      "role": "observe",
+      "sha256": "780e27f6f27dcc34a626c0b22350ac4c7ad60be6a9ea2f7b86346c2af6c7d71c",
+      "size": 8135,
+      "normalized_sha256": "780e27f6f27dcc34a626c0b22350ac4c7ad60be6a9ea2f7b86346c2af6c7d71c"
+    },
+    "third_party/linux/desktop-packages.json": {
+      "role": "observe",
+      "sha256": "a1374f7c82b1ff638d7f5d06b1c29ee7c51dc13bc884bd72dac0163efb72d158",
+      "size": 380326,
+      "normalized_sha256": "a1374f7c82b1ff638d7f5d06b1c29ee7c51dc13bc884bd72dac0163efb72d158"
+    },
+    "third_party/linux/desktop-source-recipes.json": {
+      "role": "observe",
+      "sha256": "3de9d5162a8ade628fcf97278bccdb56b8ff7fe5c7e059f776e8f63015dfa17e",
+      "size": 128784,
+      "normalized_sha256": "3de9d5162a8ade628fcf97278bccdb56b8ff7fe5c7e059f776e8f63015dfa17e"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-AFL-2.1.txt": {
+      "role": "observe",
+      "sha256": "fbedf33db9a433cf87c6f0974f7e488599ee0c9446ed543235c99785ce7d22e6",
+      "size": 10602,
+      "normalized_sha256": "fbedf33db9a433cf87c6f0974f7e488599ee0c9446ed543235c99785ce7d22e6"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-Apache-2.0.txt": {
+      "role": "observe",
+      "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff",
+      "size": 10280,
+      "normalized_sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-Artistic-1.0-Perl.txt": {
+      "role": "observe",
+      "sha256": "9e18ef4d50faba562e3efa37d8961d6e9956d1c103bfc4fc1caeb07e8effe885",
+      "size": 6060,
+      "normalized_sha256": "9e18ef4d50faba562e3efa37d8961d6e9956d1c103bfc4fc1caeb07e8effe885"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-BSD-2-Clause.txt": {
+      "role": "observe",
+      "sha256": "f32fb3b417a194167cfad068223fc975ba96c5960513a10f66a3c28720aec1df",
+      "size": 1267,
+      "normalized_sha256": "f32fb3b417a194167cfad068223fc975ba96c5960513a10f66a3c28720aec1df"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-BSD-3-Clause-Attribution.txt": {
+      "role": "observe",
+      "sha256": "088b09c3bff4d190ca86eb8742ca494af321e3abd309c1c9ad9ccdd86dc5b3ef",
+      "size": 1646,
+      "normalized_sha256": "088b09c3bff4d190ca86eb8742ca494af321e3abd309c1c9ad9ccdd86dc5b3ef"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-BSD-3-Clause-Clear.txt": {
+      "role": "observe",
+      "sha256": "4495ed59005765e600a16457dc52a2d39757dbfeae081e68b59fe7c177c78589",
+      "size": 1676,
+      "normalized_sha256": "4495ed59005765e600a16457dc52a2d39757dbfeae081e68b59fe7c177c78589"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-BSD-3-Clause.txt": {
+      "role": "observe",
+      "sha256": "5a93d5831e1297ab10fe643e1a631e83be392896da14ee2951285a79012df69d",
+      "size": 1460,
+      "normalized_sha256": "5a93d5831e1297ab10fe643e1a631e83be392896da14ee2951285a79012df69d"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-BSD-4-Clause.txt": {
+      "role": "observe",
+      "sha256": "c80d927f03db7212ba43a869a383e249c19b40859ff0d9e2e2f968e4fdcf005f",
+      "size": 1618,
+      "normalized_sha256": "c80d927f03db7212ba43a869a383e249c19b40859ff0d9e2e2f968e4fdcf005f"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-BSL-1.0.txt": {
+      "role": "observe",
+      "sha256": "84c6ef3ea9e3254a54d0acf5d3e0c61ae011b8fef7dd6940591cf060e6380a8f",
+      "size": 1338,
+      "normalized_sha256": "84c6ef3ea9e3254a54d0acf5d3e0c61ae011b8fef7dd6940591cf060e6380a8f"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-Beerware.txt": {
+      "role": "observe",
+      "sha256": "991d8a58e0b4be84a174a9bd333a8ca33807a0c1ce6d23a2e25a21f7ece482d0",
+      "size": 266,
+      "normalized_sha256": "991d8a58e0b4be84a174a9bd333a8ca33807a0c1ce6d23a2e25a21f7ece482d0"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-Bitstream-Vera.txt": {
+      "role": "observe",
+      "sha256": "5b3b4d3cef4029bda987a71f4bfb6087e40c5e91a2cb853fe7f6ccb78d9d8e38",
+      "size": 2318,
+      "normalized_sha256": "5b3b4d3cef4029bda987a71f4bfb6087e40c5e91a2cb853fe7f6ccb78d9d8e38"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-CC-BY-SA-3.0.txt": {
+      "role": "observe",
+      "sha256": "3f941b3b89cf7b8370ceb83cc76d2120d471b58735d8ca60238a751a48d7f72f",
+      "size": 22240,
+      "normalized_sha256": "3f941b3b89cf7b8370ceb83cc76d2120d471b58735d8ca60238a751a48d7f72f"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-CC0-1.0.txt": {
+      "role": "observe",
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "size": 7048,
+      "normalized_sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-FDK-AAC.txt": {
+      "role": "observe",
+      "sha256": "c90edceefc6bd9352cc44912a94fcf74a683d918a3995deadefbf10a6770f6c2",
+      "size": 4447,
+      "normalized_sha256": "c90edceefc6bd9352cc44912a94fcf74a683d918a3995deadefbf10a6770f6c2"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-FTL.txt": {
+      "role": "observe",
+      "sha256": "ced6622122ce451cb1ea0c3c3f507a640e2a44c075c04900ddd9fae8acb5369f",
+      "size": 5979,
+      "normalized_sha256": "ced6622122ce451cb1ea0c3c3f507a640e2a44c075c04900ddd9fae8acb5369f"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-GPL-1.0-or-later.txt": {
+      "role": "observe",
+      "sha256": "da37ffd5fcdf0a7d76af862a4330ea1076e1443b51782b2f912148357b7acabe",
+      "size": 12235,
+      "normalized_sha256": "da37ffd5fcdf0a7d76af862a4330ea1076e1443b51782b2f912148357b7acabe"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-GPL-2.0-only.txt": {
+      "role": "observe",
+      "sha256": "aaf135472f81c5b4a0dca9367e5bb5e9750032b5bebe5442b36e4c0a47430df3",
+      "size": 17337,
+      "normalized_sha256": "aaf135472f81c5b4a0dca9367e5bb5e9750032b5bebe5442b36e4c0a47430df3"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-GPL-2.0-or-later.txt": {
+      "role": "observe",
+      "sha256": "aaf135472f81c5b4a0dca9367e5bb5e9750032b5bebe5442b36e4c0a47430df3",
+      "size": 17337,
+      "normalized_sha256": "aaf135472f81c5b4a0dca9367e5bb5e9750032b5bebe5442b36e4c0a47430df3"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-GPL-3.0-only.txt": {
+      "role": "observe",
+      "sha256": "fb981668c18a279e285fc4d83fba1e836cc84dd4daa73c9697d3cfd2d8aca6e0",
+      "size": 34674,
+      "normalized_sha256": "fb981668c18a279e285fc4d83fba1e836cc84dd4daa73c9697d3cfd2d8aca6e0"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-GPL-3.0-or-later.txt": {
+      "role": "observe",
+      "sha256": "fb981668c18a279e285fc4d83fba1e836cc84dd4daa73c9697d3cfd2d8aca6e0",
+      "size": 34674,
+      "normalized_sha256": "fb981668c18a279e285fc4d83fba1e836cc84dd4daa73c9697d3cfd2d8aca6e0"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-HPND-sell-variant.txt": {
+      "role": "observe",
+      "sha256": "235abc578371bf9861e3d6eee0a9ad16228f9be18408e17fc569c6a98ba69d5f",
+      "size": 1102,
+      "normalized_sha256": "235abc578371bf9861e3d6eee0a9ad16228f9be18408e17fc569c6a98ba69d5f"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-HPND.txt": {
+      "role": "observe",
+      "sha256": "4d9ae4a36816338dfa153d1d6f92645c45f25eaa46908d3096922e2431fb571e",
+      "size": 1187,
+      "normalized_sha256": "4d9ae4a36816338dfa153d1d6f92645c45f25eaa46908d3096922e2431fb571e"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-ICU.txt": {
+      "role": "observe",
+      "sha256": "c7922dccc709c9e19ab6ba970fe00af174229484b05160fb07a3913f4d04cf50",
+      "size": 1597,
+      "normalized_sha256": "c7922dccc709c9e19ab6ba970fe00af174229484b05160fb07a3913f4d04cf50"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-IJG.txt": {
+      "role": "observe",
+      "sha256": "7658542977bfdced9e1059a6c934ce4281de76d103b831007b825917dc62511a",
+      "size": 4244,
+      "normalized_sha256": "7658542977bfdced9e1059a6c934ce4281de76d103b831007b825917dc62511a"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-ISC.txt": {
+      "role": "observe",
+      "sha256": "521c6f0ed8e64736684f89843d16a4df6b4b7449acbcfc6ca6630a3037ca8c53",
+      "size": 737,
+      "normalized_sha256": "521c6f0ed8e64736684f89843d16a4df6b4b7449acbcfc6ca6630a3037ca8c53"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-LGPL-2.0-only.txt": {
+      "role": "observe",
+      "sha256": "86dc99d7e5060915ab1dfc1378b7dd351c62088bfa74067e8aa1868c6fdba7d8",
+      "size": 24877,
+      "normalized_sha256": "86dc99d7e5060915ab1dfc1378b7dd351c62088bfa74067e8aa1868c6fdba7d8"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-LGPL-2.0-or-later.txt": {
+      "role": "observe",
+      "sha256": "86dc99d7e5060915ab1dfc1378b7dd351c62088bfa74067e8aa1868c6fdba7d8",
+      "size": 24877,
+      "normalized_sha256": "86dc99d7e5060915ab1dfc1378b7dd351c62088bfa74067e8aa1868c6fdba7d8"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-LGPL-2.1-only.txt": {
+      "role": "observe",
+      "sha256": "5749785c8bdefafcb5d798270ed0a967036fe2ca63dcedade1627565dfef81d2",
+      "size": 26001,
+      "normalized_sha256": "5749785c8bdefafcb5d798270ed0a967036fe2ca63dcedade1627565dfef81d2"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-LGPL-2.1-or-later.txt": {
+      "role": "observe",
+      "sha256": "5749785c8bdefafcb5d798270ed0a967036fe2ca63dcedade1627565dfef81d2",
+      "size": 26001,
+      "normalized_sha256": "5749785c8bdefafcb5d798270ed0a967036fe2ca63dcedade1627565dfef81d2"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-LGPL-3.0-only.txt": {
+      "role": "observe",
+      "sha256": "996af0513df21f7496288951c41428a03c174e9e4a9d63665c57d670f845ccb1",
+      "size": 42098,
+      "normalized_sha256": "996af0513df21f7496288951c41428a03c174e9e4a9d63665c57d670f845ccb1"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-LGPL-3.0-or-later.txt": {
+      "role": "observe",
+      "sha256": "996af0513df21f7496288951c41428a03c174e9e4a9d63665c57d670f845ccb1",
+      "size": 42098,
+      "normalized_sha256": "996af0513df21f7496288951c41428a03c174e9e4a9d63665c57d670f845ccb1"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-Libpng.txt": {
+      "role": "observe",
+      "sha256": "7667a8c88c7a63690244988d626bcddd27ed895526e2c3ab1a9adb463a5fa287",
+      "size": 4218,
+      "normalized_sha256": "7667a8c88c7a63690244988d626bcddd27ed895526e2c3ab1a9adb463a5fa287"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-MIT-open-group.txt": {
+      "role": "observe",
+      "sha256": "d5942d51b7e079b0eab4d6f9e06f1b8625f918b8802117a9c3127c004c5df9b6",
+      "size": 1136,
+      "normalized_sha256": "d5942d51b7e079b0eab4d6f9e06f1b8625f918b8802117a9c3127c004c5df9b6"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-MIT.txt": {
+      "role": "observe",
+      "sha256": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5",
+      "size": 1078,
+      "normalized_sha256": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-MPL-1.1.txt": {
+      "role": "observe",
+      "sha256": "6214f8b1300bb9f37b16ebc146f8f61af0187e0025042ff95c8b3030744a8795",
+      "size": 23669,
+      "normalized_sha256": "6214f8b1300bb9f37b16ebc146f8f61af0187e0025042ff95c8b3030744a8795"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-MPL-2.0.txt": {
+      "role": "observe",
+      "sha256": "66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172",
+      "size": 16727,
+      "normalized_sha256": "66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-OLDAP-2.8.txt": {
+      "role": "observe",
+      "sha256": "bf30f8254b6698a79e867d0a7d641bbbd3460f7c2f16cab9c6816718815c2ded",
+      "size": 2195,
+      "normalized_sha256": "bf30f8254b6698a79e867d0a7d641bbbd3460f7c2f16cab9c6816718815c2ded"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-Qt-GPL-exception-1.0.txt": {
+      "role": "observe",
+      "sha256": "fad799fdc248a52b9c0fa17823b6d4bc9907a19d6e8c78b8a071c9b551ea9c60",
+      "size": 964,
+      "normalized_sha256": "fad799fdc248a52b9c0fa17823b6d4bc9907a19d6e8c78b8a071c9b551ea9c60"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-SGI-B-2.0.txt": {
+      "role": "observe",
+      "sha256": "cbe043cc819b6afbac13c11d83c8bdcd566d1539881f17cab28615edd7af3acf",
+      "size": 1503,
+      "normalized_sha256": "cbe043cc819b6afbac13c11d83c8bdcd566d1539881f17cab28615edd7af3acf"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-TU-Berlin-2.0.txt": {
+      "role": "observe",
+      "sha256": "765c0f8c765bf95b48bd6ab14a10bf06d76941b5079502fe385f847aaf8128ec",
+      "size": 1369,
+      "normalized_sha256": "765c0f8c765bf95b48bd6ab14a10bf06d76941b5079502fe385f847aaf8128ec"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-X11.txt": {
+      "role": "observe",
+      "sha256": "e1963c9958b93bc2578b34f8ae22cfe205e8c0e7d5be7235cfdbdefbf92a5423",
+      "size": 1338,
+      "normalized_sha256": "e1963c9958b93bc2578b34f8ae22cfe205e8c0e7d5be7235cfdbdefbf92a5423"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-XFree86-1.1.txt": {
+      "role": "observe",
+      "sha256": "f87e1172d544674ad152378494a267e8260005b45ecfaf240af8b3bddae1eac8",
+      "size": 2398,
+      "normalized_sha256": "f87e1172d544674ad152378494a267e8260005b45ecfaf240af8b3bddae1eac8"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-Zlib.txt": {
+      "role": "observe",
+      "sha256": "bfb1112d49db5b1daecdfef24bd7e2f3ea0bafb33aa67aa0ab51e2bf8407c03d",
+      "size": 838,
+      "normalized_sha256": "bfb1112d49db5b1daecdfef24bd7e2f3ea0bafb33aa67aa0ab51e2bf8407c03d"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-curl.txt": {
+      "role": "observe",
+      "sha256": "272d1239bdcef73bb98bac206168ca1040bd4a31296755fadfb7515bcea18df3",
+      "size": 1043,
+      "normalized_sha256": "272d1239bdcef73bb98bac206168ca1040bd4a31296755fadfb7515bcea18df3"
+    },
+    "third_party/linux/licenses/Desktop-SPDX-libtiff.txt": {
+      "role": "observe",
+      "sha256": "a6ecaa20c8c1b7a8215ed05e5f58764f821596e36d31acc05282c6154cf0dc44",
+      "size": 1139,
+      "normalized_sha256": "a6ecaa20c8c1b7a8215ed05e5f58764f821596e36d31acc05282c6154cf0dc44"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuMathTeXGyre.ttf.txt": {
+      "role": "observe",
+      "sha256": "71c45968427a04635e73e33a83c728e90461461b28787f1a549b64f1c15fd907",
+      "size": 476,
+      "normalized_sha256": "71c45968427a04635e73e33a83c728e90461461b28787f1a549b64f1c15fd907"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSans-Bold.ttf.txt": {
+      "role": "observe",
+      "sha256": "4f90d7148c1d8dd57b6c2d248b592a3d09a11859e15ec4dcef6f5447c2d52a35",
+      "size": 5211,
+      "normalized_sha256": "4f90d7148c1d8dd57b6c2d248b592a3d09a11859e15ec4dcef6f5447c2d52a35"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSans-BoldOblique.ttf.txt": {
+      "role": "observe",
+      "sha256": "fc39bee37bc2eef62e84b0f788cf82cfde56e427269879477d2f91e03ddd0f8c",
+      "size": 5218,
+      "normalized_sha256": "fc39bee37bc2eef62e84b0f788cf82cfde56e427269879477d2f91e03ddd0f8c"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSans-ExtraLight.ttf.txt": {
+      "role": "observe",
+      "sha256": "ba44b3dc4b16e529f34dc0b639178e0e62b09f111012c9171025a83a937bf51e",
+      "size": 2846,
+      "normalized_sha256": "ba44b3dc4b16e529f34dc0b639178e0e62b09f111012c9171025a83a937bf51e"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSans-Oblique.ttf.txt": {
+      "role": "observe",
+      "sha256": "43388258e112efc1ff1a7a84d95d4c765d29ca9a7d21b6dbbb0a8479a008ddb7",
+      "size": 5214,
+      "normalized_sha256": "43388258e112efc1ff1a7a84d95d4c765d29ca9a7d21b6dbbb0a8479a008ddb7"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSans.ttf.txt": {
+      "role": "observe",
+      "sha256": "fb6d7d92dc7338aeaeaa5135cf3de332ca6ba4a07947732f1fdddbbf29ac8268",
+      "size": 5206,
+      "normalized_sha256": "fb6d7d92dc7338aeaeaa5135cf3de332ca6ba4a07947732f1fdddbbf29ac8268"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSansCondensed-Bold.ttf.txt": {
+      "role": "observe",
+      "sha256": "15e1a790faf9d32ce5f9cb92f0a78b41485896af5949734f918594be6e7d5d54",
+      "size": 5220,
+      "normalized_sha256": "15e1a790faf9d32ce5f9cb92f0a78b41485896af5949734f918594be6e7d5d54"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSansCondensed-BoldOblique.ttf.txt": {
+      "role": "observe",
+      "sha256": "2b9088a2b8cd46d26d37d4be2e60ec4b5cf46c55b60a4e9a7f07dabdf6a6219d",
+      "size": 5227,
+      "normalized_sha256": "2b9088a2b8cd46d26d37d4be2e60ec4b5cf46c55b60a4e9a7f07dabdf6a6219d"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSansCondensed-Oblique.ttf.txt": {
+      "role": "observe",
+      "sha256": "85ce83bb64cb3dc1fae625202561c2941203a4e4956d7a64fe7f36e88aa81c21",
+      "size": 5223,
+      "normalized_sha256": "85ce83bb64cb3dc1fae625202561c2941203a4e4956d7a64fe7f36e88aa81c21"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSansCondensed.ttf.txt": {
+      "role": "observe",
+      "sha256": "14815afc9ca7bfdf019219d62c660477077d42098b2cc0985c0577e782a3fdcf",
+      "size": 5215,
+      "normalized_sha256": "14815afc9ca7bfdf019219d62c660477077d42098b2cc0985c0577e782a3fdcf"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSansMono-Bold.ttf.txt": {
+      "role": "observe",
+      "sha256": "e4f39cbb93d8d2c583af0aadf6c07e7284b7304f09ae7450abe413b7af87539d",
+      "size": 2844,
+      "normalized_sha256": "e4f39cbb93d8d2c583af0aadf6c07e7284b7304f09ae7450abe413b7af87539d"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSansMono-BoldOblique.ttf.txt": {
+      "role": "observe",
+      "sha256": "4cd974be56087c5848229853716a54a3d53d8ba9a3c3f2804b836dc5fb3c3525",
+      "size": 2851,
+      "normalized_sha256": "4cd974be56087c5848229853716a54a3d53d8ba9a3c3f2804b836dc5fb3c3525"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSansMono-Oblique.ttf.txt": {
+      "role": "observe",
+      "sha256": "9ffdd59ea8bf80586c03f2cc99ceb422c8758aa329385424d31eeec5fab50830",
+      "size": 2847,
+      "normalized_sha256": "9ffdd59ea8bf80586c03f2cc99ceb422c8758aa329385424d31eeec5fab50830"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSansMono.ttf.txt": {
+      "role": "observe",
+      "sha256": "c6e3246173cd5ed09d57f8afe6fbca0b496826704c40f5b2e30b6053a9bbd3e4",
+      "size": 2839,
+      "normalized_sha256": "c6e3246173cd5ed09d57f8afe6fbca0b496826704c40f5b2e30b6053a9bbd3e4"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSerif-Bold.ttf.txt": {
+      "role": "observe",
+      "sha256": "0d93f319a131c1819a9eb5bfc27296e04e1b53dd83933868010cafff3d5b28f0",
+      "size": 2841,
+      "normalized_sha256": "0d93f319a131c1819a9eb5bfc27296e04e1b53dd83933868010cafff3d5b28f0"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSerif-BoldItalic.ttf.txt": {
+      "role": "observe",
+      "sha256": "aa3394ac03f422112f6682b4e55655ec8eddd1a3b2ec552a764807ddaea8ab16",
+      "size": 2847,
+      "normalized_sha256": "aa3394ac03f422112f6682b4e55655ec8eddd1a3b2ec552a764807ddaea8ab16"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSerif-Italic.ttf.txt": {
+      "role": "observe",
+      "sha256": "136fc984e37682b2a4f0b3915923975fd51932806ca31001db8f13656a7c80ec",
+      "size": 2843,
+      "normalized_sha256": "136fc984e37682b2a4f0b3915923975fd51932806ca31001db8f13656a7c80ec"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSerif.ttf.txt": {
+      "role": "observe",
+      "sha256": "6dbd37d921fbb21769ef03c1007f8608fd64a9779cfd543a3c90c6e5c4c79626",
+      "size": 2836,
+      "normalized_sha256": "6dbd37d921fbb21769ef03c1007f8608fd64a9779cfd543a3c90c6e5c4c79626"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSerifCondensed-Bold.ttf.txt": {
+      "role": "observe",
+      "sha256": "b3de91eb06d5f7aa8eb1c9d1ad0018b5c10a3e3e2920f0206baba42530447435",
+      "size": 2850,
+      "normalized_sha256": "b3de91eb06d5f7aa8eb1c9d1ad0018b5c10a3e3e2920f0206baba42530447435"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSerifCondensed-BoldItalic.ttf.txt": {
+      "role": "observe",
+      "sha256": "2a53313f87726ad7f8cbf6e8c9c3f1f934db54edd5dbef6be02fc8f878c987db",
+      "size": 2856,
+      "normalized_sha256": "2a53313f87726ad7f8cbf6e8c9c3f1f934db54edd5dbef6be02fc8f878c987db"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSerifCondensed-Italic.ttf.txt": {
+      "role": "observe",
+      "sha256": "534d19306c68b38aeae74fcc9559b9feaeecd6d062f7da8a1dc513632b318f05",
+      "size": 2852,
+      "normalized_sha256": "534d19306c68b38aeae74fcc9559b9feaeecd6d062f7da8a1dc513632b318f05"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-dejavu-DejaVuSerifCondensed.ttf.txt": {
+      "role": "observe",
+      "sha256": "5f2f46c0ec1e39f19522319728f45e2b941a4660758a753e44ce84032bf50bd4",
+      "size": 2845,
+      "normalized_sha256": "5f2f46c0ec1e39f19522319728f45e2b941a4660758a753e44ce84032bf50bd4"
+    },
+    "third_party/linux/licenses/Desktop-font-notice-font-wqy-zenhei-wqy-zenhei.ttc.txt": {
+      "role": "observe",
+      "sha256": "61935d143356279e504f23d3d9aa38013b8e1db5453a0f663f77d24b74f32440",
+      "size": 490,
+      "normalized_sha256": "61935d143356279e504f23d3d9aa38013b8e1db5453a0f663f77d24b74f32440"
+    },
+    "third_party/linux/licenses/Desktop-notice-adwaita-icon-theme-doc-usr_share_licenses_adwaita-icon-theme_COPYING.txt": {
+      "role": "observe",
+      "sha256": "51f83b2b4e9ed2beebc9b8eed2ecad29314a58ed8c5184b22ad8f9df703d3ce5",
+      "size": 453,
+      "normalized_sha256": "51f83b2b4e9ed2beebc9b8eed2ecad29314a58ed8c5184b22ad8f9df703d3ce5"
+    },
+    "third_party/linux/licenses/Desktop-notice-adwaita-icon-theme-doc-usr_share_licenses_adwaita-icon-theme_COPYING_CCBYSA3.txt": {
+      "role": "observe",
+      "sha256": "207fe75c396c0ae197c57d42c727163428b6667d98cef3644e41c6f1afe1895f",
+      "size": 409,
+      "normalized_sha256": "207fe75c396c0ae197c57d42c727163428b6667d98cef3644e41c6f1afe1895f"
+    },
+    "third_party/linux/licenses/Desktop-notice-adwaita-icon-theme-doc-usr_share_licenses_adwaita-icon-theme_COPYING_LGPL.txt": {
+      "role": "observe",
+      "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768",
+      "size": 7651,
+      "normalized_sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768"
+    },
+    "third_party/linux/licenses/Desktop-notice-aom-doc-usr_share_doc_aom_LICENSE.txt": {
+      "role": "observe",
+      "sha256": "4764a286d8b2faeaf42f4418e7d7a28d58fc8fd4d00a3d0a7f44b0a4099de7f2",
+      "size": 1316,
+      "normalized_sha256": "4764a286d8b2faeaf42f4418e7d7a28d58fc8fd4d00a3d0a7f44b0a4099de7f2"
+    },
+    "third_party/linux/licenses/Desktop-notice-boost1.84-doc-usr_share_licenses_boost1.84_LICENSE_1_0.txt.txt": {
+      "role": "observe",
+      "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566",
+      "size": 1338,
+      "normalized_sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566"
+    },
+    "third_party/linux/licenses/Desktop-notice-cups-doc-usr_share_cups_help_license.html.txt": {
+      "role": "observe",
+      "sha256": "e5105af30e35b0254dd922310d31ae897763ee65fac12544079fb3260e491f76",
+      "size": 12066,
+      "normalized_sha256": "e5105af30e35b0254dd922310d31ae897763ee65fac12544079fb3260e491f76"
+    },
+    "third_party/linux/licenses/Desktop-notice-cyrus-sasl-doc-usr_share_licenses_cyrus-sasl_COPYING.txt": {
+      "role": "observe",
+      "sha256": "9d6e5d1632140a6c135b251260953650d17d87cd1124f87aaf72192aa4580d4b",
+      "size": 1861,
+      "normalized_sha256": "9d6e5d1632140a6c135b251260953650d17d87cd1124f87aaf72192aa4580d4b"
+    },
+    "third_party/linux/licenses/Desktop-notice-duktape-doc-usr_share_licenses_duktape_AUTHORS.rst.txt": {
+      "role": "observe",
+      "sha256": "524cb94c58a5a8d219f19e013234375c14868824e7010e24317be9701a5596d7",
+      "size": 4343,
+      "normalized_sha256": "524cb94c58a5a8d219f19e013234375c14868824e7010e24317be9701a5596d7"
+    },
+    "third_party/linux/licenses/Desktop-notice-duktape-doc-usr_share_licenses_duktape_LICENSE.txt.txt": {
+      "role": "observe",
+      "sha256": "c6b6659630ca6cb837afe982ecc79511bfca878b56296d628b02eb6f18789c29",
+      "size": 1175,
+      "normalized_sha256": "c6b6659630ca6cb837afe982ecc79511bfca878b56296d628b02eb6f18789c29"
+    },
+    "third_party/linux/licenses/Desktop-notice-fdk-aac-doc-usr_share_licenses_libfdk-aac_NOTICE.txt": {
+      "role": "observe",
+      "sha256": "95ec80da40b4af12ad4c4f3158c9cfb80f2479f3246e4260cb600827cc8c7836",
+      "size": 4447,
+      "normalized_sha256": "95ec80da40b4af12ad4c4f3158c9cfb80f2479f3246e4260cb600827cc8c7836"
+    },
+    "third_party/linux/licenses/Desktop-notice-flac-doc-usr_share_licenses_flac_COPYING.Xiph.txt": {
+      "role": "observe",
+      "sha256": "12600ea1a7affcbf469bd0d8b2cd725e4167114a2ee834b88f5d2857bfd7ddbf",
+      "size": 1509,
+      "normalized_sha256": "12600ea1a7affcbf469bd0d8b2cd725e4167114a2ee834b88f5d2857bfd7ddbf"
+    },
+    "third_party/linux/licenses/Desktop-notice-gtk4.0-doc-usr_share_doc_gdk4_const.KEY_copyright.html.txt": {
+      "role": "observe",
+      "sha256": "95bfe4551bb73a27a8a76ce55275099dc4398a10c55a5b4e1017d2f12930cd2d",
+      "size": 3535,
+      "normalized_sha256": "95bfe4551bb73a27a8a76ce55275099dc4398a10c55a5b4e1017d2f12930cd2d"
+    },
+    "third_party/linux/licenses/Desktop-notice-gtk4.0-doc-usr_share_doc_gdk4_const.KEY_phonographcopyright.html.txt": {
+      "role": "observe",
+      "sha256": "0300047b9146dabb695f9d9b66c21fe879f0cd8cdfebf383bea5ee918369c041",
+      "size": 3626,
+      "normalized_sha256": "0300047b9146dabb695f9d9b66c21fe879f0cd8cdfebf383bea5ee918369c041"
+    },
+    "third_party/linux/licenses/Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_enum.License.html.txt": {
+      "role": "observe",
+      "sha256": "d38194e92fd6d4f0960879462640cfadffd0fe4b42e6d36882b8d362460b3f03",
+      "size": 12318,
+      "normalized_sha256": "d38194e92fd6d4f0960879462640cfadffd0fe4b42e6d36882b8d362460b3f03"
+    },
+    "third_party/linux/licenses/Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.get_authors.html.txt": {
+      "role": "observe",
+      "sha256": "a61b75c713c2e882ee016315ded7e41eed5d0b36792aa7a27847190c626f02a7",
+      "size": 8640,
+      "normalized_sha256": "a61b75c713c2e882ee016315ded7e41eed5d0b36792aa7a27847190c626f02a7"
+    },
+    "third_party/linux/licenses/Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.get_copyright.html.txt": {
+      "role": "observe",
+      "sha256": "7910e8cc0bb872da51ccff710c5d1abb0991bba79d5fa3e9e29b4d4264909579",
+      "size": 8477,
+      "normalized_sha256": "7910e8cc0bb872da51ccff710c5d1abb0991bba79d5fa3e9e29b4d4264909579"
+    },
+    "third_party/linux/licenses/Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.get_license.html.txt": {
+      "role": "observe",
+      "sha256": "fddfb32ce724963cad11d05620783aa8ca26245684998b86803ea14f1b5c09ad",
+      "size": 8465,
+      "normalized_sha256": "fddfb32ce724963cad11d05620783aa8ca26245684998b86803ea14f1b5c09ad"
+    },
+    "third_party/linux/licenses/Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.get_license_type.html.txt": {
+      "role": "observe",
+      "sha256": "08aad515d3f02b3f47889fa486c7ca6a77fbef6157ec44821dbe80ee3e30b193",
+      "size": 8300,
+      "normalized_sha256": "08aad515d3f02b3f47889fa486c7ca6a77fbef6157ec44821dbe80ee3e30b193"
+    },
+    "third_party/linux/licenses/Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.get_wrap_license.html.txt": {
+      "role": "observe",
+      "sha256": "c249652d26809aecca95f0d86535e90880cde84ce04021e605fa667bbef31cd0",
+      "size": 8300,
+      "normalized_sha256": "c249652d26809aecca95f0d86535e90880cde84ce04021e605fa667bbef31cd0"
+    },
+    "third_party/linux/licenses/Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.set_authors.html.txt": {
+      "role": "observe",
+      "sha256": "fe923a6befef62fc2d0117b088a95d3e2a81fadcede1b72ca7d52b449c1ef9e0",
+      "size": 8798,
+      "normalized_sha256": "fe923a6befef62fc2d0117b088a95d3e2a81fadcede1b72ca7d52b449c1ef9e0"
+    },
+    "third_party/linux/licenses/Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.set_copyright.html.txt": {
+      "role": "observe",
+      "sha256": "28f58f8b7e102e946a93aec85bd277f3dc45fc91c300adab932cc78b89e2038b",
+      "size": 8802,
+      "normalized_sha256": "28f58f8b7e102e946a93aec85bd277f3dc45fc91c300adab932cc78b89e2038b"
+    },
+    "third_party/linux/licenses/Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.set_license.html.txt": {
+      "role": "observe",
+      "sha256": "cebd1a91404ba9903640023460b9d4f52f475d435d2f6b3405903fdde908e609",
+      "size": 8814,
+      "normalized_sha256": "cebd1a91404ba9903640023460b9d4f52f475d435d2f6b3405903fdde908e609"
+    },
+    "third_party/linux/licenses/Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.set_license_type.html.txt": {
+      "role": "observe",
+      "sha256": "327f6ebaedc85224a4eca9bcb9d8cadcb271ce457571fe7088469ec498ec45c5",
+      "size": 8709,
+      "normalized_sha256": "327f6ebaedc85224a4eca9bcb9d8cadcb271ce457571fe7088469ec498ec45c5"
+    },
+    "third_party/linux/licenses/Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_method.AboutDialog.set_wrap_license.html.txt": {
+      "role": "observe",
+      "sha256": "9fd1d2f5ba4fed67c0c4abd23532e4fce389ac9a83f000d1cdc22accdce00171",
+      "size": 8524,
+      "normalized_sha256": "9fd1d2f5ba4fed67c0c4abd23532e4fce389ac9a83f000d1cdc22accdce00171"
+    },
+    "third_party/linux/licenses/Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_property.AboutDialog.authors.html.txt": {
+      "role": "observe",
+      "sha256": "60c9a47b67c54408955bc99a58a8ddf636667c5736684033d2a2ba0352e1f979",
+      "size": 6190,
+      "normalized_sha256": "60c9a47b67c54408955bc99a58a8ddf636667c5736684033d2a2ba0352e1f979"
+    },
+    "third_party/linux/licenses/Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_property.AboutDialog.copyright.html.txt": {
+      "role": "observe",
+      "sha256": "79adb39f71e1115608d5f243c84e046eb12a778fff58d61824205b22142aa499",
+      "size": 6132,
+      "normalized_sha256": "79adb39f71e1115608d5f243c84e046eb12a778fff58d61824205b22142aa499"
+    },
+    "third_party/linux/licenses/Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_property.AboutDialog.license-type.html.txt": {
+      "role": "observe",
+      "sha256": "85fd4a14d14028ed02151f949ba1810758208861bcaf7a4839f181ae8b786af0",
+      "size": 7096,
+      "normalized_sha256": "85fd4a14d14028ed02151f949ba1810758208861bcaf7a4839f181ae8b786af0"
+    },
+    "third_party/linux/licenses/Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_property.AboutDialog.license.html.txt": {
+      "role": "observe",
+      "sha256": "d791b5ec9bcdf804928656c49857ce3087d8ac740e2a46d9b215e873750fce43",
+      "size": 6958,
+      "normalized_sha256": "d791b5ec9bcdf804928656c49857ce3087d8ac740e2a46d9b215e873750fce43"
+    },
+    "third_party/linux/licenses/Desktop-notice-gtk4.0-doc-usr_share_doc_gtk4_property.AboutDialog.wrap-license.html.txt": {
+      "role": "observe",
+      "sha256": "96b8f451fc8222eec9d7a3c0efc001cd8e374cba70ef752662bef44516099756",
+      "size": 6181,
+      "normalized_sha256": "96b8f451fc8222eec9d7a3c0efc001cd8e374cba70ef752662bef44516099756"
+    },
+    "third_party/linux/licenses/Desktop-notice-icu-doc-usr_share_licenses_icu_license.html.txt": {
+      "role": "observe",
+      "sha256": "c62d7697c03979f5056d28b338fafc7a1152820f7b379adf4a9d88cd37160f96",
+      "size": 622,
+      "normalized_sha256": "c62d7697c03979f5056d28b338fafc7a1152820f7b379adf4a9d88cd37160f96"
+    },
+    "third_party/linux/licenses/Desktop-notice-libdvdcss-doc-usr_share_doc_libdvdcss_AUTHORS.txt": {
+      "role": "observe",
+      "sha256": "b2de31ac3382bbadd18eb2f9abea4e209372c62bdf722c96a62043ad074e93b1",
+      "size": 1708,
+      "normalized_sha256": "b2de31ac3382bbadd18eb2f9abea4e209372c62bdf722c96a62043ad074e93b1"
+    },
+    "third_party/linux/licenses/Desktop-notice-libdvdcss-doc-usr_share_doc_libdvdcss_COPYING.txt": {
+      "role": "observe",
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643",
+      "size": 18092,
+      "normalized_sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    "third_party/linux/licenses/Desktop-notice-libdvdnav-doc-usr_share_doc_libdvdnav_AUTHORS.txt": {
+      "role": "observe",
+      "sha256": "120360d44a585630a4bcef395da624620690023ec177857b1cb6baa02513265b",
+      "size": 312,
+      "normalized_sha256": "120360d44a585630a4bcef395da624620690023ec177857b1cb6baa02513265b"
+    },
+    "third_party/linux/licenses/Desktop-notice-libdvdnav-doc-usr_share_doc_libdvdnav_COPYING.txt": {
+      "role": "observe",
+      "sha256": "32b1062f7da84967e7019d01ab805935caa7ab7321a7ced0e30ebe75e5df1670",
+      "size": 17992,
+      "normalized_sha256": "32b1062f7da84967e7019d01ab805935caa7ab7321a7ced0e30ebe75e5df1670"
+    },
+    "third_party/linux/licenses/Desktop-notice-libdvdread-doc-usr_share_doc_libdvdread_AUTHORS.txt": {
+      "role": "observe",
+      "sha256": "fa94e2d6c994ac16bc1fdc0348f694b9794fd2453fab40e3ddbc2c6401750085",
+      "size": 753,
+      "normalized_sha256": "fa94e2d6c994ac16bc1fdc0348f694b9794fd2453fab40e3ddbc2c6401750085"
+    },
+    "third_party/linux/licenses/Desktop-notice-libdvdread-doc-usr_share_doc_libdvdread_COPYING.txt": {
+      "role": "observe",
+      "sha256": "d6cb0e9e560f51085556949a84af12b79a00f10ab8b66c752537faf7cd665572",
+      "size": 18097,
+      "normalized_sha256": "d6cb0e9e560f51085556949a84af12b79a00f10ab8b66c752537faf7cd665572"
+    },
+    "third_party/linux/licenses/Desktop-notice-libe-book-doc-usr_share_doc_libe-book_html_classlibebook_1_1FictionBook2Authors-members.html.txt": {
+      "role": "observe",
+      "sha256": "4ba60862ea7c36c06aba97472d3c2855ec6a3a39e68afc20dbaee3a43796853d",
+      "size": 4698,
+      "normalized_sha256": "4ba60862ea7c36c06aba97472d3c2855ec6a3a39e68afc20dbaee3a43796853d"
+    },
+    "third_party/linux/licenses/Desktop-notice-libe-book-doc-usr_share_doc_libe-book_html_classlibebook_1_1FictionBook2Authors.html.txt": {
+      "role": "observe",
+      "sha256": "94740f1beb697dd9be0dfb013651a784f29a03a17666cd3761543cbb22354121",
+      "size": 13282,
+      "normalized_sha256": "94740f1beb697dd9be0dfb013651a784f29a03a17666cd3761543cbb22354121"
+    },
+    "third_party/linux/licenses/Desktop-notice-libe-book-doc-usr_share_doc_libe-book_html_structlibebook_1_1FictionBook2Authors_1_1Data-members.html.txt": {
+      "role": "observe",
+      "sha256": "b7fc615c76b3808d0267094536a4d7587d1b9539a13ddf68892c05d348582f01",
+      "size": 3379,
+      "normalized_sha256": "b7fc615c76b3808d0267094536a4d7587d1b9539a13ddf68892c05d348582f01"
+    },
+    "third_party/linux/licenses/Desktop-notice-libe-book-doc-usr_share_doc_libe-book_html_structlibebook_1_1FictionBook2Authors_1_1Data.html.txt": {
+      "role": "observe",
+      "sha256": "61466f70923e4f55eef4c625ca60647598563e9f4fc64384c062f890425072b8",
+      "size": 6953,
+      "normalized_sha256": "61466f70923e4f55eef4c625ca60647598563e9f4fc64384c062f890425072b8"
+    },
+    "third_party/linux/licenses/Desktop-notice-libexif-doc-usr_share_doc_libexif_AUTHORS.txt": {
+      "role": "observe",
+      "sha256": "a19ef6f43014fc57829658087d0c2bf59d97482e015cf553d7a68124603cbc44",
+      "size": 240,
+      "normalized_sha256": "a19ef6f43014fc57829658087d0c2bf59d97482e015cf553d7a68124603cbc44"
+    },
+    "third_party/linux/licenses/Desktop-notice-libexif-doc-usr_share_doc_libexif_COPYING.txt": {
+      "role": "observe",
+      "sha256": "36b6d3fa47916943fd5fec313c584784946047ec1337a78b440e5992cb595f89",
+      "size": 26434,
+      "normalized_sha256": "36b6d3fa47916943fd5fec313c584784946047ec1337a78b440e5992cb595f89"
+    },
+    "third_party/linux/licenses/Desktop-notice-libjpeg-turbo-doc-usr_share_doc_libjpeg-turbo_LICENSE.md.txt": {
+      "role": "observe",
+      "sha256": "2189dc45a8fe96204069f8124caa53a148dfdc193f50f584c6ca7849a6072872",
+      "size": 5620,
+      "normalized_sha256": "2189dc45a8fe96204069f8124caa53a148dfdc193f50f584c6ca7849a6072872"
+    },
+    "third_party/linux/licenses/Desktop-notice-libmd-doc-usr_share_licenses_libmd_COPYING.txt": {
+      "role": "observe",
+      "sha256": "4971a2b7065117a01cb04430b53ba37c4c6181d4aa8a3a983a3f7042d1625f19",
+      "size": 9449,
+      "normalized_sha256": "4971a2b7065117a01cb04430b53ba37c4c6181d4aa8a3a983a3f7042d1625f19"
+    },
+    "third_party/linux/licenses/Desktop-notice-libmodplug-doc-usr_share_licenses_libmodplug_LICENSE.txt": {
+      "role": "observe",
+      "sha256": "49942e7b3b175f549e751feb08b5270ca6f6c5fb7a1be9f9517db275ec32c92e",
+      "size": 57,
+      "normalized_sha256": "49942e7b3b175f549e751feb08b5270ca6f6c5fb7a1be9f9517db275ec32c92e"
+    },
+    "third_party/linux/licenses/Desktop-notice-libpciaccess-doc-usr_share_licenses_libpciaccess_COPYING.txt": {
+      "role": "observe",
+      "sha256": "f33f360f8905940dac01aa21597fe8a6727ca6f4ffa43b380e2116fd0666aa8a",
+      "size": 4845,
+      "normalized_sha256": "f33f360f8905940dac01aa21597fe8a6727ca6f4ffa43b380e2116fd0666aa8a"
+    },
+    "third_party/linux/licenses/Desktop-notice-libreoffice-common-LICENSE.html.txt": {
+      "role": "observe",
+      "sha256": "40ce4f5466d93066f28704b01c131b6a3475b5696d4ed1c48bc581015dea6898",
+      "size": 285531,
+      "normalized_sha256": "40ce4f5466d93066f28704b01c131b6a3475b5696d4ed1c48bc581015dea6898"
+    },
+    "third_party/linux/licenses/Desktop-notice-libreoffice-common-LICENSE.txt": {
+      "role": "observe",
+      "sha256": "f9ea0002aa202ed6e5c085abf9e2a592e742dc224dc551806d9928c3e8e0ab5f",
+      "size": 253304,
+      "normalized_sha256": "f9ea0002aa202ed6e5c085abf9e2a592e742dc224dc551806d9928c3e8e0ab5f"
+    },
+    "third_party/linux/licenses/Desktop-notice-libreoffice-common-NOTICE.txt": {
+      "role": "observe",
+      "sha256": "8d34210ebbfaee4ba258ef7b30c3044170f356ab82c8259c81b53860bcdeef7b",
+      "size": 1859,
+      "normalized_sha256": "8d34210ebbfaee4ba258ef7b30c3044170f356ab82c8259c81b53860bcdeef7b"
+    },
+    "third_party/linux/licenses/Desktop-notice-libx11-doc-usr_share_licenses_libx11_COPYING.txt": {
+      "role": "observe",
+      "sha256": "eda0c2ed1cae0280c7fe79762eaad8ad31c044afc64e71e92ef2c6f3cd7bc395",
+      "size": 45013,
+      "normalized_sha256": "eda0c2ed1cae0280c7fe79762eaad8ad31c044afc64e71e92ef2c6f3cd7bc395"
+    },
+    "third_party/linux/licenses/Desktop-notice-libxau-doc-usr_share_licenses_libxau_COPYING.txt": {
+      "role": "observe",
+      "sha256": "56abe29bb1d9806a9e04fa9f80fed2c0f18027594df3f098148d814aef6bddfa",
+      "size": 1148,
+      "normalized_sha256": "56abe29bb1d9806a9e04fa9f80fed2c0f18027594df3f098148d814aef6bddfa"
+    },
+    "third_party/linux/licenses/Desktop-notice-libxcomposite-doc-usr_share_licenses_libxcomposite_LICENSE.txt": {
+      "role": "observe",
+      "sha256": "4ff0d7645aaf5b0402904190e841905a1569132f1d95509eaf0e739b852e2458",
+      "size": 2217,
+      "normalized_sha256": "4ff0d7645aaf5b0402904190e841905a1569132f1d95509eaf0e739b852e2458"
+    },
+    "third_party/linux/licenses/Desktop-notice-libxcursor-doc-usr_share_man_man3_XcursorNoticeCreateBitmap.3.gz.txt": {
+      "role": "observe",
+      "sha256": "1073791ef6b6f6781e66917cda34c88929060eaa0ea53ea4a4e539c37130f809",
+      "size": 19,
+      "normalized_sha256": "1073791ef6b6f6781e66917cda34c88929060eaa0ea53ea4a4e539c37130f809"
+    },
+    "third_party/linux/licenses/Desktop-notice-libxcursor-doc-usr_share_man_man3_XcursorNoticePutBitmap.3.gz.txt": {
+      "role": "observe",
+      "sha256": "1073791ef6b6f6781e66917cda34c88929060eaa0ea53ea4a4e539c37130f809",
+      "size": 19,
+      "normalized_sha256": "1073791ef6b6f6781e66917cda34c88929060eaa0ea53ea4a4e539c37130f809"
+    },
+    "third_party/linux/licenses/Desktop-notice-libxcvt-doc-usr_share_licenses_libxcvt_COPYING.txt": {
+      "role": "observe",
+      "sha256": "4849851554bdeda9a2a85ce93946b786605e009685941b8b907a9a36b02ae068",
+      "size": 3424,
+      "normalized_sha256": "4849851554bdeda9a2a85ce93946b786605e009685941b8b907a9a36b02ae068"
+    },
+    "third_party/linux/licenses/Desktop-notice-libxfce4util-doc-usr_share_gtk-doc_html_libxfce4util_libxfce4util-Software-Licenses.html.txt": {
+      "role": "observe",
+      "sha256": "20d9fe63bdf94677af351444545202424b94f2560b1f8add419f4b4319e47f4e",
+      "size": 8062,
+      "normalized_sha256": "20d9fe63bdf94677af351444545202424b94f2560b1f8add419f4b4319e47f4e"
+    },
+    "third_party/linux/licenses/Desktop-notice-libxft-doc-usr_share_licenses_libxft_COPYING.txt": {
+      "role": "observe",
+      "sha256": "7cda22286b1379b9b73df695f72cbad36595e65b039a5fbc5c89b69ecc44438c",
+      "size": 1105,
+      "normalized_sha256": "7cda22286b1379b9b73df695f72cbad36595e65b039a5fbc5c89b69ecc44438c"
+    },
+    "third_party/linux/licenses/Desktop-notice-libxi-doc-usr_share_licenses_libxi_COPYING.txt": {
+      "role": "observe",
+      "sha256": "9392174bc86e291369fd2f61f3ed325962735a5f5c585ce8d7ebd365e2a5639f",
+      "size": 4347,
+      "normalized_sha256": "9392174bc86e291369fd2f61f3ed325962735a5f5c585ce8d7ebd365e2a5639f"
+    },
+    "third_party/linux/licenses/Desktop-notice-libxkbcommon-doc-usr_share_doc_libxkbcommon_html_detailed-license.html.txt": {
+      "role": "observe",
+      "sha256": "09d43b7886d5003d199162ae16c391fdfbeb3a0af7c71650f525c23b7f1d332e",
+      "size": 23217,
+      "normalized_sha256": "09d43b7886d5003d199162ae16c391fdfbeb3a0af7c71650f525c23b7f1d332e"
+    },
+    "third_party/linux/licenses/Desktop-notice-libxkbfile-doc-usr_share_licenses_libxkbfile_COPYING.txt": {
+      "role": "observe",
+      "sha256": "e1b3fdad8037ab3f986ef9caaa7c8da47d8d55875e680c7d6011f6c07363ea7c",
+      "size": 3316,
+      "normalized_sha256": "e1b3fdad8037ab3f986ef9caaa7c8da47d8d55875e680c7d6011f6c07363ea7c"
+    },
+    "third_party/linux/licenses/Desktop-notice-libxmu-doc-usr_share_licenses_libxmu_COPYING.txt": {
+      "role": "observe",
+      "sha256": "8f0f2ca7a05cfd10bf9e307a272182de7cb52d7a603feaf17b9943c2c9a4838e",
+      "size": 4432,
+      "normalized_sha256": "8f0f2ca7a05cfd10bf9e307a272182de7cb52d7a603feaf17b9943c2c9a4838e"
+    },
+    "third_party/linux/licenses/Desktop-notice-libxres-doc-usr_share_licenses_libxres_LICENSE.txt": {
+      "role": "observe",
+      "sha256": "0d7300168f85833ea2564835f66a61e036ede90b33e76c06a7b4078096fedbcc",
+      "size": 1291,
+      "normalized_sha256": "0d7300168f85833ea2564835f66a61e036ede90b33e76c06a7b4078096fedbcc"
+    },
+    "third_party/linux/licenses/Desktop-notice-libxslt-doc-usr_share_licenses_libxslt_Copyright.txt": {
+      "role": "observe",
+      "sha256": "7e48e290b6bfccc2ec1b297023a1d77f2fd87417f71fbb9f50aabef40a851819",
+      "size": 2968,
+      "normalized_sha256": "7e48e290b6bfccc2ec1b297023a1d77f2fd87417f71fbb9f50aabef40a851819"
+    },
+    "third_party/linux/licenses/Desktop-notice-libxt-doc-usr_share_man_man3_XtNoticeSignal.3.gz.txt": {
+      "role": "observe",
+      "sha256": "2360a9b1244b9523735864368cc71c1fed8f142e836320f15afe0604a715aaa4",
+      "size": 26,
+      "normalized_sha256": "2360a9b1244b9523735864368cc71c1fed8f142e836320f15afe0604a715aaa4"
+    },
+    "third_party/linux/licenses/Desktop-notice-libxtst-doc-usr_share_licenses_libxtst_LICENSE.txt": {
+      "role": "observe",
+      "sha256": "940190489c7a0e5ae3d83fc4fcbd79e0cd1b765bf1a4efd408293c1ee0332ceb",
+      "size": 5826,
+      "normalized_sha256": "940190489c7a0e5ae3d83fc4fcbd79e0cd1b765bf1a4efd408293c1ee0332ceb"
+    },
+    "third_party/linux/licenses/Desktop-notice-libxv-doc-usr_share_licenses_libxv_COPYING.txt": {
+      "role": "observe",
+      "sha256": "4fac4d581d00f11c459d68b7cb970f3d4e5a5bbfb53784d85f59a90076280301",
+      "size": 2240,
+      "normalized_sha256": "4fac4d581d00f11c459d68b7cb970f3d4e5a5bbfb53784d85f59a90076280301"
+    },
+    "third_party/linux/licenses/Desktop-notice-libxxf86vm-doc-usr_share_licenses_libxxf86vm_COPYING.txt": {
+      "role": "observe",
+      "sha256": "f3da8eaed19e27e4f67e6f076d4ebdb8d649e15a8ad33a415fb65a23de1b6689",
+      "size": 1280,
+      "normalized_sha256": "f3da8eaed19e27e4f67e6f076d4ebdb8d649e15a8ad33a415fb65a23de1b6689"
+    },
+    "third_party/linux/licenses/Desktop-notice-opus-doc-usr_share_licenses_opus_LICENSE.txt": {
+      "role": "observe",
+      "sha256": "01e1167d54a096d123cf6dfbbeb19587278845c6481d2d66d545669846079551",
+      "size": 1945,
+      "normalized_sha256": "01e1167d54a096d123cf6dfbbeb19587278845c6481d2d66d545669846079551"
+    },
+    "third_party/linux/licenses/Desktop-notice-pcre2-doc-usr_share_doc_pcre2-10.49_AUTHORS.md.txt": {
+      "role": "observe",
+      "sha256": "412ace3355a4d6a4d835c350a7df172903811eafda7b13500dacf58429ee757e",
+      "size": 4232,
+      "normalized_sha256": "412ace3355a4d6a4d835c350a7df172903811eafda7b13500dacf58429ee757e"
+    },
+    "third_party/linux/licenses/Desktop-notice-pcre2-doc-usr_share_doc_pcre2-10.49_COPYING.txt": {
+      "role": "observe",
+      "sha256": "99272c55f3dcfa07a8a7e15a5c1a33096e4727de74241d65fa049fccfdd59507",
+      "size": 97,
+      "normalized_sha256": "99272c55f3dcfa07a8a7e15a5c1a33096e4727de74241d65fa049fccfdd59507"
+    },
+    "third_party/linux/licenses/Desktop-notice-pkgconf-doc-usr_share_doc_pkgconf_AUTHORS.txt": {
+      "role": "observe",
+      "sha256": "1579e0bd23bd6e3e24aab6bc6bf7efa3bca6c25f83bb2a1f56c5bdbdbfb1d40f",
+      "size": 1498,
+      "normalized_sha256": "1579e0bd23bd6e3e24aab6bc6bf7efa3bca6c25f83bb2a1f56c5bdbdbfb1d40f"
+    },
+    "third_party/linux/licenses/Desktop-notice-simdutf-doc-usr_share_licenses_simdutf_LICENSE-MIT.txt": {
+      "role": "observe",
+      "sha256": "fc8dbc04e03ad4efc08a647ffe7f995b811a95bc04c0e85a56d5277c6593fa5f",
+      "size": 1059,
+      "normalized_sha256": "fc8dbc04e03ad4efc08a647ffe7f995b811a95bc04c0e85a56d5277c6593fa5f"
+    },
+    "third_party/linux/licenses/Desktop-notice-skalibs-doc-usr_share_doc_skalibs_license.html.txt": {
+      "role": "observe",
+      "sha256": "e906b62c3a57a9f6c20a9e04809b86d03cc3a118eb56974913fba8e7891525b4",
+      "size": 3035,
+      "normalized_sha256": "e906b62c3a57a9f6c20a9e04809b86d03cc3a118eb56974913fba8e7891525b4"
+    },
+    "third_party/linux/licenses/Desktop-notice-skalibs-doc-usr_share_licenses_skalibs_COPYING.txt": {
+      "role": "observe",
+      "sha256": "26bee3a3c78ae6a29c81c18832cadb1a4433cf8a786624312f11667d93fcce41",
+      "size": 760,
+      "normalized_sha256": "26bee3a3c78ae6a29c81c18832cadb1a4433cf8a786624312f11667d93fcce41"
+    },
+    "third_party/linux/licenses/Desktop-notice-tiff-doc-usr_share_doc_tiff_manual_html__sources_project_license.rst.txt.txt": {
+      "role": "observe",
+      "sha256": "02e86af3b805e0f2075ebb5ac512831f6ab2a97ddeb186de076c418956418ba1",
+      "size": 1181,
+      "normalized_sha256": "02e86af3b805e0f2075ebb5ac512831f6ab2a97ddeb186de076c418956418ba1"
+    },
+    "third_party/linux/licenses/Desktop-notice-tiff-doc-usr_share_doc_tiff_manual_html_project_license.html.txt": {
+      "role": "observe",
+      "sha256": "6c9436f8e9f58a79e044949e360291b9c910715fad31cdaed66bc61b0dcf33e6",
+      "size": 5663,
+      "normalized_sha256": "6c9436f8e9f58a79e044949e360291b9c910715fad31cdaed66bc61b0dcf33e6"
+    },
+    "third_party/linux/licenses/Desktop-notice-upower-doc-usr_share_gtk-doc_html_UPower_license.html.txt": {
+      "role": "observe",
+      "sha256": "90578dc36ed3c252d1914531915e68ef71e24baa351d3f518c81324e2ad38c43",
+      "size": 19962,
+      "normalized_sha256": "90578dc36ed3c252d1914531915e68ef71e24baa351d3f518c81324e2ad38c43"
+    },
+    "third_party/linux/licenses/Desktop-notice-xauth-doc-usr_share_licenses_xauth_COPYING.txt": {
+      "role": "observe",
+      "sha256": "dcdf5fa36a652efbe61a21def1301739b0010334ae3f049f1cff433221a8c7a5",
+      "size": 1142,
+      "normalized_sha256": "dcdf5fa36a652efbe61a21def1301739b0010334ae3f049f1cff433221a8c7a5"
+    },
+    "third_party/linux/licenses/Desktop-notice-xmodmap-doc-usr_share_licenses_xmodmap_COPYING.txt": {
+      "role": "observe",
+      "sha256": "c149563cf2cb0ecfb1148b6eb8f604c62bed43452a0d0fbafb97286a97840f5c",
+      "size": 2281,
+      "normalized_sha256": "c149563cf2cb0ecfb1148b6eb8f604c62bed43452a0d0fbafb97286a97840f5c"
+    },
+    "third_party/linux/licenses/Desktop-notice-zbar-doc-usr_share_doc_zbar_COPYING.txt": {
+      "role": "observe",
+      "sha256": "c635190c86f74415ba2170ced60caf1260c563a65a3f716d4b1c17326f66e216",
+      "size": 1279,
+      "normalized_sha256": "c635190c86f74415ba2170ced60caf1260c563a65a3f716d4b1c17326f66e216"
+    },
+    "third_party/linux/licenses/Desktop-notice-zbar-doc-usr_share_doc_zbar_LICENSE.md.txt": {
+      "role": "observe",
+      "sha256": "44260f9252c7fe38ba8dfb645330504f4a375e3a5e9dd7d5d6b9f04adb4952f1",
+      "size": 26334,
+      "normalized_sha256": "44260f9252c7fe38ba8dfb645330504f4a375e3a5e9dd7d5d6b9f04adb4952f1"
+    },
+    "third_party/linux/licenses/Desktop-package-license-sources.json": {
+      "role": "observe",
+      "sha256": "db02639dc8182e13d05670da404d80bc0c225187c9ea99638b71662a6a991e5a",
+      "size": 103102,
+      "normalized_sha256": "db02639dc8182e13d05670da404d80bc0c225187c9ea99638b71662a6a991e5a"
+    },
+    "third_party/linux/licenses/Desktop-source-exo-4.20.0-AUTHORS.txt": {
+      "role": "observe",
+      "sha256": "e0f9baa7a44556e406f0447bc18f411e16c137e99564f22be49ab9a7b56be399",
+      "size": 348,
+      "normalized_sha256": "e0f9baa7a44556e406f0447bc18f411e16c137e99564f22be49ab9a7b56be399"
+    },
+    "third_party/linux/licenses/Desktop-source-exo-4.20.0-COPYING.LIB.txt": {
+      "role": "observe",
+      "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551",
+      "size": 26530,
+      "normalized_sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+    },
+    "third_party/linux/licenses/Desktop-source-exo-4.20.0-COPYING.txt": {
+      "role": "observe",
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643",
+      "size": 18092,
+      "normalized_sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    "third_party/linux/licenses/Desktop-source-garcon-4.20.0-AUTHORS.txt": {
+      "role": "observe",
+      "sha256": "d85e5c809a58777e6add5f7dd8c30ea0d8ec1284bb67ae95e6bc9f0c1cc2d073",
+      "size": 101,
+      "normalized_sha256": "d85e5c809a58777e6add5f7dd8c30ea0d8ec1284bb67ae95e6bc9f0c1cc2d073"
+    },
+    "third_party/linux/licenses/Desktop-source-garcon-4.20.0-COPYING.txt": {
+      "role": "observe",
+      "sha256": "1831caabf4993e5efcd270b5b9f701153cc00305e545da522c6cb1efabc6f8ab",
+      "size": 40296,
+      "normalized_sha256": "1831caabf4993e5efcd270b5b9f701153cc00305e545da522c6cb1efabc6f8ab"
+    },
+    "third_party/linux/licenses/Desktop-source-gdk-pixbuf-2.44.7-COPYING.txt": {
+      "role": "observe",
+      "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551",
+      "size": 26530,
+      "normalized_sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+    },
+    "third_party/linux/licenses/Desktop-source-libxfce4ui-4.20.1-AUTHORS.txt": {
+      "role": "observe",
+      "sha256": "29862979cb0c6e8513ff71191ed934b4863dc1767cd83d3f4fbff2af2daad389",
+      "size": 203,
+      "normalized_sha256": "29862979cb0c6e8513ff71191ed934b4863dc1767cd83d3f4fbff2af2daad389"
+    },
+    "third_party/linux/licenses/Desktop-source-libxfce4ui-4.20.1-COPYING.txt": {
+      "role": "observe",
+      "sha256": "681e386e44a19d7d0674b4320272c90e66b6610b741e7e6305f8219c42e85366",
+      "size": 25381,
+      "normalized_sha256": "681e386e44a19d7d0674b4320272c90e66b6610b741e7e6305f8219c42e85366"
+    },
+    "third_party/linux/licenses/Desktop-source-libxfce4util-4.20.1-AUTHORS.txt": {
+      "role": "observe",
+      "sha256": "de072dd75b1e7334307453aa29eaadbb95fb30777e8954d339961a8147e07651",
+      "size": 234,
+      "normalized_sha256": "de072dd75b1e7334307453aa29eaadbb95fb30777e8954d339961a8147e07651"
+    },
+    "third_party/linux/licenses/Desktop-source-libxfce4util-4.20.1-COPYING.txt": {
+      "role": "observe",
+      "sha256": "681e386e44a19d7d0674b4320272c90e66b6610b741e7e6305f8219c42e85366",
+      "size": 25381,
+      "normalized_sha256": "681e386e44a19d7d0674b4320272c90e66b6610b741e7e6305f8219c42e85366"
+    },
+    "third_party/linux/licenses/Desktop-source-libxfce4windowing-4.20.6-COPYING.txt": {
+      "role": "observe",
+      "sha256": "b3aa400aca6d2ba1f0bd03bd98d03d1fe7489a3bbb26969d72016360af8a5c9d",
+      "size": 24478,
+      "normalized_sha256": "b3aa400aca6d2ba1f0bd03bd98d03d1fe7489a3bbb26969d72016360af8a5c9d"
+    },
+    "third_party/linux/licenses/Desktop-source-mousepad-0.7.0-AUTHORS.txt": {
+      "role": "observe",
+      "sha256": "317b7bd0783784781ee3166cd75a40085fe913e96816abe89748f2c5e91c2315",
+      "size": 351,
+      "normalized_sha256": "317b7bd0783784781ee3166cd75a40085fe913e96816abe89748f2c5e91c2315"
+    },
+    "third_party/linux/licenses/Desktop-source-mousepad-0.7.0-COPYING.txt": {
+      "role": "observe",
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643",
+      "size": 18092,
+      "normalized_sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    "third_party/linux/licenses/Desktop-source-thunar-4.20.8-AUTHORS.txt": {
+      "role": "observe",
+      "sha256": "044fdfe8cefb7a4714c3a08644b42e2fbb719b5faac94ec52d31faba37109119",
+      "size": 600,
+      "normalized_sha256": "044fdfe8cefb7a4714c3a08644b42e2fbb719b5faac94ec52d31faba37109119"
+    },
+    "third_party/linux/licenses/Desktop-source-thunar-4.20.8-COPYING.LIB.txt": {
+      "role": "observe",
+      "sha256": "c12422b73b26686e48afb876dca33c939b31ed921b8045ed707fb364eff197a9",
+      "size": 23242,
+      "normalized_sha256": "c12422b73b26686e48afb876dca33c939b31ed921b8045ed707fb364eff197a9"
+    },
+    "third_party/linux/licenses/Desktop-source-thunar-4.20.8-COPYING.txt": {
+      "role": "observe",
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643",
+      "size": 18092,
+      "normalized_sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    "third_party/linux/licenses/Desktop-source-xfce4-appfinder-4.20.0-AUTHORS.txt": {
+      "role": "observe",
+      "sha256": "67261278cb572920e3f125e66e6ebbd4e992ed5f4e01f2e018cba04779998de4",
+      "size": 135,
+      "normalized_sha256": "67261278cb572920e3f125e66e6ebbd4e992ed5f4e01f2e018cba04779998de4"
+    },
+    "third_party/linux/licenses/Desktop-source-xfce4-appfinder-4.20.0-COPYING.txt": {
+      "role": "observe",
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643",
+      "size": 18092,
+      "normalized_sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    "third_party/linux/licenses/Desktop-source-xfce4-panel-4.20.7-AUTHORS.txt": {
+      "role": "observe",
+      "sha256": "7c0b84958443c8d0376907ccf6a275b18f6bea8e3dd709ad46e279507c90b6f9",
+      "size": 167,
+      "normalized_sha256": "7c0b84958443c8d0376907ccf6a275b18f6bea8e3dd709ad46e279507c90b6f9"
+    },
+    "third_party/linux/licenses/Desktop-source-xfce4-panel-4.20.7-COPYING.LIB.txt": {
+      "role": "observe",
+      "sha256": "64e647f03752f296a36e9af47771f5ec0378a55f1b4fc71e11fa1bae97052608",
+      "size": 26423,
+      "normalized_sha256": "64e647f03752f296a36e9af47771f5ec0378a55f1b4fc71e11fa1bae97052608"
+    },
+    "third_party/linux/licenses/Desktop-source-xfce4-panel-4.20.7-COPYING.txt": {
+      "role": "observe",
+      "sha256": "6f16336b34fbe20bc7f0acfc22916468ab0d88822d955d372ce338de8899c21f",
+      "size": 17985,
+      "normalized_sha256": "6f16336b34fbe20bc7f0acfc22916468ab0d88822d955d372ce338de8899c21f"
+    },
+    "third_party/linux/licenses/Desktop-source-xfce4-session-4.20.2-AUTHORS.txt": {
+      "role": "observe",
+      "sha256": "a7beb0ad0fd70a8caf84a09c55116897e19380fd87cc9995d371f267e8f148c6",
+      "size": 431,
+      "normalized_sha256": "a7beb0ad0fd70a8caf84a09c55116897e19380fd87cc9995d371f267e8f148c6"
+    },
+    "third_party/linux/licenses/Desktop-source-xfce4-session-4.20.2-COPYING.txt": {
+      "role": "observe",
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643",
+      "size": 18092,
+      "normalized_sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    "third_party/linux/licenses/Desktop-source-xfce4-settings-4.20.4-AUTHORS.txt": {
+      "role": "observe",
+      "sha256": "06c257c69204b739d7835ccde96e4bf705b1eb72bb8af19ecf5dbc8b79fdd57b",
+      "size": 171,
+      "normalized_sha256": "06c257c69204b739d7835ccde96e4bf705b1eb72bb8af19ecf5dbc8b79fdd57b"
+    },
+    "third_party/linux/licenses/Desktop-source-xfce4-settings-4.20.4-COPYING.txt": {
+      "role": "observe",
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643",
+      "size": 18092,
+      "normalized_sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    "third_party/linux/licenses/Desktop-source-xfce4-terminal-1.2.0-AUTHORS.txt": {
+      "role": "observe",
+      "sha256": "893b1578a23f71bd39f844d3efa81ba67c3eb871f53f459de13ba8231b39e07e",
+      "size": 476,
+      "normalized_sha256": "893b1578a23f71bd39f844d3efa81ba67c3eb871f53f459de13ba8231b39e07e"
+    },
+    "third_party/linux/licenses/Desktop-source-xfce4-terminal-1.2.0-COPYING.txt": {
+      "role": "observe",
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643",
+      "size": 18092,
+      "normalized_sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    "third_party/linux/licenses/Desktop-source-xfconf-4.20.0-AUTHORS.txt": {
+      "role": "observe",
+      "sha256": "c6e26c1b397a06bcab9774eb30f0e79c6b4007742178c74239ecc6f28f65f9b0",
+      "size": 71,
+      "normalized_sha256": "c6e26c1b397a06bcab9774eb30f0e79c6b4007742178c74239ecc6f28f65f9b0"
+    },
+    "third_party/linux/licenses/Desktop-source-xfconf-4.20.0-COPYING.txt": {
+      "role": "observe",
+      "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c",
+      "size": 18002,
+      "normalized_sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+    },
+    "third_party/linux/licenses/Desktop-source-xfdesktop-4.20.1-AUTHORS.txt": {
+      "role": "observe",
+      "sha256": "abc44dd133937c6622813fcbf3795a718282e565891fc95cf7154ad88441f65f",
+      "size": 155,
+      "normalized_sha256": "abc44dd133937c6622813fcbf3795a718282e565891fc95cf7154ad88441f65f"
+    },
+    "third_party/linux/licenses/Desktop-source-xfdesktop-4.20.1-COPYING.txt": {
+      "role": "observe",
+      "sha256": "32b1062f7da84967e7019d01ab805935caa7ab7321a7ced0e30ebe75e5df1670",
+      "size": 17992,
+      "normalized_sha256": "32b1062f7da84967e7019d01ab805935caa7ab7321a7ced0e30ebe75e5df1670"
+    },
+    "third_party/linux/licenses/Desktop-source-xfwm4-4.20.0-AUTHORS.txt": {
+      "role": "observe",
+      "sha256": "68351bb6a5d8d5c1f8725102644c585fcf64c9330afa18c52561f6dcceb03597",
+      "size": 1604,
+      "normalized_sha256": "68351bb6a5d8d5c1f8725102644c585fcf64c9330afa18c52561f6dcceb03597"
+    },
+    "third_party/linux/licenses/Desktop-source-xfwm4-4.20.0-COPYING.txt": {
+      "role": "observe",
+      "sha256": "e1aa57b16350b3f421e49bd8b9401252d2b667616def1718c72576286249ae4f",
+      "size": 17993,
+      "normalized_sha256": "e1aa57b16350b3f421e49bd8b9401252d2b667616def1718c72576286249ae4f"
+    },
+    "third_party/linux/licenses/GCC-15.2.0-GPL-2.0.txt": {
+      "role": "observe",
+      "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c",
+      "size": 18002,
+      "normalized_sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+    },
+    "third_party/linux/licenses/GCC-15.2.0-GPL-3.0.txt": {
+      "role": "observe",
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+      "size": 35147,
+      "normalized_sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    },
+    "third_party/linux/licenses/GCC-15.2.0-LGPL-2.1.txt": {
+      "role": "observe",
+      "sha256": "a9bdde5616ecdd1e980b44f360600ee8783b1f99b8cc83a2beb163a0a390e861",
+      "size": 26527,
+      "normalized_sha256": "a9bdde5616ecdd1e980b44f360600ee8783b1f99b8cc83a2beb163a0a390e861"
+    },
+    "third_party/linux/licenses/GCC-15.2.0-RUNTIME-EXCEPTION.txt": {
+      "role": "observe",
+      "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74",
+      "size": 3324,
+      "normalized_sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74"
+    },
+    "third_party/linux/licenses/GPL-3.0.txt": {
+      "role": "observe",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "size": 35149,
+      "normalized_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    "third_party/linux/licenses/LGPL-3.0.txt": {
+      "role": "observe",
+      "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118",
+      "size": 7652,
+      "normalized_sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118"
+    },
+    "third_party/linux/licenses/MPL-2.0.txt": {
+      "role": "observe",
+      "sha256": "fab3dd6bdab226f1c08630b1dd917e11fcb4ec5e1e020e2c16f83a0a13863e85",
+      "size": 16726,
+      "normalized_sha256": "fab3dd6bdab226f1c08630b1dd917e11fcb4ec5e1e020e2c16f83a0a13863e85"
+    },
+    "third_party/linux/licenses/OpenMinis-GPL-3.0.txt": {
+      "role": "observe",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "size": 35149,
+      "normalized_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    "third_party/linux/licenses/OpenMinis-THIRD_PARTY_LICENSES.md": {
+      "role": "observe",
+      "sha256": "e7a33d5348dab40a7b18f44300ebaca3238446825198b71e35d2458c5fcc1748",
+      "size": 7774,
+      "normalized_sha256": "e7a33d5348dab40a7b18f44300ebaca3238446825198b71e35d2458c5fcc1748"
+    },
+    "third_party/linux/licenses/PRoot-COPYING.txt": {
+      "role": "observe",
+      "sha256": "0ffa6454acbe7e410ac6f0007df83b9b3161fe55484c1f4b87487c0f2d228a6d",
+      "size": 19106,
+      "normalized_sha256": "0ffa6454acbe7e410ac6f0007df83b9b3161fe55484c1f4b87487c0f2d228a6d"
+    },
+    "third_party/linux/licenses/Python-3.14.10-LICENSE.txt": {
+      "role": "observe",
+      "sha256": "b0e25a78cffb43f4d92de8b61ccfa1f1f98ecbc22330b54b5251e7b6ba010231",
+      "size": 13804,
+      "normalized_sha256": "b0e25a78cffb43f4d92de8b61ccfa1f1f98ecbc22330b54b5251e7b6ba010231"
+    },
+    "third_party/linux/licenses/Python-dependency-license-sources.json": {
+      "role": "observe",
+      "sha256": "4db5ddb5b0dc0f295eabc3a5c4094353b6c81460d5829ebb3c44addeecdd4782",
+      "size": 5521,
+      "normalized_sha256": "4db5ddb5b0dc0f295eabc3a5c4094353b6c81460d5829ebb3c44addeecdd4782"
+    },
+    "third_party/linux/licenses/SQLite-PUBLIC-DOMAIN.txt": {
+      "role": "observe",
+      "sha256": "ee6af51062b30d532991face5164136ae6f84e265ecf8abe89dc69dac45ca1e7",
+      "size": 3850,
+      "normalized_sha256": "ee6af51062b30d532991face5164136ae6f84e265ecf8abe89dc69dac45ca1e7"
+    },
+    "third_party/linux/licenses/bzip2-1.0.8-LICENSE.txt": {
+      "role": "observe",
+      "sha256": "c6dbbf828498be844a89eaa3b84adbab3199e342eb5cb2ed2f0d4ba7ec0f38a3",
+      "size": 1896,
+      "normalized_sha256": "c6dbbf828498be844a89eaa3b84adbab3199e342eb5cb2ed2f0d4ba7ec0f38a3"
+    },
+    "third_party/linux/licenses/expat-2.10.0-COPYING.txt": {
+      "role": "observe",
+      "sha256": "31b15de82aa19a845156169a17a5488bf597e561b2c318d159ed583139b25e87",
+      "size": 1144,
+      "normalized_sha256": "31b15de82aa19a845156169a17a5488bf597e561b2c318d159ed583139b25e87"
+    },
+    "third_party/linux/licenses/libffi-3.5.2-LICENSE.txt": {
+      "role": "observe",
+      "sha256": "d5699fa516968e3a1550e6c902b7441c78856f2603d61bedd0b0662a26655366",
+      "size": 1132,
+      "normalized_sha256": "d5699fa516968e3a1550e6c902b7441c78856f2603d61bedd0b0662a26655366"
+    },
+    "third_party/linux/licenses/mpdecimal-4.0.1-COPYRIGHT.txt": {
+      "role": "observe",
+      "sha256": "dba079e24a0286052f9f36a5e0b4f6cc95bc83ada657eb26bef8c0b6473f6512",
+      "size": 1285,
+      "normalized_sha256": "dba079e24a0286052f9f36a5e0b4f6cc95bc83ada657eb26bef8c0b6473f6512"
+    },
+    "third_party/linux/licenses/ncurses-6.6-20260516-COPYING.txt": {
+      "role": "observe",
+      "sha256": "a85ca5bef8ce71f013bc5f4306c681881b248450f3b63722589891f0b69ea52d",
+      "size": 1447,
+      "normalized_sha256": "a85ca5bef8ce71f013bc5f4306c681881b248450f3b63722589891f0b69ea52d"
+    },
+    "third_party/linux/licenses/xz-5.8.4-COPYING.0BSD.txt": {
+      "role": "observe",
+      "sha256": "0b01625d853911cd0e2e088dcfb743261034a091bb379246cb25a14cc4c74bf1",
+      "size": 607,
+      "normalized_sha256": "0b01625d853911cd0e2e088dcfb743261034a091bb379246cb25a14cc4c74bf1"
+    },
+    "third_party/linux/licenses/xz-5.8.4-COPYING.GPLv2.txt": {
+      "role": "observe",
+      "sha256": "edaef632cbb643e4e7a221717a6c441a4c1a7c918e6e4d56debc3d8739b233f6",
+      "size": 17984,
+      "normalized_sha256": "edaef632cbb643e4e7a221717a6c441a4c1a7c918e6e4d56debc3d8739b233f6"
+    },
+    "third_party/linux/licenses/xz-5.8.4-COPYING.GPLv3.txt": {
+      "role": "observe",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "size": 35149,
+      "normalized_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    "third_party/linux/licenses/xz-5.8.4-COPYING.LGPLv2.1.txt": {
+      "role": "observe",
+      "sha256": "20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95",
+      "size": 26419,
+      "normalized_sha256": "20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95"
+    },
+    "third_party/linux/licenses/xz-5.8.4-COPYING.txt": {
+      "role": "observe",
+      "sha256": "616a3ad264ce29b8f1cb97e53037b139d406899ca8d1f799651e17bfa09830b8",
+      "size": 3119,
+      "normalized_sha256": "616a3ad264ce29b8f1cb97e53037b139d406899ca8d1f799651e17bfa09830b8"
+    },
+    "third_party/linux/native-codec.json": {
+      "role": "observe",
+      "sha256": "b08f8bf211ba74cd517cbe0aa726b5bf2563fbb280205a3f6f226ac6853ff478",
+      "size": 85054,
+      "normalized_sha256": "b08f8bf211ba74cd517cbe0aa726b5bf2563fbb280205a3f6f226ac6853ff478"
+    },
+    "third_party/linux/native-codec/build.sh": {
+      "role": "observe",
+      "sha256": "dd0fe447b78f6d33beaca38a45eb9431c635e5b30acee050777c1ccdad518cba",
+      "size": 3661,
+      "normalized_sha256": "dd0fe447b78f6d33beaca38a45eb9431c635e5b30acee050777c1ccdad518cba"
+    },
+    "third_party/linux/release-sources.lock.json": {
+      "role": "observe",
+      "sha256": "d6edb9e7aec6d2c7ab6ff7504424dcabb80f9600767411454ba405a4a26cdf11",
+      "size": 949446,
+      "normalized_sha256": "d6edb9e7aec6d2c7ab6ff7504424dcabb80f9600767411454ba405a4a26cdf11"
+    },
+    "third_party/linux/source-reviews/cargo-additional-reviewed.json": {
+      "role": "observe",
+      "sha256": "e6e0998ce7b155a1c3a7a83b71a793014c46351b4aa6052fd85c51c5e09a2b34",
+      "size": 14843,
+      "normalized_sha256": "e6e0998ce7b155a1c3a7a83b71a793014c46351b4aa6052fd85c51c5e09a2b34"
+    },
+    "third_party/linux/source-reviews/explicit-static-dependencies-review.json": {
+      "role": "observe",
+      "sha256": "2ddf97f88879e796231164e1cc12acf83e079185a5533f8738d58f007b80d26a",
+      "size": 1085,
+      "normalized_sha256": "2ddf97f88879e796231164e1cc12acf83e079185a5533f8738d58f007b80d26a"
+    },
+    "third_party/linux/source-reviews/libreoffice-download-review.json": {
+      "role": "observe",
+      "sha256": "e516f65525add90bf912ff5e079143b9726cafb707d234da65d73f0c6877f001",
+      "size": 6829,
+      "normalized_sha256": "e516f65525add90bf912ff5e079143b9726cafb707d234da65d73f0c6877f001"
+    },
+    "third_party/linux/sources.lock.json": {
+      "role": "observe",
+      "sha256": "0798b905c576f7d307b5893555a552cbba080421fc6b3206d66740074837177f",
+      "size": 622325,
+      "normalized_sha256": "0798b905c576f7d307b5893555a552cbba080421fc6b3206d66740074837177f"
+    },
+    "third_party/linux/talloc-replace.h": {
+      "role": "observe",
+      "sha256": "59fe91fe75c87889bf119be3c255d1c2e18b2b74429924b9a977a6443f575dfe",
+      "size": 1251,
+      "normalized_sha256": "59fe91fe75c87889bf119be3c255d1c2e18b2b74429924b9a977a6443f575dfe"
+    },
+    "third_party/linux/termux-proot-5.1.107-70-build.sh": {
+      "role": "observe",
+      "sha256": "71899efff0173ce9df12d06c48e130a59822955c59789b1fdd73b128759c5b99",
+      "size": 1236,
+      "normalized_sha256": "71899efff0173ce9df12d06c48e130a59822955c59789b1fdd73b128759c5b99"
+    },
+    "tool/build-apk": {
+      "role": "index",
+      "sha256": "84f0ea4cdadd7ae1a18036210c3b2cfe1a08900ab923f555b418555dc6658d10",
+      "size": 887,
+      "normalized_sha256": "84f0ea4cdadd7ae1a18036210c3b2cfe1a08900ab923f555b418555dc6658d10"
+    },
+    "tool/build-linux-codec": {
+      "role": "index",
+      "sha256": "a57a44648420fcc70d70877302f9d71d2e6d624692f9d61d8030d8303268997e",
+      "size": 3932,
+      "normalized_sha256": "a57a44648420fcc70d70877302f9d71d2e6d624692f9d61d8030d8303268997e"
+    },
+    "tool/check": {
+      "role": "index",
+      "sha256": "b8699d5a19394112d94cc993e7a60fe431a01026b843030ab69a0526f728497e",
+      "size": 1149,
+      "normalized_sha256": "b8699d5a19394112d94cc993e7a60fe431a01026b843030ab69a0526f728497e"
+    },
+    "tool/dartw": {
+      "role": "index",
+      "sha256": "37b6e084b9941514ff2290825593e83bde61d9fe3aeda575ed35b2e4fe09e8c3",
+      "size": 800,
+      "normalized_sha256": "37b6e084b9941514ff2290825593e83bde61d9fe3aeda575ed35b2e4fe09e8c3"
+    },
+    "tool/flutterw": {
+      "role": "index",
+      "sha256": "618b683ca37dd29581d1c7408eff57dc5868b9ceac75c27fe61703b937d058d5",
+      "size": 1475,
+      "normalized_sha256": "618b683ca37dd29581d1c7408eff57dc5868b9ceac75c27fe61703b937d058d5"
+    },
+    "tool/native_tests/README.md": {
+      "role": "index",
+      "sha256": "61ea235e10088182036cf4b8793e7952f2077b599dd36872b29723326fdb56bd",
+      "size": 1563,
+      "normalized_sha256": "61ea235e10088182036cf4b8793e7952f2077b599dd36872b29723326fdb56bd"
+    },
+    "tool/native_tests/workspace_import_probe.c": {
+      "role": "index",
+      "sha256": "5ed76cc49a905548ca83fff57e5981b0fdce52e9417b7d65445572e78757b194",
+      "size": 6508,
+      "normalized_sha256": "5ed76cc49a905548ca83fff57e5981b0fdce52e9417b7d65445572e78757b194"
+    },
+    "tool/package-linux-sources": {
+      "role": "index",
+      "sha256": "eb9f8f901f3a32e140732c2bb20f0aaaa4a2f4bfebbf476c6bae631427a773e5",
+      "size": 12208,
+      "normalized_sha256": "eb9f8f901f3a32e140732c2bb20f0aaaa4a2f4bfebbf476c6bae631427a773e5"
+    },
+    "tool/prepare-linux-runtime": {
+      "role": "index",
+      "sha256": "367ba2302c4df567ffd7f9620aab7712286c5a3f5b4d9905b00a24adc7a2ad7f",
+      "size": 25115,
+      "normalized_sha256": "367ba2302c4df567ffd7f9620aab7712286c5a3f5b4d9905b00a24adc7a2ad7f"
+    },
+    "tool/tests/test_desktop_launchers.py": {
+      "role": "observe",
+      "sha256": "952400bb146ed0b4b036ba99ba7e878590f2f13ac4ce3928baa0a232dfe102dc",
+      "size": 7582,
+      "normalized_sha256": "952400bb146ed0b4b036ba99ba7e878590f2f13ac4ce3928baa0a232dfe102dc"
+    },
+    "tool/tests/test_text_to_markdown.py": {
+      "role": "observe",
+      "sha256": "c70d2f7298bc15bb76423c59d606e53287d8ef4f7f8b86e4abf7c466c06c2496",
+      "size": 11267,
+      "normalized_sha256": "c70d2f7298bc15bb76423c59d606e53287d8ef4f7f8b86e4abf7c466c06c2496"
+    },
+    "website/.nojekyll": {
+      "role": "index",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "size": 1,
+      "normalized_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    "website/DESIGN_BRIEF.md": {
+      "role": "index",
+      "sha256": "6ff0857c1597ad5467692c5e4bedbf6b09e558a53a83618c1587d967447fc0c4",
+      "size": 4545,
+      "normalized_sha256": "6ff0857c1597ad5467692c5e4bedbf6b09e558a53a83618c1587d967447fc0c4"
+    },
+    "website/README.md": {
+      "role": "index",
+      "sha256": "40a24e63712d8d9bad27e996e90f3fd39a41bec1e111cda0bddfa4d2630594bd",
+      "size": 1691,
+      "normalized_sha256": "40a24e63712d8d9bad27e996e90f3fd39a41bec1e111cda0bddfa4d2630594bd"
+    },
+    "website/VERIFICATION.md": {
+      "role": "index",
+      "sha256": "aa7e68f751de3b325c1a952d586e3bcce5c32b137c2467024b87b9e8ae035305",
+      "size": 2113,
+      "normalized_sha256": "aa7e68f751de3b325c1a952d586e3bcce5c32b137c2467024b87b9e8ae035305"
+    },
+    "website/assets/ant-welcome.png": {
+      "role": "index",
+      "sha256": "271bf8b23356f6f8a96731c8d53d4ea959238bdae82a492a22256d8f9c819b8e",
+      "size": 1445500
+    },
+    "website/assets/app-chat.png": {
+      "role": "index",
+      "sha256": "4515da9abd3aa8c2466c46b971bb69260644afb507f13555d11454d9622a4271",
+      "size": 512485
+    },
+    "website/assets/app-computer.png": {
+      "role": "index",
+      "sha256": "218718b37b016c81d17ce34f6b779e3a548c35612d8556f20913c44f1982ed7e",
+      "size": 259610
+    },
+    "website/assets/app-files.png": {
+      "role": "index",
+      "sha256": "693a472790317d7b9e09ec64f0be89d851baf1691ffd47f8bf238eb67ea2a747",
+      "size": 207104
+    },
+    "website/assets/app-icon.png": {
+      "role": "index",
+      "sha256": "de76f9028d5b9fcf97146bca4087b7e55e1d2fc55d357ecea0250325b95f4144",
+      "size": 662545
+    },
+    "website/index.html": {
+      "role": "index",
+      "sha256": "84e37b45b5ef61c6b095898cc59b0898c531560932cad22835390509aedd49ea",
+      "size": 19781,
+      "normalized_sha256": "84e37b45b5ef61c6b095898cc59b0898c531560932cad22835390509aedd49ea"
+    },
+    "website/script.js": {
+      "role": "index",
+      "sha256": "7f15bb26cbcaaf1c3be024630d5da37363b4ffaf8e1f967da40658cd020e4040",
+      "size": 5298,
+      "normalized_sha256": "7f15bb26cbcaaf1c3be024630d5da37363b4ffaf8e1f967da40658cd020e4040"
+    },
+    "website/styles.css": {
+      "role": "index",
+      "sha256": "4daf048d4cf3d692b002db692f428c2a3284281654924990ceaae34114c4d1fe",
+      "size": 21300,
+      "normalized_sha256": "4daf048d4cf3d692b002db692f428c2a3284281654924990ceaae34114c4d1fe"
+    }
+  },
+  "managed_scope": {
+    "version": "managed-scope-baseline/v1",
+    "policy_identity": "e0f548d87fe5462c412a1c54409871a60ddf2ae5c30609258ff8739fdfcc8e76",
+    "observe_change_policy": "review_required",
+    "budget_policy_identity": "15e9b37a6c57e9bf03c9df3d0d049eb5b9a7f5540f9d34960408114e2538a32d",
+    "budget_policy": {
+      "version": "cognition-budget-policy/v1",
+      "mode": "enforce",
+      "whole_index": {
+        "target_tokens": 200000,
+        "warning_tokens": 300000,
+        "max_tokens": 400000
+      },
+      "r": [
+        {
+          "min_c": 1,
+          "max_c": 4,
+          "target_tokens": 25,
+          "max_tokens": 50
+        },
+        {
+          "min_c": 5,
+          "max_c": 7,
+          "target_tokens": 45,
+          "max_tokens": 90
+        },
+        {
+          "min_c": 8,
+          "max_c": 8,
+          "target_tokens": 70,
+          "max_tokens": 140
+        },
+        {
+          "min_c": 9,
+          "max_c": 9,
+          "target_tokens": 90,
+          "max_tokens": 180
+        }
+      ],
+      "s": [
+        {
+          "min_c": 1,
+          "max_c": 4,
+          "target_tokens": 20,
+          "max_tokens": 40
+        },
+        {
+          "min_c": 5,
+          "max_c": 7,
+          "target_tokens": 40,
+          "max_tokens": 80
+        },
+        {
+          "min_c": 8,
+          "max_c": 8,
+          "target_tokens": 70,
+          "max_tokens": 140
+        },
+        {
+          "min_c": 9,
+          "max_c": 9,
+          "target_tokens": 100,
+          "max_tokens": 200
+        }
+      ]
+    },
+    "apply_authorization_mode": "auto"
+  }
+}

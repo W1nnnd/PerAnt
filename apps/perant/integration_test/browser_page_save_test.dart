@@ -14,6 +14,8 @@ import 'package:perant/src/application/browser_page_document.dart';
 import 'package:perant/src/application/computer_browser_service.dart';
 import 'package:perant_platform/perant_platform.dart';
 
+import 'fixtures/delayed_article.dart' as delayed;
+
 /// Real Android WebView and native create-only workspace publication. The only
 /// website is this test's Android loopback server. No API Key, cloud client,
 /// production database or existing document is read. Cleanup is limited to
@@ -174,6 +176,66 @@ void main() {
     },
     timeout: const Timeout(Duration(minutes: 3)),
   );
+
+  testWidgets('save reads the published paragraph at the unchanged URL', (
+    tester,
+  ) async {
+    final paragraph = '会议决定在周五复核资料，编号为${pages.nonce}。';
+    await delayed.withDelayedArticle(paragraph, (url, publish) async {
+      final service = ComputerBrowserService(
+        bridge: browser,
+        workspaceBridge: linux.bridge,
+      );
+      try {
+        await service.open(url: url);
+        final id = service.state!.id;
+        final before = await _ready(browser, id, url);
+        await publish();
+        await service.refreshState();
+        final priorFiles = await linux.bridge.listLinuxDirectory('/workspace');
+        expect(
+          priorFiles.truncated,
+          isFalse,
+          reason: 'A full listing is needed to count new files.',
+        );
+        final saved = await service.savePage();
+        linux.ownImport(saved.file.path);
+        expect(saved.page.id, id);
+        expect(saved.page.url, url);
+        expect(saved.page.title, before.title);
+        expect(saved.truncated, isFalse);
+        final nextFiles = await linux.bridge.listLinuxDirectory('/workspace');
+        expect(nextFiles.truncated, isFalse);
+        expect(
+          nextFiles.entries.map((entry) => entry.path),
+          unorderedEquals([
+            ...priorFiles.entries.map((entry) => entry.path),
+            saved.file.path,
+          ]),
+        );
+        final actual = await linux.bridge.readLinuxFile(saved.file.path);
+        expect(actual.content, contains(paragraph));
+        expect(actual.content, isNot(contains(delayed.articlePlaceholder)));
+        expect(
+          actual.content.split('\n'),
+          contains('来源：${url.replaceAll('.', r'\.')}'),
+        );
+        expect(actual.sizeBytes, saved.file.sizeBytes);
+        expect(actual.sha256, saved.file.sha256);
+        _record(report, 'delayed-body-same-url-publication', {
+          'provider': before.provider,
+          'receipt': saved.toToolReceipt(),
+          'actualReadbackSha256': actual.sha256,
+        });
+      } finally {
+        try {
+          await service.close();
+        } finally {
+          service.dispose();
+        }
+      }
+    });
+  }, timeout: const Timeout(Duration(minutes: 2)));
 
   testWidgets('real reader truncates text and traversal and escapes Markdown', (
     tester,

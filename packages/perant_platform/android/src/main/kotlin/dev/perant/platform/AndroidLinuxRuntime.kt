@@ -51,6 +51,7 @@ internal class AndroidLinuxRuntime(context: Context, private val emit: (Map<Stri
         }
         return mapOf(
             "supported" to supported, "installed" to installed,
+            "workspaceAvailable" to (!disposed && NativePty.available),
             "active" to (installed && process != null),
             "sessionId" to process?.takeIf { it.interactive }?.id,
             "distribution" to environment.distribution, "version" to environment.version,
@@ -176,21 +177,30 @@ internal class AndroidLinuxRuntime(context: Context, private val emit: (Map<Stri
      * General file reads/replacements still require an idle guest.
      */
     fun importTextFile(content: String): Map<String, Any> = synchronized(lock) {
-        ensureSupported()
         val process = active
         val readyDesktop = process != null && process.desktop != null && process.desktopReady &&
             !process.finished && process.exitCode == null
         if (initializing || (process != null && !readyDesktop))
             throw LinuxFailure("busy", "请等待桌面启动完成，或先结束当前 Linux 任务或终端。")
-        if (!environment.installed) throw LinuxFailure("not_installed", "请先初始化本地 Linux 环境。")
+        if (readyDesktop) {
+            // The running guest already shares this directory. Keep the import
+            // on the no-follow JNI path without preparing or chmod'ing it again.
+            ensureSupported()
+        } else {
+            prepareWorkspace()
+        }
         workspaceImport.importText(content)
     }
 
     private fun <T> withIdleWorkspace(action: () -> T): T = synchronized(lock) {
-        ensureSupported()
         if (initializing || active != null) throw LinuxFailure("busy", "请先结束当前 Linux 任务或终端，再访问共享文件。")
-        if (!environment.installed) throw LinuxFailure("not_installed", "请先初始化本地 Linux 环境。")
+        prepareWorkspace()
         action()
+    }
+
+    private fun prepareWorkspace() {
+        if (disposed || !NativePty.available) throw LinuxFailure("unavailable", "本地文件工作区不可用。")
+        environment.prepareWorkspace()
     }
 
     private fun start(id: String, interactive: Boolean, command: String?, columns: Int, rows: Int, timeoutMs: Long?, desktop: LinuxDesktopLaunch? = null): GuestProcess {

@@ -10,7 +10,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:perant/src/application/computer_browser_service.dart';
+import 'package:perant/src/application/workspace_controller.dart';
+import 'package:perant/src/data/credential_store.dart';
+import 'package:perant/src/data/workspace_state.dart';
+import 'package:perant/src/presentation/container_screen.dart';
 import 'package:perant_platform/perant_platform.dart';
+
+import 'fixtures/delayed_article.dart' as delayed;
 
 /// Real Android WebView, Activity/PlatformView lifecycle, PNG and input. Pages
 /// are served by this test on Android loopback; no model or external website is
@@ -54,6 +61,195 @@ void main() {
     }
     await pages.close();
   });
+
+  testWidgets('native reader observes new text without navigation', (
+    tester,
+  ) async {
+    final id = ownId();
+    final paragraph = '会议决定在周五复核资料，编号为${pages.nonce}。';
+    await delayed.withDelayedArticle(paragraph, (url, publish) async {
+      await bridge.open(id: id, url: url, width: 480, height: 640);
+      Future<ComputerBrowserPage> read() async {
+        final state = await _waitState(
+          tester,
+          bridge,
+          id,
+          (s) =>
+              s.url == url &&
+              s.title == '会议资料' &&
+              !s.loading &&
+              s.error.isEmpty,
+        );
+        return bridge.readPage(id, expectedRevision: state.revision);
+      }
+
+      final before = await read();
+      expect(before.text, contains(delayed.articlePlaceholder));
+      expect(before.text, isNot(contains(paragraph)));
+      await publish();
+      final after = await read();
+      expect(after.url, url);
+      expect(after.title, before.title);
+      expect(after.text, contains(paragraph));
+      expect(after.text, isNot(contains(delayed.articlePlaceholder)));
+      expect(after.truncated, isFalse);
+      _record(report, 'delayed-text-without-navigation', {
+        'sourceUrl': after.url,
+        'provider': (await bridge.state(id))!.provider,
+      });
+    });
+  }, timeout: const Timeout(Duration(minutes: 2)));
+
+  testWidgets('save Chinese form pages, edit, reject a stale edit and reopen', (
+    tester,
+  ) async {
+    const rounds = int.fromEnvironment(
+      'PERANT_WORKSPACE_STRESS_ROUNDS',
+      defaultValue: 1,
+    );
+    expect(rounds, inInclusiveRange(1, 200));
+    final files = PerantPlatformBridge();
+    final controller = WorkspaceController(
+      persistence: MemoryWorkspacePersistence(),
+      credentials: MemoryCredentialStore(),
+      bridge: files,
+    );
+    await controller.initialize();
+    addTearDown(controller.dispose);
+    final status = await files.getLinuxStatus();
+    expect(status.active, isFalse, reason: 'Use a dedicated idle test device.');
+    expect(status.workspaceAvailable, isTrue);
+    final cpu = await Process.run('/system/bin/getprop', [
+      'ro.product.cpu.abilist64',
+    ]);
+    expect(cpu.exitCode, 0);
+    final primaryAbi = (cpu.stdout as String).trim().split(',').first;
+    if (primaryAbi == 'x86_64') {
+      expect(status.supported, isFalse);
+      expect(status.reason, contains('原生 ARM64'));
+    }
+    final root = (await getApplicationSupportDirectory()).path;
+    final url = pages.url('/one');
+    final elapsed = <int>[];
+    final paths = <String>{};
+    for (var round = 0; round < rounds; round++) {
+      final timer = Stopwatch()..start();
+      final service = ComputerBrowserService(
+        bridge: bridge,
+        workspaceBridge: files,
+      );
+      File? ownedFile;
+      try {
+        await service.open(url: url);
+        final id = service.state!.id;
+        final shot = await _shotUntil(
+          bridge,
+          id,
+          (s) => s.area(19, 91, 187).pixels > 1000,
+        );
+        final field = shot.area(19, 91, 187);
+        await bridge.action(
+          id,
+          action: 'tap',
+          x: field.centerX,
+          y: field.centerY,
+          width: shot.frame.width,
+          height: shot.frame.height,
+          expectedRevision: shot.frame.state.revision,
+        );
+        final focused = await bridge.capture(id);
+        final draft = '尚未提交的中文草稿${pages.nonce}第${round}轮';
+        await bridge.action(
+          id,
+          action: 'text',
+          text: draft,
+          expectedRevision: focused.state.revision,
+        );
+        await pages.waitForInput(draft);
+        await service.refreshState();
+        final before = await files.listLinuxDirectory('/workspace');
+        expect(before.truncated, isFalse);
+        final saved = await service.savePage();
+        final path = saved.file.path;
+        ownedFile = File('$root/linux-runtime$path');
+        expect(paths.add(path), isTrue);
+        final listing = await files.listLinuxDirectory('/workspace');
+        expect(listing.truncated, isFalse);
+        expect(
+          listing.entries.map((e) => e.path),
+          unorderedEquals([...before.entries.map((e) => e.path), path]),
+        );
+        final file = await files.readLinuxFile(path);
+        expect(file.content, contains('公开会议资料'));
+        expect(file.content, contains('来源：${url.replaceAll('.', r'\.')}'));
+        expect(file.content, isNot(contains(draft)));
+        expect(file.sha256, saved.file.sha256);
+        expect(file.sizeBytes, utf8.encode(file.content).length);
+        expect(file.sizeBytes, saved.file.sizeBytes);
+        await service.close();
+        final edited = '${file.content}\n用户复核第${round}轮。';
+        await tester.pumpWidget(
+          MaterialApp(home: ContainerScreen(controller: controller)),
+        );
+        await tester.pumpAndSettle();
+        final listItem = find.text(path.split('/').last);
+        await tester.tap(listItem);
+        await tester.pumpAndSettle();
+        final fieldFinder = find.byKey(
+          const ValueKey('container-file-content'),
+        );
+        expect(
+          tester.widget<TextField>(fieldFinder).controller!.text,
+          file.content,
+        );
+        await tester.enterText(fieldFinder, edited);
+        await tester.pump();
+        await tester.tap(find.byTooltip('保存到 Linux'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.byTooltip('返回'));
+        await tester.pumpAndSettle();
+        await tester.tap(listItem);
+        await tester.pumpAndSettle();
+        expect(tester.widget<TextField>(fieldFinder).controller!.text, edited);
+        await tester.pumpWidget(const SizedBox.shrink());
+        await tester.pumpAndSettle();
+        await expectLater(
+          files.writeLinuxFile(
+            path: path,
+            content: '过期修改',
+            expectedSha256: file.sha256,
+          ),
+          throwsA(
+            isA<RuntimeBridgeException>().having(
+              (e) => e.code,
+              'code',
+              'file_conflict',
+            ),
+          ),
+        );
+        final reopened = await PerantPlatformBridge().readLinuxFile(path);
+        expect(reopened.content, edited);
+        expect(await ownedFile.readAsString(), edited);
+        elapsed.add(timer.elapsedMilliseconds);
+      } finally {
+        try {
+          await service.close();
+        } finally {
+          service.dispose();
+          if (ownedFile != null) await ownedFile.delete();
+        }
+      }
+    }
+    elapsed.sort();
+    _record(report, 'workspace-form-stress', {
+      'completed': elapsed.length,
+      'p50Ms': elapsed[(rounds * .50).ceil() - 1],
+      'p95Ms': elapsed[(rounds * .95).ceil() - 1],
+      'maxMs': elapsed.last,
+      'linuxInstalled': status.installed,
+      'primaryAbi': primaryAbi,
+    });
+  }, timeout: const Timeout(Duration(minutes: 18)));
 
   testWidgets(
     'native browser renders real JavaScript and accepts hidden pointer text and key input',
@@ -862,6 +1058,12 @@ final class _LocalPages {
     return clicks[count - 1];
   }
 
+  Future<void> waitForInput(String value) => _wait(
+    () => events.any(
+      (event) => event['type'] == 'input' && event['value'] == value,
+    ),
+  );
+
   Future<Map<String, dynamic>> waitForScroll() async {
     await _wait(
       () => events.any(
@@ -910,11 +1112,15 @@ border:0;background:rgb(19,91,187);color:white;font:24px sans-serif;}
 button{position:fixed;left:5vw;top:35vh;width:90vw;height:45vh;border:0;
 background:rgb(197,23,109);color:white;font:24px sans-serif;}
 </style></head><body>
+<p style="position:absolute;top:175vh">公开会议资料</p>
 <input id="field" aria-label="Fixture input" autocomplete="off">
 <button id="run">Run local JavaScript</button><script>
 let clicks=0;
 function post(value){return fetch('/events',{method:'POST',
 headers:{'Content-Type':'application/json'},body:JSON.stringify(value)});}
+document.getElementById('field').addEventListener('input',function(){
+ post({type:'input',nonce:'$nonce',value:this.value});
+});
 document.getElementById('run').addEventListener('click',function(){
  const result=[6,7].reduce(function(a,b){return a*b;},1); clicks++;
  this.style.backgroundColor=clicks%2 ? 'rgb('+result+',203,149)' : 'rgb('+result+',91,211)';

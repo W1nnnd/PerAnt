@@ -19,6 +19,7 @@ void main() {
   late String content;
   late String hash;
   late List<MethodCall> calls;
+  late bool installed;
 
   Map<String, Object?> file() => {
     'path': '/workspace/notes.md',
@@ -31,6 +32,7 @@ void main() {
     content = '# Original';
     hash = 'a' * 64;
     calls = [];
+    installed = true;
     messenger.setMockMethodCallHandler(channel, (call) async {
       calls.add(call);
       final args = call.arguments is Map ? call.arguments! as Map : const {};
@@ -49,14 +51,15 @@ void main() {
         case 'getLinuxStatus':
           return {
             'supported': true,
-            'installed': true,
+            'installed': installed,
+            if (!installed) 'workspaceAvailable': true,
             'active': false,
             'distribution': 'Alpine',
             'version': 'fixture',
             'workspace': '/workspace',
             'reason': 'fixture',
-            'pythonAvailable': true,
-            'pythonVersion': '3.14.10',
+            'pythonAvailable': installed,
+            if (installed) 'pythonVersion': '3.14.10',
           };
         case 'listLinuxDirectory':
           return {
@@ -113,6 +116,19 @@ void main() {
     await tester.pumpAndSettle();
     return controller;
   }
+
+  testWidgets('shared files open before Linux installation', (tester) async {
+    installed = false;
+    await launch(tester, 390);
+    expect(find.text('初始化 Linux'), findsOneWidget);
+    await tester.tap(find.text('notes.md'));
+    await tester.pumpAndSettle();
+    final field = tester.widget<TextField>(
+      find.byKey(const ValueKey('container-file-content')),
+    );
+    expect(field.controller!.text, content);
+    expect(calls.any((call) => call.method == 'initializeLinux'), isFalse);
+  });
 
   for (final width in [320.0, 390.0, 800.0]) {
     testWidgets('container file workspace fits Android width $width', (

@@ -49,3 +49,7 @@ artifacts/
 # Rebuilt from pinned sources with tool/prepare-linux-runtime
 packages/perant_platform/android/src/main/assets/perant-linux/
 packages/perant_platform/android/src/main/jniLibs/**/*.so
+
+# AOCI agent host integration (machine-bound; do not commit)
+.codex/config.toml
+.codex/config.toml.backup.*

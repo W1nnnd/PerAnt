@@ -88,8 +88,8 @@ class LinuxEnvironment(context: Context) {
                 (manifestResult.exceptionOrNull()?.message ?: "unknown manifest error")
             Build.VERSION.SDK_INT < specification.minAndroidApi ->
                 "Linux requires Android API ${specification.minAndroidApi} or newer."
-            !Build.SUPPORTED_ABIS.contains(specification.abi) || !Process.is64Bit() ->
-                "This Linux runtime requires an ARM64 Android process."
+            Build.SUPPORTED_64_BIT_ABIS.firstOrNull() != specification.abi || !Process.is64Bit() ->
+                "此 Linux 环境需要原生 ARM64 Android。此设备仍可使用浏览器和工作文件。"
             !Files.isRegularFile(proot.toPath(), NOFOLLOW_LINKS) ->
                 "The bundled PRoot executable is unavailable."
             !Files.isRegularFile(loader.toPath(), NOFOLLOW_LINKS) ->
@@ -168,9 +168,8 @@ class LinuxEnvironment(context: Context) {
         appContext.assets.open(specification.rootfsAsset).use {
             verifyDigest(it, specification.rootfsSha256, specification.rootfsSize)
         }
-        hostDirectory(runtimeHome)
+        prepareWorkspace()
         hostDirectory(versions)
-        hostDirectory(workspace)
         hostDirectory(tmpRoot)
         if (installed) return
 
@@ -328,6 +327,13 @@ class LinuxEnvironment(context: Context) {
         listOf(runtimeHome, versions, versionHome, rootfs).all {
             Files.isDirectory(it.toPath(), NOFOLLOW_LINKS)
         }
+
+    fun prepareWorkspace() {
+        if (pendingBootstrapCleanup?.count?.let { it > 0 } == true)
+            throw LinuxFailure("busy", "请等待上一次 Linux 安装清理完成。")
+        hostDirectory(runtimeHome)
+        hostDirectory(workspace)
+    }
 
     private fun hostDirectory(directory: File) {
         val parent = directory.parentFile ?: throw IOException("Directory has no parent.")

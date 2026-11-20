@@ -73,7 +73,7 @@ class _ContainerScreenState extends State<ContainerScreen> {
       final status = await controller.bridge.getLinuxStatus();
       if (!mounted) return;
       setState(() => _status = status);
-      if (!status.installed || !status.supported) return;
+      if (!status.workspaceAvailable) return;
       if (controller.isSending ||
           controller.manualTerminalActive ||
           status.active) {
@@ -277,7 +277,7 @@ class _ContainerScreenState extends State<ContainerScreen> {
         : installed
         ? '本机运行 · ${status?.pythonVersion == null ? 'Shell' : 'Python ${status!.pythonVersion}'}'
         : status?.supported == false
-        ? '当前平台暂不可用'
+        ? '此设备无法运行 Linux'
         : '等待初始化';
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 8, 16, 16),
@@ -335,7 +335,7 @@ class _ContainerScreenState extends State<ContainerScreen> {
   }
 
   Widget _files() {
-    final ready = _status?.installed == true;
+    final ready = _status?.workspaceAvailable == true;
     if (!ready)
       return Center(
         child: Padding(
@@ -376,6 +376,12 @@ class _ContainerScreenState extends State<ContainerScreen> {
     final entries = _directory?.entries ?? const <LinuxFileEntry>[];
     return Column(
       children: [
+        if (_status?.supported == true && _status?.installed == false)
+          TextButton.icon(
+            onPressed: _blocked ? null : _initialize,
+            icon: const Icon(Icons.terminal_rounded),
+            label: const Text('初始化 Linux'),
+          ),
         Padding(
           padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
           child: Row(

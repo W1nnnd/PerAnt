@@ -81,6 +81,7 @@ final class LinuxStatus {
   const LinuxStatus({
     required this.supported,
     required this.installed,
+    bool? workspaceAvailable,
     required this.active,
     required this.distribution,
     required this.version,
@@ -92,10 +93,11 @@ final class LinuxStatus {
     this.desktopAvailable = false,
     this.desktopVersion,
     this.desktopSessionId,
-  });
+  }) : workspaceAvailable = workspaceAvailable ?? installed;
 
   final bool supported;
   final bool installed;
+  final bool workspaceAvailable;
   final bool active;
   final String? sessionId;
   final String distribution;
@@ -146,6 +148,9 @@ final class LinuxStatus {
     return LinuxStatus(
       supported: supported,
       installed: installed,
+      workspaceAvailable: map.containsKey('workspaceAvailable')
+          ? _readBool(map, 'workspaceAvailable')
+          : installed,
       active: active,
       sessionId: sessionId,
       distribution: _readString(map, 'distribution'),
