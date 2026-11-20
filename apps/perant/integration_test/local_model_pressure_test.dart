@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
+import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:material_ui/material_ui.dart';
@@ -58,7 +58,7 @@ void main() {
                       'PERANT_PRESSURE_READY completed=${c.state.currentMeeting!.steps.length}',
                     );
                     if (!const bool.fromEnvironment('PERANT_EXTERNAL_MEMORY'))
-                      Future.microtask(tester.binding.handleMemoryPressure);
+                      scheduleMicrotask(tester.binding.handleMemoryPressure);
                   }
                 });
               },

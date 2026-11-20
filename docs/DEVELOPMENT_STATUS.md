@@ -6,6 +6,10 @@
 
 同一场景在模拟器开启飞行模式并关闭 Wi-Fi、移动数据后再次通过。运行前后 Android 均报告没有默认网络。复测后还原了模拟器网络设置。
 
+在归纳第二段时，用 Android Activity Manager 向当前进程发送 `RUNNING_CRITICAL` 低内存通知。应用停止当前归纳、释放真实推理引擎、保留已完成的第一步；用户再次点击加载后引擎就绪，SQLite 中的进度相同。该测试验证系统通知的处理，实际内存耗尽和厂商后台策略仍需真机验证。
+
+复测使用专用 AVD 和已校验的 0.8B 模型。安装由 `integration_test/meeting_recovery_test.dart` 和 `--dart-define=PERANT_KILL_MEETING=true` 构建的 APK，运行 `tool/android-model-recovery.ps1 -Target <模拟器序列号> -Probe Meeting`。低内存用例改用 `integration_test/local_model_pressure_test.dart`、`--dart-define=PERANT_EXTERNAL_MEMORY=true` 和 `-Probe Memory`。
+
 **0.0.10+2019** 在首次初始化 Linux、安装中文推理模型与嵌入模型前显示存储估算。Android 从应用私有目录所在分区读取当前可用字节。GGUF 续传会扣除已下载部分，空间不足时在发起 HTTP 前报告缺口，保留断点。
 
 3 GB Android API 37 x86_64 模拟器完成十轮后台、终止 PerAnt 测试进程并从冷启动恢复，其中五轮包含系统熄屏、唤醒和解锁。每轮在已经确认的中文文档保存完成、固定回环请求开始后终止进程；重开后十份文档逐字一致，十个任务均显示中断，旧授权不可复用，自动发起请求数为零。每次启动还对独立 SQLite 数据库设置页数上限，实际触发 SQLITE_FULL，检查失败编辑没有产生新修订或新检索结果，解除上限后成功保存。该方法限定测试库，不占满设备分区。系统自行回收、物理断电和实体机厂商策略仍待验证。
