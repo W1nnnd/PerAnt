@@ -125,6 +125,15 @@ final class WorkspaceController extends ChangeNotifier {
     state = await persistence.load();
     _protocolHistories.clear();
     _historySourcesByConversation.clear();
+    _markInterrupted(state);
+    final reference = profile?.storageKeyRef;
+    if (reference != null)
+      hasKey = (await credentials.read(reference))?.isNotEmpty ?? false;
+    await _save();
+    await refreshCapabilities();
+  }
+
+  static void _markInterrupted(WorkspaceState state) {
     for (var index = 0; index < state.tasks.length; index++) {
       final task = state.tasks[index];
       if (!task.status.isTerminal &&
@@ -147,11 +156,6 @@ final class WorkspaceController extends ChangeNotifier {
         );
       }
     }
-    final reference = profile?.storageKeyRef;
-    if (reference != null)
-      hasKey = (await credentials.read(reference))?.isNotEmpty ?? false;
-    await _save();
-    await refreshCapabilities();
   }
 
   Future<void> refreshCapabilities() async {
@@ -343,7 +347,12 @@ final class WorkspaceController extends ChangeNotifier {
       updatedAt: DateTime.now(),
     );
     state.documents.insert(0, doc);
-    await _save();
+    try {
+      await _save();
+    } catch (_) {
+      state.documents.remove(doc);
+      rethrow;
+    }
     _notify();
     return doc;
   }
@@ -352,23 +361,63 @@ final class WorkspaceController extends ChangeNotifier {
     String id,
     String markdown, {
     bool confirm = false,
+    int? expectedRevision,
   }) async {
     _ensureConfigurationIdle();
     final index = state.documents.indexWhere((d) => d.id == id);
     if (index < 0) throw StateError('文档已不存在。');
-    var document = state.documents[index].edit(markdown, at: DateTime.now());
+    final previous = state.documents[index];
+    if (expectedRevision != null && expectedRevision != previous.revision) {
+      throw StateError('资料已有新版本，请保留草稿，重新打开后核对。');
+    }
+    var document = previous.edit(markdown, at: DateTime.now());
     if (confirm) document = document.confirm(at: DateTime.now());
     state.documents[index] = document;
-    await _save();
+    try {
+      await _save();
+    } catch (_) {
+      final current = state.documents.indexWhere((d) => identical(d, document));
+      if (current >= 0) state.documents[current] = previous;
+      rethrow;
+    }
     _notify();
     return document;
   }
 
   Future<void> deleteDocument(String id) async {
     _ensureConfigurationIdle();
-    state.documents.removeWhere((d) => d.id == id);
-    await _save();
+    final index = state.documents.indexWhere((d) => d.id == id);
+    if (index < 0) return;
+    final removed = state.documents.removeAt(index);
+    try {
+      await _save();
+    } catch (_) {
+      if (!state.documents.any((d) => d.id == id))
+        state.documents.insert(index.clamp(0, state.documents.length), removed);
+      rethrow;
+    }
     _notify();
+  }
+
+  Future<void> restoreWorkspace(WorkspaceState replacement) async {
+    _ensureConfigurationIdle();
+    if (isSending || isTesting || replacement.profile != null)
+      throw StateError('当前无法恢复工作区。');
+    isConfiguring = true;
+    _notify();
+    try {
+      _markInterrupted(replacement);
+      await _saveSnapshot(replacement.toJson());
+      state = replacement;
+      _protocolHistories.clear();
+      _historySourcesByConversation.clear();
+      hasKey = false;
+      error = null;
+      connectionMessage = null;
+    } finally {
+      isConfiguring = false;
+      _notify();
+    }
   }
 
   Future<void> clearConversation() async {

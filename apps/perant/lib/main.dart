@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 import 'package:material_ui/material_ui.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 
 import 'src/application/screenshot_grid.dart';
 import 'src/application/workspace_controller.dart';
@@ -9,6 +11,11 @@ import 'src/perant_app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  LicenseRegistry.addLicense(() async* {
+    yield LicenseEntryWithLineBreaks([
+      'LXGW WenKai',
+    ], await rootBundle.loadString('assets/fonts/OFL.txt'));
+  });
   try {
     final controller = WorkspaceController(
       persistence: await openWorkspacePersistence(),

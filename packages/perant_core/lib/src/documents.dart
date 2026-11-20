@@ -36,12 +36,23 @@ final class MarkdownDocument {
     int revision = 1,
     this.confirmedRevision,
     this.confirmedAt,
-  }) : currentVersion = DocumentVersion(
+    List<DocumentVersion> history = const [],
+  })  : history = List.unmodifiable(history),
+        currentVersion = DocumentVersion(
           documentId: id,
           revision: revision,
           markdown: markdown,
           updatedAt: updatedAt,
         ) {
+    var lastRevision = 0;
+    for (final version in history) {
+      if (version.documentId != id ||
+          version.revision <= lastRevision ||
+          version.revision >= revision) {
+        throw ArgumentError('Invalid document revision history.');
+      }
+      lastRevision = version.revision;
+    }
     if (confirmedRevision != null && confirmedRevision != revision) {
       throw ArgumentError('Confirmation must refer to the current revision.');
     }
@@ -52,6 +63,7 @@ final class MarkdownDocument {
   }
 
   final String title;
+  final List<DocumentVersion> history;
   final DocumentVersion currentVersion;
   final int? confirmedRevision;
   final DateTime? confirmedAt;
@@ -70,6 +82,7 @@ final class MarkdownDocument {
       markdown: value,
       updatedAt: at,
       revision: revision + 1,
+      history: [...history, currentVersion],
     );
   }
 
@@ -81,6 +94,7 @@ final class MarkdownDocument {
         revision: revision,
         confirmedRevision: revision,
         confirmedAt: at,
+        history: history,
       );
 
   ConfirmedDocument confirmedSnapshot() {

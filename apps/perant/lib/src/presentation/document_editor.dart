@@ -1,11 +1,15 @@
 // SPDX-License-Identifier: GPL-3.0-only
 import 'dart:async';
 
+import 'package:diff_match_patch/diff_match_patch.dart' as edits;
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:perant_core/perant_core.dart';
 
+import '../application/office_document.dart';
 import '../application/workspace_controller.dart';
 import 'theme.dart';
 
@@ -49,15 +53,141 @@ class _DocumentEditorState extends State<DocumentEditor> {
         _saved.id,
         _text.text,
         confirm: confirm,
+        expectedRevision: _saved.revision,
       );
       if (!mounted) return;
       setState(() => _saved = result);
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(confirm ? '已确认当前版本' : '文档已保存')));
+    } on StateError catch (error) {
+      if (mounted)
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(error.message.toString())));
     } catch (_) {
       if (mounted)
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('未能保存，请保留当前文字后重试。')));
+    } finally {
+      if (mounted) setState(() => _saving = false);
+    }
+  }
+
+  Future<void> _history() async {
+    final version = await showModalBottomSheet<DocumentVersion>(
+      context: context,
+      builder: (sheet) => SafeArea(
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            const ListTile(title: Text('选择版本，与当前编辑内容比较')),
+            for (final version in [
+              _saved.currentVersion,
+              ..._saved.history.reversed,
+            ])
+              ListTile(
+                title: Text('版本 ${version.revision}'),
+                subtitle: Text(
+                  version.updatedAt.toLocal().toString().split('.').first,
+                ),
+                onTap: () => Navigator.pop(sheet, version),
+              ),
+          ],
+        ),
+      ),
+    );
+    if (version == null || !mounted) return;
+    final draft = _text.text;
+    final changes = edits.diff(version.markdown, draft);
+    edits.cleanupSemantic(changes);
+    final restore = await showDialog<bool>(
+      context: context,
+      builder: (dialog) => AlertDialog(
+        title: Text('版本 ${version.revision} → 当前编辑内容'),
+        content: SingleChildScrollView(
+          child: SelectableText.rich(
+            TextSpan(
+              children: [
+                for (final change in changes)
+                  TextSpan(
+                    text: change.text,
+                    style: switch (change.operation) {
+                      edits.DIFF_INSERT => const TextStyle(
+                        backgroundColor: Color(0xffd4eedc),
+                        decoration: TextDecoration.underline,
+                      ),
+                      edits.DIFF_DELETE => const TextStyle(
+                        backgroundColor: Color(0xffffdcdc),
+                        decoration: TextDecoration.lineThrough,
+                      ),
+                      _ => null,
+                    },
+                  ),
+              ],
+            ),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialog),
+            child: const Text('关闭'),
+          ),
+          if (version.markdown != draft)
+            TextButton(
+              onPressed: () => Navigator.pop(dialog, true),
+              child: Text(_dirty ? '用此版本替换未保存草稿' : '将此版本载入草稿'),
+            ),
+        ],
+      ),
+    );
+    if (restore == true && mounted) _text.text = version.markdown;
+  }
+
+  Future<void> _export(DocumentFormat format) async {
+    if (_saving || _dirty || !_saved.isConfirmed) return;
+    setState(() => _saving = true);
+    try {
+      final latest = widget.controller.documents
+          .where((d) => d.id == _saved.id)
+          .firstOrNull;
+      if (latest == null ||
+          !latest.isConfirmed ||
+          latest.revision != _saved.revision) {
+        throw StateError('资料版本已变更，请重新打开并确认。');
+      }
+      final snapshot = latest.confirmedSnapshot();
+      final bytes = format == DocumentFormat.docx
+          ? await compute(exportDocx, snapshot)
+          : await compute(renderOfficePdf, (
+              snapshot,
+              await rootBundle.load(officeFontAsset),
+            ));
+      if (!mounted) return;
+      final result = await FilePicker.saveFile(
+        bytes: bytes,
+        fileName: officeFileName(snapshot, format),
+        mimeType: format == DocumentFormat.docx
+            ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            : 'application/pdf',
+      );
+      if (mounted && result != null)
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              '已导出版本 ${snapshot.revision} · ${format.name.toUpperCase()}',
+            ),
+          ),
+        );
+    } catch (error) {
+      if (mounted)
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              error is StateError
+                  ? error.message.toString()
+                  : '导出失败，请检查文档大小、目标位置和设备空间。',
+            ),
+          ),
+        );
     } finally {
       if (mounted) setState(() => _saving = false);
     }
@@ -117,7 +247,11 @@ class _DocumentEditorState extends State<DocumentEditor> {
               tooltip: '保存文档',
               icon: const Icon(Icons.save_outlined),
             ),
-            const SizedBox(width: 8),
+            IconButton(
+              onPressed: _saving ? null : _history,
+              tooltip: '版本历史与差异',
+              icon: const Icon(Icons.history),
+            ),
           ],
         ),
         body: SafeArea(
@@ -172,6 +306,7 @@ class _DocumentEditorState extends State<DocumentEditor> {
                           )
                         : TextField(
                             controller: _text,
+                            readOnly: _saving,
                             expands: true,
                             maxLines: null,
                             minLines: null,
@@ -228,10 +363,20 @@ class _DocumentEditorState extends State<DocumentEditor> {
                       ],
                     ),
                     const SizedBox(height: 8),
-                    Text(
-                      '当前可编辑、预览和复制 Markdown；Word / PDF 导出尚未开放。',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodySmall,
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      children: [
+                        for (final format in [
+                          DocumentFormat.docx,
+                          DocumentFormat.pdf,
+                        ])
+                          TextButton(
+                            onPressed: confirmed && !_saving
+                                ? () => _export(format)
+                                : null,
+                            child: Text('导出 ${format.name.toUpperCase()}'),
+                          ),
+                      ],
                     ),
                   ],
                 ),

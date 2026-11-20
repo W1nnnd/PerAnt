@@ -18,6 +18,7 @@ class PerantPlatformPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, Eve
     private var methods: MethodChannel? = null
     private var events: EventChannel? = null
     private var browserMethods: MethodChannel? = null
+    private var pdfMethods: MethodChannel? = null
     private var browser: ComputerBrowserRuntime? = null
     private var sink: EventChannel.EventSink? = null
     private val main = Handler(Looper.getMainLooper())
@@ -35,6 +36,10 @@ class PerantPlatformPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, Eve
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         attached = true
+        pdfMethods = MethodChannel(binding.binaryMessenger, "dev.perant/pdf",
+            io.flutter.plugin.common.StandardMethodCodec.INSTANCE, binding.binaryMessenger.makeBackgroundTaskQueue()).also {
+            it.setMethodCallHandler(PdfMaterials(binding.applicationContext))
+        }
         if (work.isShutdown) work = Executors.newSingleThreadExecutor()
         linux = AndroidLinuxRuntime(binding.applicationContext, ::enqueue)
         binding.platformViewRegistry.registerViewFactory("dev.perant/html-preview", StaticHtmlPreviewFactory())
@@ -47,6 +52,8 @@ class PerantPlatformPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, Eve
     }
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         attached = false
+        pdfMethods?.setMethodCallHandler(null)
+        pdfMethods = null
         browserMethods?.setMethodCallHandler(null)
         browser?.dispose(); browser = null; browserMethods = null
         linux.dispose()

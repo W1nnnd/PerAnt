@@ -1,14 +1,20 @@
 // SPDX-License-Identifier: GPL-3.0-only
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:file_selector/file_selector.dart';
+import 'package:file_picker/file_picker.dart' show FilePicker;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:perant_core/perant_core.dart';
 
+import '../application/material_import.dart';
+import '../application/meeting_minutes.dart';
 import '../application/workspace_controller.dart';
 import '../data/workspace_state.dart';
+import '../data/portable_documents.dart';
 import 'document_editor.dart';
 import 'companion_avatar.dart';
 import 'computer_workspace_page.dart';
@@ -159,29 +165,202 @@ class _WorkspaceShellState extends State<WorkspaceShell>
       final file = await openFile(
         acceptedTypeGroups: [
           const XTypeGroup(
-            label: '文本与 Markdown',
-            extensions: ['md', 'markdown', 'txt'],
-            uniformTypeIdentifiers: ['public.plain-text'],
+            label: '文档资料',
+            extensions: ['md', 'markdown', 'txt', 'docx', 'pdf'],
+            mimeTypes: [
+              'text/plain',
+              'text/markdown',
+              'application/pdf',
+              'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            ],
+            uniformTypeIdentifiers: [
+              'public.plain-text',
+              'net.daringfireball.markdown',
+              'org.openxmlformats.wordprocessingml.document',
+              'com.adobe.pdf',
+            ],
           ),
         ],
       );
       if (file == null) return;
-      if (await file.length() > 1024 * 1024) {
-        _toast('初步框架暂支持 1 MB 以内的文本文件。');
-        return;
-      }
-      final text = await file.readAsString();
-      if (text.runes.length > 20000) {
-        _toast('单份输入请控制在 2 万字以内。');
-        return;
-      }
+      if (await file.length() > materialByteLimit)
+        throw const FormatException('文件超过 10 MB。');
+      final bytes = await file.readAsBytes();
+      if (bytes.length > materialByteLimit)
+        throw const FormatException('文件超过 10 MB。');
+      final ext = file.name.split('.').last.toLowerCase();
+      final text = switch (ext) {
+        'docx' => await compute(importDocx, bytes),
+        'pdf' => importPdfPages(
+          await const MethodChannel('dev.perant/pdf')
+                  .invokeListMethod<String>('readPages', bytes) ??
+              [],
+        ),
+        'md' || 'markdown' || 'txt' => checkMaterialText(utf8.decode(bytes)),
+        _ => throw const FormatException('请选择 TXT、Markdown、DOCX 或文字 PDF。'),
+      };
       final document = await controller.createDocument(
         title: file.name,
         markdown: text,
       );
       if (mounted) await _openDocument(document);
+    } on FormatException catch (error) {
+      _toast(error.message);
+    } on PlatformException catch (error) {
+      _toast(error.message ?? '无法从文件中提取文字。');
     } catch (_) {
-      _toast('无法读取文件，请选择 UTF-8 编码的 TXT 或 Markdown。');
+      _toast('无法导入，请检查文件格式和设备存储空间。');
+    }
+  }
+
+  Future<void> _portableFiles(String action) async {
+    try {
+      if (action == 'restore') {
+        final file = await openFile(
+          acceptedTypeGroups: [
+            const XTypeGroup(
+              label: '资料备份',
+              extensions: ['json'],
+              mimeTypes: ['application/json'],
+              uniformTypeIdentifiers: ['public.json'],
+            ),
+          ],
+        );
+        if (file == null) return;
+        if (await file.length() > backupByteLimit)
+          throw const FormatException('资料备份超过 64 MB。');
+        final incoming = await compute(
+          readWorkspaceBackup,
+          await file.readAsBytes(),
+        );
+        if (!mounted) return;
+        final ok = await showDialog<bool>(
+          context: context,
+          builder: (c) => AlertDialog(
+            title: const Text('用备份替换本机工作区？'),
+            content: Text(
+              '备份含 ${incoming.documents.length} 份文档及其历史、${incoming.messages.length} 条消息和 ${incoming.tasks.length} 项任务。本机现有资料、对话、任务记录与偏好将被替换。恢复后需要重新配置模型与授权。',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(c, false),
+                child: const Text('取消'),
+              ),
+              FilledButton(
+                onPressed: () => Navigator.pop(c, true),
+                child: const Text('替换并恢复'),
+              ),
+            ],
+          ),
+        );
+        if (ok != true || !mounted) return;
+        await controller.restoreWorkspace(incoming);
+        _chatGrantProfile = null;
+        _chatGrantConversation = null;
+        _containerEnabled = false;
+        _containerIntentText = null;
+        _composer.clear();
+        _search.clear();
+        _toast('工作区已恢复。');
+        return;
+      }
+      final backup = action == 'backup';
+      final bytes = backup
+          ? await compute(backupWorkspace, controller.state)
+          : localDiagnostics(controller.state, defaultTargetPlatform.name);
+      if (!mounted) return;
+      final result = await FilePicker.saveFile(
+        fileName: backup ? 'perant-workspace.json' : 'perant-diagnostics.json',
+        bytes: bytes,
+        mimeType: 'application/json',
+      );
+      if (result != null) _toast(backup ? '工作区已备份。' : '已导出本机诊断统计。');
+    } on FormatException catch (e) {
+      _toast(e.message);
+    } catch (_) {
+      _toast('操作失败，请检查文件格式、位置和可用空间。');
+    }
+  }
+
+  Future<void> _meeting() async {
+    final docs = controller.documents;
+    final selected = <String>{};
+    final approved = await showDialog<bool>(
+      context: context,
+      builder: (dialog) => StatefulBuilder(
+        builder: (context, update) {
+          final size = docs
+              .where((d) => selected.contains(d.id))
+              .fold(0, (n, d) => n + d.markdown.runes.length);
+          return AlertDialog(
+            title: const Text('从本机资料整理会议纪要'),
+            content: SizedBox(
+              width: 480,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('已选 ${selected.length}/5 份 · $size/20000 字'),
+                  Flexible(
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: [
+                        for (final d in docs)
+                          CheckboxListTile(
+                            value: selected.contains(d.id),
+                            title: Text(d.title),
+                            subtitle: Text('版本 ${d.revision}'),
+                            onChanged:
+                                !selected.contains(d.id) && selected.length == 5
+                                ? null
+                                : (on) => update(() {
+                                    if (on == true) {
+                                      selected.add(d.id);
+                                    } else {
+                                      selected.remove(d.id);
+                                    }
+                                  }),
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(dialog),
+                child: const Text('取消'),
+              ),
+              FilledButton(
+                onPressed: selected.isEmpty || size > materialCharacterLimit
+                    ? null
+                    : () => Navigator.pop(dialog, true),
+                child: const Text('生成本机草稿'),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+    if (approved != true || !mounted) return;
+    try {
+      final materials = docs.where((d) => selected.contains(d.id)).toList();
+      for (final d in materials) {
+        if (!controller.documents.any(
+          (current) => current.id == d.id && current.revision == d.revision,
+        )) {
+          throw const FormatException('所选资料已有变化，请重新选择。');
+        }
+      }
+      final result = await controller.createDocument(
+        title: '会议纪要',
+        markdown: meetingOutline(materials),
+      );
+      if (mounted) await _openDocument(result);
+    } on FormatException catch (e) {
+      _toast(e.message);
+    } catch (_) {
+      _toast('会议纪要未能保存，请检查设备空间。');
     }
   }
 
@@ -1509,7 +1688,7 @@ class _WorkspaceShellState extends State<WorkspaceShell>
         children: [
           _menuRow(
             Icons.file_upload_outlined,
-            '导入 TXT / Markdown',
+            '导入文档资料',
             'import',
             enabled: !_mutationBusy,
           ),
@@ -2180,7 +2359,7 @@ class _WorkspaceShellState extends State<WorkspaceShell>
               children: [
                 Expanded(
                   child: Text(
-                    '${documents.length} 份本机 TXT / Markdown 文档',
+                    '${documents.length} 份本机文档',
                     style: const TextStyle(
                       fontSize: 12,
                       color: PerantColors.muted,
@@ -2190,6 +2369,24 @@ class _WorkspaceShellState extends State<WorkspaceShell>
                 TextButton(
                   onPressed: _mutationBusy ? null : _importDocument,
                   child: const Text('导入'),
+                ),
+                if (controller.documents.isNotEmpty)
+                  TextButton(
+                    onPressed: _mutationBusy ? null : _meeting,
+                    child: const Text('整理纪要'),
+                  ),
+                PopupMenuButton<String>(
+                  tooltip: '资料备份与诊断',
+                  enabled: !_mutationBusy,
+                  onSelected: _portableFiles,
+                  itemBuilder: (_) => const [
+                    PopupMenuItem(value: 'backup', child: Text('备份资料、对话与任务记录')),
+                    PopupMenuItem(value: 'restore', child: Text('从备份恢复整个工作区')),
+                    PopupMenuItem(
+                      value: 'diagnostics',
+                      child: Text('导出诊断统计（无正文）'),
+                    ),
+                  ],
                 ),
               ],
             ),

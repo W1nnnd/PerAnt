@@ -154,6 +154,40 @@ void main() {
   }
 
   test(
+    'stale edits and failed restores preserve the previous workspace',
+    () async {
+      final persistence = _ControlledPersistence();
+      final controller = controllerFor(
+        persistence,
+        MockClient((_) async => throw StateError('unexpected network')),
+      );
+      await controller.initialize();
+      final doc = await controller.createDocument(
+        title: '旧资料',
+        markdown: '第一版',
+      );
+      await controller.saveDocument(doc.id, '第二版', expectedRevision: 1);
+      await expectLater(
+        controller.saveDocument(doc.id, '迟到编辑', expectedRevision: 1),
+        throwsStateError,
+      );
+      final replacement = WorkspaceState(companionName: '备份伙伴');
+      persistence.failSaves = true;
+      await expectLater(
+        controller.restoreWorkspace(replacement),
+        throwsStateError,
+      );
+      expect(controller.documents.single.markdown, '第二版');
+      expect(controller.isConfiguring, isFalse);
+      persistence.failSaves = false;
+      await controller.restoreWorkspace(replacement);
+      expect(controller.documents, isEmpty);
+      expect((await persistence.load()).companionName, '备份伙伴');
+      expect(controller.canChat, isFalse);
+    },
+  );
+
+  test(
     'companion preferences survive reopening without changing workspace data',
     () async {
       final persistence = _ControlledPersistence();

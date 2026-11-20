@@ -290,9 +290,17 @@ final class WorkspaceState {
             'title': d.title,
             'markdown': d.markdown,
             'revision': d.revision,
-            'updatedAt': d.updatedAt.toIso8601String(),
+            'updatedAt': d.updatedAt.toUtc().toIso8601String(),
             'confirmedRevision': d.confirmedRevision,
-            'confirmedAt': d.confirmedAt?.toIso8601String(),
+            'confirmedAt': d.confirmedAt?.toUtc().toIso8601String(),
+            'history': [
+              for (final version in d.history)
+                {
+                  'revision': version.revision,
+                  'markdown': version.markdown,
+                  'updatedAt': version.updatedAt.toUtc().toIso8601String(),
+                },
+            ],
           },
         )
         .toList(),
@@ -374,6 +382,15 @@ final class WorkspaceState {
               title: d['title']! as String,
               markdown: d['markdown']! as String,
               revision: d['revision']! as int,
+              history: [
+                for (final raw in (d['history'] as List? ?? const []))
+                  DocumentVersion(
+                    documentId: d['id']! as String,
+                    revision: (raw as Map)['revision'] as int,
+                    markdown: raw['markdown'] as String,
+                    updatedAt: DateTime.parse(raw['updatedAt'] as String),
+                  ),
+              ],
               updatedAt: DateTime.parse(d['updatedAt']! as String),
               confirmedRevision: d['confirmedRevision'] as int?,
               confirmedAt: d['confirmedAt'] == null

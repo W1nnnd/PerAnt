@@ -534,6 +534,20 @@ void main() {
     expect(reopenedDocument.isConfirmed, isFalse);
     expect(reopenedDocument.revision, controller.documents.single.revision);
     expect(reopenedDocument.markdown, '# 工作记录\n\n已更新的会议内容。');
+    await tester.tap(find.byTooltip('版本历史与差异'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('版本 $confirmedRevision'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('将此版本载入草稿'));
+    await tester.pumpAndSettle();
+    expect(find.text('有未保存修改 · 确认将失效'), findsOneWidget);
+    expect(controller.documents.single.markdown, reopenedDocument.markdown);
+    expect(
+      tester
+          .widget<TextButton>(find.widgetWithText(TextButton, '导出 PDF'))
+          .onPressed,
+      isNull,
+    );
     expect(tester.takeException(), isNull);
   });
 }
