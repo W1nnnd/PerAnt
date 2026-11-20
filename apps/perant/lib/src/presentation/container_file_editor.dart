@@ -17,10 +17,12 @@ class ContainerFileEditor extends StatefulWidget {
     required this.controller,
     required this.path,
     this.file,
+    this.initialContent = '',
   });
   final WorkspaceController controller;
   final String path;
   final LinuxTextFile? file;
+  final String initialContent;
 
   @override
   State<ContainerFileEditor> createState() => _ContainerFileEditorState();
@@ -44,8 +46,9 @@ class _ContainerFileEditorState extends State<ContainerFileEditor> {
   void initState() {
     super.initState();
     _saved = widget.file;
-    _text = TextEditingController(text: _saved?.content ?? '')
-      ..addListener(_changed);
+    _text = TextEditingController(
+      text: _saved?.content ?? widget.initialContent,
+    )..addListener(_changed);
   }
 
   void _changed() => setState(() {});

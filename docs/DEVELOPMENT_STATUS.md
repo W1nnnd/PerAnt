@@ -1,5 +1,7 @@
 # 开发状态
 
+**0.0.4+2013** 从已确认的资料生成独立课件大纲。用户编辑和确认大纲后，可将它导出为含原生文本框的 PPTX。「PerAnt 入门」五页样本已用 Microsoft PowerPoint 16.0 验证可编辑、可另存和重开。相同资料可以导出静态 HTML，Android 工作文件编辑器可预览和修改生成的页面。导出文件无需连接模型服务。
+
 **0.0.3+2012（2026-11-20）** 已能从文件页导入 Word 和文字 PDF，从最多五份资料生成带行号和版本引用的本机会议草稿。编辑器可比较历史，恢复后另存新修订，确认后导出。工作区备份保留正文与历史、对话、任务与偏好，恢复前确认整体替换，诊断文件按字段清单输出计数及最近状态。Android API 37 x86_64 实测了中文 PDF 按页提取、超过 2 MB 的旧 SQLite 快照迁移、连续 30 个修订写入、重开及删除。独立 PDF 阅读库验证了 6 页 A4 的中文长段、跨页表格与文字边界。Android 系统文件选择器已实测导入 DOCX 和文字 PDF，确认后另存两种格式，取回文件后均能读回最后一段。Microsoft Word 16.0 打开了 8 页 DOCX，修改 74 行表格中的单元格后另存并重开成功。iOS 端尚待编译与设备验收。
 
 PDF 使用随应用分发的霞鹜文楷 1.530。原版 TTF 的 SHA-256 为 `2d73eea94ad808999d90c0000c239a84a33b09d4bc6ab6c5b8bbf1eda8a7fc8b`，OFL 许可随字体打包。Android 的 PDF 文字提取采用 PdfBox-Android 2.0.27.0。[字体来源](https://github.com/lxgw/LxgwWenKai/releases/tag/v1.530) · [PdfBox-Android](https://github.com/TomRoush/PdfBox-Android)

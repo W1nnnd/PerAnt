@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:diff_match_patch/diff_match_patch.dart' as edits;
 import 'package:file_picker/file_picker.dart';
@@ -10,6 +11,8 @@ import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:perant_core/perant_core.dart';
 
 import '../application/office_document.dart';
+import '../application/courseware.dart';
+import 'container_file_editor.dart';
 import '../application/workspace_controller.dart';
 import 'theme.dart';
 
@@ -142,32 +145,98 @@ class _DocumentEditorState extends State<DocumentEditor> {
     if (restore == true && mounted) _text.text = version.markdown;
   }
 
+  ConfirmedDocument _confirmedForOutput() {
+    final latest = widget.controller.documents
+        .where((d) => d.id == _saved.id)
+        .firstOrNull;
+    if (_dirty ||
+        latest == null ||
+        !latest.isConfirmed ||
+        latest.revision != _saved.revision ||
+        latest.markdown != _saved.markdown) {
+      throw StateError('资料版本已变更，请重新打开并确认。');
+    }
+    return latest.confirmedSnapshot();
+  }
+
+  Future<void> _make(String action) async {
+    if (action == 'pptx') return _export(DocumentFormat.pptx);
+    if (action == 'html') return _export(DocumentFormat.html);
+    if (_saving || _dirty || !_saved.isConfirmed) return;
+    setState(() => _saving = true);
+    try {
+      final source = _confirmedForOutput();
+      if (action == 'outline') {
+        final draft = await widget.controller.createDocument(
+          title: '${source.title} · 课件大纲',
+          markdown: makeCourseOutline(source),
+        );
+        if (mounted)
+          await Navigator.of(context).push<void>(
+            MaterialPageRoute(
+              builder: (_) => DocumentEditor(
+                controller: widget.controller,
+                document: draft,
+              ),
+            ),
+          );
+      } else {
+        final html = courseHtml(source);
+        if (utf8.encode(html).length > 256 * 1024)
+          throw const FormatException('网页超过工作文件的 256 KiB 上限，请分段后生成。');
+        final path =
+            '/workspace/page-${DateTime.now().microsecondsSinceEpoch}.html';
+        if (mounted)
+          await Navigator.of(context).push<void>(
+            MaterialPageRoute(
+              builder: (_) => ContainerFileEditor(
+                controller: widget.controller,
+                path: path,
+                initialContent: html,
+              ),
+            ),
+          );
+      }
+    } catch (error) {
+      if (mounted)
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              error is FormatException ? error.message : '未能创建，请重新核对已确认资料。',
+            ),
+          ),
+        );
+    } finally {
+      if (mounted) setState(() => _saving = false);
+    }
+  }
+
   Future<void> _export(DocumentFormat format) async {
     if (_saving || _dirty || !_saved.isConfirmed) return;
     setState(() => _saving = true);
     try {
-      final latest = widget.controller.documents
-          .where((d) => d.id == _saved.id)
-          .firstOrNull;
-      if (latest == null ||
-          !latest.isConfirmed ||
-          latest.revision != _saved.revision) {
-        throw StateError('资料版本已变更，请重新打开并确认。');
-      }
-      final snapshot = latest.confirmedSnapshot();
-      final bytes = format == DocumentFormat.docx
-          ? await compute(exportDocx, snapshot)
-          : await compute(renderOfficePdf, (
-              snapshot,
-              await rootBundle.load(officeFontAsset),
-            ));
+      final snapshot = _confirmedForOutput();
+      final bytes = switch (format) {
+        DocumentFormat.docx => await compute(exportDocx, snapshot),
+        DocumentFormat.pptx => await compute(exportCourseSlides, snapshot),
+        DocumentFormat.html => utf8.encode(courseHtml(snapshot)),
+        DocumentFormat.markdown => utf8.encode(snapshot.markdown),
+        DocumentFormat.pdf => await compute(renderOfficePdf, (
+          snapshot,
+          await rootBundle.load(officeFontAsset),
+        )),
+      };
       if (!mounted) return;
       final result = await FilePicker.saveFile(
         bytes: bytes,
         fileName: officeFileName(snapshot, format),
-        mimeType: format == DocumentFormat.docx
-            ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-            : 'application/pdf',
+        mimeType: switch (format) {
+          DocumentFormat.docx => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+          DocumentFormat.pptx => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+          DocumentFormat.html => 'text/html',
+          DocumentFormat.markdown => 'text/markdown',
+          DocumentFormat.pdf => 'application/pdf',
+        },
       );
       if (mounted && result != null)
         ScaffoldMessenger.of(context).showSnackBar(
@@ -184,6 +253,8 @@ class _DocumentEditorState extends State<DocumentEditor> {
             content: Text(
               error is StateError
                   ? error.message.toString()
+                  : error is FormatException
+                  ? error.message
                   : '导出失败，请检查文档大小、目标位置和设备空间。',
             ),
           ),
@@ -376,6 +447,30 @@ class _DocumentEditorState extends State<DocumentEditor> {
                                 : null,
                             child: Text('导出 ${format.name.toUpperCase()}'),
                           ),
+                        PopupMenuButton<String>(
+                          enabled: confirmed && !_saving,
+                          tooltip: '制作课件或网页',
+                          onSelected: _make,
+                          itemBuilder: (_) => [
+                            const PopupMenuItem(
+                              value: 'outline',
+                              child: Text('从此资料生成课件大纲'),
+                            ),
+                            const PopupMenuItem(
+                              value: 'pptx',
+                              child: Text('将已确认大纲导出为 PPTX'),
+                            ),
+                            const PopupMenuItem(
+                              value: 'html',
+                              child: Text('导出静态网页 HTML'),
+                            ),
+                            if (defaultTargetPlatform == TargetPlatform.android)
+                              const PopupMenuItem(
+                                value: 'page',
+                                child: Text('在工作区编辑并预览网页'),
+                              ),
+                          ],
+                        ),
                       ],
                     ),
                   ],

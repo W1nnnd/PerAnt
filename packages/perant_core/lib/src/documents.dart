@@ -2,7 +2,7 @@
 
 import 'authorization.dart';
 
-enum DocumentFormat { markdown, docx, pdf }
+enum DocumentFormat { markdown, docx, pdf, pptx, html }
 
 final class DocumentVersion {
   DocumentVersion({
