@@ -21,9 +21,13 @@ class DocumentEditor extends StatefulWidget {
     super.key,
     required this.controller,
     required this.document,
+    this.matchOffset,
+    this.matchQuery = '',
   });
   final WorkspaceController controller;
   final MarkdownDocument document;
+  final int? matchOffset;
+  final String matchQuery;
   @override
   State<DocumentEditor> createState() => _DocumentEditorState();
 }
@@ -39,6 +43,19 @@ class _DocumentEditorState extends State<DocumentEditor> {
     super.initState();
     _saved = widget.document;
     _text = TextEditingController(text: _saved.markdown)..addListener(_changed);
+    final offset = widget.matchOffset;
+    if (offset != null) {
+      final start = offset.clamp(0, _text.text.length);
+      final match = RegExp(
+        RegExp.escape(widget.matchQuery),
+        caseSensitive: false,
+        unicode: true,
+      ).matchAsPrefix(_text.text, start);
+      _text.selection = TextSelection(
+        baseOffset: start,
+        extentOffset: match?.end ?? start,
+      );
+    }
   }
 
   void _changed() => setState(() {});
@@ -377,6 +394,7 @@ class _DocumentEditorState extends State<DocumentEditor> {
                           )
                         : TextField(
                             controller: _text,
+                            autofocus: widget.matchOffset != null,
                             readOnly: _saving,
                             expands: true,
                             maxLines: null,

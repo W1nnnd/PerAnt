@@ -491,6 +491,26 @@ void main() {
     },
   );
 
+  testWidgets(
+    'search jumps to the exact Chinese passage after supplementary characters',
+    (tester) async {
+      final controller = await launch(tester, const Size(390, 900));
+      const body = '📄旧段落。第一处要找的是收款凭证。';
+      await controller.createDocument(title: '财务笔记', markdown: body);
+      await tester.tap(find.byTooltip('文件'));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byType(TextField), '收款');
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('财务笔记'));
+      await tester.pumpAndSettle();
+      final editor = tester
+          .widget<TextField>(find.byType(TextField))
+          .controller!;
+      expect(editor.selection.textInside(editor.text), '收款');
+      expect(editor.selection.start, body.indexOf('收款'));
+    },
+  );
+
   testWidgets('create, edit, confirm and preview an actual document', (
     tester,
   ) async {

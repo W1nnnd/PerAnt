@@ -2,7 +2,7 @@
 name: perant
 description: A local-first personal agent workspace for Android and iPhone.
 publish_to: none
-version: 0.0.4+2013
+version: 0.0.5+2014
 resolution: workspace
 environment:
   sdk: '>=3.14.0 <4.0.0'
@@ -21,6 +21,7 @@ dependencies:
     path: ../../packages/perant_gateway
   flutter_secure_storage: ^11.2.0
   path_provider: ^2.1.6
+  crypto: ^3.0.7
   sqflite: ^2.4.6
   file_selector: ^1.1.0
   flutter_markdown_plus: ^1.0.12

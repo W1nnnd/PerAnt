@@ -8,6 +8,7 @@ import 'package:perant_gateway/perant_gateway.dart';
 import 'package:perant_platform/perant_platform.dart';
 
 import '../data/workspace_state.dart';
+import '../data/local_memories.dart';
 import 'local_text_task_runner.dart';
 import 'container_task_runner.dart';
 import 'container_desktop_agent.dart';
@@ -407,6 +408,9 @@ final class WorkspaceController extends ChangeNotifier {
     _notify();
     try {
       _markInterrupted(replacement);
+      replacement.memories = replacement.memories.reconcile(
+        replacement.memorySources,
+      );
       await _saveSnapshot(replacement.toJson());
       state = replacement;
       _protocolHistories.clear();
@@ -419,6 +423,33 @@ final class WorkspaceController extends ChangeNotifier {
       _notify();
     }
   }
+
+  Future<void> _changeMemory(
+    LocalMemoryBook Function(LocalMemoryBook) change,
+  ) async {
+    _ensureConfigurationIdle();
+    if (isSending || isTesting) throw StateError('请等待当前任务结束。');
+    isConfiguring = true;
+    final before = state.memories;
+    _notify();
+    try {
+      state.memories = change(before);
+      await _save();
+    } catch (_) {
+      state.memories = before;
+      rethrow;
+    } finally {
+      isConfiguring = false;
+      _notify();
+    }
+  }
+
+  Future<void> setMemoryExtraction(bool enabled) =>
+      _changeMemory((book) => book.withEnabled(enabled));
+  Future<void> editMemory(String id, String text) =>
+      _changeMemory((book) => book.edit(id, text));
+  Future<void> deleteMemory(String id) =>
+      _changeMemory((book) => book.remove(id));
 
   Future<void> clearConversation() async {
     _ensureConfigurationIdle();
@@ -1513,7 +1544,14 @@ final class WorkspaceController extends ChangeNotifier {
   }
 
   Future<void> _save() {
-    return _saveSnapshot(state.toJson());
+    final current = state;
+    final before = current.memories;
+    final after = before.reconcile(current.memorySources);
+    current.memories = after;
+    return _saveSnapshot(current.toJson()).catchError((Object e, StackTrace s) {
+      if (identical(current.memories, after)) current.memories = before;
+      Error.throwWithStackTrace(e, s);
+    });
   }
 
   Future<void> _saveSnapshot(Map<String, Object?> snapshot) {

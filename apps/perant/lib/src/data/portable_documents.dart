@@ -11,6 +11,7 @@ const _portableFields = {
   'companionName',
   'companionTone',
   'hapticsEnabled',
+  'memoryBook',
   'conversations',
   'activeConversationId',
   'documents',
@@ -40,7 +41,9 @@ WorkspaceState readWorkspaceBackup(Uint8List bytes) {
     throw const FormatException('无法识别工作区备份。');
   }
   final body = envelope['workspace'] as Map<String, dynamic>;
-  if (!body.keys.toSet().containsAll(_portableFields) ||
+  if (!body.keys.toSet().containsAll(
+        _portableFields.difference({'memoryBook'}),
+      ) ||
       body.keys.any((k) => !_portableFields.contains(k))) {
     throw const FormatException('备份字段不完整或存在不支持的配置。');
   }

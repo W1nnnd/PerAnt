@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
 import 'package:perant_core/perant_core.dart';
 
+import 'local_memories.dart';
+
 enum ChatRole { user, assistant }
 
 enum ChatEntrySource { cloud, localPython, container }
@@ -175,13 +177,15 @@ final class WorkspaceState {
     String companionName = defaultCompanionName,
     String companionTone = defaultCompanionTone,
     this.hapticsEnabled = true,
+    LocalMemoryBook? memories,
     List<MarkdownDocument> documents = const [],
     List<ChatEntry> messages = const [],
     List<TaskRecord> tasks = const [],
     List<ContainerAction> containerActions = const [],
     List<ConversationThread> conversations = const [],
     this.activeConversationId = 'main',
-  }) : companionName = normalizeCompanionName(companionName),
+  }) : memories = memories ?? LocalMemoryBook(),
+       companionName = normalizeCompanionName(companionName),
        companionTone = validateCompanionTone(companionTone),
        documents = List.of(documents),
        messages = List.of(messages),
@@ -195,6 +199,28 @@ final class WorkspaceState {
   String companionName;
   String companionTone;
   bool hapticsEnabled;
+  LocalMemoryBook memories;
+  Iterable<MemoryEvidence> get memorySources sync* {
+    for (final d in documents) {
+      yield (
+        id: 'doc:' + d.id,
+        revision: d.revision,
+        text: d.markdown,
+        at: d.confirmedAt ?? d.updatedAt,
+        confirmed: d.isConfirmed,
+      );
+    }
+    for (final m in messages.where((m) => m.role == ChatRole.user)) {
+      yield (
+        id: 'msg:' + m.id,
+        revision: 1,
+        text: m.text,
+        at: m.createdAt,
+        confirmed: true,
+      );
+    }
+  }
+
   final List<MarkdownDocument> documents;
   final List<ChatEntry> messages;
   final List<TaskRecord> tasks;
@@ -281,6 +307,7 @@ final class WorkspaceState {
     'companionName': companionName,
     'companionTone': companionTone,
     'hapticsEnabled': hapticsEnabled,
+    'memoryBook': memories.toJson(),
     'conversations': conversations.map((thread) => thread.toJson()).toList(),
     'activeConversationId': activeConversationId,
     'documents': documents
@@ -371,6 +398,11 @@ final class WorkspaceState {
       companionName: companionName,
       companionTone: companionTone,
       hapticsEnabled: hapticsEnabled,
+      memories: json['memoryBook'] == null
+          ? null
+          : LocalMemoryBook.fromJson(
+              Map<String, Object?>.from(json['memoryBook'] as Map),
+            ),
       conversations: rows('conversations')
           .map(ConversationThread.fromJson)
           .toList(),

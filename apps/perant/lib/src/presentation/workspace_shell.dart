@@ -15,7 +15,9 @@ import '../application/meeting_minutes.dart';
 import '../application/workspace_controller.dart';
 import '../data/workspace_state.dart';
 import '../data/portable_documents.dart';
+import '../data/library_search.dart';
 import 'document_editor.dart';
+import 'memory_screen.dart';
 import 'companion_avatar.dart';
 import 'computer_workspace_page.dart';
 import 'container_screen.dart';
@@ -107,13 +109,20 @@ class _WorkspaceShellState extends State<WorkspaceShell>
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
   }
 
-  Future<void> _openDocument(MarkdownDocument document) =>
-      Navigator.of(context).push<void>(
-        MaterialPageRoute(
-          builder: (_) =>
-              DocumentEditor(controller: controller, document: document),
-        ),
-      );
+  Future<void> _openDocument(
+    MarkdownDocument document, {
+    int? matchOffset,
+    String matchQuery = '',
+  }) => Navigator.of(context).push<void>(
+    MaterialPageRoute(
+      builder: (_) => DocumentEditor(
+        controller: controller,
+        document: document,
+        matchOffset: matchOffset,
+        matchQuery: matchQuery,
+      ),
+    ),
+  );
 
   Future<void> _newDocument({String markdown = ''}) async {
     var title = markdown.isEmpty ? '' : '对话整理';
@@ -215,6 +224,14 @@ class _WorkspaceShellState extends State<WorkspaceShell>
 
   Future<void> _portableFiles(String action) async {
     try {
+      if (action == 'memories') {
+        await Navigator.of(context).push<void>(
+          MaterialPageRoute(
+            builder: (_) => MemoryScreen(controller: controller),
+          ),
+        );
+        return;
+      }
       if (action == 'restore') {
         final file = await openFile(
           acceptedTypeGroups: [
@@ -239,7 +256,7 @@ class _WorkspaceShellState extends State<WorkspaceShell>
           builder: (c) => AlertDialog(
             title: const Text('用备份替换本机工作区？'),
             content: Text(
-              '备份含 ${incoming.documents.length} 份文档及其历史、${incoming.messages.length} 条消息和 ${incoming.tasks.length} 项任务。本机现有资料、对话、任务记录与偏好将被替换。恢复后需要重新配置模型与授权。',
+              '备份含 ${incoming.documents.length} 份文档及其历史、${incoming.messages.length} 条消息、${incoming.tasks.length} 项任务及 ${incoming.memories.records.length} 条记忆。本机现有资料、对话、任务记录与偏好将被替换。恢复后需要重新配置模型与授权。',
             ),
             actions: [
               TextButton(
@@ -2257,10 +2274,8 @@ class _WorkspaceShellState extends State<WorkspaceShell>
   }
 
   Widget _documents() {
-    final query = _search.text.toLowerCase();
-    final documents = controller.documents
-        .where((d) => '${d.title}\n${d.markdown}'.toLowerCase().contains(query))
-        .toList();
+    final query = _search.text.trim();
+    final documents = controller.documents;
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(18, 4, 18, 24),
       child: Column(
@@ -2380,6 +2395,7 @@ class _WorkspaceShellState extends State<WorkspaceShell>
                   enabled: !_mutationBusy,
                   onSelected: _portableFiles,
                   itemBuilder: (_) => const [
+                    PopupMenuItem(value: 'memories', child: Text('长期记忆')),
                     PopupMenuItem(value: 'backup', child: Text('备份资料、对话与任务记录')),
                     PopupMenuItem(value: 'restore', child: Text('从备份恢复整个工作区')),
                     PopupMenuItem(
@@ -2390,7 +2406,33 @@ class _WorkspaceShellState extends State<WorkspaceShell>
                 ),
               ],
             ),
-            if (documents.isEmpty)
+            if (query.isNotEmpty)
+              _LibraryResults(
+                key: ValueKey((query, Object.hashAll(documents))),
+                query: query,
+                controller: controller,
+                onOpen: (hit) {
+                  final doc = controller.documents
+                      .where(
+                        (d) =>
+                            d.id == hit.documentId &&
+                            d.revision == hit.revision,
+                      )
+                      .firstOrNull;
+                  if (doc == null) {
+                    _toast('来源已变化，请重新搜索。');
+                    return;
+                  }
+                  unawaited(
+                    _openDocument(
+                      doc,
+                      matchOffset: hit.offset,
+                      matchQuery: query,
+                    ),
+                  );
+                },
+              )
+            else if (documents.isEmpty)
               _EmptyState(
                 icon: Icons.description_outlined,
                 title: query.isEmpty ? '还没有资料' : '没有找到匹配的文档',
@@ -2534,6 +2576,69 @@ class _WorkspaceShellState extends State<WorkspaceShell>
       ),
     ),
   );
+}
+
+class _LibraryResults extends StatefulWidget {
+  const _LibraryResults({
+    super.key,
+    required this.controller,
+    required this.query,
+    required this.onOpen,
+  });
+  final WorkspaceController controller;
+  final String query;
+  final ValueChanged<LibraryHit> onOpen;
+
+  @override
+  State<_LibraryResults> createState() => _LibraryResultsState();
+}
+
+class _LibraryResultsState extends State<_LibraryResults> {
+  late final Future<List<LibraryHit>> results;
+
+  @override
+  void initState() {
+    super.initState();
+    final store = widget.controller.persistence;
+    results = store is PassageSearch
+        ? (store as PassageSearch).searchPassages(widget.query)
+        : Future.value(
+            LibrarySearch.inMemory(widget.controller.documents, widget.query),
+          );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.query.runes.length > 128) return const Text('关键词最多 128 个字符。');
+    return FutureBuilder<List<LibraryHit>>(
+      future: results,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) return const Text('无法读取资料索引，请重新搜索。');
+        if (!snapshot.hasData) return const LinearProgressIndicator();
+        if (snapshot.data!.isEmpty)
+          return const _EmptyState(
+            icon: Icons.search,
+            title: '没有找到匹配的文档',
+            body: '试试另一个关键词。',
+          );
+        return Column(
+          children: [
+            for (final hit in snapshot.data!)
+              ListTile(
+                title: Text(hit.title),
+                subtitle: Text(
+                  '修订 ${hit.revision} · ${hit.excerpt}',
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => widget.onOpen(hit),
+              ),
+          ],
+        );
+      },
+    );
+  }
 }
 
 class _EmptyState extends StatelessWidget {
