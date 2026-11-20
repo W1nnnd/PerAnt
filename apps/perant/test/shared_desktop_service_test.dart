@@ -30,11 +30,13 @@ void main() {
   String? sessionId;
   final desktopStarts = <Map<String, Object?>>[];
   final desktopStops = <String>[];
+  final reveals = <Object?>[];
 
   setUp(() async {
     sessionId = null;
     desktopStarts.clear();
     desktopStops.clear();
+    reveals.clear();
     server = await _UnixDesktop.create();
     Map<String, Object?> session() => {
       'sessionId': sessionId,
@@ -73,6 +75,9 @@ void main() {
           server.height = arguments['height'] as int;
           desktopStarts.add(arguments);
           return session();
+        case 'revealDesktopExcerpt':
+          reveals.add(call.arguments);
+          return null;
         case 'stopLinuxDesktop':
           desktopStops.add((call.arguments as Map)['sessionId'] as String);
           sessionId = null;
@@ -111,6 +116,27 @@ void main() {
     messenger.setMockMethodCallHandler(events, null);
   });
 
+  test('reveal uses the current visible manual desktop and rejects a change of owner', () async {
+    const path = '/workspace/web-12345678-1234-1234-1234-123456789abc.md';
+    final file = LinuxFileImport.fromMap({
+      'path': path,
+      'sizeBytes': 4,
+      'sha256': 'a' * 64,
+    });
+    await expectLater(service.revealFromUser(file), throwsStateError);
+    await service.setViewerVisible(true);
+    final pending = service.revealFromUser(file);
+    service.takeModelControl();
+    await expectLater(pending, throwsStateError);
+    expect(reveals, isEmpty);
+    service.releaseModelControl();
+    await service.revealFromUser(file);
+    expect(reveals, [
+      {'sessionId': sessionId, 'path': path},
+    ]);
+    expect(desktopStarts, hasLength(1));
+    expect(server.input, isEmpty);
+  });
   test('hidden observation closes its peer and hidden input requests no framebuffer', () async {
     service.takeModelControl();
     final observation = await service.observe();

@@ -27,6 +27,17 @@ internal class LinuxDesktopLaunch private constructor(
 ) {
     val command: String get() = "/bin/sh /opt/perant/tools/start_desktop.sh $display $width $height"
 
+    /** Thunar receives a single file URI on this desktop's private session bus. */
+    internal fun revealArguments(path: String): List<String> {
+        val name = path.removePrefix("/workspace/")
+        require(path == "/workspace/$name" && WorkspaceImportContract.validName(name))
+        return listOf("-b", "${directory.absolutePath}:/run/perant-desktop",
+            "/usr/bin/dbus-send", "--bus=unix:path=/run/perant-desktop/bus",
+            "--type=method_call", "--print-reply", "--reply-timeout=5000",
+            "--dest=org.freedesktop.FileManager1", "/org/freedesktop/FileManager1",
+            "org.freedesktop.FileManager1.ShowItems", "array:string:file://$path", "string:")
+    }
+
     fun result(id: String, pid: Int): Map<String, Any> = mapOf(
         "sessionId" to id, "pid" to pid, "socketPath" to socket.absolutePath,
         "width" to width, "height" to height, "display" to display, "workspace" to "/workspace"

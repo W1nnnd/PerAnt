@@ -1,7 +1,7 @@
 {
   "version": 1,
   "created_at": "2026-11-20T05:22:29Z",
-  "updated_at": "2026-11-20T15:37:07Z",
+  "updated_at": "2026-11-20T15:54:18Z",
   "files": {
     ".gitattributes": {
       "role": "index",
@@ -14,6 +14,12 @@
       "sha256": "f595b4d8193ccf020f7c24684ac60ecfb86a0d6c3d745486926c83e8dd503a32",
       "size": 1022,
       "normalized_sha256": "f595b4d8193ccf020f7c24684ac60ecfb86a0d6c3d745486926c83e8dd503a32"
+    },
+    ".tooling/linux013-gui-test.sh": {
+      "role": "observe",
+      "sha256": "e445222081a90311c7488ac1e80718996cf0a69e004817e51783f3b1ee21df10",
+      "size": 1859,
+      "normalized_sha256": "e445222081a90311c7488ac1e80718996cf0a69e004817e51783f3b1ee21df10"
     },
     "AGENTS.md": {
       "role": "index",
@@ -29,15 +35,15 @@
     },
     "README.md": {
       "role": "index",
-      "sha256": "cb44258f3137151dfa0bf34870ea2424eab2a9cd3b8de6acaf6675acb659ffa5",
-      "size": 16045,
-      "normalized_sha256": "cb44258f3137151dfa0bf34870ea2424eab2a9cd3b8de6acaf6675acb659ffa5"
+      "sha256": "f1b2ac3ecf4f00ab1658f7095886101b215d1c3235bdd52f465e7f2b7166fc12",
+      "size": 16327,
+      "normalized_sha256": "f1b2ac3ecf4f00ab1658f7095886101b215d1c3235bdd52f465e7f2b7166fc12"
     },
     "TASK_PLAN.md": {
       "role": "index",
-      "sha256": "c877d5c2bc1c2808932a4ae63233b0b1e4204ab659a25df5d92e015369718cf3",
-      "size": 75623,
-      "normalized_sha256": "c877d5c2bc1c2808932a4ae63233b0b1e4204ab659a25df5d92e015369718cf3"
+      "sha256": "cfeca5a64f116878ba30c9a496fbd1af43ea24bd8d7d344c06d157b790c51907",
+      "size": 75991,
+      "normalized_sha256": "cfeca5a64f116878ba30c9a496fbd1af43ea24bd8d7d344c06d157b790c51907"
     },
     "analysis_options.yaml": {
       "role": "index",
@@ -47,9 +53,9 @@
     },
     "aoci.code.txt": {
       "role": "index",
-      "sha256": "c7a9663a91c5db22cd278a921f087d06e072e9a1068cccc6bf17a203d5c25b2b",
-      "size": 83358,
-      "normalized_sha256": "c7a9663a91c5db22cd278a921f087d06e072e9a1068cccc6bf17a203d5c25b2b"
+      "sha256": "083c272e7714df7a75ae13a6ed8f41dc034c3cbce859d3642d7923a6e20848d3",
+      "size": 83865,
+      "normalized_sha256": "083c272e7714df7a75ae13a6ed8f41dc034c3cbce859d3642d7923a6e20848d3"
     },
     "aoci.meta.txt": {
       "role": "index",
@@ -354,9 +360,9 @@
     },
     "apps/perant/integration_test/browser_page_save_test.dart": {
       "role": "index",
-      "sha256": "d893ef305fbe8e7c2c60c6f11b09f590a38e8f332bc70b7964d5a1e9c3c2b617",
-      "size": 29579,
-      "normalized_sha256": "d893ef305fbe8e7c2c60c6f11b09f590a38e8f332bc70b7964d5a1e9c3c2b617"
+      "sha256": "a41a7bcc085828d307669347694c68d2ad42ae2717009fdce6d2214f62fb3973",
+      "size": 30004,
+      "normalized_sha256": "a41a7bcc085828d307669347694c68d2ad42ae2717009fdce6d2214f62fb3973"
     },
     "apps/perant/integration_test/computer_browser_test.dart": {
       "role": "index",
@@ -702,9 +708,9 @@
     },
     "apps/perant/lib/src/application/computer_browser_service.dart": {
       "role": "index",
-      "sha256": "eb284d4ad6d70a57ca1230852ffc64b0bd808e3e4ad5556d95a5ea74a3b3f152",
-      "size": 11969,
-      "normalized_sha256": "eb284d4ad6d70a57ca1230852ffc64b0bd808e3e4ad5556d95a5ea74a3b3f152"
+      "sha256": "3761eba44e08baef0b172d58507b46e6cdfe58ccf2c97cb9392076168703c796",
+      "size": 12091,
+      "normalized_sha256": "3761eba44e08baef0b172d58507b46e6cdfe58ccf2c97cb9392076168703c796"
     },
     "apps/perant/lib/src/application/container_browser_agent.dart": {
       "role": "index",
@@ -786,9 +792,9 @@
     },
     "apps/perant/lib/src/application/shared_desktop_service.dart": {
       "role": "index",
-      "sha256": "6b730195fc6fed048a6ac1990d55fd46d34eb66bdc8f46722d4300532c4e3909",
-      "size": 19477,
-      "normalized_sha256": "6b730195fc6fed048a6ac1990d55fd46d34eb66bdc8f46722d4300532c4e3909"
+      "sha256": "93262b0e7e640ac1852e6f198027d67ef3674f80b4edc91db7b11dcd94356339",
+      "size": 20292,
+      "normalized_sha256": "93262b0e7e640ac1852e6f198027d67ef3674f80b4edc91db7b11dcd94356339"
     },
     "apps/perant/lib/src/application/workspace_controller.dart": {
       "role": "index",
@@ -876,9 +882,9 @@
     },
     "apps/perant/lib/src/presentation/computer_browser_screen.dart": {
       "role": "index",
-      "sha256": "f940e44d7e1b67c882771feb3a2dba8e01c1ddeeebf8db84171e2a9ee258b4b4",
-      "size": 14953,
-      "normalized_sha256": "f940e44d7e1b67c882771feb3a2dba8e01c1ddeeebf8db84171e2a9ee258b4b4"
+      "sha256": "2c3dc567bf4d9454e69e3b6a70bcb78098814f223e43db87bae96cec1b932ffa",
+      "size": 15348,
+      "normalized_sha256": "2c3dc567bf4d9454e69e3b6a70bcb78098814f223e43db87bae96cec1b932ffa"
     },
     "apps/perant/lib/src/presentation/computer_workspace_page.dart": {
       "role": "index",
@@ -906,9 +912,9 @@
     },
     "apps/perant/lib/src/presentation/desktop_screen.dart": {
       "role": "index",
-      "sha256": "8ce6abb5efc450320086aa36ab9ac3bd6682895f6ab3850459d11a97a9d98bcc",
-      "size": 34812,
-      "normalized_sha256": "8ce6abb5efc450320086aa36ab9ac3bd6682895f6ab3850459d11a97a9d98bcc"
+      "sha256": "467a1d6d298e9204b19f4ab2cfe5e9add4a96db3368d10f2d7a65fb4ea78cb6c",
+      "size": 36092,
+      "normalized_sha256": "467a1d6d298e9204b19f4ab2cfe5e9add4a96db3368d10f2d7a65fb4ea78cb6c"
     },
     "apps/perant/lib/src/presentation/document_editor.dart": {
       "role": "index",
@@ -978,15 +984,15 @@
     },
     "apps/perant/pubspec.yaml": {
       "role": "index",
-      "sha256": "37ef5f12bfff8558fbfb9e25473ac016db8a7543b8d48a2eff5d2205a178840f",
+      "sha256": "08e7ef9ca4dbbab5cf13e4a96e9841e2584d3960159d57d883726fc4b4fea537",
       "size": 1294,
-      "normalized_sha256": "37ef5f12bfff8558fbfb9e25473ac016db8a7543b8d48a2eff5d2205a178840f"
+      "normalized_sha256": "08e7ef9ca4dbbab5cf13e4a96e9841e2584d3960159d57d883726fc4b4fea537"
     },
     "apps/perant/test/browser_page_save_screen_test.dart": {
       "role": "index",
-      "sha256": "b637c9d08c2fb124ec32694d93f059cc9a07bcfa87163cce45d2364051d6413d",
-      "size": 5593,
-      "normalized_sha256": "b637c9d08c2fb124ec32694d93f059cc9a07bcfa87163cce45d2364051d6413d"
+      "sha256": "34c0578302e5422f144976e757ff6f4b25bef122a4c0fe97cad945dacbdb32bc",
+      "size": 7044,
+      "normalized_sha256": "34c0578302e5422f144976e757ff6f4b25bef122a4c0fe97cad945dacbdb32bc"
     },
     "apps/perant/test/browser_page_save_test.dart": {
       "role": "index",
@@ -1098,9 +1104,9 @@
     },
     "apps/perant/test/shared_desktop_service_test.dart": {
       "role": "index",
-      "sha256": "16fa48121d799049ae05029b4f0a9dcf445faf593db38c5d744c3ba4632ce652",
-      "size": 34412,
-      "normalized_sha256": "16fa48121d799049ae05029b4f0a9dcf445faf593db38c5d744c3ba4632ce652"
+      "sha256": "ed5ea95f8a3027a3e0d5f81f11c392271a0c0965e4933e6061222ef5360211da",
+      "size": 35363,
+      "normalized_sha256": "ed5ea95f8a3027a3e0d5f81f11c392271a0c0965e4933e6061222ef5360211da"
     },
     "apps/perant/test/terminal_screen_test.dart": {
       "role": "index",
@@ -1140,9 +1146,9 @@
     },
     "docs/BROWSER_PAGE_SAVE.md": {
       "role": "index",
-      "sha256": "f8c2e646c140c1a5ca08cc51c41a0ed9cf43bf6f847bfa502d05b8ef2cd0e432",
-      "size": 7907,
-      "normalized_sha256": "f8c2e646c140c1a5ca08cc51c41a0ed9cf43bf6f847bfa502d05b8ef2cd0e432"
+      "sha256": "166775407652194faf6dc7a59a048bd0eb13b49b888f0e59b6991d7a934b9c85",
+      "size": 8311,
+      "normalized_sha256": "166775407652194faf6dc7a59a048bd0eb13b49b888f0e59b6991d7a934b9c85"
     },
     "docs/CONTAINER_COMPUTER.md": {
       "role": "index",
@@ -1152,9 +1158,9 @@
     },
     "docs/DESKTOP_APPLICATIONS.md": {
       "role": "index",
-      "sha256": "7bafc6a466a9a2d1aeb0f9b235c5e470b981156e1aba0dbecabec250d7e3502e",
-      "size": 8008,
-      "normalized_sha256": "7bafc6a466a9a2d1aeb0f9b235c5e470b981156e1aba0dbecabec250d7e3502e"
+      "sha256": "05c00079e5909667757e81bac38a9056b7400305434c3c46310b482ce5b82bfa",
+      "size": 9767,
+      "normalized_sha256": "05c00079e5909667757e81bac38a9056b7400305434c3c46310b482ce5b82bfa"
     },
     "docs/DESKTOP_DESIGN.md": {
       "role": "index",
@@ -1164,9 +1170,9 @@
     },
     "docs/DEVELOPMENT_STATUS.md": {
       "role": "index",
-      "sha256": "1672d37b1c569cf599523e9a0a56dc341c02a3555644e8cfb3b396a6721a1428",
-      "size": 36169,
-      "normalized_sha256": "1672d37b1c569cf599523e9a0a56dc341c02a3555644e8cfb3b396a6721a1428"
+      "sha256": "47a36d918cd4da40af531c551cd07a4aae26950e454ff02dae4b341f45107ec1",
+      "size": 36974,
+      "normalized_sha256": "47a36d918cd4da40af531c551cd07a4aae26950e454ff02dae4b341f45107ec1"
     },
     "docs/LINUX_RUNTIME_SOURCES.md": {
       "role": "index",
@@ -1452,9 +1458,9 @@
     },
     "packages/perant_platform/android/src/main/kotlin/dev/perant/platform/AndroidLinuxRuntime.kt": {
       "role": "index",
-      "sha256": "73b15e64d4348b6cf420c9676fbce0092124d595df2412c942ec0b006b567017",
-      "size": 25398,
-      "normalized_sha256": "73b15e64d4348b6cf420c9676fbce0092124d595df2412c942ec0b006b567017"
+      "sha256": "d9512e053c1809a8e2f4c9c129becb0e5944b4315fc163e88b1a03b06cc720f6",
+      "size": 26886,
+      "normalized_sha256": "d9512e053c1809a8e2f4c9c129becb0e5944b4315fc163e88b1a03b06cc720f6"
     },
     "packages/perant_platform/android/src/main/kotlin/dev/perant/platform/ComputerBrowser.kt": {
       "role": "index",
@@ -1470,9 +1476,9 @@
     },
     "packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxDesktop.kt": {
       "role": "index",
-      "sha256": "a500cb3f493c17a63d860feb2b959d650ea814ab692a91c7e04c99175fa58bf4",
-      "size": 6715,
-      "normalized_sha256": "a500cb3f493c17a63d860feb2b959d650ea814ab692a91c7e04c99175fa58bf4"
+      "sha256": "03573079b4ab53664186ffb02e416ce26c91b97f7b00714364c18e8617b7e161",
+      "size": 7415,
+      "normalized_sha256": "03573079b4ab53664186ffb02e416ce26c91b97f7b00714364c18e8617b7e161"
     },
     "packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxEnvironment.kt": {
       "role": "index",
@@ -1512,9 +1518,9 @@
     },
     "packages/perant_platform/android/src/main/kotlin/dev/perant/platform/PerantPlatformPlugin.kt": {
       "role": "index",
-      "sha256": "fe4a30c767f8fcfc151e938803e9a78845f31808b0b037db21bfa5ce980cbbd4",
-      "size": 15586,
-      "normalized_sha256": "fe4a30c767f8fcfc151e938803e9a78845f31808b0b037db21bfa5ce980cbbd4"
+      "sha256": "02a6b671b96b2142694d136237d0f63e3172a4ade83cf5ef8df536850b668f8e",
+      "size": 15852,
+      "normalized_sha256": "02a6b671b96b2142694d136237d0f63e3172a4ade83cf5ef8df536850b668f8e"
     },
     "packages/perant_platform/android/src/main/kotlin/dev/perant/platform/StaticHtmlPreview.kt": {
       "role": "index",
@@ -1536,9 +1542,9 @@
     },
     "packages/perant_platform/android/src/test/kotlin/dev/perant/platform/LinuxDesktopTest.kt": {
       "role": "index",
-      "sha256": "7f12285eefbcddc4c5ccd4dc6d0d3ab313eb9e08d90056a27d8f9b56966159b4",
-      "size": 4782,
-      "normalized_sha256": "7f12285eefbcddc4c5ccd4dc6d0d3ab313eb9e08d90056a27d8f9b56966159b4"
+      "sha256": "3501d7f7d96144661f275f2392f93b47c36c224a285ca816e830d0ac95f9dea4",
+      "size": 5343,
+      "normalized_sha256": "3501d7f7d96144661f275f2392f93b47c36c224a285ca816e830d0ac95f9dea4"
     },
     "packages/perant_platform/android/src/test/kotlin/dev/perant/platform/LinuxEnvironmentTest.kt": {
       "role": "index",
@@ -1608,9 +1614,9 @@
     },
     "packages/perant_platform/lib/src/platform_bridge.dart": {
       "role": "index",
-      "sha256": "9c7ae31dc7530f28d28d4828cb03ac56e5487896c0b9b11aa4a83150e638293c",
-      "size": 20028,
-      "normalized_sha256": "9c7ae31dc7530f28d28d4828cb03ac56e5487896c0b9b11aa4a83150e638293c"
+      "sha256": "1d67d76930f9296ba0457689858cf8e5af9c8513d9d728263529e12c89f41f2c",
+      "size": 20271,
+      "normalized_sha256": "1d67d76930f9296ba0457689858cf8e5af9c8513d9d728263529e12c89f41f2c"
     },
     "packages/perant_platform/lib/src/workspace_files.dart": {
       "role": "index",
@@ -1644,9 +1650,9 @@
     },
     "packages/perant_platform/test/linux_desktop_bridge_test.dart": {
       "role": "index",
-      "sha256": "c9a1f403caf4d55f9a7576daeac182e80db1a11297f80ad68a8b1a1782a0911e",
-      "size": 5814,
-      "normalized_sha256": "c9a1f403caf4d55f9a7576daeac182e80db1a11297f80ad68a8b1a1782a0911e"
+      "sha256": "cd0303f57e609a7fb2dd3d675b44091781830343768d357cbd184dc9f72d7820",
+      "size": 6424,
+      "normalized_sha256": "cd0303f57e609a7fb2dd3d675b44091781830343768d357cbd184dc9f72d7820"
     },
     "packages/perant_platform/test/linux_text_task_bridge_test.dart": {
       "role": "index",

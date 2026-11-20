@@ -56,6 +56,21 @@ void main() {
     expect(session.display, 1234);
     expect(session.workspace, '/workspace');
   });
+  test('locating a saved excerpt sends its path only to the selected desktop',
+      () async {
+    late MethodCall observed;
+    messenger.setMockMethodCallHandler(methods, (call) async {
+      observed = call;
+      return null;
+    });
+    const path = '/workspace/web-12345678-1234-1234-1234-123456789abc.md';
+    final file = LinuxFileImport.fromMap(
+        {'path': path, 'sizeBytes': 12, 'sha256': 'a' * 64});
+    await bridge.revealDesktopExcerpt('desktop-1', file);
+    expect(observed.method, 'revealDesktopExcerpt');
+    expect(observed.arguments, {'sessionId': 'desktop-1', 'path': path});
+  });
+
   test(
       'desktop reconnect distinguishes no session from acknowledged active session',
       () async {

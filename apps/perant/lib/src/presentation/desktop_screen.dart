@@ -394,6 +394,7 @@ class _DesktopScreenState extends State<DesktopScreen>
 
   Future<void> _showApplications() async {
     if (!_manual) return;
+    final excerpt = controller.browser.lastSavedFile;
     final choice = await showModalBottomSheet<String>(
       context: context,
       isScrollControlled: true,
@@ -413,6 +414,13 @@ class _DesktopScreenState extends State<DesktopScreen>
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                 ),
+                if (excerpt != null)
+                  ListTile(
+                    leading: const Icon(Icons.find_in_page_outlined),
+                    title: const Text('定位最近保存的网页摘录'),
+                    subtitle: Text(excerpt.path),
+                    onTap: () => Navigator.pop(context, 'excerpt'),
+                  ),
                 for (final app in const [
                   (
                     'browser',
@@ -461,11 +469,31 @@ class _DesktopScreenState extends State<DesktopScreen>
       ),
     );
     if (choice != null && mounted && _manual) {
-      if (choice == 'browser') {
+      if (choice == 'excerpt' && excerpt != null) {
+        await _reveal(excerpt);
+      } else if (choice == 'browser') {
         await _openBrowser();
       } else {
         await _shortcut(choice, ['Super']);
       }
+    }
+  }
+
+  Future<void> _reveal(LinuxFileImport file) async {
+    if (!_manual || !_foreground) return;
+    try {
+      await desktop.revealFromUser(file);
+      if (mounted && _foreground)
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('已请求文件管理器定位摘录，打开选中的文件即可核对原文。')),
+        );
+    } catch (failure) {
+      if (mounted)
+        setState(
+          () => _inputError = failure is RuntimeBridgeException
+              ? failure.message
+              : '定位未完成，请先核对当前桌面。',
+        );
     }
   }
 
@@ -478,18 +506,23 @@ class _DesktopScreenState extends State<DesktopScreen>
     _decodingFrame = null;
     _releaseImages(detachRenderedImage: true);
     setState(() => _keyboard = false);
+    LinuxFileImport? excerpt;
     try {
       await desktop.setViewerVisible(false);
       if (!mounted) return;
-      await Navigator.of(context).push<void>(
+      excerpt = await Navigator.of(context).push<LinuxFileImport>(
         MaterialPageRoute(
-          builder: (_) => ComputerBrowserScreen(controller: controller),
+          builder: (_) => ComputerBrowserScreen(
+            controller: controller,
+            returnToDesktop: true,
+          ),
         ),
       );
     } finally {
       _browserOpen = false;
       if (mounted && _foreground) await _connect();
     }
+    if (mounted && excerpt != null) await _reveal(excerpt);
   }
 
   Widget _quickAction(

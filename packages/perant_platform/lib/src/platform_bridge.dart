@@ -134,6 +134,13 @@ final class PerantPlatformBridge {
     await _invokeLinuxVoid('stopLinuxDesktop', {'sessionId': sessionId});
   }
 
+  Future<void> revealDesktopExcerpt(
+      String sessionId, LinuxFileImport file) async {
+    _validateId(sessionId, 'sessionId');
+    await _invokeLinuxVoid(
+        'revealDesktopExcerpt', {'sessionId': sessionId, 'path': file.path});
+  }
+
   /// Reads shared guest files only while the native runtime is idle.
   Future<LinuxDirectoryListing> listLinuxDirectory(String path) async {
     final normalized = normalizeLinuxWorkspacePath(path);

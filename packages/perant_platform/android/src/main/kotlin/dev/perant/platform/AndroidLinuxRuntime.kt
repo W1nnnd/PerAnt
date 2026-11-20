@@ -130,6 +130,30 @@ internal class AndroidLinuxRuntime(context: Context, private val emit: (Map<Stri
         process.desktop!!.result(process.id, process.pid)
     }
 
+    fun revealDesktopExcerpt(id: String, path: String) {
+        val process = active
+        val desktop = process?.desktop
+        if (desktop == null || process.id != id || !process.desktopReady || process.finished || process.exitCode != null)
+            throw LinuxFailure("session_mismatch", "图形桌面已变化，请返回当前桌面后重试。")
+        val arguments = desktop.revealArguments(path)
+        val file = File(environment.workspace, path.substringAfterLast('/'))
+        if (!java.nio.file.Files.isRegularFile(file.toPath(), java.nio.file.LinkOption.NOFOLLOW_LINKS))
+            throw LinuxFailure("not_found", "该摘录已移走或删除，请在工作文件中核对。")
+        val temp = java.nio.file.Files.createTempDirectory(environment.tmpRoot.toPath(), "reveal-").toFile()
+        var cleanupPending = false
+        try {
+            LinuxBootstrap(environment.proot, environment.loader, environment.rootfs, temp).run(arguments, 8)
+        } catch (pending: LinuxBootstrapCleanupFailure) {
+            cleanupPending = true
+            workers.execute { pending.completion.await(); temp.delete() }
+            throw LinuxFailure("desktop_reveal_failed", "定位结果未确认，请先查看桌面。")
+        } catch (_: java.io.IOException) {
+            throw LinuxFailure("desktop_reveal_failed", "文件管理器未确认定位请求，请先查看桌面。")
+        } finally {
+            if (!cleanupPending) temp.delete()
+        }
+    }
+
     fun stopDesktop(id: String) {
         val process = active ?: return
         if (process.id != id || process.desktop == null)

@@ -11,7 +11,12 @@ import '../application/workspace_controller.dart';
 import 'theme.dart';
 
 class ComputerBrowserScreen extends StatefulWidget {
-  const ComputerBrowserScreen({super.key, required this.controller});
+  const ComputerBrowserScreen({
+    super.key,
+    required this.controller,
+    this.returnToDesktop = false,
+  });
+  final bool returnToDesktop;
   final WorkspaceController controller;
 
   @override
@@ -222,6 +227,15 @@ class _ComputerBrowserScreenState extends State<ComputerBrowserScreen>
           },
           child: const Text('复制路径'),
         ),
+        if (widget.returnToDesktop)
+          TextButton(
+            onPressed: () {
+              if (!_manual || !_foreground) return;
+              Navigator.pop(context);
+              Navigator.of(this.context).pop(saved.file);
+            },
+            child: const Text('返回桌面并定位'),
+          ),
         FilledButton(
           onPressed: () => Navigator.pop(context),
           child: const Text('完成'),

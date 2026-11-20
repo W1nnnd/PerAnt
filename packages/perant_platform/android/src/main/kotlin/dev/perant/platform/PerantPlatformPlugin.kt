@@ -91,6 +91,11 @@ class PerantPlatformPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, Eve
                     require(width.toLong() * height <= 1_920_000L) { "desktop size" }
                     async(result) { runtime.startDesktop(id, width, height) }
                 }
+                "revealDesktopExcerpt" -> {
+                    val session = id(arguments, "sessionId")
+                    val path = text(arguments, "path")
+                    async(result) { runtime.revealDesktopExcerpt(session, path); null }
+                }
                 "stopLinuxDesktop" -> {
                     val id = id(arguments, "sessionId")
                     async(result) { runtime.stopDesktop(id); null }

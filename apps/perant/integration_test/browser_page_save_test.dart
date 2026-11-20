@@ -321,6 +321,17 @@ void main() {
         expect(saved.page.url, pages.url('/article'));
         expect(saved.truncated, isFalse);
         expect(saved.file.sizeBytes, greaterThan(0));
+        await expectLater(
+          linux.bridge.revealDesktopExcerpt('stale-desktop', saved.file),
+          throwsA(
+            isA<RuntimeBridgeException>().having(
+              (e) => e.code,
+              'code',
+              'session_mismatch',
+            ),
+          ),
+        );
+        await linux.bridge.revealDesktopExcerpt(desktop.sessionId, saved.file);
         final retained = (await linux.bridge.getLinuxDesktopSession())!;
         expect(retained.sessionId, desktop.sessionId);
         expect(retained.pid, desktop.pid);
@@ -359,6 +370,7 @@ void main() {
         _record(report, 'real-live-desktop-service-publication-and-readback', {
           'desktopSessionBefore': desktop.sessionId,
           'desktopSessionAfterSave': retained.sessionId,
+          'fileManagerAcknowledgedLocation': true,
           'desktopPidBefore': desktop.pid,
           'desktopPidAfterSave': retained.pid,
           'sameRfbEndpointStillPaintedAfterSave': true,

@@ -480,6 +480,31 @@ final class SharedDesktopService extends ChangeNotifier {
     await _input;
   }
 
+  Future<void> revealFromUser(LinuxFileImport file) async {
+    final current = session, viewer = _viewer, control = _controlGeneration;
+    if (current == null ||
+        viewer == null ||
+        modelHasControl ||
+        !_visible ||
+        _disposed) {
+      throw StateError('请先接管并打开当前 Linux 桌面。');
+    }
+    _userGeneration++;
+    _observationId = null;
+    _input = _input.catchError((Object _) {}).then((_) async {
+      if (_disposed ||
+          !_visible ||
+          modelHasControl ||
+          control != _controlGeneration ||
+          !identical(viewer, _viewer) ||
+          !identical(current, session)) {
+        throw StateError('桌面或控制权已变化。');
+      }
+      await bridge.revealDesktopExcerpt(current.sessionId, file);
+    });
+    await _input;
+  }
+
   Future<void> textFromUser(String text) async {
     if (modelHasControl || _viewer == null || _disposed) return;
     if (text.runes.length > 2000) throw ArgumentError('文字最多2000字符。');

@@ -42,6 +42,14 @@ class LinuxDesktopTest {
             assertNotEquals(first.directory, second.directory)
             assertTrue(first.socket.absolutePath.toByteArray().size < 104)
             assertEquals("rfb.sock", first.socket.name)
+            val path = "/workspace/web-12345678-1234-1234-1234-123456789abc.md"
+            val argv = first.revealArguments(path)
+            assertEquals("array:string:file://$path", argv[argv.lastIndex - 1])
+            assertTrue("org.freedesktop.FileManager1.ShowItems" in argv)
+            assertFalse("/bin/sh" in argv)
+            for (invalid in listOf(path + "/other", path + "\n", "/tmp/paste.md", path.replace("web-", "../web-"))) {
+                assertThrows(IllegalArgumentException::class.java) { first.revealArguments(invalid) }
+            }
             assertTrue(Files.isDirectory(first.temporary.toPath(), NOFOLLOW_LINKS))
             assertEquals(PosixFilePermissions.fromString("rwx------"), Files.getPosixFilePermissions(first.directory.toPath()))
             assertEquals(PosixFilePermissions.fromString("rw-------"), Files.getPosixFilePermissions(first.directory.resolve("Xauthority").toPath()))

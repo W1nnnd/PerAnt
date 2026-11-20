@@ -51,6 +51,8 @@ final class ComputerBrowserService extends ChangeNotifier {
   final ComputerBrowserBridge bridge;
   final PerantPlatformBridge workspaceBridge;
   ComputerBrowserState? state;
+  LinuxFileImport? _lastSavedFile;
+  LinuxFileImport? get lastSavedFile => _lastSavedFile;
   String? error;
   bool busy = false;
   bool modelHasControl = false;
@@ -287,6 +289,7 @@ final class ComputerBrowserService extends ChangeNotifier {
         );
         // Publication cannot be rolled back on a late cancellation: retain
         // the receipt. The task runner checks ownership before any next step.
+        _lastSavedFile = file;
         return BrowserSavedPage(
           file: file,
           page: page,

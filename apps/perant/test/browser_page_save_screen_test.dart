@@ -9,6 +9,7 @@ import 'package:perant/src/data/credential_store.dart';
 import 'package:perant/src/data/workspace_state.dart';
 import 'package:perant/src/presentation/computer_browser_screen.dart';
 import 'package:perant/src/presentation/theme.dart';
+import 'package:perant_platform/perant_platform.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -79,6 +80,46 @@ void main() {
     messenger.setMockMethodCallHandler(browser, null);
     messenger.setMockMethodCallHandler(runtime, null);
   });
+  testWidgets(
+    'return to desktop hands back the exact published file without saving twice',
+    (tester) async {
+      final controller = WorkspaceController(
+        persistence: MemoryWorkspacePersistence(),
+        credentials: MemoryCredentialStore(),
+      );
+      LinuxFileImport? result;
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: perantTheme(),
+          home: Builder(
+            builder: (context) => TextButton(
+              onPressed: () async {
+                result = await Navigator.of(context).push<LinuxFileImport>(
+                  MaterialPageRoute(
+                    builder: (_) => ComputerBrowserScreen(
+                      controller: controller,
+                      returnToDesktop: true,
+                    ),
+                  ),
+                );
+              },
+              child: const Text('打开测试浏览器'),
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.text('打开测试浏览器'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byTooltip('保存网页文字'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('返回桌面并定位'));
+      await tester.pumpAndSettle();
+      expect(result?.path, savedPath);
+      expect(controller.browser.lastSavedFile, same(result));
+      expect(saves, 1);
+      controller.dispose();
+    },
+  );
   for (final width in [320.0, 390.0, 1024.0]) {
     testWidgets('save page receipt and truncation notice fit width $width', (
       tester,
