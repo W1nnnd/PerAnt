@@ -516,6 +516,19 @@ final class WorkspaceController extends ChangeNotifier {
     if (!next.isCurrent(state.documents)) throw StateError('来源已变化，请重新选择。');
     final prior = state.currentMeeting;
     if (prior != null) {
+      if (prior.needsNewSelection &&
+          prior.fingerprint ==
+              MeetingProgress.start(
+                prior.id,
+                materials,
+                model,
+                sha,
+                context,
+                recipeVersion: prior.recipeVersion,
+              ).fingerprint) {
+        await _setMeeting(prior, next);
+        return next;
+      }
       if (prior.fingerprint != next.fingerprint)
         throw const FormatException('已有另一份未完成的归纳。请选回原资料和模型，或先清除原进度。');
       return prior;

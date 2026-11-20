@@ -2,6 +2,7 @@
 import 'package:perant_core/perant_core.dart';
 
 import 'meeting_minutes.dart';
+import 'meeting_evidence.dart';
 import 'device_inference.dart';
 import 'workspace_controller.dart';
 
@@ -19,6 +20,7 @@ Future<String> _generate(
   String source,
   bool Function() stopped, {
   int limit = 256,
+  bool allowInvalidSelection = false,
 }) async {
   if (stopped()) throw StateError('已停止。');
   final result = StringBuffer();
@@ -37,12 +39,16 @@ Future<String> _generate(
     if (stopped()) throw StateError('已停止。');
     if (event.type == ModelEventType.textDelta) result.write(event.text);
     if (event.type == ModelEventType.completed) {
-      if (event.finishReason == 'length')
+      if (event.finishReason == 'length') {
+        if (allowInvalidSelection && !stopped()) return '';
         throw const FormatException('模型输出达到上限，未采用不完整的结果。请缩短材料重试。');
+      }
       complete = true;
     }
   }
-  if (stopped() || !complete || result.toString().trim().isEmpty)
+  if (stopped() ||
+      !complete ||
+      (!allowInvalidSelection && result.toString().trim().isEmpty))
     throw const FormatException('没有收到完整结果，草稿未改动。');
   return result.toString().trim();
 }
@@ -99,75 +105,101 @@ LocalDocumentWork synthesizeMeeting(
   Future<MeetingJournal> Function(LocalInference)? openJournal,
 }) {
   checkMeetingMaterials(materials);
-  final pieces = <({String label, String text})>[];
+  final pieces = <({String label, List<MeetingQuote> choices})>[];
   final sources = <String>[];
   for (var i = 0; i < materials.length; i++) {
     final doc = materials[i], points = doc.markdown.runes.toList();
     sources.add(
       '- S${i + 1} · ${doc.title.replaceAll(RegExp(r'[\r\n]'), ' ')} · ${doc.id} · 版本 ${doc.revision}',
     );
-    for (var start = 0; start < points.length; start += 480) {
-      final end = (start + 480).clamp(0, points.length);
-      final value = String.fromCharCodes(points.getRange(start, end));
-      if (value.trim().isNotEmpty)
-        pieces.add((label: 'S${i + 1} · 第 ${start + 1}–$end 字', text: value));
+    for (var start = 0; start < points.length;) {
+      final end = meetingWindowEnd(points, start);
+      final choices = meetingQuotes(points, i + 1, start, end);
+      if (choices.isNotEmpty)
+        pieces.add((
+          label: 'S${i + 1} · 第 ${start + 1}–$end 字',
+          choices: choices,
+        ));
+      start = end;
     }
   }
   return (model, id, stopped, progress) async {
     final journal = await openJournal?.call(model);
     var step = 0;
-    Future<String> generateStep(String instruction, String source) async {
+    var usedFallback = false;
+    Future<List<MeetingQuote>> select(
+      List<MeetingQuote> choices, {
+      bool summary = false,
+    }) async {
       if (stopped()) throw StateError('已停止。');
       final index = step++;
+      final limit = summary ? 4 : 3;
+      final QuoteSelection selection;
       if (journal != null && index < journal.completed.length) {
         progress(
           '继续上次纪要 · 复用第 ${index + 1}/${journal.completed.length} 个已完成步骤',
         );
-        return journal.completed[index];
+        selection = QuoteSelection.restore(
+          journal.completed[index],
+          choices.length,
+          limit,
+        );
+      } else {
+        final output = await _generate(
+          model,
+          id,
+          '你在整理会议材料。下面是按原文顺序排列的字符串数组。'
+          '优先选择有具体依据的决定、待办和待确认事项，也保留明确的否定。'
+          '从 1 开始编号，选择最多 $limit 项。只返回编号，用逗号分隔，例如 1,2。不要生成正文。',
+          meetingChoiceInput(choices, summary: summary),
+          stopped,
+          limit: 64,
+          allowInvalidSelection: true,
+        );
+        if (stopped()) throw StateError('已停止。');
+        selection = QuoteSelection.fromModel(output, choices.length, limit);
+        await journal?.append(index, selection.checkpoint);
       }
-      final output = await _generate(model, id, instruction, source, stopped);
-      if (stopped()) throw StateError('已停止。');
-      await journal?.append(index, output);
-      return output;
+      usedFallback |= selection.fallback;
+      return [for (final n in selection.indices) choices[n - 1]];
     }
 
-    final notes = <String>[];
+    final notes = <List<MeetingQuote>>[];
     for (var i = 0; i < pieces.length; i++) {
       final piece = pieces[i];
       progress('归纳第 ${i + 1}/${pieces.length} 段 · ${piece.label}');
-      final result = await generateStep(
-        '你在整理会议材料。用不超过80个汉字归纳这一段的议题、已作决定、待办、负责人和期限。只写原文有据的内容，讨论与决定要区分。',
-        piece.text,
-      );
-      notes.add(result);
+      notes.add(await select(piece.choices));
     }
     var summaries = List.of(notes);
     var level = 0;
     while (summaries.length > 1) {
-      final next = <String>[];
+      final next = <List<MeetingQuote>>[];
       level++;
       for (var i = 0; i < summaries.length; i += 3) {
         final group = summaries.skip(i).take(3).toList();
         progress('汇总第 $level 轮 · ${i ~/ 3 + 1}/${(summaries.length + 2) ~/ 3}');
+        final seen = <(int, String)>{};
         next.add(
           group.length == 1
               ? group.first
-              : await generateStep(
-                  '汇总这些会议摘记，不超过100个汉字。分别列出有依据的决策、待办和待确认事项，不补猜时间和负责人。',
-                  group.join('\n\n'),
-                ),
+              : await select([
+                  for (final batch in group)
+                    for (final q in batch)
+                      if (seen.add((q.source, q.text))) q,
+                ], summary: true),
         );
       }
       summaries = next;
     }
     if (stopped()) throw StateError('已停止。');
     return [
-      '# 会议纪要（模型草稿）',
-      '## 综合摘要',
-      summaries.single,
+      '# 会议纪要（待核对）',
+      '## 重点原文',
+      for (final q in summaries.single) formatMeetingQuote(q),
+      if (usedFallback) '部分步骤未取得有效选句，已按资料顺序保留原文。',
       '## 分段核对',
       for (var i = 0; i < pieces.length; i++)
-        '### ${pieces[i].label}\n\n${notes[i]}',
+        '### ${pieces[i].label}\n\n${notes[i].map(formatMeetingQuote).join('\n\n')}',
       '## 引用资料',
       sources.join('\n'),
     ].join('\n\n');

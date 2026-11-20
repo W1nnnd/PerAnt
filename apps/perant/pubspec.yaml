@@ -2,7 +2,7 @@
 name: perant
 description: A local-first personal agent workspace for Android and iPhone.
 publish_to: none
-version: 0.0.11+2020
+version: 0.0.12+2021
 resolution: workspace
 environment:
   sdk: '>=3.14.0 <4.0.0'

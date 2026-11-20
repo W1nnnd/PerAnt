@@ -21,20 +21,24 @@ class MeetingProgress {
     this.contextSize,
     List<MeetingSource> sources,
     List<String> steps,
+    this.recipeVersion,
   ) : sources = List.unmodifiable(sources),
       steps = List.unmodifiable(steps);
   final String id, fingerprint, modelId;
   final int contextSize;
   final List<MeetingSource> sources;
   final List<String> steps;
-  static const recipe = 1;
+  static const recipe = 2;
+  final int recipeVersion;
+  bool get needsNewSelection => recipeVersion < recipe;
   factory MeetingProgress.start(
     String id,
     List<MarkdownDocument> docs,
     String modelId,
     String modelSha,
-    int contextSize,
-  ) {
+    int contextSize, {
+    int recipeVersion = recipe,
+  }) {
     final sources = [
       for (final d in docs)
         (
@@ -48,7 +52,7 @@ class MeetingProgress {
         .convert(
           utf8.encode(
             jsonEncode([
-              recipe,
+              recipeVersion,
               modelId,
               modelSha,
               contextSize,
@@ -57,7 +61,15 @@ class MeetingProgress {
           ),
         )
         .toString();
-    return MeetingProgress._(id, digest, modelId, contextSize, sources, []);
+    return MeetingProgress._(
+      id,
+      digest,
+      modelId,
+      contextSize,
+      sources,
+      [],
+      recipeVersion,
+    );
   }
   bool isCurrent(List<MarkdownDocument> docs) => sources.every(
     (s) => docs.any(
@@ -69,7 +81,8 @@ class MeetingProgress {
     ),
   );
   MeetingProgress append(String output) {
-    if (steps.length >= 80 ||
+    if (needsNewSelection ||
+        steps.length >= 80 ||
         output.trim().isEmpty ||
         output.length > 8192 ||
         steps.fold<int>(output.length, (n, s) => n + s.length) > 65536)
@@ -77,11 +90,11 @@ class MeetingProgress {
     return MeetingProgress._(id, fingerprint, modelId, contextSize, sources, [
       ...steps,
       output,
-    ]);
+    ], recipeVersion);
   }
 
   Map<String, Object?> toJson() => {
-    'recipe': recipe,
+    'recipe': recipeVersion,
     'id': id,
     'fingerprint': fingerprint,
     'model': modelId,
@@ -98,7 +111,7 @@ class MeetingProgress {
     'steps': steps,
   };
   static MeetingProgress? read(Object? value) {
-    if (value is! Map || value['recipe'] != recipe) return null;
+    if (value is! Map || ![1, recipe].contains(value['recipe'])) return null;
     try {
       final rows = value['sources'] as List;
       final sources = [
@@ -126,7 +139,16 @@ class MeetingProgress {
           steps.any((s) => s.trim().isEmpty || s.length > 8192) ||
           steps.fold<int>(0, (n, s) => n + s.length) > 65536)
         return null;
-      return MeetingProgress._(id, fingerprint, model, context, sources, steps);
+      final version = value['recipe'] as int;
+      return MeetingProgress._(
+        id,
+        fingerprint,
+        model,
+        context,
+        sources,
+        version == 1 ? [] : steps,
+        version,
+      );
     } on TypeError {
       return null;
     }

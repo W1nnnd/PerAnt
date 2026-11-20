@@ -410,7 +410,11 @@ class _WorkspaceShellState extends State<WorkspaceShell>
                   if (previous != null)
                     ListTile(
                       contentPadding: EdgeInsets.zero,
-                      title: Text('上次已保存 ${previous!.steps.length} 个归纳步骤'),
+                      title: Text(
+                        previous!.needsNewSelection
+                            ? '上版纪要需按原资料重新选句'
+                            : '上次已保存 ${previous!.steps.length} 个归纳步骤',
+                      ),
                       subtitle: Text(
                         '${previous!.modelId} · ${previous!.contextSize} tokens',
                       ),
