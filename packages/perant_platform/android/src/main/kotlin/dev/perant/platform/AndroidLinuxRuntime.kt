@@ -92,10 +92,11 @@ internal class AndroidLinuxRuntime(context: Context, private val emit: (Map<Stri
             if (initializing || active != null) throw LinuxFailure("busy", "请先关闭当前终端或图形桌面。")
             if (!environment.installed || !environment.desktopAvailable)
                 throw LinuxFailure("not_installed", "请先初始化包含图形桌面的本地 Linux 环境。")
-            environment.verifyDesktopTool()
             launch = LinuxDesktopLaunch.create(desktopCache, width, height)
-            process = try { start(id, false, launch.command, 80, 24, null, launch) }
-                catch (failure: Throwable) { launch.clean(); throw failure }
+            process = try {
+                environment.prepareDesktopTool(launch.directory)
+                start(id, false, launch.command, 80, 24, null, launch)
+            } catch (failure: Throwable) { launch.clean(); throw failure }
         }
         // Startup stays on the FIFO control executor. A later stop cannot
         // acknowledge idle before a late Xvnc starts. The fixed script confirms

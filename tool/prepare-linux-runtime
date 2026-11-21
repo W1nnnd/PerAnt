@@ -73,6 +73,21 @@ def bundled_packages():
     return LOCK["python"]["packages"] + LOCK.get("desktop", {}).get("packages", [])
 
 
+def desktop_base_digest(manifest):
+    """Identify the installed userspace independently of the per-session UI.
+
+    Use the 0.0.13 script descriptor as the canonical placeholder so existing
+    installations can be recognized without touching the guest filesystem.
+    All other manifest fields, including the selected loader, still contribute.
+    """
+    base = dict(manifest)
+    base.pop("desktopBaseSha256", None)
+    startup = dict(base["desktop"]["startupScript"], sizeBytes=30319,
+                   sha256="5a4e3867a63d8256ee380ae75ab71568d4c68fbf759d3e339a3d6241bb84e73d")
+    base["desktop"] = dict(base["desktop"], startupScript=startup)
+    return hashlib.sha256((json.dumps(base, indent=2) + "\n").encode()).hexdigest()
+
+
 def validate_python_apk(path, package):
     """Inspect the pinned APK without extracting or executing its payload.
 
@@ -231,6 +246,7 @@ def verify_existing():
     """Verify installed build inputs offline, without a compiler or downloads."""
     manifest = json.loads((ASSETS / "runtime-manifest.json").read_text())
     expected = {"schemaVersion": 1, "runtimeId": RUNTIME_ID,
+                "desktopBaseSha256": desktop_base_digest(manifest),
                 "abi": "arm64-v8a", "minAndroidApi": 29,
                 "features": {"shell": True, "python": True, "desktop": True},
                 "python": python_package_manifest(), "tools": tool_manifest(), "desktop": desktop_manifest()}
@@ -420,6 +436,7 @@ def main():
         "python": python_package_manifest(), "tools": tool_manifest(), "desktop": desktop_manifest(),
         "build": {**LOCK["build"], "rebuiltLoaderSha256": digest(rebuilt_loader)}
     }
+    manifest["desktopBaseSha256"] = desktop_base_digest(manifest)
     (ASSETS / "runtime-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     notices = ASSETS / "licenses"
     notices.mkdir(exist_ok=True)

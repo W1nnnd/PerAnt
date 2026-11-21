@@ -38,8 +38,10 @@ rm -f /run/perant-desktop/desktop.ready /run/perant-desktop/desktop.ready.part
 /usr/bin/python3 -I -B - "$width" "$height" <<'PY'
 import os
 from pathlib import Path
+import struct
 import sys
 import xml.etree.ElementTree as ET
+import zlib
 
 base = Path('/run/perant-desktop')
 config = base / 'config'
@@ -52,8 +54,8 @@ def put(path, text):
 
 # Trusted, original XPM icons avoid image decoder/helper namespaces on Android.
 # No decoder sandbox is disabled. Thumbnails of workspace images are off.
-palette = {' ': 'None', 'b': '#2563eb', 'l': '#60a5fa', 'p': '#dbeafe',
-           'd': '#1e293b', 'w': '#ffffff', 'g': '#94a3b8', 's': '#e2e8f0'}
+palette = {' ': 'None', 'b': '#3985d7', 'l': '#77ceff', 'p': '#d6efff',
+           'd': '#25394f', 'w': '#ffffff', 'g': '#90a9bf', 's': '#e2e8f0'}
 iconroot = data / 'icons/PerAnt'
 icons = iconroot / '64x64/apps'
 
@@ -115,8 +117,10 @@ def icon(name, kind):
                 if ((x-32)/16)**2 + ((y-32)/25)**2 < 1: image[y][x] = 'b'
         rect(30, 9, 34, 29, 'w'); rect(19, 28, 45, 31, 'p')
     elif kind == 'start':
-        for x in (8, 35):
-            for y in (8, 35): rect(x, y, x+21, y+21, 'b')
+        line(7, 48, 29, 13, 'l', 6)
+        line(29, 13, 51, 48, 'l', 6)
+        line(24, 39, 31, 29, 'w', 4)
+        line(31, 29, 43, 48, 'w', 4)
     elif kind == 'back':
         line(43, 13, 22, 32, 'd', 5); line(22, 32, 43, 51, 'd', 5)
     elif kind == 'forward':
@@ -138,7 +142,16 @@ def icon(name, kind):
         rect(18, 36, 46, 55, 'w'); rect(36, 12, 41, 23, 'd')
     else:
         rect(12, 12, 52, 52, 'g'); rect(20, 20, 44, 44, 'w')
-    colors = ['"%s c %s",' % (key, value) for key, value in palette.items()]
+    colorset = palette.copy()
+    if kind == 'spreadsheet':
+        colorset.update(b='#16806c', l='#64d8b8')
+    elif kind == 'presentation':
+        colorset.update(b='#ac5935', l='#ffbb86')
+    elif kind == 'terminal':
+        colorset.update(d='#274159', g='#62b8c0', l='#82ead2')
+    elif kind in ('back', 'forward', 'up', 'close', 'search'):
+        colorset['d'] = '#95abbf'
+    colors = ['"%s c %s",' % (key, value) for key, value in colorset.items()]
     pixels = ['"' + ''.join(row) + '",' for row in image]
     put(icons / (name + '.xpm'), '/* XPM */\n'
         '/* Original PerAnt icon; GPL-3.0-only */\nstatic char *icon[] = {\n"64 64 %d 1",\n' % len(palette)
@@ -189,7 +202,7 @@ put(config / 'user-dirs.dirs', 'XDG_DESKTOP_DIR="/run/perant-desktop/Desktop"\n'
     'XDG_DOCUMENTS_DIR="/workspace"\nXDG_DOWNLOAD_DIR="/workspace"\n')
 put(config / 'gtk-3.0/settings.ini', '[Settings]\ngtk-theme-name=Adwaita\n'
     'gtk-icon-theme-name=PerAnt\ngtk-font-name=DejaVu Sans 18\n'
-    'gtk-enable-animations=0\ngtk-application-prefer-dark-theme=0\n')
+    'gtk-enable-animations=0\ngtk-application-prefer-dark-theme=1\n')
 put(config / 'gtk-3.0/gtk.css', '''button, entry, menuitem { min-height: 38px; }
 button { padding: 5px 10px; }
 entry { padding: 6px 10px; }
@@ -197,8 +210,17 @@ menuitem { padding: 8px 14px; }
 scrollbar slider { min-width: 18px; min-height: 36px; }
 #applicationsmenu-button { min-width: 82px; padding: 0; }
 .xfce4-panel button { min-height: 78px; min-width: 78px; padding: 0; }
-.xfce4-panel { background-color: #f8fafc; color: #1e293b; }
-''')
+.xfce4-panel { background-color: #142132; color: #ecf4fd; border-top: 2px solid #448bb0; }
+.xfce4-panel button { color: #ecf4fd; border: none; border-radius: 0; }
+.xfce4-panel button:hover { background-color: #293f55; }
+.xfce4-panel button:checked, .xfce4-panel button:active {
+    background-color: #27475e; box-shadow: inset 0 3px #75dbc9;
+}
+#applicationsmenu-button { background-color: #1d344a; }
+#clock-button label { font: bold 16pt "DejaVu Sans"; }
+''' + ('''menubar > menuitem { padding: 4px; }
+toolbar button { padding-left: 5px; padding-right: 5px; }
+''' if width < 800 else ''))
 
 commands = {
     'files': '/usr/bin/Thunar /workspace',
@@ -327,17 +349,19 @@ def frame_xpm(name, pixels, colors):
         'static char *frame[] = {\n"%d %d %d 1",\n' % (len(pixels[0]), len(pixels), len(colors))
         + '\n'.join(rows).rstrip(',') + '\n};\n')
 for state in ('active', 'inactive'):
-    color = '#ffffff' if state == 'active' else '#f1f5f9'
+    color = '#21374b' if state == 'active' else '#25303e'
     for number in range(1, 6):
         frame_xpm('title-' + str(number) + '-' + state, [['b'] for _ in range(80)], {'b': color})
     for name, w, h in [('top-left', 4, 80), ('top-right', 4, 80), ('left', 4, 1),
                        ('right', 4, 1), ('bottom', 1, 4), ('bottom-left', 4, 4), ('bottom-right', 4, 4)]:
-        frame_xpm(name + '-' + state, [['b'] * w for _ in range(h)], {'b': '#cbd5e1'})
+        frame_xpm(name + '-' + state, [['b'] * w for _ in range(h)], {'b': color})
 for button in ('close', 'hide', 'maximize', 'maximize-toggled', 'menu',
                'shade', 'shade-toggled', 'stick', 'stick-toggled'):
     for state in ('active', 'inactive', 'prelight', 'pressed'):
-        bg = {'active': '#ffffff', 'inactive': '#f1f5f9', 'prelight': '#dbeafe', 'pressed': '#bfdbfe'}[state]
-        fg = '#64748b' if state == 'inactive' else '#334155'
+        bg = {'active': '#21374b', 'inactive': '#25303e', 'prelight': '#35556c', 'pressed': '#286276'}[state]
+        if button == 'close' and state in ('prelight', 'pressed'):
+            bg = '#984758'
+        fg = '#b2c1d0' if state == 'inactive' else '#ecf4fd'
         pixels = [['b'] * 80 for _ in range(80)]
         def dot(x, y):
             for py in range(y-1, y+2):
@@ -354,7 +378,7 @@ for button in ('close', 'hide', 'maximize', 'maximize-toggled', 'menu',
         else:
             for y in (31, 40, 49): stroke(28, y, 52, y)
         frame_xpm(button + '-' + state, pixels, {'b': bg, 'f': fg})
-put(theme / 'themerc', 'active_text_color=#1e293b\ninactive_text_color=#64748b\n'
+put(theme / 'themerc', 'active_text_color=#f1f7ff\ninactive_text_color=#b2c1d0\n'
     'button_offset=0\nbutton_spacing=0\nfull_width_title=true\nframe_border_top=0\n'
     'show_app_icon=false\ntitle_horizontal_offset=16\ntitle_vertical_offset_active=0\n'
     'title_vertical_offset_inactive=0\ntitle_shadow_active=false\ntitle_shadow_inactive=false\n')
@@ -412,7 +436,7 @@ for path, value in [('desktop-icons/style', 2), ('desktop-icons/icon-size', 80),
                     ('desktop-icons/use-custom-font-size', True), ('desktop-icons/font-size', 18.0),
                     ('desktop-icons/single-click', True), ('desktop-icons/show-thumbnails', False),
                     ('desktop-icons/use-custom-label-text-color', True),
-                    ('desktop-icons/label-text-color', [0.118, 0.161, 0.231, 1.0]),
+                    ('desktop-icons/label-text-color', [0.941, 0.969, 1.0, 1.0]),
                     ('desktop-icons/file-icons/show-home', False), ('desktop-icons/file-icons/show-trash', False),
                     ('desktop-icons/file-icons/show-filesystem', False),
                     ('desktop-icons/file-icons/show-network-removable', False),
@@ -421,27 +445,64 @@ for path, value in [('desktop-icons/style', 2), ('desktop-icons/icon-size', 80),
                     ('desktop-icons/file-icons/show-unknown-removable', False),
                     ('backdrop/single-workspace-mode', True), ('backdrop/single-workspace-number', 0)]:
     prop(desktop, path, value)
+# A small indexed PNG is painted once. The negative space on the left keeps
+# launcher labels legible, including on portrait displays. No timer or renderer.
+def ridge_wallpaper():
+    w, h = min(width, 960), min(height, 1080)
+    rows = [bytearray(w) for _ in range(h)]
+    def polygon(points, ink):
+        points = [(x * w // 480, y * h // 320) for x, y in points]
+        for y in range(max(0, min(p[1] for p in points)), min(h, max(p[1] for p in points))):
+            edges = []
+            for (x1, y1), (x2, y2) in zip(points, points[1:] + points[:1]):
+                if min(y1, y2) <= y < max(y1, y2):
+                    edges.append(x1 + (y-y1) * (x2-x1) // (y2-y1))
+            edges.sort()
+            for a, b in zip(edges[::2], edges[1::2]):
+                a, b = max(a, 0), min(b, w)
+                if a < b:
+                    rows[y][a:b] = bytes([ink]) * (b-a)
+    polygon([(0, 239), (209, 167), (315, 71), (480, 8), (480, 320), (0, 320)], 1)
+    polygon([(80, 255), (240, 179), (363, 69), (480, 33), (480, 320), (0, 320)], 2)
+    polygon([(0, 293), (220, 213), (346, 127), (413, 57), (480, 40), (480, 320), (0, 320)], 3)
+    polygon([(220, 213), (346, 127), (413, 57), (379, 134)], 4)
+    polygon([(220, 213), (379, 134), (413, 57), (480, 40), (480, 115)], 5)
+    polygon([(0, 304), (218, 235), (365, 177), (480, 79), (480, 320), (0, 320)], 1)
+    polygon([(11, 320), (274, 243), (420, 178), (480, 124), (480, 320)], 2)
+    polygon([(110, 320), (323, 261), (480, 178), (480, 320)], 0)
+    def chunk(tag, payload):
+        return struct.pack('>I', len(payload)) + tag + payload + struct.pack('>I', zlib.crc32(tag + payload))
+    path = data / 'ridge.png'
+    path.write_bytes(b'\x89PNG\r\n\x1a\n' +
+        chunk(b'IHDR', struct.pack('>2I5B', w, h, 8, 3, 0, 0, 0)) +
+        chunk(b'PLTE', bytes.fromhex('101d30 172b42 1d3c54 27566d 58b5b5 337787')) +
+        chunk(b'IDAT', zlib.compress(b''.join(b'\0' + row for row in rows), 1)) + chunk(b'IEND', b''))
+    return str(path)
+
+wallpaper = ridge_wallpaper()
 # Xvnc's RandR monitor connector is VNC-0. Legacy monitor0 is retained as fallback.
 for monitor in ('monitorVNC-0', 'monitor0'):
     prefix = 'backdrop/screen0/' + monitor + '/workspace0/'
     prop(desktop, prefix + 'color-style', 0)
-    prop(desktop, prefix + 'image-style', 0)
-    prop(desktop, prefix + 'rgba1', [0.914, 0.933, 0.961, 1.0])
+    prop(desktop, prefix + 'image-style', 3)  # stretch to retain the whole ridge in portrait
+    prop(desktop, prefix + 'last-image', wallpaper)
+    prop(desktop, prefix + 'rgba1', [0.063, 0.114, 0.188, 1.0])
 save(desktop)
 
 panel = channel('xfce4-panel')
 prop(panel, 'configver', 2)
 panels = prop(panel, 'panels', [1])
-prop(panels, 'dark-mode', False)
+prop(panels, 'dark-mode', True)
 for path, value, kind in [('position', 'p=10;x=0;y=0', None), ('position-locked', True, None),
                            ('length', 100, 'uint'), ('length-adjust', False, None),
                            ('size', 84, 'uint'), ('icon-size', 64, 'uint'),
                            ('autohide-behavior', 0, 'uint'), ('nrows', 1, 'uint')]:
     prop(panels, 'panel-1/' + path, value, kind)
-prop(panels, 'panel-1/plugin-ids', [1, 2, 3, 4, 5, 6, 7])
+launchers = [1, 2, 3, 4] if width >= 800 else [1, 2, 3]
+prop(panels, 'panel-1/plugin-ids', launchers + [5, 8, 6, 7])
 plugins = prop(panel, 'plugins')
 for number, plugin in [(1, 'applicationsmenu'), (2, 'launcher'), (3, 'launcher'),
-                       (4, 'launcher'), (5, 'tasklist'), (6, 'clock'), (7, 'showdesktop')]:
+                       (4, 'launcher'), (5, 'tasklist'), (6, 'clock'), (7, 'showdesktop'), (8, 'separator')]:
     prop(plugins, 'plugin-' + str(number), plugin)
 for path, value in [('show-button-title', False), ('show-menu-icons', True),
                     ('button-icon', str(icons / 'perant-start.xpm')),
@@ -452,12 +513,15 @@ for number, app in [(2, 'files'), (3, 'terminal'), (4, 'writer')]:
     put(config / ('xfce4/panel/launcher-' + str(number)) / filename,
         (data / 'applications' / filename).read_text())
     prop(plugins, 'plugin-' + str(number) + '/items', [filename])
-for path, value in [('show-labels', False), ('show-only-minimized', False),
+for path, value in [('show-labels', True), ('show-only-minimized', False),
                     ('show-handle', False), ('flat-buttons', False), ('grouping', 1),
                     ('include-all-workspaces', False)]:
     prop(plugins, 'plugin-5/' + path, value)
 prop(plugins, 'plugin-6/mode', 2, 'uint')
 prop(plugins, 'plugin-6/digital-format', '%H:%M')
+prop(plugins, 'plugin-6/digital-time-font', 'DejaVu Sans Bold 16')
+prop(plugins, 'plugin-8/style', 0, 'uint')
+prop(plugins, 'plugin-8/expand', True)
 save(panel)
 
 # A normal freedesktop applications menu rendered by Xfce's actual menu plugin.

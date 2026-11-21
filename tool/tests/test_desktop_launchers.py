@@ -2,10 +2,12 @@
 """Exercise the actual Office launcher generator without running the desktop."""
 
 import ast
+import hashlib
 import json
 import os
 from pathlib import Path
 import re
+import runpy
 import shlex
 import subprocess
 import sys
@@ -17,6 +19,24 @@ ROOT = Path(__file__).resolve().parents[2]
 STARTUP = ROOT / "packages/perant_platform/android/src/main/desktop/start_desktop.sh"
 OFFICE_EXECUTABLE = "/usr/lib/libreoffice/program/soffice.bin"
 OFFICE_APPS = ("writer", "calc", "impress")
+
+
+class DesktopInstallationIdentityTests(unittest.TestCase):
+    def test_ui_can_change_without_accepting_another_installed_userspace(self):
+        digest = runpy.run_path(str(ROOT / "tool/prepare-linux-runtime"))["desktop_base_digest"]
+        old = {"sha256": "5a4e3867a63d8256ee380ae75ab71568d4c68fbf759d3e339a3d6241bb84e73d",
+               "sizeBytes": 30319, "version": 1}
+        manifest = {"desktop": {"startupScript": old.copy(), "packages": ["xfwm4"]},
+                    "loader": {"sha256": "a" * 64}}
+        previous = hashlib.sha256((json.dumps(manifest, indent=2) + "\n").encode()).hexdigest()
+        manifest["desktop"]["startupScript"].update(sizeBytes=100, sha256="b" * 64)
+        manifest["desktopBaseSha256"] = digest(manifest)
+        self.assertEqual(previous, digest(manifest))
+        manifest["loader"]["sha256"] = "c" * 64
+        self.assertNotEqual(previous, digest(manifest))
+        manifest["loader"]["sha256"] = "a" * 64
+        manifest["desktop"]["packages"].append("another-package")
+        self.assertNotEqual(previous, digest(manifest))
 
 
 def load_launcher_generator():

@@ -53,7 +53,7 @@ class LinuxDesktopTest {
             assertTrue(Files.isDirectory(first.temporary.toPath(), NOFOLLOW_LINKS))
             assertEquals(PosixFilePermissions.fromString("rwx------"), Files.getPosixFilePermissions(first.directory.toPath()))
             assertEquals(PosixFilePermissions.fromString("rw-------"), Files.getPosixFilePermissions(first.directory.resolve("Xauthority").toPath()))
-            assertEquals("/bin/sh /opt/perant/tools/start_desktop.sh ${first.display} 1024 768", first.command)
+            assertEquals("/bin/sh /run/perant-desktop/start_desktop.sh ${first.display} 1024 768", first.command)
             assertEquals("/workspace", first.result("desktop-1", 42)["workspace"])
             assertFalse(first.socket.exists())
             first.clean()

@@ -25,7 +25,7 @@ internal class LinuxDesktopLaunch private constructor(
     val width: Int,
     val height: Int,
 ) {
-    val command: String get() = "/bin/sh /opt/perant/tools/start_desktop.sh $display $width $height"
+    val command: String get() = "/bin/sh /run/perant-desktop/start_desktop.sh $display $width $height"
 
     /** Thunar receives a single file URI on this desktop's private session bus. */
     internal fun revealArguments(path: String): List<String> {

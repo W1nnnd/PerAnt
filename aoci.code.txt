@@ -5,8 +5,8 @@
 .gitignore[FC6T]: F:界定工具缓存、签名、个人凭据、重建资源和宿主本地配置的 Git 边界。 | R:code:tool/prepare-linux-runtime | A:.env.example | S:环境示例与指定编辑器配置有放行规则；Codex MCP 路径绑定本机。
 AGENTS.md[SC7S]: F:约定 Agent 如何取得、验证和维护当前仓库的 AOCI 认知。 | R:- | A:aoci_rules，aoci_overview，aoci_maintain，aoci_update_entry | S:压缩后须按新事件完整重载；正式条目由模型基于绑定证据独立创作。
 LICENSE[SG7L]: F:提供 GNU GPL 第三版正文，规定复制、修改、传播和交付对应源码的条件。 | R:code:README.md | A:GNU GPL v3 | S:项目自研代码标为 GPL-3.0-only；随包第三方组件的许可另行记录。
-README.md[SG7S]: F:介绍移动工作区及从浏览器返回 Linux 桌面定位摘录的入口，并说明安装、模型及资料工作流。 | R:code:TASK_PLAN.md,code:docs/DESKTOP_APPLICATIONS.md | A:Android 安装与构建 | S:开发源码为 0.0.13，公开安装包仍对应 0.0.1。
-TASK_PLAN.md[SW8L]: F:跟踪双端产品阶段和验收，分列桌面摘录、三种办公格式、端侧模型与待完成的手机工作流。 | R:code:docs/DESKTOP_APPLICATIONS.md,code:docs/DEVELOPMENT_STATUS.md | A:M0 至 M5，M1-D | S:独立 ARM64 Linux 的图形实测与 Android 同设备整链需分别验收。
+README.md[SG7S]: F:介绍手机智能体工作区、Xfce 触屏桌面与资料协作入口，提供下载安装、构建和路线图导航。 | R:code:TASK_PLAN.md,code:docs/DESKTOP_APPLICATIONS.md | A:Android 安装与构建 | S:源码版本为 0.0.14，首页的公开 APK 下载仍指向 0.0.1。
+TASK_PLAN.md[SW8L]: F:定义手机智能体的产品范围、双端验证关卡、里程碑与按补丁号推进的开发顺序。 | R:code:docs/DEVELOPMENT_STATUS.md,code:docs/DESKTOP_APPLICATIONS.md | A:M0 至 M5，M1-D | S:独立 Linux 中的办公操作与 Android 同机完整流程分别验收。
 analysis_options.yaml[FQ5T]: F:集中定义 Dart 分析排除项、缺失返回值等错误级别与异步资源管理 lint。 | R:code:tool/check | A:analyzer，linter | S:-
 pubspec.lock[FV6L]: F:固定工作区解析的依赖版本与发行摘要，包括端侧 llama.cpp 适配器及配套 Flutter 原生插件。 | R:code:pubspec.yaml,code:apps/perant/pubspec.yaml | A:工作区依赖锁 | S:-
 pubspec.yaml[FV6T]: F:声明共享 Dart 工作区，并在根级构建钩子中选择 llama.cpp 运行时与 CPU 后端。 | R:code:apps/perant/pubspec.yaml,code:pubspec.lock | A:perant_workspace，hooks.user_defines.llamadart | S:Android 与 Linux 在 platforms 字典内选择 CPU，工作区根的设置决定原生资源构建。
@@ -16,7 +16,7 @@ pubspec.yaml[FV6T]: F:声明共享 Dart 工作区，并在根级构建钩子中�
 .metadata[FV4T]: F:记录 Flutter 创建应用及各平台模板的版本，用于后续迁移。 | R:- | A:migration.platforms，unmanaged_files | S:入口 Dart 文件和 Xcode 工程被列为不托管迁移。
 README.md[SG2T]: F:把应用目录的开发者引向工作区级的设置、验证记录和运行时说明。 | R:code:README.md | A:工作区 README 导航 | S:-
 analysis_options.yaml[FQ4T]: F:继承仓库分析配置，在应用内排除平台工程和生成目录。 | R:code:analysis_options.yaml | A:analyzer.exclude | S:-
-pubspec.yaml[FV6T]: F:声明 0.0.13 手机工作区、Flutter 插件和离线模型、文档处理的依赖与随包资源。 | R:code:pubspec.yaml,code:pubspec.lock | A:perant，0.0.13+2022 | S:设备权重按需另行安装。
+pubspec.yaml[FV6T]: F:声明手机工作区的版本、Flutter 依赖、平台适配包与内置品牌和字体资源。 | R:code:pubspec.yaml,code:pubspec.lock | A:perant，0.0.14+2023 | S:本地模型权重按需安装。
 
 ===/<repository>/apps/perant/android/===
 .gitignore[FV4T]: F:在 Android 子工程排除本地 SDK 定位、Gradle 包装器生成件和签名材料。 | R:code:apps/perant/android/gradle/wrapper/gradle-wrapper.properties | A:local.properties，key.properties | S:-
@@ -235,10 +235,10 @@ model_download_test.dart[TR6T]: F:用回环服务核对下载中断、空间不�
 ARCHITECTURE.md[SG8S]: F:说明核心、网关、应用与原生桥的责任划分，以及文件、浏览器和桌面的数据流。 | R:code:docs/CONTAINER_COMPUTER.md,code:docs/BROWSER_PAGE_SAVE.md | A:架构与授权约定 | S:此文以旧编号 0.8 为验证基线，当前版本的实测另见发布记录。
 BROWSER_PAGE_SAVE.md[SD7T]: F:说明网页正文提取、单文件发布及回执，给出在当前 Linux 桌面或工作文件中找到原件的操作。 | R:code:apps/perant/lib/src/presentation/computer_browser_screen.dart,code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxWorkspaceImport.kt | A:保存网页文字，browser_save_page | S:最近摘录只在本进程记忆，独立文件编辑与活动桌面仍互斥。
 CONTAINER_COMPUTER.md[SW7S]: F:说明用户与模型在同一桌面、浏览器和工作目录中的操作流程与授权边界。 | R:code:docs/ARCHITECTURE.md,code:docs/BROWSER_PAGE_SAVE.md | A:电脑协作工具与回执约定 | S:一次打开仅表示已请求导航；外部提交不能由网页内容自行授权。
-DESKTOP_APPLICATIONS.md[SU6T]: F:列出 Linux 桌面及办公应用、摘录定位步骤和按环境区分的图形编辑验收。 | R:code:docs/BROWSER_PAGE_SAVE.md,code:docs/LINUX_RUNTIME_SOURCES.md | A:桌面应用使用与验收 | S:本次 Android 文件复制到独立 ARM64 测试桌面，三种办公应用的保存重开不能代替手机同设备验收。
+DESKTOP_APPLICATIONS.md[SU6T]: F:说明桌面应用、摘录与共享工作区的使用，记录触屏布局、三种显示尺寸和窗口切换验收。 | R:code:docs/BROWSER_PAGE_SAVE.md,code:docs/LINUX_RUNTIME_SOURCES.md | A:Linux 桌面使用与验收 | S:延迟取私有 RFB 中指定像素的交替变化，独立 ARM64 用户态模拟未覆盖真机触控和耗电。
 DESKTOP_DESIGN.md[SU5T]: F:记录面向手机的 Linux 桌面布局、聊天入口、共享操作和按需显示设计。 | R:code:docs/DESKTOP_APPLICATIONS.md | A:桌面易用性验收说明 | S:文末旧版证据对应其各自的历史交付。
-DEVELOPMENT_STATUS.md[SQ7S]: F:按版本报告移动工作区的实现与实测，记录桌面定位、三个办公程序、原文纪要和资源验证。 | R:code:docs/DESKTOP_APPLICATIONS.md,code:TASK_PLAN.md | A:开发与验收记录 | S:文件管理器定位与编辑是不同步骤，独立 Linux 和手机的结果分开。
-LINUX_RUNTIME_SOURCES.md[SV8S]: F:说明固定 PRoot、Alpine、Python、桌面资源及兼容库的来源、生成、安装与校验。 | R:code:tool/prepare-linux-runtime,code:tool/build-linux-codec | A:Android Linux v6 资源说明 | S:loader 偏移与所选 ELF 配对；签名包及其安装脚本按锁文件验证。
+DEVELOPMENT_STATUS.md[SQ7S]: F:按版本区分已经实现和已验证的工作区能力，记录 Linux 触屏外观、切换耗时与待完成的设备验收。 | R:code:docs/DESKTOP_APPLICATIONS.md,code:TASK_PLAN.md | A:开发与验证状态 | S:同环境模拟桌面的测量和手机整链验收分别记录。
+LINUX_RUNTIME_SOURCES.md[SV8S]: F:解释 Android ARM64 用户空间的来源、构建校验、安装身份、桌面会话与再分发材料。 | R:code:tool/prepare-linux-runtime,code:tool/build-linux-codec | A:Android Linux v6 资源说明 | S:匹配的旧安装标记可复用，当前桌面脚本仍逐会话从 APK 校验，选定的 loader 必须匹配自身 ELF 的偏移。
 LINUX_SOURCE_CLOSURE_REVIEW.md[SV6T]: F:记录对 Linux 发行源码闭包、补丁、静态依赖与构建时下载的技术审阅。 | R:code:docs/PUBLIC_BINARY_RELEASE.md,code:tool/package-linux-sources | A:0.9 源码闭包审阅 | S:审阅不等同逐个二进制独立清洁重建。
 PUBLIC_BINARY_RELEASE.md[SV7T]: F:规定公开 APK 与对应源码的绑定、分卷校验、重组和发布步骤。 | R:code:tool/package-linux-sources,code:docs/LINUX_SOURCE_CLOSURE_REVIEW.md | A:SHA256SUMS，源码分卷与 manifest | S:即使运行资源不变，每个新 APK 也须与自己的摘要及主仓提交绑定。
 PYTHON_TEXT_TASK.md[SW6T]: F:定义固定离线 Python 整理任务的输入、文件交换、取消和文档发布条件。 | R:code:apps/perant/lib/src/application/local_text_task_runner.dart | A:文本整理输入输出契约 | S:原文经文件传递；未确认进程停止时保留工作区占用。
@@ -312,14 +312,14 @@ perant_pty.c[IR8M]: F:为 Kotlin 提供 POSIX 伪终端进程、文件描述符�
 workspace_import.h[PD8T]: F:把受限命名的网页文本写入私有暂存文件，刷盘后以禁止覆盖的重命名放入工作区。 | R:code:packages/perant_platform/android/src/main/cpp/perant_pty.c,code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxWorkspaceImport.kt | A:perant_publish_workspace_text | S:成功发布后不能把后续清理问题报告为未保存，否则调用者可能重复创建文件。
 
 ===/<repository>/packages/perant_platform/android/src/main/desktop/===
-start_desktop.sh[RU7L]: F:配置面向手机的 Xfce 环境、启动器与工作区入口，启动和回收私有 Xvnc、会话及消息总线。 | R:code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxDesktop.kt | A:PERANT_DESKTOP_READY | S:桌面经私有 Unix 套接字提供，启动回执等待相关进程就绪。
+start_desktop.sh[RU7L]: F:为触屏生成 Xfce 面板、静态山脊壁纸、窗口控件和应用启动器，管理 Xvnc 及私有桌面会话的生命周期。 | R:code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxDesktop.kt | A:PERANT_DESKTOP_READY | S:仅使用私有套接字，窗口实际映射后才发布就绪标记。窄于 800 像素时减少常驻启动器，保留文档菜单入口与大窗口按钮。
 
 ===/<repository>/packages/perant_platform/android/src/main/kotlin/dev/perant/platform/===
-AndroidLinuxRuntime.kt[AR9L]: F:协调 Android Linux 安装、桌面、终端和文件，在已就绪的指定桌面通过固定客户端定位普通摘录文件。 | R:code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxDesktop.kt,code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxBootstrap.kt,code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxWorkspaceImport.kt | A:AndroidLinuxRuntime，revealDesktopExcerpt | S:旧会话、缺失文件及符号链接被拒；客户端超时的显示结果不确定，不自动重发。
+AndroidLinuxRuntime.kt[AR9L]: F:协调 Android 上的 Linux 安装、终端、桌面和工作区操作，在启动前准备独立会话，转发原桌面摘录定位。 | R:code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxDesktop.kt,code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxEnvironment.kt | A:AndroidLinuxRuntime，startDesktop，revealDesktopExcerpt | S:已就绪的桌面直接复用。脚本准备或进程创建失败会清理新会话目录，启动还须收到真实 RFB 握手。
 ComputerBrowser.kt[IU8L]: F:维护 Android WebView 会话和可见视图，处理导航、截图、输入、页面文本与异步回执。 | R:code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/PerantPlatformPlugin.kt,code:packages/perant_platform/lib/src/browser_bridge.dart | A:ComputerBrowserContract，ComputerBrowser | S:输入绑定当前观察；读取要求页面成功加载，导航还受平台明文策略约束。
 LinuxBootstrap.kt[RR7T]: F:用原生 PTY 执行限时离线引导命令，收集有界输出并等待进程清理。 | R:code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/NativePty.kt | A:LinuxBootstrap | S:超时发信号后仍未确认退出时单独报告清理失败。
-LinuxDesktop.kt[RR7S]: F:分配桌面私有目录、X 授权和 RFB 端点，检查启动就绪，构造向本会话文件管理器定位摘录的参数。 | R:code:packages/perant_platform/android/src/main/desktop/start_desktop.sh,code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxWorkspaceImport.kt | A:LinuxDesktopLaunch，revealArguments | S:定位仅接受工作区根下按原生规则生成的文件名，以专属会话总线上的固定 ShowItems 方法传 URI。
-LinuxEnvironment.kt[RR9L]: F:核验原生 ARM64 环境与离线资源，在暂存根文件系统安装并自检 Linux 工具与桌面，准备独立工作目录。 | R:code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxBootstrap.kt,code:tool/prepare-linux-runtime | A:LinuxEnvironment，RuntimeManifest，prepareWorkspace | S:主 64 位 ABI 须匹配捆绑资源，转译 ABI 不足以启用 Linux；安装和工作区复用同一私有目录，未完成的引导清理阻止文件准备。
+LinuxDesktop.kt[RR7S]: F:创建隔离的 X 授权、显示端点及临时目录，构造会话脚本命令和文件定位请求并核对就绪。 | R:code:packages/perant_platform/android/src/main/desktop/start_desktop.sh,code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxWorkspaceImport.kt | A:LinuxDesktopLaunch，command，revealArguments | S:脚本路径位于本会话的私有绑定目录。定位通过 D-Bus 传入校验过的单个文件 URI。
+LinuxEnvironment.kt[RR9L]: F:验证并安装离线 ARM64 用户空间，管理安装身份与工作区，将清单校验过的桌面脚本交付给当前会话。 | R:code:tool/prepare-linux-runtime,code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxBootstrap.kt | A:LinuxEnvironment，initialize，prepareDesktopTool | S:安装识别兼容匹配的 0.0.13 标记。每次建桌面仍验证脚本大小、摘要和原生解码库。待清理的引导进程阻止新安装。
 LinuxTextTasks.kt[PD7T]: F:在每个文本任务的专属目录准备输入，验证并读取固定 Markdown 输出及其元数据。 | R:code:packages/perant_platform/android/src/main/python/text_to_markdown.py | A:LinuxTextTasks | S:输出须为单链接普通文件、严格 UTF-8，并按实际读取量限制大小。
 LinuxWorkspaceFiles.kt[PD8M]: F:实现共享工作区目录列表、文本读写和建目录，校验路径、字节数及更新前摘要。 | R:code:packages/perant_platform/lib/src/workspace_files.dart,code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/AndroidLinuxRuntime.kt | A:LinuxWorkspaceFiles，WorkspaceFileContract | S:拒绝链接、保留路径及冲突覆盖；只创建操作要求原子发布。
 LinuxWorkspaceImport.kt[PD7T]: F:将验证过的 UTF-8 文本以生成的唯一 Markdown 文件名发布到工作区根并返回摘要回执。 | R:code:packages/perant_platform/android/src/main/cpp/workspace_import.h | A:LinuxWorkspaceImport.importText | S:暂存目录须在工作区之外；回执绑定已发布字节，桌面随后可修改文件。
@@ -333,7 +333,7 @@ text_to_markdown.py[DD6T]: F:把固定输入文件中的标题和原文整理为
 
 ===/<repository>/packages/perant_platform/android/src/test/kotlin/dev/perant/platform/===
 ComputerBrowserTest.kt[TU7S]: F:验证 WebView 网页导航、输入坐标、观察失效、加载错误归属及页面摘录限制。 | R:code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/ComputerBrowser.kt | A:ComputerBrowserTest | S:字符数量和 UTF-8 字节分别检查。
-LinuxDesktopTest.kt[TR6T]: F:核对桌面授权、目录和就绪标记，并检验摘录定位参数的身份和路径边界。 | R:code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxDesktop.kt | A:LinuxDesktopTest | S:定位参数含专用 D-Bus 方法与文件 URI，不启动 shell 解析该路径。
+LinuxDesktopTest.kt[TR6T]: F:验证桌面授权和短套接字路径、会话内启动命令、尺寸边界、就绪标记与文件定位参数。 | R:code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxDesktop.kt | A:LinuxDesktopTest | S:定位命令不得使用 shell 解析路径；清理一个桌面会话必须保留另一个。
 LinuxEnvironmentTest.kt[TR8L]: F:检验 Alpine 解包、归档兼容性、资源摘要和桌面包清单的安装约束。 | R:code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxEnvironment.kt | A:LinuxEnvironmentTest | S:涵盖 gzip 尾部 CRC、截断、链接父目录与不得保留的特权位。
 LinuxTextTasksTest.kt[TD7M]: F:验证文本任务的输入配额、目录独占、链接拒绝及严格 UTF-8 结果边界。 | R:code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxTextTasks.kt | A:LinuxTextTasksTest | S:刚好达到输出字节上限仍须完整交付。
 LinuxWorkspaceFilesTest.kt[TD7M]: F:验证工作区文件的路径、并发创建、摘要冲突、目录截断与文本边界。 | R:code:packages/perant_platform/android/src/main/kotlin/dev/perant/platform/LinuxWorkspaceFiles.kt | A:LinuxWorkspaceFilesTest | S:不支持原子发布时须失败，不能降级成普通覆盖。
@@ -375,7 +375,7 @@ check[XQ7T]: F:执行 Python 测试、Dart 格式检查、全工作区分析及�
 dartw[XV5T]: F:按环境配置、本地 SDK 和 PATH 的顺序选择 Dart，并传递原始参数。 | R:code:tool/check | A:tool/dartw，PERANT_FLUTTER_SDK | S:默认将 pub 与分析缓存放在项目工具目录。
 flutterw[XV6T]: F:配置 Flutter、Android 与 Gradle 的本地工具环境并转交 Flutter 参数。 | R:code:tool/build-apk,code:tool/check | A:tool/flutterw，PERANT_FLUTTER_SDK | S:保留用户已有的相关缓存配置，关闭 Flutter 分析数据上报。
 package-linux-sources[OV8M]: F:核验锁定的构建源码、配方和证据，将对应源码与指定 APK、运行时清单及 Git 版本绑定并分卷。 | R:code:docs/PUBLIC_BINARY_RELEASE.md | A:tool/package-linux-sources，SHA256SUMS | S:发现 APK 摘要不符须拒绝复用源码包；闭包是否完整仍需审阅。
-prepare-linux-runtime[OV9L]: F:按锁定输入构建 Android ARM64 PRoot 与 loader，准备 Alpine、Python 和桌面资源并生成及检验运行时清单。 | R:code:tool/build-linux-codec,code:docs/LINUX_RUNTIME_SOURCES.md,code:tool/build-apk | A:tool/prepare-linux-runtime，--verify-existing，--fetch-only | S:loader 偏移绑定本次 ELF，资源须通过大小、摘要及声明一致性检查。
+prepare-linux-runtime[OV9L]: F:按锁文件构建和检验 ARM64 Linux 资源，生成包含会话脚本摘要及兼容安装身份的清单。 | R:code:tool/build-linux-codec,code:docs/LINUX_RUNTIME_SOURCES.md,code:tool/build-apk | A:tool/prepare-linux-runtime，--verify-existing，--fetch-only | S:安装身份计算固定 0.0.13 桌面脚本描述符，其余清单字段一并参与；当前脚本实际摘要另验，loader 偏移依赖本次 ELF。
 android-recovery-stress.ps1[TQ6T]: F:驱动专用 Android 模拟器切后台、交替熄屏并终止测试应用，在冷启动后检查连续恢复结果。 | R:code:apps/perant/integration_test/storage_pressure_test.dart | A:Target，AdbExe，AdbPort，LogPath | S:仅在当前 PID 同时报出数据库压力和待中断信号后终止，必须观察到最终恢复与测试通过。
 android-model-recovery.ps1[TQ6T]: F:监听指定 Android 模拟器上模型测试的当前进程就绪信号，执行一次终止重启或内存通知并核对最终结果。 | R:code:apps/perant/integration_test/meeting_recovery_test.dart,code:apps/perant/integration_test/local_model_pressure_test.dart | A:Target，Probe，LogPath | S:必须在对应步骤已保存后注入事件，并同时检出恢复标记和测试通过。
 

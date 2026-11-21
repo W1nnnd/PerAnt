@@ -119,7 +119,7 @@ class LinuxEnvironment(context: Context) {
             val marker = File(versionHome, READY_MARKER).toPath()
             val binary = File(rootfs, "bin/busybox").toPath()
             Files.isRegularFile(marker, NOFOLLOW_LINKS) && Files.size(marker) <= 1024 &&
-                Files.readAllBytes(marker).contentEquals(specification.readyMarker()) &&
+                specification.matchesInstallation(Files.readAllBytes(marker)) &&
                 Files.isDirectory(File(rootfs, "bin").toPath(), NOFOLLOW_LINKS) &&
                 Files.isRegularFile(binary, NOFOLLOW_LINKS) && Files.isExecutable(binary)
         }.getOrDefault(false)
@@ -141,16 +141,13 @@ class LinuxEnvironment(context: Context) {
         path.inputStream().use { verifyDigest(it, specification.sha256, specification.sizeBytes) }
     }
 
-    fun verifyDesktopTool() {
+    fun prepareDesktopTool(directory: File) {
         val runtime = requireSupported()
         val specification = runtime.desktopTool ?: throw IOException("Bundled desktop tool is unavailable.")
-        for (directory in listOf("opt", "opt/perant", "opt/perant/tools")) {
-            if (!Files.isDirectory(File(rootfs, directory).toPath(), NOFOLLOW_LINKS)) throw IOException("Unsafe desktop tool directory.")
-        }
-        val path = File(rootfs, "opt/perant/tools/start_desktop.sh")
-        if (!Files.isRegularFile(path.toPath(), NOFOLLOW_LINKS)) throw IOException("Bundled desktop tool is missing.")
-        path.inputStream().use { verifyDigest(it, specification.sha256, specification.sizeBytes) }
         (runtime.desktopCodec ?: throw IOException("Bundled desktop codec is unavailable.")).verify(rootfs.toPath())
+        val script = appContext.assets.open(specification.asset).use { readLimited(it, specification.sizeBytes.toInt()) }
+        verifyDigest(ByteArrayInputStream(script), specification.sha256, specification.sizeBytes)
+        Files.write(File(directory, "start_desktop.sh").toPath(), script, CREATE_NEW, WRITE, NOFOLLOW_LINKS)
     }
 
     /**
@@ -255,10 +252,7 @@ class LinuxEnvironment(context: Context) {
         }
         val tool = specification.textTool ?: throw IOException("Python text tool is absent from manifest.")
         copyResource(tool, File(rootDirectory("opt/perant/tools"), "text_to_markdown.py"))
-        specification.desktopTool?.let {
-            copyResource(it, File(rootDirectory("opt/perant/tools"), "start_desktop.sh"))
-            rootDirectory("run/perant-desktop")
-        }
+        if (specification.desktopTool != null) rootDirectory("run/perant-desktop")
         specification.desktopCodec?.let { codec ->
             appContext.assets.open(codec.asset).use { codec.install(stagedRootfs.toPath(), it) }
         }
@@ -483,6 +477,7 @@ class LinuxEnvironment(context: Context) {
             pythonVersion = pythonVersion, pythonPackages = packages, textTool = tool,
             desktopVersion = desktopVersion, desktopPackages = desktopPackages, desktopTool = desktopTool,
             desktopCodec = desktopCodec,
+            desktopBaseSha256 = if (json.has("desktopBaseSha256")) json.requiredSha256("desktopBaseSha256") else null,
             manifestSha256 = MessageDigest.getInstance("SHA-256").digest(manifestBytes).joinToString("") { "%02x".format(it.toInt() and 0xff) },
         )
     }
@@ -505,10 +500,16 @@ class LinuxEnvironment(context: Context) {
         val desktopPackages: List<BundledResource>,
         val desktopTool: BundledResource?,
         val desktopCodec: DesktopCodecLibrary?,
+        val desktopBaseSha256: String?,
         val manifestSha256: String,
     ) {
-        fun readyMarker(): ByteArray =
-            "$runtimeId\n$manifestSha256\n$rootfsSha256\n$prootSha256\n$loaderSha256\n".toByteArray(StandardCharsets.US_ASCII)
+        private fun marker(identity: String): ByteArray =
+            "$runtimeId\n$identity\n$rootfsSha256\n$prootSha256\n$loaderSha256\n".toByteArray(StandardCharsets.US_ASCII)
+
+        fun readyMarker(): ByteArray = marker(desktopBaseSha256?.let { "session-ui-v1:$it" } ?: manifestSha256)
+
+        fun matchesInstallation(bytes: ByteArray): Boolean = bytes.contentEquals(readyMarker()) ||
+            (desktopBaseSha256 != null && bytes.contentEquals(marker(desktopBaseSha256)))
     }
 
     private data class BundledResource(val asset: String, val sha256: String, val sizeBytes: Long)
